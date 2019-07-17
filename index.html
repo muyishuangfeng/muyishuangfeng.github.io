@@ -1510,7 +1510,298 @@ STATE_ACTIVE </code></pre></li>
 </ul>
 <pre><code>&lt;application
 android:networkSecurityConfig=&quot;@xml/network_security_config&quot;
-/&gt;</code></pre>
+/&gt;</code></pre><h4 id="手机登录"><a href="#手机登录" class="headerlink" title="手机登录"></a>手机登录</h4><p><strong>注意:如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略1、2、4配置，直接看3</strong></p>
+<ul>
+<li><p>1、在project 下的build 导入仓库地址</p>
+<pre><code> maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>2 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>3、在moudle下面的build文件下添加网络库依赖<br> ​     </p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKPhone-Android:1.0.0&apos;</code></pre></li>
+<li><p>4、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<h4 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><p>1、登录方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是2）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+<ul>
+<li>2、注册方法</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是1）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>3、修改密码方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">新密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是3）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="方法调用-1"><a href="#方法调用-1" class="headerlink" title="方法调用"></a>方法调用</h4><ul>
+<li>1、初始化（刚进入应用或者支付页面的时候配置）</li>
+</ul>
+<pre><code>  private void init() {
+
+LTGameOptions options = new LTGameOptions.Builder(this)
+  .debug(true)
+  .appID(LTAppID)
+  .appKey(LTAppKey)
+  .baseUrl(baseUrl)
+  .setAdID(mAdID)
+  .loginCode(&quot;1&quot;)//登录标记默认设为1
+  .phoneAndPass(mPhone, mPassword)
+  .phoneEnable()
+  .build();
+  LTGameSdk.init(options);
+ }</code></pre><ul>
+<li>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</li>
+</ul>
+<pre><code>   OnLoginStateListener  mOnLoginListener = new OnLoginStateListener() {
+ @Override
+public void onState(Activity activity, LoginResult result) {
+switch (result.state) {
+case LoginResult.STATE_SUCCESS:
+Log.e(TAG,result.getResultModel().toString());
+mTxtResult.setText(result.getResultModel().toString());
+break;
+case LoginResult.STATE_FAIL:
+Log.e(TAG, &quot;STATE_FAIL&quot;);
+ break;
+   }
+  }
+  };</code></pre><ul>
+<li>3 登录方法调用</li>
+</ul>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mPassword);//密码
+          object.setmLoginCode(&quot;2&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre><ul>
+<li><p>3 注册方法调用</p>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mPassword);//密码
+          object.setmLoginCode(&quot;1&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre></li>
+<li><p>4修改密码方法调用</p>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mNewPassword);//新密码
+          object.setmLoginCode(&quot;3&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre></li>
+</ul>
+<h3 id="方法回调"><a href="#方法回调" class="headerlink" title="方法回调"></a>方法回调</h3><pre><code>1、200（“OK”） 成功
+2、400 （“NO&quot;）失败</code></pre>
           
         
       
