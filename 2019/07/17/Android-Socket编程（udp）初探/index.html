@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/hello-world/index.html">
+<meta property="og:title" content="Android Socket编程（udp）初探">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T02:22:46.187Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c396df1b7f103409.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:33:33.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Android Socket编程（udp）初探">
+<meta name="twitter:description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/">
 
 
 
 
 
-  <title>Hello World | Silence潇湘夜雨</title>
+  <title>Android Socket编程（udp）初探 | Silence潇湘夜雨</title>
   
 
 
@@ -282,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -299,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">Android Socket编程（udp）初探</h1>
         
 
         <div class="post-meta">
@@ -311,7 +314,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T10:22:46+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:33:33+08:00">
                 2019-07-17
               </time>
             
@@ -349,19 +352,175 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p> 先上图，俗话说no pic say a xx<br><img src="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程服务端.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c396df1b7f103409.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程客户端.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li><p>客户端代码（线程中）</p>
+<pre><code>public class UdpClientThread extends Thread {
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+//IP地址
+private String mAddress;
+//端口
+private int port;
+//发送内容
+private String msg;
+private Handler mHandler;
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+public UdpClientThread(Handler handler, String address, int port, String msg) {
+  this.mHandler = handler;
+  this.mAddress = address;
+  this.port = port;
+  this.msg = msg;
+}
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+@Override
+public void run() {
+  super.run();
+  sendSocket();
+}
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+/**
+ * 设置
+ */
+private void sendSocket() {
+  byte[] bytes = msg.getBytes();
+  try {
+      /*******************发送数据***********************/
+      InetAddress address = InetAddress.getByName(mAddress);
+      //1.构造数据包
+      DatagramPacket packet = new DatagramPacket(bytes, 
+bytes.length, address, port);
+      //2.创建数据报套接字并将其绑定到本地主机上的指定端口。
+      DatagramSocket socket = new DatagramSocket();
+      //3.从此套接字发送数据报包。
+      socket.send(packet);
+      /*******************接收数据***********************/
+      //1.构造 DatagramPacket，用来接收长度为 length 的数据包。
+      final byte[] bytes1 = new byte[1024];
+      DatagramPacket receiverPacket = new DatagramPacket(bytes1, bytes1.length);
+      socket.receive(receiverPacket);
+      sendMsg(0,new String(bytes1, 0, bytes1.length));
+      socket.close();
+  } catch (UnknownHostException e) {
+      e.printStackTrace();
+  } catch (SocketException e) {
+      e.printStackTrace();
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+/**
+ * 发送消息
+ */
+private void sendMsg(int what, Object object) {
+  Message msg = new Message();
+  msg.what = what;
+  msg.obj = object;
+  mHandler.sendMessage(msg);
+ }
+ }</code></pre><p><strong>说明:</strong>这里的封装和tcp中的一样，就是换一下参数和包装类，代码中的解释都比较清楚。</p>
+</li>
+<li><p>客户端（使用）</p>
+<pre><code>public class UdpClientActivity extends AppCompatActivity
+  implements View.OnClickListener {
+
+Button mBtnSend;
+String mAddress = &quot;192.168.0.197&quot;;
+int port = 12306;
+TextView mTxtContent;
+EditText mEdtContent;
+
+@Override
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_udp_client);
+  initView();
+}
+
+private void initView() {
+  mEdtContent = findViewById(R.id.edt_udp_content);
+  mBtnSend = findViewById(R.id.btn_udp_send);
+  mTxtContent = findViewById(R.id.txt_udp_content);
+  mBtnSend.setOnClickListener(this);
+}</code></pre></li>
+</ul>
+<pre><code>@Override
+public void onClick(View view) {
+  switch (view.getId()) {
+      case R.id.btn_udp_send: {
+          UdpClientThread mThread = new UdpClientThread(mHandler, mAddress, port,
+                  mEdtContent.getText().toString());
+          mThread.start();
+          break;
+      }
+  }
+}
+
+/**
+ * Handler
+ */
+private Handler mHandler = new Handler(Looper.myLooper()) {
+  @Override
+  public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what) {
+          case 0: {
+              String content = (String) msg.obj;
+              mTxtContent.setText(content);
+              break;
+          }
+      }
+  }
+};
+}</code></pre><p><strong>说明：</strong>这里直接点击按钮调用线程使用即可，当然，也可以直接用线程池来构造参数。</p>
+<ul>
+<li><p>服务端（代码）</p>
+<pre><code>public class UdpServer {
+
+    /**
+     * @param args
+     */
+      public static void main(String[] args) {
+      while (true) {
+         getMsg();
+      }
+      }
+
+    /**
+     * 获取信息
+     */
+
+       private static void getMsg() {
+       try {
+    ​    byte[] buf = new byte[1024];
+    ​    // 一、接收数据
+    ​    // 1、创建接收数据的数据包
+    ​    DatagramPacket packet = new DatagramPacket(buf, buf.length);
+    ​    // 2.创建UPD 的 socket
+    ​    DatagramSocket socket = new DatagramSocket(12306);
+    ​    // 3、接收数据
+    ​    System.out.println(&quot;服务端开始监听！~~~~&quot;);
+    ​    socket.receive(packet);
+    ​    // 4、处理数据
+    ​    System.out.println(&quot;服务端：&quot; + new String(buf, 0, buf.length));
+
+        // 二、返回数据
+        DatagramPacket packet2 = new DatagramPacket(buf, buf.length,
+                packet.getAddress(), packet.getPort());
+        socket.send(packet2);
+        socket.close();
+    } catch (Exception e) {
+    ​    e.printStackTrace();
+    }
+
+ }
+
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>唠叨一下，做事一定要善始善终，做人一定要诚信（ps：最近遇到了一个不诚信的公司，offer发了之后，第二天告诉我不用去了，问过原因之后，人事和老板助理回复还不一样，这样就有点好玩了，真的是越想越生气。尤其是对于我这种对诚信比较看重的人，真的是不能忍。特别痛恨那种答应别人却做不到的人，要不就别答应，要不就做到。我一般答应别人的事情，一定会做到，不管我要付出什么，起码我兑现了自己的承诺。）。发了一顿牢骚，还请各位看官见谅。</p>
+<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p><a href="https://www.jianshu.com/p/fb4dfab4eec1" target="_blank" rel="noopener">Android网络编程之–Socket编程</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -386,14 +545,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/17/Andorid装饰者模式初探/" rel="next" title="Android 装饰者模式初探">
+                <i class="fa fa-chevron-left"></i> Android 装饰者模式初探
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/17/SDK Login/" rel="prev" title="SDK 登录说明">
-                SDK 登录说明 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/17/Android-Socket编程（tcp）初探/" rel="prev" title="Android Socket编程（tcp）初探">
+                Android Socket编程（tcp）初探 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致谢"><span class="nav-number">5.</span> <span class="nav-text">致谢</span></a></li></ol></div>
             
 
           </div>

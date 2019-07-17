@@ -79,17 +79,31 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="title:Android 发布项目到jitpack详解前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/hello-world/index.html">
+<meta property="og:title" content="Silence潇湘夜雨">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android 发布项目到jitpack详解/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="title:Android 发布项目到jitpack详解前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T02:22:46.187Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-bcee6085e21ae873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-0b788ae36e853ced.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-8617f27d8ae5dad9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-3a4853ef140ce49f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c8dbca57a66c8850.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-3e4c175047001805.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-d7622807b764fa92.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-255edce43c2ada84.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-41239f48992d565c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-ccd3395c593c70d3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-0082c457336ba7b1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-0a3dc259720fdee6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-9d747953aeff560f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:19:18.824Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Silence潇湘夜雨">
+<meta name="twitter:description" content="title:Android 发布项目到jitpack详解前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-bcee6085e21ae873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -119,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android 发布项目到jitpack详解/">
 
 
 
 
 
-  <title>Hello World | Silence潇湘夜雨</title>
+  <title> | Silence潇湘夜雨</title>
   
 
 
@@ -282,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android 发布项目到jitpack详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -299,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -311,7 +325,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T10:22:46+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:18:49+08:00">
                 2019-07-17
               </time>
             
@@ -349,19 +363,45 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <hr>
+<h2 id="title-Android-发布项目到jitpack详解"><a href="#title-Android-发布项目到jitpack详解" class="headerlink" title="title:Android 发布项目到jitpack详解"></a>title:Android 发布项目到jitpack详解</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><pre><code>    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单，
+但是也遇到了一些问题，在这里记录一下。</code></pre><h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  在开始之前先简单说一下流程：<br>​    1、在本地创建一个libiary工具类；<br>​    2、配置JitPack相关的配置信息；<br>​    3、排查自己工具类中的错误并上传到github；<br>​    4、创建release并在<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中编译；<br>​    5、在自己的项目中引用。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li>1、 创建一个libiary，然后上传到github（只需要上传图中红色选择框中的文件）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-bcee6085e21ae873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="libiary.jpg"></li>
+</ul>
+<ul>
+<li>2、在项目的build中添加配置（project级别）我这里用的JitPack版本是2.0，因为的Gradle版本是4.4，对应的JitPack是2.0，如果你的版本比较高或者比较低，需要自己查询文档，查看<a href="https://github.com/dcendents/android-maven-gradle-plugin" target="_blank" rel="noopener">JitPack对应的版本号</a><br> ​    <img src="https://upload-images.jianshu.io/upload_images/1716569-0b788ae36e853ced.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目build中配置.jpg"></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-8617f27d8ae5dad9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JitPack和Gradle对应的版本号.jpg"></p>
+<ul>
+<li>3、在moudle中添加配置<br><img src="https://upload-images.jianshu.io/upload_images/1716569-3a4853ef140ce49f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="module的build中添加.jpg"></li>
+</ul>
+<ul>
+<li><p>4、上传到github 创建release包<br><img src="https://upload-images.jianshu.io/upload_images/1716569-c8dbca57a66c8850.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择release.jpg"></p>
+</li>
+<li><p>5、选择release<br><img src="https://upload-images.jianshu.io/upload_images/1716569-3e4c175047001805.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择release.jpg"></p>
+</li>
+<li><p>6、创建并发布relese  （因为我这里已经创建过了所以选择Draft a new release，如果是首次创建那么就是create new release）</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d7622807b764fa92.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建release.jpg"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-255edce43c2ada84.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布release.jpg"></p>
+<ul>
+<li>7、添加网址到<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中（复制你的项目的url）</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-41239f48992d565c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="复制url.jpg"></p>
+<ul>
+<li>8、在Jitpack中查看</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-ccd3395c593c70d3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看.jpg"></p>
+<ul>
+<li>9、点击编译<br><img src="https://upload-images.jianshu.io/upload_images/1716569-0082c457336ba7b1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击编译.jpg"></li>
+<li>10 、编译完成<br><img src="https://upload-images.jianshu.io/upload_images/1716569-0a3dc259720fdee6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编译完成.jpg"></li>
+</ul>
+<ul>
+<li>11、失败原因<br><img src="https://upload-images.jianshu.io/upload_images/1716569-9d747953aeff560f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误原因.jpg"></li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 查看JitPack文档，查找原因，一般都是因为你的工具类中本身的错误，所以不能通过，所以在上传之前最好自己先检查一遍错误原因。并且，遇到问题不要慌张，先看<a href="https://jitpack.io/docs/" target="_blank" rel="noopener">官方文档</a>排查原因。好了，就说这么多了，有问题的可以加群493180098联系我。</p>
 
       
     </div>
@@ -386,14 +426,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/17/Android Facebook原生登录/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/17/SDK Login/" rel="prev" title="SDK 登录说明">
-                SDK 登录说明 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/" rel="prev" title="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+                Android socket高级用法（自定义协议和Protocol Buffer使用） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Android-发布项目到jitpack详解"><span class="nav-number">1.</span> <span class="nav-text">title:Android 发布项目到jitpack详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">1.2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">1.3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">1.4.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
             
 
           </div>

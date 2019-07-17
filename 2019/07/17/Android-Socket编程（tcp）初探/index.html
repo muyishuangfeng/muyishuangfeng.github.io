@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。 首先 在将socket编程前，先了解一下socket的知识。 TCP/IP协议我们举个不恰当的例子：比如通过QQ和服务器进行通信，都需要哪些东西呢？两台电脑建立连接进行通信，需要知道双方的地址（也就是I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Socket编程（tcp）初探">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-Socket编程（tcp）初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前言之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。 首先 在将socket编程前，先了解一下socket的知识。 TCP/IP协议我们举个不恰当的例子：比如通过QQ和服务器进行通信，都需要哪些东西呢？两台电脑建立连接进行通信，需要知道双方的地址（也就是I">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-ff87e4994d2b6574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-3fa7b4355b1c03e6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-a0dfc130f99a50e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-603d01c240080afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:35:12.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Socket编程（tcp）初探">
+<meta name="twitter:description" content="前言之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。 首先 在将socket编程前，先了解一下socket的知识。 TCP/IP协议我们举个不恰当的例子：比如通过QQ和服务器进行通信，都需要哪些东西呢？两台电脑建立连接进行通信，需要知道双方的地址（也就是I">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-ff87e4994d2b6574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-Socket编程（tcp）初探/">
+
+
+
+
+
+  <title>Android Socket编程（tcp）初探 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-Socket编程（tcp）初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Socket编程（tcp）初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:35:12+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p> 在将socket编程前，先了解一下socket的知识。</p>
+<h4 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP/IP协议"></a>TCP/IP协议</h4><p>我们举个不恰当的例子：比如通过QQ和服务器进行通信，都需要哪些东西呢？<br>两台电脑建立连接进行通信，需要知道双方的地址（也就是IP地址）；知道两台电脑的IP地址之后，我们还需要知道我发送到目标电脑的目标软件（使用端口标记）。如果两台电脑连接成功之后就可以进行通信了。<br>那么这些东西如何进行规定的呢，这就需要有一定的通讯协议，比如我和张三约定在西安钟楼见面，然后两个人都必须手拿一把白色茉莉花。只有当我们双方见面并且看到对方拿的是我们之前商量好的白色茉莉花才可以进行通讯。那么，这个白色茉莉花就是我们之间的约定，也就是socket中的协议。大家都使用这个协议，统一成一个规范，这样符合这个规范的各种设备之间能够进行兼容性的通信。<br>最为广泛的的协议就是OSI协议和TCP/IP协议了，但是OSI协议较为繁琐，未推广（想了解的自己Google）。反而TCP/IP(transfer control protocol/internet protocol,传输控制协议/网际协议)协议简单明了，得到现今的广泛使用。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-ff87e4994d2b6574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="协议.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-3fa7b4355b1c03e6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="协议传输示意图.jpg"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p> 说了那么多的文字性描述，那么接下来看看我们的基于TCP协议的客户端和服务端实现</p>
+<ul>
+<li><p>客户端图片<br> 这里封装到了线程中，如果需要修改，那么自行修改，小可这里只是抛砖引玉，废话不说先上图<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-a0dfc130f99a50e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tcp客户端.png"></p>
+</li>
+<li><p>客户端代码（线程中）<br><strong>代码中的注释比较详细，我这里就不逐一解释了</strong></p>
+<pre><code>public class TcpClientThread extends Thread {
+
+//IP地址
+private String address;
+//端口
+private int port;
+//发送内容
+private String msg;
+private Handler mHandler;
+
+public TcpClientThread(Handler handler, String address, int port, String msg) {
+  this.mHandler = handler;
+  this.address = address;
+  this.port = port;
+  this.msg = msg;
+}
+
+@Override
+public void run() {
+  super.run();
+  sendSocket();
+}
+
+/**
+ * 设置
+ */
+private void sendSocket() {
+  InputStreamReader reader = null;
+  BufferedReader bufReader = null;
+  Socket socket = null;
+  try {
+      //1.创建监听指定服务器地址以及指定服务器监听的端口号
+      //IP地址，端口号
+      socket = new Socket(address, port);
+      // 2.拿到客户端的socket对象的输出流发送给服务器数据
+      OutputStream os = socket.getOutputStream();
+      //写入要发送给服务器的数据
+      os.write(msg.getBytes());
+      os.flush();
+      socket.shutdownOutput();
+      //拿到socket的输入流，这里存储的是服务器返回的数据
+      InputStream is = socket.getInputStream();
+      //解析服务器返回的数据
+      reader = new InputStreamReader(is);
+      bufReader = new BufferedReader(reader);
+      String s = null;
+      final StringBuffer sb = new StringBuffer();
+      while ((s = bufReader.readLine()) != null) {
+          sb.append(s);
+      }
+      sendMsg(0, sb.toString());
+  } catch (UnknownHostException e) {
+      e.printStackTrace();
+  } catch (IOException e) {
+      e.printStackTrace();
+  } finally { //3、关闭IO资源
+      try {
+          if (bufReader != null)
+              bufReader.close();
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
+      try {
+          if (socket != null)
+              socket.close();
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
+
+  }
+ }
+
+/**
+ * 发送消息
+ */
+private void sendMsg(int what, Object object) {
+  Message msg = new Message();
+  msg.what = what;
+  msg.obj = object;
+  mHandler.sendMessage(msg);
+}
+}</code></pre></li>
+<li><p>客户端（Activity中使用）</p>
+<pre><code>public class TcpClientActivity extends AppCompatActivity 
+   implements   View.OnClickListener {
+
+  EditText mEdtContent;
+ TextView mTxtContent;
+ Button mBtnSend;
+ String address = &quot;192.168.0.197&quot;;
+ int port = 12345;</code></pre></li>
+</ul>
+<pre><code> @Override
+ protected void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_tcpclient);
+  initView();
+ }
+
+private void initView() {
+  mEdtContent = findViewById(R.id.edt_content);
+  mBtnSend = findViewById(R.id.btn_send);
+  mTxtContent = findViewById(R.id.txt_content);
+  mBtnSend.setOnClickListener(this);
+}
+
+ @Override
+ public void onClick(View view) {
+  switch (view.getId()) {
+      case R.id.btn_send: {//发送
+          TcpClientThread mThread = new TcpClientThread(mHandler, address, port,
+                  mEdtContent.getText().toString());
+          mThread.start();
+
+          break;
+      }
+  }
+}
+
+/**
+ * Handler
+ */
+private Handler mHandler = new Handler(Looper.myLooper()) {
+  @Override
+  public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what) {
+          case 0: {
+              String content= (String) msg.obj;
+              mTxtContent.setText(content);
+              break;
+          }
+      }
+  }
+};
+}</code></pre><ul>
+<li><p>服务端（图片）</p>
+<p> <img src="https://upload-images.jianshu.io/upload_images/1716569-603d01c240080afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tcp服务端.png"></p>
+</li>
+<li><p>服务端（代码–&gt;线程中）</p>
+<pre><code>public class TcpServerThread extends Thread {</code></pre><p>   private Socket socket;</p>
+<p>  /**</p>
+<ul>
+<li><p>初始化</p>
+</li>
+<li></li>
+<li><p>@param socket<br>   */</p>
+<pre><code>public TcpServerThread(Socket socket) {</code></pre><p>   this.socket = socket;</p>
+<pre><code>}</code></pre><p>@Override<br>public void run() {<br>​    super.run();</p>
+<p>InputStreamReader reader = null;<br>BufferedReader bufReader = null;<br>OutputStream os = null;<br>try {<br>   reader = new InputStreamReader(socket.getInputStream());<br>   bufReader = new BufferedReader(reader);<br>   String s = null;<br>   StringBuffer sb = new StringBuffer();<br>   while ((s = bufReader.readLine()) != null) {</p>
+<pre><code>sb.append(s);</code></pre><p>   }<br>   System.out.println(“服务器：” + sb.toString());<br>   // 关闭输入流<br>   socket.shutdownInput();</p>
+<p>   // 返回给客户端数据<br>   os = socket.getOutputStream();<br>   os.write((“我是服务端,客户端发给我的数据就是：” + sb.toString()).getBytes());<br>   os.flush();<br>   socket.shutdownOutput();<br>} catch (IOException e2) {<br>   e2.printStackTrace();<br>} finally {// 关闭IO资源<br>   if (reader != null) {</p>
+<pre><code>try {
+    reader.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }</p>
+<p>   if (bufReader != null) {</p>
+<pre><code>try {
+    bufReader.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }<br>   if (os != null) {</p>
+<pre><code>try {
+    os.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }<br> }</p>
+<p>}</p>
+<p>}</p>
+</li>
+</ul>
+</li>
+<li><p>服务端（调用）</p>
+<pre><code>public class TcpServer {
+
+   /**
+    * @param args
+    */
+      public static void main(String[] args) {
+      try {
+    ​     @SuppressWarnings(&quot;resource&quot;)
+    ​    ServerSocket serverSocket = new ServerSocket(12345);
+    ​    while (true) {
+    ​        System.out.println(&quot;Server开始~~~监听~~~&quot;);
+    ​        // accept方法会阻塞，直到有客户端与之建立连接
+    ​        Socket socket = serverSocket.accept();
+    ​        TcpServerThread serverThread = new TcpServerThread(socket);
+    ​        serverThread.start();
+    ​    }
+    } catch (IOException e) {
+    ​    e.printStackTrace();
+      }
+      }
+
+  }</code></pre></li>
+<li><p>说明<br>这里用了一个while循环，然后就可以无限接收客户端发送的数据，如果把while中的条件改成你需要的，就会实现你所需要的东西。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 刚开始写的时候自己也是一脸懵逼，克服了重重困难才做了出来，当然这种也不是最终的，没有加入自己的协议。需要根据自己的实际需求做出来，然后改成自己的需要的东西。</p>
+<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p><a href="https://www.jianshu.com/p/fb4dfab4eec1" target="_blank" rel="noopener">Android网络编程之–Socket编程</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Android-Socket编程（udp）初探/" rel="next" title="Android Socket编程（udp）初探">
+                <i class="fa fa-chevron-left"></i> Android Socket编程（udp）初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/专属博客，你值得拥有（Windows-版本）/" rel="prev" title="专属博客，你值得拥有（Windows 版本）">
+                专属博客，你值得拥有（Windows 版本） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP协议"><span class="nav-number">2.1.</span> <span class="nav-text">TCP/IP协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致谢"><span class="nav-number">5.</span> <span class="nav-text">致谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

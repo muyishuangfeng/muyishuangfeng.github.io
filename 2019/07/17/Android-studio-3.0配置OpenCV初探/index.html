@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Silence潇湘夜雨">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-studio-3.0配置OpenCV初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-f3db8a0991ccb129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-3f43cc05dac1b245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-eea5e8241e3995fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-1d4ceece061a91f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-b43e1f03a33a4539.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:53:49.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Silence潇湘夜雨">
+<meta name="twitter:description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716569-f3db8a0991ccb129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-studio-3.0配置OpenCV初探/">
+
+
+
+
+
+  <title> | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-studio-3.0配置OpenCV初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:53:49+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="title-Android-studio-3-0配置OpenCV初探"><a href="#title-Android-studio-3-0配置OpenCV初探" class="headerlink" title="title:Android studio 3.0配置OpenCV初探"></a>title:Android studio 3.0配置OpenCV初探</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。</p>
+<p>#简介</p>
+<ul>
+<li>准备条件</li>
+<li>Android Studio NDK环境搭建</li>
+<li>Android Studio OpenCV使用</li>
+<li>常见问题</li>
+</ul>
+<p>##准备条件</p>
+<ul>
+<li><p><a href="https://pan.baidu.com/s/1pMNObsZ" target="_blank" rel="noopener">openCV压缩包下载</a>密码【7xkh】</p>
+</li>
+<li><p>Android Studio</p>
+<h2 id="NDK环境搭建"><a href="#NDK环境搭建" class="headerlink" title="NDK环境搭建"></a>NDK环境搭建</h2><p>  首先，在Android Studio中打开File-&gt;setting-&gt;Android SDK-&gt;SDK Tools<br>选择CMake和NDK然后点击Apply等待下载完成即可。<br><img src="http://upload-images.jianshu.io/upload_images/1716569-f3db8a0991ccb129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Studio Ndk配置.png"></p>
+<ul>
+<li><p>首先</p>
+<p>  OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉库，可以<br>运行在Linux、Windows、Android和Mac OS操作系统上。它轻量级而且<br>高效——由一系列 C 函数和少量 C++ 类，同时提供了Python、Ruby、<br>MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。<br>OpenCV用C++语言编写，它的主要接口也是C++语言，但是依然保留了大量的C语言接口。<br>该库也有大量的Python、Java and MATLAB/OCTAVE（版本2.5）的接口。<br>这些语言的API接口函数可以通过在线文档获得。如今也提供对于C#、Ch、Ruby的支持。</p>
+</li>
+<li><p>其次</p>
+<p>  在Android Studio中新建Project，选中Include c++ support,之后一直默认选择，<br>在C++版本选中c++11,然后finish完成创建，如下图所示。<br><img src="http://upload-images.jianshu.io/upload_images/1716569-3f43cc05dac1b245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Studio创建工程.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>然后</p>
+<pre><code>   导入OpenCV中的Java库，这个库是OpenCV-android-sdk ---&gt;sdk---&gt;java,选择java之后直接导入。
+之后点击Android Studio中的Project Structure，或者直接按ctrl+alt+shift+s打开库依赖面板，
+选择moudle Dependency,选择OpenCVLibrary330添加即可，如下图所示。</code></pre><p>   <img src="http://upload-images.jianshu.io/upload_images/1716569-eea5e8241e3995fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Studio 依赖项目.png"></p>
+</li>
+<li><p>再次</p>
+<pre><code>在AS中打开CMakeLists.txt设置OpenCV的路径（此路径为你本地的路径）
+# ##################### OpenCV 环境 
+
+#设置OpenCV-android-sdk路径
+set( OpenCV_DIR E:/Source/OpenCV-android-sdk/sdk/native/jni )
+
+find_package(OpenCV REQUIRED )
+if(OpenCV_FOUND)
+include_directories(${OpenCV_INCLUDE_DIRS})
+message(STATUS &quot;OpenCV library status:&quot;)
+message(STATUS &quot;    version: ${OpenCV_VERSION}&quot;)
+message(STATUS &quot;    libraries: ${OpenCV_LIBS}&quot;)
+message(STATUS &quot;    include path: ${OpenCV_INCLUDE_DIRS}&quot;)
+else(OpenCV_FOUND)
+message(FATAL_ERROR &quot;OpenCV library not found&quot;)
+endif(OpenCV_FOUND)</code></pre></li>
+</ul>
+<p><em>注意：</em>  上面的set（ OpenCV_DIR E:/Source/OpenCV-android-sdk/sdk/native/jni）把此路径换成你本地的路径。</p>
+<ul>
+<li><p>最后</p>
+<pre><code> 将OpenCV-android-sdk下面的sdk--&gt;native--&gt;libs下面的文件复制到AS中libs路径下。
+然后在app 的build.gradle的android下添加如下代码：
+
+task nativeLibsToJar(type: Jar, description: &apos;create a jar archive of the native libs&apos;) {
+destinationDir file(&quot;$buildDir/native-libs&quot;)
+baseName &apos;native-libs&apos;
+ from fileTree(dir: &apos;libs&apos;, include: &apos;**/*.so&apos;)
+into &apos;lib/&apos;
+}
+
+tasks.withType(JavaCompile) {</code></pre><p>   ​    compileTask -&gt; compileTask.dependsOn(nativeLibsToJar)</p>
+<pre><code> }
+
+最后还需要在dependencies添加 
+
+ implementation fileTree(dir: &quot;$buildDir/native-libs&quot;, include: &apos;native-libs.jar&apos;)</code></pre><p>   _提示 :_到这里OpenCV的环境已经配置完了，下面我们来写一个简单的DEMO验证一下。</p>
+</li>
+</ul>
+<p>##简单DEMO验证<br>_注意 :_本demo只是简单验证，6.0的运行时权限等等没有进行配置。</p>
+<ul>
+<li><p>新建MainActivity</p>
+<pre><code>public class MainActivity extends AppCompatActivity implements 
+ View.OnClickListener { 
+ //最大</code></pre><p>  ​    private double max_size = 1024;<br>  ​    //回调</p>
+<pre><code>private int PICK_IMAGE_REQUEST = 1;
+//原图、处理后的图片</code></pre><p>  ​     private ImageView mImgOriginal, mImgDeals;</p>
+<pre><code>//原始Bitmap、处理后的Bitmap
+private Bitmap mOriginalBitmap,mDealBitmap;
+//选择图片、处理</code></pre><p>  ​     private Button mBtnChoose, mBtnDeals;</p>
+<pre><code> @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+onLoadOpenCVLibrary();</code></pre><p>  ​    initView();</p>
+<pre><code> }
+
+/**
+ * 初始化
+      */
+         private void initView() {
+        mImgDeals = findViewById(R.id.img_deals);
+        mImgOriginal = findViewById(R.id.img_original);
+        mBtnChoose = findViewById(R.id.btn_choose);
+        mBtnDeals = findViewById(R.id.btn_deals);
+
+mBtnDeals.setOnClickListener(this);
+mBtnChoose.setOnClickListener(this);
+
+ }</code></pre></li>
+</ul>
+<pre><code> @Override
+public void onClick(View view) {
+switch (view.getId()) {
+    case R.id.btn_choose: {//选择
+        selectImage();
+        break;
+    }
+    case R.id.btn_deals: {//处理
+        convertGray();
+        break;
+    }
+}
+}
+
+  @Override
+ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+super.onActivityResult(requestCode, resultCode, data);
+if (requestCode == PICK_IMAGE_REQUEST &amp;&amp; resultCode == RESULT_OK &amp;&amp; data != null
+        &amp;&amp; data.getData() != null) {
+    Uri uri = data.getData();
+    try {
+        Log.e(&quot;image-tag&quot;, &quot;start to decode selected image now...&quot;);
+        InputStream input = getContentResolver().openInputStream(uri);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(input, null, options);
+        int raw_width = options.outWidth;
+        int raw_height = options.outHeight;
+        int max = Math.max(raw_width, raw_height);
+        int newWidth = raw_width;
+        int newHeight = raw_height;
+        int inSampleSize = 1;
+        if (max &gt; max_size) {
+            newWidth = raw_width / 2;
+            newHeight = raw_height / 2;
+            while ((newWidth / inSampleSize) &gt; max_size || (newHeight / inSampleSize) &gt; max_size) {
+                inSampleSize *= 2;
+            }
+        }
+
+        options.inSampleSize = inSampleSize;
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        mOriginalBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri),
+                null, options);
+        mDealBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri),
+                null, options);
+        mImgOriginal.setImageBitmap(mOriginalBitmap);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+}
+
+/**
+ * OpenCV库静态加载并初始化
+ */
+ private void onLoadOpenCVLibrary() {
+  boolean load = OpenCVLoader.initDebug();
+  if (load) {
+    Log.e(&quot;CV&quot;, &quot;Open CV Libraries loaded...&quot;);
+   }
+ }
+
+ /**
+  * 选择图片
+  */
+private void selectImage() {
+Intent intent = new Intent();
+intent.setType(&quot;image/*&quot;);
+intent.setAction(Intent.ACTION_GET_CONTENT);
+startActivityForResult(Intent.createChooser(intent, &quot;选择图像&quot;), PICK_IMAGE_REQUEST);
+ }
+
+/**
+ * 转换
+ */
+ private void convertGray(){
+Mat src = new Mat();
+Mat temp = new Mat();
+Mat dst = new Mat();
+Utils.bitmapToMat(mDealBitmap, src);
+Imgproc.cvtColor(src, temp, Imgproc.COLOR_BGRA2BGR);
+Imgproc.cvtColor(temp, dst, Imgproc.COLOR_BGR2GRAY);
+Utils.matToBitmap(dst, mDealBitmap);
+mImgDeals.setImageBitmap(mDealBitmap);
+ }
+ }</code></pre><ul>
+<li><p>新建资源文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+android:orientation=&quot;vertical&quot;&gt;
+
+&lt;LinearLayout
+  android:layout_width=&quot;wrap_content&quot;
+  android:layout_height=&quot;wrap_content&quot;
+  android:orientation=&quot;horizontal&quot;&gt;
+
+  &lt;Button
+      android:id=&quot;@+id/btn_choose&quot;
+      android:layout_width=&quot;wrap_content&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:layout_margin=&quot;10dp&quot;
+      android:text=&quot;@string/btn_choose&quot;
+      android:textSize=&quot;16sp&quot; /&gt;
+
+  &lt;Button
+      android:id=&quot;@+id/btn_deals&quot;
+      android:layout_width=&quot;wrap_content&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:layout_margin=&quot;10dp&quot;
+      android:text=&quot;@string/btn_deals&quot;
+      android:textSize=&quot;16sp&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+
+&lt;ImageView
+  android:id=&quot;@+id/img_original&quot;
+  android:layout_width=&quot;200dp&quot;
+  android:layout_height=&quot;200dp&quot;
+  android:layout_gravity=&quot;center&quot;
+  android:layout_margin=&quot;16dp&quot;
+  android:scaleType=&quot;fitCenter&quot;
+  android:src=&quot;@mipmap/ic_launcher&quot; /&gt;
+
+&lt;ImageView
+  android:id=&quot;@+id/img_deals&quot;
+  android:layout_width=&quot;200dp&quot;
+  android:layout_height=&quot;200dp&quot;
+  android:layout_gravity=&quot;center&quot;
+  android:layout_margin=&quot;16dp&quot;
+  android:scaleType=&quot;fitCenter&quot;
+  android:src=&quot;@mipmap/ic_launcher&quot; /&gt;
+&lt;/LinearLayout&gt;</code></pre></li>
+<li><p>资源文件的效果如下图所示<br><img src="http://upload-images.jianshu.io/upload_images/1716569-1d4ceece061a91f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AS资源文件.png"></p>
+</li>
+<li><p>最终运行的效果如下图所示<br><img src="http://upload-images.jianshu.io/upload_images/1716569-b43e1f03a33a4539.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AS效果图.png"></p>
+</li>
+</ul>
+<h1 id="感言"><a href="#感言" class="headerlink" title="感言"></a>感言</h1><ul>
+<li>经过两天的折腾，遇到了各种Bug，终于搞定的，除了这种方式添加OpenCV之外还有添加.mk文件的方式等等。这里就不多做介绍了，想了解的看官可以去自行搜索。</li>
+<li>感谢gloomyfish的<a href="http://blog.csdn.net/jia20003/article/details/53126321" target="_blank" rel="noopener">OpenCV On Android开发 - Android Studio上环境配置</a><ul>
+<li><a href="https://github.com/muyishuangfeng/OpenCV" target="_blank" rel="noopener">github目录</a></li>
+<li><a href="https://muyishuangfeng.github.io" target="_blank" rel="noopener">个人博客主页</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Android-TextView-点击超链接跳转实现/" rel="next" title="Android TextView 点击超链接跳转实现">
+                <i class="fa fa-chevron-left"></i> Android TextView 点击超链接跳转实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/Android观察者模式初探/" rel="prev" title="Android观察者模式初探">
+                Android观察者模式初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Android-studio-3-0配置OpenCV初探"><span class="nav-number">1.</span> <span class="nav-text">title:Android studio 3.0配置OpenCV初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NDK环境搭建"><span class="nav-number">3.</span> <span class="nav-text">NDK环境搭建</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#感言"><span class="nav-number"></span> <span class="nav-text">感言</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
