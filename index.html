@@ -229,6 +229,595 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/SDK支付接入说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/17/SDK支付接入说明/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-17T11:31:08+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="SDK支付接入说明"><a href="#SDK支付接入说明" class="headerlink" title="SDK支付接入说明"></a>SDK支付接入说明</h2><h3 id="支付流程说明"><a href="#支付流程说明" class="headerlink" title="支付流程说明"></a>支付流程说明</h3><pre><code>为了保证支付的安全，sdk采用了Android支付平台（Google Play和OneStore）验证和LT服务器验证两种方式，业务流程图如下：</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-d609964d9efb2856.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TIM图片20190118111718.png"></p>
+<h4 id="GooglePlay-接入"><a href="#GooglePlay-接入" class="headerlink" title="GooglePlay 接入"></a>GooglePlay 接入</h4><p>(1)、客户端调用支付模块代码，由SDK向LT服务器发起一个订单请求；<br>(2)、拿到服务器给的订单ID后，SDK发起Google Play支付；<br>(3)、Google Play支付返回结果后，拿到Google Play支付成功的token信息；<br>(4)、SDK把Google play返回的订单号token等信息发给服务端，LT服务器向Google Play服务器校验；<br>(5)、服务端对Google play服务器响应数据做处理和校验订单的合法性；<br>(6)、通过服务器验证的结果来确定支付的结果；<br>(7)、支付成功回调 支付成功回调的使用方法： 需要CP服务器建立一个API供乐推服务调用 回调地址所接受的参数格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">METHOD: POST </span><br><span class="line">HEADER:Content-Type:application/json</span><br></pre></td></tr></table></figure>
+
+<h4 id="Google-Play-网络库接入说明"><a href="#Google-Play-网络库接入说明" class="headerlink" title="Google Play 网络库接入说明"></a>Google Play 网络库接入说明</h4><ul>
+<li>1、接入前提<br> <strong>手机必须支持Google 服务</strong></li>
+</ul>
+<ul>
+<li><p>2、在project 下的build 导入仓库地址</p>
+<pre><code> maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>3 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>4、在moudle下面的build文件下添加网络库依赖</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKGooglePlay-Android:1.0.3&apos;</code></pre></li>
+<li><p>5、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>1、初始化参数说明</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">服务器配置的id</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">params</td>
+<td align="center">Map&lt;String,Object&gt;</td>
+<td align="center">是</td>
+<td align="left">游戏上自定义数据，可以包含充值的区服等信息</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">内购商品唯一ID</td>
+</tr>
+<tr>
+<td align="center">googlePlay</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否添加GooglePlay支付</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否是沙盒测试：1是，0否</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">Google console配置的公钥</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启Google Play支付</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">支付配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">支付回调接口</td>
+</tr>
+<tr>
+<td align="center"><strong>2、支付调用方式</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>  private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .baseUrl(baseUrl)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .publicKey(base64EncodedPublicKey)
+          .baseUrl(baseUrl)
+          .setParams(params)
+          .payTest(1)
+          .goodsID(productID, &quot;16&quot;)
+          .packageID(packageName)
+          .googlePlay(true)
+          .requestCode(selfRequestCode)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre><ul>
+<li>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</li>
+</ul>
+</li>
+</ul>
+<pre><code>      OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+    @Override
+    public void onState(Activity activity, RechargeResult result) {
+    switch (result.state) {
+    case RechargeResult.STATE_RECHARGE_SUCCESS://支付成功回调
+    mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_START://支付开始回调
+    Log.e(TAG, &quot;开始支付&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_FAILED://支付失败回调
+    Log.e(TAG, &quot;支付错误&quot; + result.getErrorMsg());
+    break;
+    }
+   }
+
+};</code></pre><ul>
+<li>3、支付开始</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setBaseUrl(baseUrl);//baseUrl（请根据具体服务器配置）
+result.setLTAppID(LTAppID); //乐推AppID
+result.setLTAppKey(LTAppKey); //乐推AppKey
+result.setSku(productID);//商品
+result.setGoodsID(&quot;16&quot;);//商品ID（在服务器配置）
+result.setPublicKey(base64EncodedPublicKey);//公钥
+result.setmPackageID(packageName);//包名
+result.setParams(params);//自定义参数（Map&lt;String,Object&gt;）
+result.setPayTest(1);//是否是沙盒测试
+
+      RechargeManager.recharge(GooglePlayActivity.this, Target.RECHARGE_GOOGLE,
+              result, mOnRechargeListener);</code></pre><ul>
+<li><p>4 、Google play 配置参考<br> <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google Play 配置参考</a></p>
+</li>
+<li><p>5、结果码（具体以接口回调结果为准）</p>
+</li>
+</ul>
+<pre><code>1、 STATE_RECHARGE_START  开始支付
+2、 STATE_RECHARGE_SUCCESS 支付成功
+3、 STATE_RECHARGE_FAILED 支付失败
+4、order create failed:user token is empty 订单创建失败：原因是乐推token为空或者未登录</code></pre><h4 id="OneStore-接入"><a href="#OneStore-接入" class="headerlink" title="OneStore 接入"></a>OneStore 接入</h4><h5 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h5><p>  <strong>手机上必须支持OneStore服务并且安装OneStore客户端</strong></p>
+<p><strong>接入说明</strong><br>如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略2、3、5配置，直接看4</p>
+<ul>
+<li><p>2、在project 下的build 导入仓库地址</p>
+<pre><code>  maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>3 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>4、在moudle下面的build文件下添加网络库依赖</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKOneStore-Android:1.0.2&apos;</code></pre></li>
+<li><p>5、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">goodsType</td>
+<td align="center">String</td>
+<td align="center">商品类型</td>
+<td align="left">商品类型（管理型商品(inapp), 包月自动支付商品(auto)</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">服务器配置的id</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">params</td>
+<td align="center">Map&lt;String,Object&gt;</td>
+<td align="center">是</td>
+<td align="left">游戏上自定义数据，可以包含充值的区服等信息</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">内购商品唯一ID</td>
+</tr>
+<tr>
+<td align="center">oneStore</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否添加OneStore支付</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否是沙盒测试：1是，0否</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">OneStore后台配置的公钥</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启OneStore支付</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">支付配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">支付回调接口</td>
+</tr>
+</tbody></table>
+<p><strong>2、支付调用方式</strong></p>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>  private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .publicKey(PUBLIC_KEY)
+          .baseUrl(baseUrl)
+          .goodsType(&quot;inapp&quot;)
+          .setParams(params)
+          .payTest(1)
+          .oneStore()
+          .goodsID(productID, &quot;11&quot;)
+          .packageID(packageName)
+          .requestCode(selfRequestCode)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre></li>
+<li><p>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</p>
+<pre><code>OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+@Override
+public void onState(Activity activity, RechargeResult result) {
+    switch (result.state) {
+        case RechargeResult.STATE_RECHARGE_SUCCESS:
+            mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+            break;
+        case RechargeResult.STATE_RECHARGE_START:
+            Log.e(TAG, &quot;开始支付&quot;);
+            break;
+        case RechargeResult.STATE_RECHARGE_RESULT:
+            switch (result.getResult()) {
+                case RESULT_BILLING_NEED_UPDATE: {
+                    Log.e(TAG, &quot;RESULT_BILLING_NEED_UPDATE&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_UN_CONNECTED: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_UN_CONNECTED&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_CONNECTED: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_CONNECTED&quot;);
+                    break;
+                }
+                case RESULT_PURCHASES_REMOTE_ERROR: {
+                    Log.e(TAG, &quot;RESULT_PURCHASES_REMOTE_ERROR&quot;);
+                    break;
+                }
+                case RESULT_PURCHASES_SECURITY_ERROR: {
+                    Log.e(TAG, &quot;RESULT_PURCHASES_SECURITY_ERROR&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_NOT_INIT: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_NOT_INIT&quot;);
+                    break;
+                }
+                case RESULT_BILLING_OK: {
+                    Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                    break;
+                }
+                case RESULT_CONNECTED_NEED_UPDATE: {
+                    Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                    break;
+                }
+                case RESULT_BILLING_REMOTE_ERROR: {
+                    Log.e(TAG, &quot;RESULT_BILLING_REMOTE_ERROR&quot;);
+                    break;
+                }
+                case RESULT_BILLING_SECURITY_ERROR: {
+                    Log.e(TAG, &quot;RESULT_BILLING_SECURITY_ERROR&quot;);
+                    break;
+                }
+                case IAP_ERROR_UNDEFINED_CODE: {
+                    Log.e(TAG, &quot;IAP_ERROR_UNDEFINED_CODE&quot;);
+                    break;
+                }
+            }
+            break;
+        case RechargeResult.STATE_RECHARGE_FAILED:
+            Log.e(TAG, &quot;支付错误&quot; + result.getErrorMsg());
+            break;
+
+      }
+   }
+
+ };</code></pre><ul>
+<li>3、支付开始</li>
+</ul>
+</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setBaseUrl(baseUrl);//服务器url
+result.setLTAppID(LTAppID);//乐推AppID
+result.setLTAppKey(LTAppKey);//乐推AppKey
+result.setSku(productID);//商品
+result.setGoodsID(&quot;11&quot;);//商品ID（服务器配置的）
+result.setmGoodsType(&quot;inapp&quot;);//支付类型
+result.setPublicKey(PUBLIC_KEY);//公钥
+result.setmPackageID(packageName);//包名
+result.setParams(params);//自定义参数（Map&lt;String,Object&gt;）
+result.setPayTest(1);//是否是沙盒测试
+RechargeManager.recharge(OneStoreActivity.this,     Target.RECHARGE_ONE_STORE,result, mOnRechargeListener);</code></pre><ul>
+<li>4、参考配置<br><a href="https://dev.onestore.co.kr/devpoc/reference/view/IAP_v17_cn" target="_blank" rel="noopener">OneStore 配置参考</a><br><a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">OneStore github参考</a></li>
+</ul>
+<h4 id="结果码"><a href="#结果码" class="headerlink" title="结果码"></a>结果码</h4><ul>
+<li>5、结果码（具体以接口回调结果为准）</li>
+</ul>
+<pre><code>1、 STATE_RECHARGE_START  开始支付
+2、 STATE_RECHARGE_SUCCESS 支付成功
+3、order create failed:user token is empty 订单创建失败：原因是乐推token为空或者未登录
+4、 STATE_RECHARGE_FAILED 支付失败（具体结果码参考下面的结果码）
+
+ RESULT_PAY_OK(0, &quot;Payment success&quot;) 支付成功
+ RESULT_USER_CANCELED(1, &quot;User cancel&quot;) 用户取消
+ RESULT_SERVICE_UNAVAILABLE(2, &quot;service unavailable&quot;) 未连接上服务器
+ RESULT_BILLING_UNAVAILABLE(3, &quot;billing unavailable&quot;) 不支持oneStore支付
+ RESULT_ITEM_UNAVAILABLE(4, &quot;item unavailable&quot;) 商品不可用
+ RESULT_DEVELOPER_ERROR(5, &quot;developer error&quot;)开发账户异常
+ RESULT_CONNECTED_SUCCESS(6, &quot;PurchaseClient connect success&quot;) 连接成功
+ RESULT_DISCONNECT_ERROR(7, &quot;PurchaseClient Disconnect&quot;) 连接失败
+ RESULT_CONNECTED_NEED_UPDATE(8, &quot;Connected need update&quot;) oneStore客户端需要更新
+ RESULT_BILLING_OK(9, &quot;Billing success&quot;) 支持支付
+ RESULT_BILLING_REMOTE_ERROR(10, &quot;Billing Remote Connection Failed&quot;) 查询是否支持oneStore服务时提示远端服务器连接异常（未连接到服务器）
+ RESULT_BILLING_SECURITY_ERROR(11, &quot;Billing Apply State exceptions&quot;)查询是否支持oneStore服务时提示支付状态异常
+RESULT_BILLING_NEED_UPDATE(12, &quot;Billing need update&quot;)查询是否支持oneStore服务时提示oneStore客户端需要更新
+RESULT_PURCHASES_OK(13, &quot;Purchases success&quot;)查询购买信息成功
+RESULT_PURCHASES_REMOTE_ERROR(14, &quot;Purchases Remote Connection Failed&quot;)查询购买信息时提示oneStore远程服务器连接异常（未连接到服务器）
+RESULT_PURCHASES_SECURITY_ERROR(15, &quot;Purchases Apply State exceptions&quot;)查询购买信息时提示支付状态异常
+RESULT_PURCHASES_NEED_UPDATE(16, &quot;Purchases need update&quot;)查询购买信息时提示oneStore客户端需要更新
+RESULT_CONSUME_OK(17, &quot;Consume success&quot;)消费成功
+RESULT_CONSUME_REMOTE_ERROR(18, &quot;Consume Remote Connection Failed&quot;)购买时提示远端服务器连接异常（未连接到oneStore）
+RESULT_CONSUME_SECURITY_ERROR(19, &quot;Consume Apply State exceptions&quot;)购买时提示支付状态异常
+RESULT_CONSUME_NEED_UPDATE(20, &quot;Consume need update&quot;)购买时提示oneStore客户端需要更新
+RESULT_SIGNATURE_FAILED(21, &quot;Signature failed&quot;)签名异常
+RESULT_PURCHASES_FLOW_OK(22, &quot;Purchases Flow success&quot;)购买成功
+RESULT_PURCHASES_FLOW_REMOTE_ERROR(23, &quot;Purchases Flow Remote Connection 
+Failed&quot;)购买时提示远端服务器连接异常（未连接到服务器）
+RESULT_PURCHASES_FLOW_SECURITY_ERROR(24, &quot;Purchases Flow Apply State 
+ exceptions&quot;)购买时提示支付状态异常
+RESULT_PURCHASES_FLOW_NEED_UPDATE(25, &quot;Purchases Flow need update&quot;)购买时提 
+示oneStore需要更新</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/SDK Login/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1083,7 +1672,7 @@ android:networkSecurityConfig=&quot;@xml/network_security_config&quot;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
