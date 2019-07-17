@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta name="description" content="前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##准备条件  openCV压缩包下载密码【7xkh】  Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Silence潇湘夜雨">
+<meta property="og:title" content="Android studio 3.0配置OpenCV初探">
 <meta property="og:url" content="http://yoursite.com/2019/07/17/Android-studio-3.0配置OpenCV初探/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta property="og:description" content="前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##准备条件  openCV压缩包下载密码【7xkh】  Android">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-f3db8a0991ccb129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-3f43cc05dac1b245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-eea5e8241e3995fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-1d4ceece061a91f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-b43e1f03a33a4539.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-17T10:53:49.009Z">
+<meta property="og:updated_time" content="2019-07-17T11:01:27.143Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Silence潇湘夜雨">
-<meta name="twitter:description" content="title:Android studio 3.0配置OpenCV初探前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##">
+<meta name="twitter:title" content="Android studio 3.0配置OpenCV初探">
+<meta name="twitter:description" content="前言 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。 #简介  准备条件 Android Studio NDK环境搭建 Android Studio OpenCV使用 常见问题  ##准备条件  openCV压缩包下载密码【7xkh】  Android">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716569-f3db8a0991ccb129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title> | Silence潇湘夜雨</title>
+  <title>Android studio 3.0配置OpenCV初探 | Silence潇湘夜雨</title>
   
 
 
@@ -305,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Android studio 3.0配置OpenCV初探</h1>
         
 
         <div class="post-meta">
@@ -355,8 +355,7 @@
       
 
       
-        <hr>
-<h2 id="title-Android-studio-3-0配置OpenCV初探"><a href="#title-Android-studio-3-0配置OpenCV初探" class="headerlink" title="title:Android studio 3.0配置OpenCV初探"></a>title:Android studio 3.0配置OpenCV初探</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 之前一直想对OpenCV进行学习和使用，一直没有实践。这次痛下决心，一定要搞定。经过两天的折腾，遇到各种bug终于搞定了，希望能帮助到初学者，如果里面有那些写的不对的地方，还希望各位看官指正。</p>
 <p>#简介</p>
 <ul>
 <li>准备条件</li>
@@ -721,7 +720,7 @@ android:orientation=&quot;vertical&quot;&gt;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -758,7 +757,7 @@ android:orientation=&quot;vertical&quot;&gt;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Android-studio-3-0配置OpenCV初探"><span class="nav-number">1.</span> <span class="nav-text">title:Android studio 3.0配置OpenCV初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NDK环境搭建"><span class="nav-number">3.</span> <span class="nav-text">NDK环境搭建</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#感言"><span class="nav-number"></span> <span class="nav-text">感言</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NDK环境搭建"><span class="nav-number">2.</span> <span class="nav-text">NDK环境搭建</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#感言"><span class="nav-number"></span> <span class="nav-text">感言</span></a></li></div>
             
 
           </div>
