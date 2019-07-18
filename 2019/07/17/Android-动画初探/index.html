@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言：   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术。就拿最近的工作来说吧，动画很多，刚开始只是知道Android动画分为属性动画、帧动画和补间动画。但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动画初探">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-动画初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前言：   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术。就拿最近的工作来说吧，动画很多，刚开始只是知道Android动画分为属性动画、帧动画和补间动画。但">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-4842b1b8db6ffb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:22:05.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 动画初探">
+<meta name="twitter:description" content="前言：   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术。就拿最近的工作来说吧，动画很多，刚开始只是知道Android动画分为属性动画、帧动画和补间动画。但">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-动画初探/">
+
+
+
+
+
+  <title>Android 动画初探 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-动画初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 动画初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:22:05+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术。就拿最近的工作来说吧，动画很多，刚开始只是知道Android动画分为属性动画、帧动画和补间动画。但是，他们之间有什么具体的区别就不是特别清楚了。尤其是属性动画和补间动画的区别，我能说自己被补间动画坑惨了吗？（其实，还是自己学艺不精，需要继续努力了。）好了，废话说多了，还是来看看今天的文章吧。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>   要学习Android动画，我们以一个例子来深入学习，毕竟都是要把功能实现出来，写一些大而空没有实用性的东西，不但是敷衍别人，更是对自己的不负责任。如下图所示：（原谅我自恋一下，放了自己的图像照）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200259.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-4842b1b8db6ffb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200103.png"></p>
+<ul>
+<li><p>分析<br> 1、要实现从大图到小图的过度，我们需要怎么实现呢？又需要用哪些技术呢？首先图片缩小了，那么就需要缩放动画；其次，图片向右移动和向上移动了，那么就需要位移动画。背景动画是用Lottie实现的，中间的圆形变叉也是用的lottie监听帧率变化，这个不在今天的讨论和实现范围内。今天主要实现布局从大到小的缩放和移动。<br> 2、 那么缩放和移动可以用哪些动画实现呢？可能有朋友说是用补间动画实现了，那么如果布局上面有点击事件呢？点击事件的位置在原位置还是新位置呢？答案是还在原来的位置，补间动画只能实现view的变化，而不能改变点击事件的位置，如果只是做一个页面展示用，那么补间动画完全够用了。但是，如果想改变点击事件的位置，必须要用属性动画。我能说我在这里被坑了好久吗？好了，现在来看看我们如何实现控件的缩放和移动。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>   /**</p>
+<pre><code>* 动画
+*/</code></pre><p>  public static void scanAnimation(Context context, FrameLayout mLytAll) {</p>
+<pre><code>WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+DisplayMetrics dm = new DisplayMetrics();
+wm.getDefaultDisplay().getMetrics(dm);
+final int width = dm.widthPixels;// 屏幕宽度（像素）
+int height = dm.heightPixels;// 屏幕高度（像素）
+ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));</code></pre></li>
+</ul>
+<pre><code>    ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleX&quot;, (94 / DensityUtils.px2dp(context, width)));
+    ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleY&quot;, (166 / DensityUtils.px2dp(context, height)));
+
+    AnimatorSet animatorSet = new AnimatorSet();  //组合动画
+    animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //设置动画
+    animatorSet.setDuration(350);
+    animatorSet.start();
+}</code></pre><ul>
+<li>分析：<br> 1、这里要移动，那么就需要屏幕的宽和高，然后进行等比缩放，因为上面和右边有一定的距离，那么就要计算右边距和上边距；<br>   2、这里因为是X轴和Y轴进行移动并且缩放，所以我这边用了组合动画，AnimatorSet；<br>   3、X轴的移动动画用了ObjectAnimator然后设置X轴移动和Y轴移动,。假设，距离右边距是36dp，上边距是23。那么X轴的移动就是，从1到屏幕宽转换成dp值后减去右边距（36dp）。Y轴的移动就是屏幕的高转换为dp后减去上边距（23dp），然后加上一个负号（-），为什么呢，因为Y轴向上为负，向下为正；<br>   4、现在来看缩放动画，假设缩放后的小屏幕高是166dp，宽是94dp，那么就是缩放后的屏幕宽（94dp）除以屏幕宽转换成dp值之后的比率了。当然，这样做显然是不太严谨的（为什么说不严谨呢，后面会讲）。Y轴的缩放呢就是缩放后小图的高（166dp）除以屏幕高转换成dp之后的值。<br>   5、完成后用AnimatorSet设置X轴Y轴的平移和缩放动画同步进行，然后设置动画的执行时长至此就完成了动画从大屏幕到小屏幕的移动和缩放。<h3 id="再次"><a href="#再次" class="headerlink" title="再次"></a>再次</h3>之前在分析的时候说上面直接写死宽高值之后进行缩放不严谨，那么我们来分析一下。因为Android手机屏幕分辨率很多，如果在大屏幕手机上面可能不会出现太大的问题，那么在屏幕分辨率比较低的手机上呢？有可能显示不全或者按钮挤压到一起去了。那么，就要动态计算小屏幕的宽高了。比如说UI给了我们的UI图的宽高比是360<em>640，那么我们如何来动态计算屏幕的宽高比呢？那么，X轴的缩放比率就不应该是94/DensityUtils.px2dp(context, width))了，而应该是(94</em>(DensityUtils.px2dp(context, width))/360))/DensityUtils.px2dp(context, width)),就是说我们应该计算UI图的宽和手机实际的宽的比率乘以94再除以屏幕的宽，这才是我们需要缩放的宽。那么高呢？当然是一样的了166 / DensityUtils.px2dp(context, height))，这样写当然也是有问题的了，而应该是(166*(DensityUtils.px2dp(context, height))/640))/DensityUtils.px2dp(context, height))，这样才是更加严谨的写法。</li>
+</ul>
+<pre><code>/**
+ * 动画
+ */
+public static void scanAnimation(Context context, FrameLayout mLytAll) {
+   WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+   DisplayMetrics dm = new DisplayMetrics();
+   wm.getDefaultDisplay().getMetrics(dm);
+   final int width = dm.widthPixels;// 屏幕宽度（像素）
+   int height = dm.heightPixels;// 屏幕高度（像素）
+   ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+  ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));
+
+
+   ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleX&quot;, ((94(DensityUtils.px2dp(context, width)/360)) / DensityUtils.px2dp(context, width)));
+   ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleY&quot;, ((166(DensityUtils.px2dp(context, height)/640)) / DensityUtils.px2dp(context, height)));
+
+   AnimatorSet animatorSet = new AnimatorSet();  //组合动画
+   animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //设置动画
+   animatorSet.setDuration(350);
+   animatorSet.start();
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>   好了，今天就写到这里，如果有不正确的还希望各位指正，小可这里不胜感激，还有就是，能用属性动画实现的，尽量不要用补间动画来做，因为你会碰到各种坑。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/" rel="next" title="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+                <i class="fa fa-chevron-left"></i> Android socket高级用法（自定义协议和Protocol Buffer使用）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/Android 装饰者模式初探/" rel="prev" title="Android 装饰者模式初探">
+                Android 装饰者模式初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次"><span class="nav-number">4.</span> <span class="nav-text">再次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">48.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Socket编程（udp）初探">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c396df1b7f103409.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T10:33:33.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Socket编程（udp）初探">
+<meta name="twitter:description" content="前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。 首先 先上图，俗话说no pic say a xx  其次 客户端代码（线程中） public class UdpClientThread extends Thread {  //IP地址 private String">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/">
+
+
+
+
+
+  <title>Android Socket编程（udp）初探 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-Socket编程（udp）初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Socket编程（udp）初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:33:33+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  832
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p> 先上图，俗话说no pic say a xx<br><img src="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程服务端.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c396df1b7f103409.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程客户端.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li><p>客户端代码（线程中）</p>
+<pre><code>public class UdpClientThread extends Thread {
+
+//IP地址
+private String mAddress;
+//端口
+private int port;
+//发送内容
+private String msg;
+private Handler mHandler;
+
+public UdpClientThread(Handler handler, String address, int port, String msg) {
+  this.mHandler = handler;
+  this.mAddress = address;
+  this.port = port;
+  this.msg = msg;
+}
+
+@Override
+public void run() {
+  super.run();
+  sendSocket();
+}
+
+/**
+ * 设置
+ */
+private void sendSocket() {
+  byte[] bytes = msg.getBytes();
+  try {
+      /*******************发送数据***********************/
+      InetAddress address = InetAddress.getByName(mAddress);
+      //1.构造数据包
+      DatagramPacket packet = new DatagramPacket(bytes, 
+bytes.length, address, port);
+      //2.创建数据报套接字并将其绑定到本地主机上的指定端口。
+      DatagramSocket socket = new DatagramSocket();
+      //3.从此套接字发送数据报包。
+      socket.send(packet);
+      /*******************接收数据***********************/
+      //1.构造 DatagramPacket，用来接收长度为 length 的数据包。
+      final byte[] bytes1 = new byte[1024];
+      DatagramPacket receiverPacket = new DatagramPacket(bytes1, bytes1.length);
+      socket.receive(receiverPacket);
+      sendMsg(0,new String(bytes1, 0, bytes1.length));
+      socket.close();
+  } catch (UnknownHostException e) {
+      e.printStackTrace();
+  } catch (SocketException e) {
+      e.printStackTrace();
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+/**
+ * 发送消息
+ */
+private void sendMsg(int what, Object object) {
+  Message msg = new Message();
+  msg.what = what;
+  msg.obj = object;
+  mHandler.sendMessage(msg);
+ }
+ }</code></pre><p><strong>说明:</strong>这里的封装和tcp中的一样，就是换一下参数和包装类，代码中的解释都比较清楚。</p>
+</li>
+<li><p>客户端（使用）</p>
+<pre><code>public class UdpClientActivity extends AppCompatActivity
+  implements View.OnClickListener {
+
+Button mBtnSend;
+String mAddress = &quot;192.168.0.197&quot;;
+int port = 12306;
+TextView mTxtContent;
+EditText mEdtContent;
+
+@Override
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_udp_client);
+  initView();
+}
+
+private void initView() {
+  mEdtContent = findViewById(R.id.edt_udp_content);
+  mBtnSend = findViewById(R.id.btn_udp_send);
+  mTxtContent = findViewById(R.id.txt_udp_content);
+  mBtnSend.setOnClickListener(this);
+}</code></pre></li>
+</ul>
+<pre><code>@Override
+public void onClick(View view) {
+  switch (view.getId()) {
+      case R.id.btn_udp_send: {
+          UdpClientThread mThread = new UdpClientThread(mHandler, mAddress, port,
+                  mEdtContent.getText().toString());
+          mThread.start();
+          break;
+      }
+  }
+}
+
+/**
+ * Handler
+ */
+private Handler mHandler = new Handler(Looper.myLooper()) {
+  @Override
+  public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what) {
+          case 0: {
+              String content = (String) msg.obj;
+              mTxtContent.setText(content);
+              break;
+          }
+      }
+  }
+};
+}</code></pre><p><strong>说明：</strong>这里直接点击按钮调用线程使用即可，当然，也可以直接用线程池来构造参数。</p>
+<ul>
+<li><p>服务端（代码）</p>
+<pre><code>public class UdpServer {
+
+    /**
+     * @param args
+     */
+      public static void main(String[] args) {
+      while (true) {
+         getMsg();
+      }
+      }
+
+    /**
+     * 获取信息
+     */
+
+       private static void getMsg() {
+       try {
+    ​    byte[] buf = new byte[1024];
+    ​    // 一、接收数据
+    ​    // 1、创建接收数据的数据包
+    ​    DatagramPacket packet = new DatagramPacket(buf, buf.length);
+    ​    // 2.创建UPD 的 socket
+    ​    DatagramSocket socket = new DatagramSocket(12306);
+    ​    // 3、接收数据
+    ​    System.out.println(&quot;服务端开始监听！~~~~&quot;);
+    ​    socket.receive(packet);
+    ​    // 4、处理数据
+    ​    System.out.println(&quot;服务端：&quot; + new String(buf, 0, buf.length));
+
+        // 二、返回数据
+        DatagramPacket packet2 = new DatagramPacket(buf, buf.length,
+                packet.getAddress(), packet.getPort());
+        socket.send(packet2);
+        socket.close();
+    } catch (Exception e) {
+    ​    e.printStackTrace();
+    }
+
+ }
+
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>唠叨一下，做事一定要善始善终，做人一定要诚信（ps：最近遇到了一个不诚信的公司，offer发了之后，第二天告诉我不用去了，问过原因之后，人事和老板助理回复还不一样，这样就有点好玩了，真的是越想越生气。尤其是对于我这种对诚信比较看重的人，真的是不能忍。特别痛恨那种答应别人却做不到的人，要不就别答应，要不就做到。我一般答应别人的事情，一定会做到，不管我要付出什么，起码我兑现了自己的承诺。）。发了一顿牢骚，还请各位看官见谅。</p>
+<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p><a href="https://www.jianshu.com/p/fb4dfab4eec1" target="_blank" rel="noopener">Android网络编程之–Socket编程</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Andorid装饰者模式初探/" rel="next" title="Android 装饰者模式初探">
+                <i class="fa fa-chevron-left"></i> Android 装饰者模式初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/Android-Socket编程（tcp）初探/" rel="prev" title="Android Socket编程（tcp）初探">
+                Android Socket编程（tcp）初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致谢"><span class="nav-number">5.</span> <span class="nav-text">致谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">48.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
