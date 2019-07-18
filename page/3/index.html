@@ -388,16 +388,46 @@
       
         
           
-          前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单，
-但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPa
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android 发布项目到jitpack详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><pre><code>    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单，
+但是也遇到了一些问题，在这里记录一下。</code></pre><h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  在开始之前先简单说一下流程：<br>​    1、在本地创建一个libiary工具类；<br>​    2、配置JitPack相关的配置信息；<br>​    3、排查自己工具类中的错误并上传到github；<br>​    4、创建release并在<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中编译；<br>​    5、在自己的项目中引用。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li>1、 创建一个libiary，然后上传到github（只需要上传图中红色选择框中的文件）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-bcee6085e21ae873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="libiary.jpg"></li>
+</ul>
+<ul>
+<li>2、在项目的build中添加配置（project级别）我这里用的JitPack版本是2.0，因为的Gradle版本是4.4，对应的JitPack是2.0，如果你的版本比较高或者比较低，需要自己查询文档，查看<a href="https://github.com/dcendents/android-maven-gradle-plugin" target="_blank" rel="noopener">JitPack对应的版本号</a><br> ​    <img src="https://upload-images.jianshu.io/upload_images/1716569-0b788ae36e853ced.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目build中配置.jpg"></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-8617f27d8ae5dad9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JitPack和Gradle对应的版本号.jpg"></p>
+<ul>
+<li>3、在moudle中添加配置<br><img src="https://upload-images.jianshu.io/upload_images/1716569-3a4853ef140ce49f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="module的build中添加.jpg"></li>
+</ul>
+<ul>
+<li><p>4、上传到github 创建release包<br><img src="https://upload-images.jianshu.io/upload_images/1716569-c8dbca57a66c8850.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择release.jpg"></p>
+</li>
+<li><p>5、选择release<br><img src="https://upload-images.jianshu.io/upload_images/1716569-3e4c175047001805.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择release.jpg"></p>
+</li>
+<li><p>6、创建并发布relese  （因为我这里已经创建过了所以选择Draft a new release，如果是首次创建那么就是create new release）</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d7622807b764fa92.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建release.jpg"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-255edce43c2ada84.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布release.jpg"></p>
+<ul>
+<li>7、添加网址到<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中（复制你的项目的url）</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-41239f48992d565c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="复制url.jpg"></p>
+<ul>
+<li>8、在Jitpack中查看</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-ccd3395c593c70d3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看.jpg"></p>
+<ul>
+<li>9、点击编译<br><img src="https://upload-images.jianshu.io/upload_images/1716569-0082c457336ba7b1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击编译.jpg"></li>
+<li>10 、编译完成<br><img src="https://upload-images.jianshu.io/upload_images/1716569-0a3dc259720fdee6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编译完成.jpg"></li>
+</ul>
+<ul>
+<li>11、失败原因<br><img src="https://upload-images.jianshu.io/upload_images/1716569-9d747953aeff560f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误原因.jpg"></li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 查看JitPack文档，查找原因，一般都是因为你的工具类中本身的错误，所以不能通过，所以在上传之前最好自己先检查一遍错误原因。并且，遇到问题不要慌张，先看<a href="https://jitpack.io/docs/" target="_blank" rel="noopener">官方文档</a>排查原因。好了，就说这么多了，有问题的可以加群493180098联系我。</p>
+
+          
         
       
     </div>
@@ -556,17 +586,218 @@
       
         
           
+            <hr>
+<h2 id="title-Android-Facebook-原生登录"><a href="#title-Android-Facebook-原生登录" class="headerlink" title="title:Android Facebook 原生登录"></a>title:Android Facebook 原生登录</h2><h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><pre><code>   在写这篇文章之前先吐槽一下自己的英文水平，之前一直没感觉，因为做的项目都是国内的项目，很少看英文文档。但是，自从换了一个工作之后，
+做的是国外的项目。并且，写了给第三方写了一个SDK，需要使用Google登录和Facebook登录。那么，就必须用原生登录，说到原生登录，那么就逃不掉要看
+英文文档。看了英文文档之后才感觉自己的英文是多么的差劲。好了，废话不多说，我们进入今天的正题。如何使用Facebook登录。</code></pre><h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>   当然是查看<a href="https://developers.facebook.com/docs/facebook-login/android" target="_blank" rel="noopener">官方文档</a>了，官方文档介绍的很清楚，并且更新比较及时。如果你不太想看英文文档，而去各种百度。那么，你可能会遇到各种各样的问题。</p>
+<ul>
+<li><p>1、引入Facebook的在线依赖</p>
+<pre><code>//facebook登录
+implementation &apos;com.facebook.android:facebook-login:4.39.0&apos;</code></pre></li>
+<li><p>2、在清单文件中配置在Facebook申请的 appID和scheme</p>
+<pre><code>&lt;!-- facebook登录 --&gt;
+  &lt;meta-data
+      android:name=&quot;com.facebook.sdk.ApplicationId&quot;
+      android:value=&quot;@string/facebook_app_id&quot; /&gt;
+
+  &lt;activity
+      android:name=&quot;com.facebook.FacebookActivity&quot;
+      android:configChanges=&quot;keyboard|keyboardHidden|screenLayout|screenSize|orientation&quot;
+      android:label=&quot;@string/app_name&quot; /&gt;
+  &lt;activity
+      android:name=&quot;com.facebook.CustomTabActivity&quot;
+      android:exported=&quot;true&quot;&gt;
+      &lt;intent-filter&gt;
+          &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;
+
+          &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+          &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot; /&gt;
+
+          &lt;data android:scheme=&quot;@string/fb_login_protocol_scheme&quot; /&gt;
+      &lt;/intent-filter&gt;
+  &lt;/activity&gt;</code></pre><p><strong>注意：</strong> 上面的 @string/facebook_app_id 换成你在facebook申请的AppID，@string/fb_login_protocol_scheme 换成Facebook给你分配的scheme。</p>
+</li>
+</ul>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><pre><code>上面的配置算是搞定了，那么就是代码的编写了，我这里为了方便，所以封装了一个Facebook登录类。</code></pre><ul>
+<li><p>1、首先看工具类的封装</p>
+<p>1)、Facebook登录封装类<br>​<br>​     private static CallbackManager mFaceBookCallBack;<br>​     private static FaceBookLoginManager sInstance;<br>​<br>private FaceBookLoginManager() {</p>
+<p>}</p>
+<p>/**</p>
+<ul>
+<li><p>单例</p>
+</li>
+<li></li>
+<li><p>@return</p>
+</li>
+<li><p>/<br>public static FaceBookLoginManager getInstance() {<br>  if (sInstance == null) {</p>
+<pre><code>synchronized (FaceBookLoginManager.class) {
+    if (sInstance == null) {
+        sInstance = new FaceBookLoginManager();
+
+    }
+}</code></pre><p>  }<br>  return sInstance;<br>}</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>/**
+ * 开始
+ *
+ * @param context
+ */
+public void faceBookLogin(Context context) {
+    LoginManager.getInstance()
+            .logInWithReadPermissions((Activity) context,
+                    Arrays.asList(&quot;public_profile&quot;));
+}
+
+
+/**
+ * 初始化
+ */
+public void initFaceBook(final Context context,
+                          final OnLoginSuccessListener mListener) {
+    mFaceBookCallBack = CallbackManager.Factory.create();
+    if (mFaceBookCallBack != null) {
+        LoginManager.getInstance().registerCallback(mFaceBookCallBack,
+                new FacebookCallback&lt;LoginResult&gt;() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        if (loginResult != null) {
+                           if(mListener=null){
+                            mListener.onSuccess(result);
+                                }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                       if(mListener=null){
+                            mListener.onCancel();
+                                }
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                       if(mListener=null){
+                            mListener.onError(error);
+                                }
+                    }
+                });
+
+    }
+}
+
+
+/**
+ * 设置登录结果回调
+ *
+ * @param requestCode 请求码
+ * @param resultCode  结果码
+ * @param data        数据
+ */
+public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
+    if (mFaceBookCallBack != null) {
+        mFaceBookCallBack.onActivityResult(requestCode, resultCode, data);
+    }
+}</code></pre><p>2）、接口</p>
+<pre><code>public interface OnLoginSuccessListener {
+
+void OnSuccess(LoginResult result);
+
+void onCancel();
+
+void onError(FacebookException error);
+}</code></pre><p>3）、LoginResult 类</p>
+<pre><code>public class LoginResult {
+private final AccessToken accessToken;
+private final Set&lt;String&gt; recentlyGrantedPermissions;
+private final Set&lt;String&gt; recentlyDeniedPermissions;
+
+/**
+ * The constructor.
+ *
+ * @param accessToken                The new access token.
+ * @param recentlyGrantedPermissions The recently granted permissions.
+ * @param recentlyDeniedPermissions  The recently denied permissions.
+ */
+public LoginResult(
+        AccessToken accessToken,
+        Set&lt;String&gt; recentlyGrantedPermissions,
+        Set&lt;String&gt; recentlyDeniedPermissions) {
+    this.accessToken = accessToken;
+    this.recentlyGrantedPermissions = recentlyGrantedPermissions;
+    this.recentlyDeniedPermissions = recentlyDeniedPermissions;
+}
+
+/**
+ * Getter for the new access token.
+ * @return the new access token.
+ */
+public AccessToken getAccessToken() {
+    return accessToken;
+}
+
+/**
+ * Getter for the recently granted permissions.
+ * @return the recently granted permissions.
+ */
+public Set&lt;String&gt; getRecentlyGrantedPermissions() {
+    return recentlyGrantedPermissions;
+}
+
+/**
+ * Getter for the recently denied permissions.
+ * @return the recently denied permissions.
+ */
+public Set&lt;String&gt; getRecentlyDeniedPermissions() {
+    return recentlyDeniedPermissions;
+}
+}</code></pre><ul>
+<li>2、如何使用呢？</li>
+</ul>
+<p> 1）、初始化Facebook</p>
+<pre><code>FaceBookLoginManager.getInstance().initFaceBook(this,
+            new OnLoginSuccessListener() {
+                @Override
+                public void onSuccess(LoginResult result) {
+
+                }
+
+                @Override
+                public void onError(FacebookException ex) {
+
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+            });</code></pre><p>  2)、设置回调</p>
+<pre><code>/**
+ * 设置登录结果回调
+ *
+ * @param requestCode 请求码
+ * @param resultCode  结果码
+ * @param data        数据
+ */
+public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
+    if (mFaceBookCallBack != null) {
+        mFaceBookCallBack.onActivityResult(requestCode, resultCode, data);
+    }
+}</code></pre><p>3）、调用登录</p>
+<pre><code>mBtnSend=findViewById(R.id.btn_send);
+mBtnSend.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+     FaceBookLoginManager.getInstance().faceBookLogin(MainActivity.this);
+    }
+});</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><pre><code>到此，Facebook的登录就完成了，当然，上面的工具类还可以进一步封装，并且整理成一个在线依赖库。</code></pre><p>如果你对打包成在线依赖库不太熟的话，建议你去看我的另一篇文章<a href="https://www.jianshu.com/p/d287db9fae38" target="_blank" rel="noopener">Android 发布项目到jitpack详解</a>。</p>
+
           
-title:Android Facebook 原生登录前言：   在写这篇文章之前先吐槽一下自己的英文水平，之前一直没感觉，因为做的项目都是国内的项目，很少看英文文档。但是，自从换了一个工作之后，
-做的是国外的项目。并且，写了给第三方写了一个SDK，需要使用Google登录和Facebook登录。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android Facebook原生登录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -725,18 +956,113 @@ title:Android Facebook 原生登录前言：   在写这篇文章之前先吐槽
       
         
           
+            <hr>
+<h2 id="title-Android-Google-原生登录"><a href="#title-Android-Google-原生登录" class="headerlink" title="title:Android Google 原生登录"></a>title:Android Google 原生登录</h2><p>###　前言：</p>
+<p>　　之前写过<a href="https://www.jianshu.com/p/71b5d3739cd6" target="_blank" rel="noopener">Android Facebook原生登录</a>，想着既然Facebook登录已经写了，索性把Google 登录也写一下，做一下记录。</p>
+<p>####　首先<br>　　要集成Google登录前首先需要查阅<a href="https://developers.google.com/identity/sign-in/android/start?hl=zh-cn" target="_blank" rel="noopener">官方文档</a>，当然这个是需要自备梯子的。<br>​      </p>
+<ul>
+<li><p>1、查看官方demo<br>   如果你是第一次使用Google登录，那么，最简单的方式当然是查看官方文档和官方demo了。</p>
+<pre><code>$ git clone https://github.com/googlesamples/google-services.git</code></pre></li>
+<li><p>2、配置登录需要的配置<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-9e94060d48fc2c09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Google登录配置.png"></p>
+</li>
+</ul>
+<p><strong>注意:Google登录什么需要的客户端ID是web端的ID</strong></p>
+<h4 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h4><ul>
+<li><p>1、开始Google登录的接入<br>在app下的build.gradle的dependencies 节点下配置Google服务</p>
+<p>dependencies {<br>implementation ‘com.google.android.gms:play-services-auth:16.0.0’<br>}</p>
+</li>
+</ul>
+<ul>
+<li>2、Google登录方法的封装</li>
+</ul>
+<pre><code>public class GoogleLoginManager {
+
+private static final String TAG = GoogleLoginManager.class.getSimpleName();
+ /**
+  * 初始化登录
+  *@params contenxt 上下文
+  *@params clientID Google配置分配的客户端ID
+  *@params selfRequestCode 自定义请求码
+  */
+public static void initGoogle(Activity context, String clientID, int selfRequestCode) {
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(clientID)
+            .requestEmail()
+            .build();
+    GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+    context.startActivityForResult(signInIntent, selfRequestCode);
+}
+
+   /**
+  * 登录回调
+  *@params requestCode 对应onActivityResult的 requestCode
+  *@params data 对应onActivityResult的 data
+  *@params selfRequestCode 对应上面初始化请求的自定义请求码
+  *@params mListener 登录结果回调
+  */
+public static void onActivityResult(int requestCode, Intent data, int selfRequestCode,
+                                    OnLoginSuccessListener mListener) {
+    if (requestCode == selfRequestCode) {
+        Task&lt;GoogleSignInAccount&gt; task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        handleSignInResult( task, mListener);
+    }
+}
+
+
+private static void handleSignInResult(@NonNull Task&lt;GoogleSignInAccount&gt; completedTask,
+                                       OnLoginSuccessListener mListener) {
+    try {
+        GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+        String idToken = account.getIdToken();
+        Log.e(TAG, idToken);
+        mListener.onSuccessResult(idToken);
+    } catch (ApiException e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 退出登录
+ */
+public static void GoogleSingOut(Context context, String clientID, final OnGoogleSignOutListener mListener) {
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(clientID)
+            .requestEmail()
+            .build();
+    GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+    mGoogleSignInClient.signOut().addOnCompleteListener((Activity) context, new OnCompleteListener&lt;Void&gt;() {
+        @Override
+        public void onComplete(@NonNull Task&lt;Void&gt; task) {
+            mListener.onSignOutSuccess();
+        }
+    });
+  }
+
+}
+
+
+
+
+ /**
+  * 退出登录接口
+  */
+ public interface OnGoogleSignOutListener {
+
+ void onSignOutSuccess();
+
+ }
+ /**
+  * 登录回调接口
+  */
+ public interface OnLoginSuccessListener {
+
+ void onSuccessResult(String result);
+
+ }</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 好了，上面就是Google登录所需要的所有东西了。<strong>完整的登录流程应该是这样的：从Google获取idToken，然后发送到自己的服务器，在服务器验证通过后再回调给客户端。</strong></p>
+<h3 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h3><p>  最近一直在写国外的项目，接触的都是英文文档，在此时才看到自己的英文水平是多么的差，没事还是需要多看看英文的东西。提升下自己的英文水平，以后看到英文文档不至于太头疼。如果想了解更多或者有什么不懂的地方，可以加群<strong>493180098</strong>。<br>嗯，下一篇可能会写<strong>Google支付</strong>或者韩国的支付平台<strong>OneStore支付</strong></p>
+
           
-title:Android Google 原生登录###　前言：
-　　之前写过Android Facebook原生登录，想着既然Facebook登录已经写了，索性把Google 登录也写一下，做一下记录。
-####　首先　　要集成Google登录前首先需要查阅官方文档，当然这个是需要自备梯子的。​
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android Google 原生登录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -895,17 +1221,283 @@ title:Android Google 原生登录###　前言：
       
         
           
+            <hr>
+<h2 id="title-Android-Google应用内支付"><a href="#title-Android-Google应用内支付" class="headerlink" title="title:Android Google应用内支付"></a>title:Android Google应用内支付</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看<a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="noopener">Google(应用内支付)官方文档</a>。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>  要集成Google支付的准备工作有哪些呢？</p>
+<ul>
+<li><p>1、手机上安装<strong>Google服务</strong>(当然是针对国内的用户，国外的相信大部分都有Google服务)；</p>
+</li>
+<li><p>2、一个绑定信用卡的Google账号；</p>
+</li>
+<li><p>3、Google play客户端；</p>
+</li>
+<li><p>4、<a href="https://developer.android.google.cn/distribute/console/" target="_blank" rel="noopener">Google play console</a>（<strong>用于配置应用内商品信息</strong>）；</p>
+</li>
+<li><p>5、科学上网的工具。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>上面的准备工作都做好了之后需要干什么呢？当然是在<a href="https://developer.android.com/distribute/console" target="_blank" rel="noopener">Google play console</a>上配置相关应用和商品信息了，至于如何配置具体可以参考<a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google支付配置</a>。</p>
+</li>
+<li><p>1、支付流程说明<br>关于Google支付的流程说明：<br>1&gt;前提条件</p>
+<pre><code>1、检查你的包名和签名文件是否和Google Console 上面上传的apk包是否一致
+2、检查版本号是否和Google console发布的apk版本是否一致
+3、检查你是否可以购买，是否绑定了银行卡，手机支不支持Google支付，手机是否有Google服务</code></pre><p>2&gt;支付流程</p>
+<pre><code>1、第一步，初始化Google支付
+2、第二步，初始化成功后调用查询购买的商品操作，查询成功调用消耗操作，防止不能购买的情 况发生
+3、第三步，生成订单号进行购买操作
+4、第四步，购买成功后再次调用一次消耗操作（为了下次购买可以成功）
+5、第五步，拿到Google支付返回的相关信息，在服务器进行验证操作。
+6、第六步，服务器拿到你上传的相关信息和Google支付进行交互验证，验证成功后Google发货，服务器给你返回相关信息</code></pre></li>
+<li><p>2、集成工作<br>  首先在AndroidManifest文件中加入支付权限和版本</p>
+</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot;/&gt;
+//在application的节点下添加
+&lt;meta-data
+      android:name=&quot;com.google.android.gms.vision.DEPENDENCIES&quot;
+      android:value=&quot;face&quot; /&gt;</code></pre><ul>
+<li>3、复制Google支付的<a href="https://gitee.com/1032200695/google_payment_documents" target="_blank" rel="noopener">aidl文件和util包</a>中的各种文件</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-acc4040df1416005.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Google支付需要的文件.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>   Google支付管理类的创建（支付封装成一个工具类）</p>
+<pre><code>public class GooglePlayManager {
+
+private static final String TAG = GooglePlayManager.class.getSimpleName();
+
+@SuppressLint(&quot;StaticFieldLeak&quot;)
+private static IabHelper mHelper;
+//是否初始化
+private static boolean mSetupDone = false;
+//公钥
+private static String mPublicKey;
+//订单号
+private static String payload;
+  //商品集合
+private static List&lt;String&gt; mGoodsList = new ArrayList&lt;&gt;();
+
+/**
+ * 初始化
+ *
+ * @param context   上下文
+ * @param publicKey 公钥
+ * @param productID 商品ID
+ * @param goodsList 商品集合
+ * @param mListener 接口
+ */
+public static void init(final Context context, String publicKey, final String productID,
+                           final OnGoogleInitListener mListener) {
+    mPublicKey = publicKey;
+    //创建谷歌帮助类
+    mHelper = new IabHelper(context, publicKey);
+    mHelper.enableDebugLogging(true);
+    mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+        @Override
+        public void onIabSetupFinished(IabResult result) {
+            if (!result.isSuccess()) {
+                mListener.onGoogleInitFailed(result.getMessage());
+                mSetupDone = false;
+            } else {
+                mSetupDone = true;
+                mListener.onGoogleInitSuccess(&quot;init Success&quot;);
+                //getLTOrderID(LTAppID, LTAppKey,gid, packageId, params);
+                try {
+                    mHelper.queryInventoryAsync(true, null, null,
+                            new IabHelper.QueryInventoryFinishedListener() {
+                                @Override
+                                public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                                    if (inv != null &amp;&amp; inv.getAllPurchases() != null
+                                            &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
+                                        mGoodsList = getGoodsList(inv.getAllPurchases());
+                                    }
+                                    if (result != null &amp;&amp; inv != null) {
+                                        if (result.isSuccess() &amp;&amp; inv.getAllPurchases() != null
+                                                &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
+                                            //消费, 并下一步, 这里Demo里面我没做提示,将购买了,但是没消费 
+                                            // 掉的商品直接消费掉, 正常应该
+                                            //给用户一个提示,存在未完成的支付订单,是否完成支付
+                                            for (int i = 0; i &lt; inv.getAllPurchases().size(); i++) {
+                                                consumeProduct(inv.getAllPurchases().get(i));
+                                            }
+
+                                        }
+                                    }
+                                }
+                            });
+                } catch (IabHelper.IabAsyncInProgressException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+
+
+}
+
+/**
+ * 消费掉商品
+ */
+private static void consumeProduct(Purchase purchase) {
+    try {
+        mHelper.consumeAsync(purchase, new IabHelper.OnConsumeFinishedListener() {
+            @Override
+            public void onConsumeFinished(Purchase purchase, IabResult result) {
+
+        });
+    } catch (IabHelper.IabAsyncInProgressException e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 购买
+ *
+ * @param context     上下文
+ * @param requestCode 请求码
+ * @param goodsList   商品集合
+ * @param productID   商品ID
+ * @param mListener   接口
+ */
+public static void recharge(final Context context,final int requestCode,
+                         final String productID,
+                            final OnGooglePlayResultListener mListener) {
+    if (mSetupDone) {
+         //创建订单获取订单号（在自己的服务器上获取订单号）
+        try {
+            if (mHelper == null) return;
+            List&lt;String&gt; subSku = new ArrayList&lt;&gt;();
+            mHelper.queryInventoryAsync(true, goodsList, subSku,
+                    new IabHelper.QueryInventoryFinishedListener() {
+                        @Override
+                        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                           if (result != null) {
+                                if (result.isSuccess() &amp;&amp; inv.hasPurchase(productID)) {
+                                    //消费, 并下一步, 这里Demo里面我没做提示,将购买了,但是没消费掉的商 
+                                    //品直接消费掉, 正常应该
+                                    //给用户一个提示,存在未完成的支付订单,是否完成支付
+                                    consumeProduct(inv.getPurchase(productID));
+                                } else {
+                                    getProduct((Activity) context, requestCode, productID);
+                                }
+                            }
+                            }
+                        }
+
+                    });
+        } catch (IabHelper.IabAsyncInProgressException e) {
+            e.printStackTrace();
+        }
+    } else {
+        if (TextUtils.isEmpty(mPublicKey)) {
+            //创建谷歌帮助类
+            mHelper = new IabHelper(context, mPublicKey);
+            mHelper.enableDebugLogging(true);
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
+                public void onIabSetupFinished(IabResult result) {
+                    if (result.isFailure()) {
+                        mSetupDone = false;
+                    }
+                    if (result.isSuccess()) {
+                        mSetupDone = true;
+                    }
+                }
+            });
+        }
+
+    }
+}
+
+
+
+
+/**
+ * 产品获取
+ *
+ * @param context      上下文
+ * @param REQUEST_CODE 请求码
+ * @param SKU          产品唯一id, 填写你自己添加的商品id
+ * @param mListener    回调监听
+ */
+private static void getProduct(final Activity context, int REQUEST_CODE,
+                               final String SKU, final OnGooglePlayResultListener mListener) {
+    if (!TextUtils.isEmpty(payload)) {
+        try {
+            mHelper.launchPurchaseFlow(context, SKU, REQUEST_CODE, new IabHelper.OnIabPurchaseFinishedListener() {
+                @Override
+                public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+                    if (result.isFailure()) {
+                        mListener.onPlayError(result.getMessage());
+                        return;
+                    }
+                    mListener.onPlaySuccess(&quot;Purchase successful&quot;);
+                    if (purchase.getSku().equals(SKU)) {
+                        //购买成功，调用消耗
+                        consumeProduct(purchase);
+                    }
+                }
+            }, payload);
+        } catch (IabHelper.IabAsyncInProgressException e) {
+            e.printStackTrace();
+        }
+    } else {
+        mListener.onPlayError(&quot;Order creation failed&quot;);
+    }
+}
+
+/**
+ * 回调
+ *
+ *
+ * @param requestCode     请求码
+ * @param resultCode      结果码
+ * @param data            数据
+
+ */
+public static void onActivityResult( int requestCode, int resultCode, Intent data, int selfRequestCode) {
+    //将回调交给帮助类来处理, 否则会出现支付正在进行的错误
+    if (mHelper == null) return;
+    mHelper.handleActivityResult(requestCode, resultCode, data);
+    if (requestCode == selfRequestCode) {
+        int responseCode = data.getIntExtra(&quot;RESPONSE_CODE&quot;, 0);
+        //订单信息
+        String purchaseData = data.getStringExtra(&quot;INAPP_PURCHASE_DATA&quot;);
+        String dataSignature = data.getStringExtra(&quot;INAPP_DATA_SIGNATURE&quot;);
+        if (!TextUtils.isEmpty(purchaseData)) {
+            GoogleModel googleModel = new Gson().fromJson(purchaseData, GoogleModel.class);
+            Log.e(TAG, googleModel.getPurchaseToken());
+            Map&lt;String, Object&gt; params = new WeakHashMap&lt;&gt;();
+            params.put(购买成功的token（具体以自己服务的规定为准）, googleModel.getPurchaseToken());
+            params.put(订单号, payload);
+             //上传到服务器进行验证之后再次调用消费用于消耗掉购买的商品
+
+        }
+    }
+
+}
+
+/**
+ * 释放资源
+ */
+public static void release() {
+    if (mHelper != null) {
+        mHelper.disposeWhenFinished();
+    }
+    mHelper = null;
+}
+ /**
+ * 获取商品集合
+ */
+private static List&lt;String&gt; getGoodsList(
+        List&lt;Purchase&gt; mList) {
+    mGoodsList = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; mList.size(); i++) {
+        mGoodsList.add(mList.get(i).getSku());
+    }
+    return mGoodsList;
+}
+}</code></pre><p><strong>流程说明:</strong>首先初始化Google支付，初始化成功后查询是否有未消费的，如果有则消费，如果没有则继续调用购买功能。当然，购买之前需要创建订单，之后传入Google支付需要的参数支付。支付成功后在onActivityResult方法里获取到Google返回的token，然后到自己的服务器做验证。验证成功后再次调用Google的消费功能，用于消耗此次购买。这一步千万不能省，要不下次可能就不能进行购买了。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 好了，这就是今天的Google支付说明了，写的不好还请谅解。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>   <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">谷歌支付验证 403错误</a></p>
+
           
-title:Android Google应用内支付前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。
-准备工作  要集成Google支付的准备工作有
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android Google应用内支付/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1064,16 +1656,426 @@ title:Android Google应用内支付前言   之前写过了Facebook登录Google�
       
         
           
+            <hr>
+<h2 id="title-Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装"><a href="#title-Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装" class="headerlink" title="title:Android 海外应用内支付之ONE store（韩国支付SDK）集成封装"></a>title:Android 海外应用内支付之ONE store（韩国支付SDK）集成封装</h2><h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><p>   之前写过一篇<a href="https://www.jianshu.com/p/c275d4d363bd" target="_blank" rel="noopener">Android Google应用内支付</a>,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不太理解）。所以，自己就看着官方文档做了集成了一番，踩了不少坑。但是，总体来说，比较<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">官方文档</a>讲的比较清楚。好了，讲了这么多，下面看如何集成吧。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><ul>
+<li>1、查看文档<br> 要做ONE store集成开发，第一步当然是查看<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">官方文档</a>了，我这里集成的是最新的版本，也就是v5版本。也有之前的v3和v4等版本，但是，人要向前看不是。所以，就集成了最新的版本了。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-216af1eef5885264.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="onestore官方文档.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-7b6e5a22f461011d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="onestore官方文档集成.png"></p>
+<ul>
+<li>2、下载ONE store的jar包（在如下图所示的地方下载对应的开发包和官方demo）<br> <strong>题外话：感觉官方的demo写的真的不咋地,还没有文档写的清楚，并且让人看得云里雾里的。</strong></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d3b3713d9d1db508.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><strong>注意：官方jar包下载地址在github上面</strong>，不清楚的可以<a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">点这里查看</a><br><img src="https://upload-images.jianshu.io/upload_images/1716569-1d8a4a505d4f4441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="jar下载地址.png"><br><strong>注意：上面红框标注的就是我们需要的jar包</strong></p>
+<ul>
+<li>3、支付接入文档（两种实现方式）<br>1、调用AIDL接口实现<br>2、使用SDK实现（建议使用第二种，笔者使用的就是第二种）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-7e03db10d3e33c75.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>###　其次<br>　上面讲了那么多，那么看看官方文档的接入到底是个什么样子的呢？下面是目录截图<br><img src="https://upload-images.jianshu.io/upload_images/1716569-b6622b06c328febd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>＋１、在看到了上面的截图之后，我们这里讲一下支付的整个流程。</li>
+<li>第一步：安装ONE store客户端，如果不安装ONE store的客户端是不能支付的，并且需要自备梯子。</li>
+<li>第二步：初始化ONE store，如果初始化失败或者连接不到ONE store也是不能调起ONE store支付的。</li>
+<li>第三步：查询是否支持ONE store支付，如果支持再进行下一步。</li>
+<li>第四步：查询购买记录，并且进行消费（主要是针对管理型商品(inapp)）。<strong>注意：如果不进行消费是不能进行购买请求的（和Google支付很相似），这里笔者刚开始被坑了很久，一直不能支付，主要还是没有认真看文档，哈哈哈。</strong></li>
+<li>第五步：填写相关信息，进行购买请求。</li>
+<li>第六步：这里呢，主要是对onestore购买请求的回调处理。比如说拿到支付ID和订单号，上传到自己的服务器进行验证处理。如果验证通过了，服务器那边会和ONE store对接验证，然后，ONE store会进行发货处理，然后服务器给你一个反馈，然后，你再次调用<strong>消费处理</strong>，这样，一个完整的支付流程就完了。</li>
+<li>第七步：释放操作。</li>
+<li>2、说了那么多，估计你们看文字都看累了，下面，看代码。</li>
+</ul>
+<pre><code>public class OneStorePlayManager {
+
+@SuppressLint(&quot;StaticFieldLeak&quot;)
+ //支付客户端
+private static PurchaseClient mPurchaseClient;
+ //版本
+private static final int IAP_API_VERSION = 5;
+private static final String TAG = OneStorePlayManager.class.getSimpleName();
+ //签名验证
+private static final String KEY_FACTORY_ALGORITHM = &quot;RSA&quot;;
+private static final String SIGNATURE_ALGORITHM = &quot;SHA512withRSA&quot;;
+ //公钥
+private static String mPublicKey;
+  //是否初始化
+private static boolean mIsInit = false;
+private static final String PURCHASE_ID = &quot;PURCHASE_ID&quot;;
+private static final String DEVELOPER_PAYLOAD = &quot;DEVELOPER_PAYLOAD&quot;;
+//是否消费
+private static boolean mISConsume = false;
+
+private static void init(Context context, String publickey) {
+    mPurchaseClient = new PurchaseClient(context, publickey);
+    mPublicKey = publickey;
+}
+
+
+/**
+ * 初始化
+ *
+ * @param context   上下文
+ * @param mListener 回调
+ */
+public static void initOneStore(final Activity context, final String publickey,
+                                final String productType,
+
+                                final onOneStoreSupportListener mListener) {
+    if (!mIsInit) {
+        init(context, publickey);
+        mIsInit = true;
+    }
+    if (mPurchaseClient != null) {
+        mPurchaseClient.connect(new PurchaseClient.ServiceConnectionListener() {
+            @Override
+            public void onConnected() {
+                if (mListener != null) {
+                    mListener.onOneStoreConnected();
+                }
+                checkBillingSupportedAndLoadPurchases(context, LTAppID, LTAppKey, testID, productType, mListener, mUploadListener);
+            }
+
+            @Override
+            public void onDisconnected() {
+                if (mListener != null) {
+                    mListener.onOneStoreDisConnected();
+                }
+            }
+
+            @Override
+            public void onErrorNeedUpdateException() {//必须更新到最新的onestore客户端后才能进行支付
+                if (mListener != null) {
+                    mListener.onOneStoreFailed(OneStoreResult.RESULT_CONNECTED_NEED_UPDATE);
+                    PurchaseClient.launchUpdateOrInstallFlow(context);
+                }
+            }
+        });
+    }
+}
+
+/**
+ * 检查是否支持
+ */
+private static void checkBillingSupportedAndLoadPurchases(final Context context,
+                                                          final String productType,
+                                                          final onOneStoreSupportListener mListener) {
+    if (mPurchaseClient == null) {
+        if (mListener != null) {
+            mListener.onOneStoreClientFailed(&quot;PurchaseClient is not initialized&quot;);
+        }
+    } else {
+        mPurchaseClient.isBillingSupportedAsync(IAP_API_VERSION, new PurchaseClient.BillingSupportedListener() {
+            @Override
+            public void onSuccess() {
+                mListener.onOneStoreSuccess(OneStoreResult.RESULT_BILLING_OK);
+                // 然后通过对托管商品和每月采购历史记录的呼叫接收采购历史记录信息。
+                //loadPurchases((Activity) context,  mListener);
+                Log.e(TAG, &quot;isBillingSupportedAsync : RESULT_BILLING_OK&quot;);
+                mPurchaseClient.queryPurchasesAsync(IAP_API_VERSION, productType,
+                        new PurchaseClient.QueryPurchaseListener() {
+                            @Override
+                            public void onSuccess(List&lt;PurchaseData&gt; purchaseDataList, String productType) {
+                                Log.e(TAG, &quot;queryPurchasesAsync onSuccess, &quot; + purchaseDataList.toString());
+                                for (PurchaseData purchase : purchaseDataList) {
+                                    consumeItem((Activity) context， purchase, mListener);
+                                }
+                            }
+
+                            @Override
+                            public void onError(IapResult iapResult) {
+                                mListener.onOneStoreError(&quot;onError====&quot; + iapResult.toString());
+                            }
+
+                            @Override
+                            public void onErrorRemoteException() {
+                                mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_REMOTE_ERROR);
+                            }
+
+                            @Override
+                            public void onErrorSecurityException() {
+                                mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_SECURITY_ERROR);
+                            }
+
+                            @Override
+                            public void onErrorNeedUpdateException() {
+                                mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_NEED_UPDATE);
+                                PurchaseClient.launchUpdateOrInstallFlow((Activity) context);
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(IapResult iapResult) {
+                mListener.onOneStoreError(iapResult.toString());
+            }
+
+            @Override
+            public void onErrorRemoteException() {
+                mListener.onOneStoreFailed(OneStoreResult.RESULT_BILLING_REMOTE_ERROR);
+            }
+
+            @Override
+            public void onErrorSecurityException() {
+                mListener.onOneStoreFailed(OneStoreResult.RESULT_BILLING_SECURITY_ERROR);
+            }
+
+            @Override
+            public void onErrorNeedUpdateException() {
+                mListener.onOneStoreFailed(OneStoreResult.RESULT_BILLING_NEED_UPDATE);
+                PurchaseClient.launchUpdateOrInstallFlow((Activity) context);
+            }
+        });
+    }
+}
+
+
+/**
+ * 在管理商品 (inapp) 后或历史记录视图完成后, 消耗托管商品的消费.
+ *
+ * @param purchaseData 产品数据
+ */
+private static void consumeItem(final Activity context
+                                final PurchaseData purchaseData,
+                                final onOneStoreSupportListener mListener) {
+    if (mPurchaseClient == null) {
+        mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_NEED_UPDATE);
+        Log.e(TAG, &quot;PurchaseClient is not initialized&quot;);
+        return;
+    }
+    mPurchaseClient.consumeAsync(IAP_API_VERSION, purchaseData,
+            new PurchaseClient.ConsumeListener() {
+                @Override
+                public void onSuccess(PurchaseData purchaseData) {
+                    Log.e(TAG, &quot;consumeAsync===success&quot;);
+                    mListener.onOneStoreSuccess(OneStoreResult.RESULT_CONSUME_OK);
+                    if (!TextUtils.isEmpty(PreferencesUtils.getString(context, PURCHASE_ID)) &amp;&amp;
+                            !TextUtils.isEmpty(PreferencesUtils.getString(context, DEVELOPER_PAYLOAD))) {
+                        //上传到服务器处理进行验单，防止漏单
+                        uploadServer(xx,xx,xx);
+                    } else if (mISConsume) {
+                        uploadServer(xx,xx,xx);
+                    }
+                    mISConsume = false;
+                }
+
+                @Override
+                public void onError(IapResult iapResult) {
+                    mListener.onOneStoreError(iapResult.toString());
+                    Log.e(TAG, &quot;consumeAsync onError,  消费错误&quot; + iapResult.toString());
+                }
+
+                @Override
+                public void onErrorRemoteException() {
+                    mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_REMOTE_ERROR);
+                    Log.e(TAG, &quot;consumeAsync onError,  消费连接失败&quot;);
+                }
+
+                @Override
+                public void onErrorSecurityException() {
+                    mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_SECURITY_ERROR);
+                    Log.e(TAG, &quot;consumeAsync onError,  消费应用状态异常下请求支付&quot;);
+                }
+
+                @Override
+                public void onErrorNeedUpdateException() {
+                    mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_NEED_UPDATE);
+                    Log.e(TAG, &quot;consumeAsync onError,  消费产品需要更新&quot;);
+                }
+            });
+}
+
+
+/**
+ * oneStore回调
+ *
+ * @param requestCode     请求码
+ * @param resultCode      结果码
+ * @param selfRequestCode 自定义请求码
+ */
+public static void onActivityResult(Context context, int requestCode, int resultCode, Intent data, int selfRequestCode, final onOneStoreSupportListener mSupportListener) {
+    if (requestCode == selfRequestCode)
+        if (resultCode == Activity.RESULT_OK) {
+            if (!mPurchaseClient.handlePurchaseData(data)) {
+                Log.e(TAG, &quot;onActivityResult handlePurchaseData false &quot;);
+            } else {
+                String signature = data.getStringExtra(&quot;purchaseSignature&quot;);
+                String purchaseData = data.getStringExtra(&quot;purchaseData&quot;);
+                Gson gson = new Gson();
+                PurchaseData mPurchaseData = gson.fromJson(purchaseData, PurchaseData.class);
+                if (mPurchaseData != null) {//这边是保存一下订单，刚进入应用的时候进行相关处理
+                    PreferencesUtils.putString(context, PURCHASE_ID, mPurchaseData.getPurchaseId());
+                    PreferencesUtils.putString(context, DEVELOPER_PAYLOAD, mPurchaseData.getDeveloperPayload());
+                    consumeItem((Activity) context,  mPurchaseData, mSupportListener);
+                    Log.e(TAG, &quot;onActivityResult handlePurchaseData true &quot; + mPurchaseData.toString() + &quot;===&quot;
+                            + signature);
+                }
+            }
+        } else {
+            Log.e(TAG, &quot;onActivityResult user canceled&quot;);
+        }
+}
+
+/**
+ * 获得商品
+ *
+ * @param productId       商品ID
+ * @param selfRequestCode 请求码
+ * @param productName     产品名称
+ * @param type 产品类型
+ * @param onOneStoreSupportListener  是否支持的接口
+ * @OnCreateOrderFailedListener 创建订单的接口
+ */
+public static void getProduct(final Activity context,
+                              int selfRequestCode, String productName,
+                              final String productId, String type,
+                              final onOneStoreSupportListener mListener, final OnCreateOrderFailedListener mCreateListener) {
+    if (!mISConsume) {
+        if (!mIsInit) {
+            init(context, mPublicKey);
+        } else {
+            getLTOrderID(context,  selfRequestCode, productName, productId, type,
+                    mListener,
+                    mCreateListener);
+
+        }
+    }
+}
+
+/**
+ * 购买
+ * @ devPayLoad 订单号（自己的服务器创建的）
+ */
+private static void launchPurchase(final Activity context,
+                                   int selfRequestCode, String productName,
+                                   final String productId, String type, final String devPayLoad,
+                                   final onOneStoreSupportListener mListener) {
+    if (mPurchaseClient != null) {
+        mPurchaseClient.launchPurchaseFlowAsync(IAP_API_VERSION,
+                context, selfRequestCode, productId, productName,
+                type, devPayLoad, &quot;&quot;,
+                false, new PurchaseClient.PurchaseFlowListener() {
+
+                    @Override
+                    public void onSuccess(PurchaseData purchaseData) {
+                        Log.e(TAG, &quot;launchPurchaseFlowAsy======= &quot; + purchaseData.getDeveloperPayload() + &quot;====&quot; + devPayLoad);
+
+                    }
+
+                    @Override
+                    public void onError(IapResult result) {
+                        Log.e(TAG, &quot;launchPurchaseFlowAsync onError, &quot; + result.toString());
+                        mListener.onOneStoreError(result.toString());
+                    }
+
+                    @Override
+                    public void onErrorRemoteException() {
+                        Log.e(TAG, &quot;launchPurchaseFlowAsync onError=====onErrorRemoteException&quot;);
+                        mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_FLOW_REMOTE_ERROR);
+                    }
+
+                    @Override
+                    public void onErrorSecurityException() {
+                        Log.e(TAG, &quot;launchPurchaseFlowAsync onError=====onErrorSecurityException&quot;);
+                        mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_FLOW_SECURITY_ERROR);
+                    }
+
+                    @Override
+                    public void onErrorNeedUpdateException() {
+                        Log.e(TAG, &quot;launchPurchaseFlowAsync onError=====onErrorNeedUpdateException&quot;);
+                        mListener.onOneStoreFailed(OneStoreResult.RESULT_PURCHASES_FLOW_NEED_UPDATE);
+                        PurchaseClient.launchUpdateOrInstallFlow(context);
+                    }
+                });
+    }
+}
+
+
+/**
+ * 创建订单
+ *
+ */
+private static void getLTOrderID(final Activity activity, 
+                                 final int selfRequestCode, final String productName,
+                                 final String productId, final String type,
+                                 final onOneStoreSupportListener mListener,
+                                 final OnCreateOrderFailedListener mOrderListener) {
+                    //从服务器获取订单号然后进行购买处理
+                    launchPurchase(activity, selfRequestCode, productName, productId,
+                            type, result, mListener);
+                    mISConsume = true;
+
+}
+
+private static void uploadServer(final Context context, 
+                                 String purchase_id, String devPayLoad) {
+
+             //服务器验单成功后进行相关的操作，比如说清除没必要的缓存，等等这些操作
+
+            mISConsume = false;
+            if (!TextUtils.isEmpty(PreferencesUtils.getString(context, PURCHASE_ID))) {
+                PreferencesUtils.remove(context, PURCHASE_ID);
+            }
+            if (!TextUtils.isEmpty(PreferencesUtils.getString(context, DEVELOPER_PAYLOAD))) {
+                PreferencesUtils.remove(context, DEVELOPER_PAYLOAD);
+            }
+
+}
+
+/**
+ * 释放
+ */
+public static void release() {
+    mISConsume = false;
+    mIsInit = false;
+    if (mPurchaseClient != null) {
+        mPurchaseClient.terminate();
+        mPurchaseClient = null;
+    }
+
+}
+
+private static boolean verifyPurchase(String signedData, String signature) {
+    if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(signature)) {
+        return false;
+    }
+    PublicKey key = generatePublicKey(mPublicKey);
+    return verify(key, signedData, signature);
+}
+
+private static PublicKey generatePublicKey(String encodedPublicKey) {
+    try {
+        byte[] decodedKey = Base64.decode(encodedPublicKey, Base64.DEFAULT);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_FACTORY_ALGORITHM);
+        return keyFactory.generatePublic(new X509EncodedKeySpec(decodedKey));
+    } catch (NoSuchAlgorithmException e) {
+        throw new SecurityException(&quot;RSA not available&quot;, e);
+    } catch (InvalidKeySpecException e) {
+        Log.e(TAG, &quot;Invalid key specification.&quot;);
+        throw new IllegalArgumentException(e);
+    }
+}
+
+private static boolean verify(PublicKey publicKey, String signedData, String signature) {
+    try {
+        Signature sig = Signature.getInstance(SIGNATURE_ALGORITHM);
+        sig.initVerify(publicKey);
+        sig.update(signedData.getBytes());
+        if (!sig.verify(Base64.decode(signature, Base64.DEFAULT))) {
+            Log.e(TAG, &quot;Signature verification failed.&quot;);
+            return false;
+        }
+        return true;
+    } catch (NoSuchAlgorithmException e) {
+        Log.e(TAG, &quot;NoSuchAlgorithmException.&quot;);
+    } catch (InvalidKeyException e) {
+        Log.e(TAG, &quot;Invalid key specification.&quot;);
+    } catch (SignatureException e) {
+        Log.e(TAG, &quot;SignatureTest exception.&quot;);
+    } catch (IllegalArgumentException e) {
+        Log.e(TAG, &quot;Base64 decoding failed.&quot;);
+    }
+    return false;
+}</code></pre><p>}</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-f44ecccaf78a1878.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20190520-104328.jpg"><br><strong>如上图所示：</strong>只有点击close的时候才能支付成功，直接退出app是支付取消处理。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>补充一点，接入onestore支付的一般是面相韩国那边的app，并且大多数是游戏app，那么，就牵扯到了横屏。那么，onestore有没有横屏处理呢？当然了，在Manifest中配置就可以了。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-b1fb88294cf634cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><strong>注意：</strong>横屏的话用popup就可以了，不用选full，如果竖屏呢，写成full或者不写都是可以的。</p>
+<p>好了，以上就是这次onestore的应用内开发，如果有什么不懂的地方，或者写的不好的地方，欢迎指正。当然，也可以加群（493180098）问我</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://blog.csdn.net/leovnay/article/details/79463898" target="_blank" rel="noopener">OneStore_Android_接入</a><br>可以看看，但是讲的不是特别详细，还是要感谢上面那篇文章的作者。</p>
+<h3 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h3><p>  通过这次接入ONE store的工作完成后，充分认识了自己。以前觉得百度上找不到文档，就感觉特别慌，有点无所适从。但是，通过这次ONE store的开发，觉得，也就那样。生活本来就是这样的，都是摸着石头过河。鲁迅先生还说过：世上本没有路，走的人多了便有了路。收拾好心情，继续努力吧，少年，哈哈哈哈。</p>
+
           
-title:Android 海外应用内支付之ONE store（韩国支付SDK）集成封装前提：   之前写过一篇Android Google应用内支付,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android 海外应用内支付之ONE store（韩国支付SDK）集成封装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1232,16 +2234,477 @@ title:Android 海外应用内支付之ONE store（韩国支付SDK）集成封装
       
         
           
-          支付流程说明为了保证支付的安全，sdk采用了Android支付平台（Google Play和OneStore）验证和LT服务器验证两种方式，业务流程图如下：
-GooglePlay 接入(1)、客户端调用支付模块代码，由SDK向LT服务器发起一个订单请求；(2)、拿到服务器给的订单ID后，SDK发起G
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/SDK支付接入说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="支付流程说明"><a href="#支付流程说明" class="headerlink" title="支付流程说明"></a>支付流程说明</h3><pre><code>为了保证支付的安全，sdk采用了Android支付平台（Google Play和OneStore）验证和LT服务器验证两种方式，业务流程图如下：</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-d609964d9efb2856.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TIM图片20190118111718.png"></p>
+<h4 id="GooglePlay-接入"><a href="#GooglePlay-接入" class="headerlink" title="GooglePlay 接入"></a>GooglePlay 接入</h4><p>(1)、客户端调用支付模块代码，由SDK向LT服务器发起一个订单请求；<br>(2)、拿到服务器给的订单ID后，SDK发起Google Play支付；<br>(3)、Google Play支付返回结果后，拿到Google Play支付成功的token信息；<br>(4)、SDK把Google play返回的订单号token等信息发给服务端，LT服务器向Google Play服务器校验；<br>(5)、服务端对Google play服务器响应数据做处理和校验订单的合法性；<br>(6)、通过服务器验证的结果来确定支付的结果；<br>(7)、支付成功回调 支付成功回调的使用方法： 需要CP服务器建立一个API供乐推服务调用 回调地址所接受的参数格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">METHOD: POST </span><br><span class="line">HEADER:Content-Type:application/json</span><br></pre></td></tr></table></figure>
+
+<h4 id="Google-Play-网络库接入说明"><a href="#Google-Play-网络库接入说明" class="headerlink" title="Google Play 网络库接入说明"></a>Google Play 网络库接入说明</h4><ul>
+<li>1、接入前提<br> <strong>手机必须支持Google 服务</strong></li>
+</ul>
+<ul>
+<li><p>2、在project 下的build 导入仓库地址</p>
+<pre><code> maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>3 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>4、在moudle下面的build文件下添加网络库依赖</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKGooglePlay-Android:1.0.3&apos;</code></pre></li>
+<li><p>5、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>1、初始化参数说明</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">服务器配置的id</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">params</td>
+<td align="center">Map&lt;String,Object&gt;</td>
+<td align="center">是</td>
+<td align="left">游戏上自定义数据，可以包含充值的区服等信息</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">内购商品唯一ID</td>
+</tr>
+<tr>
+<td align="center">googlePlay</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否添加GooglePlay支付</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否是沙盒测试：1是，0否</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">Google console配置的公钥</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启Google Play支付</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">支付配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">支付回调接口</td>
+</tr>
+<tr>
+<td align="center"><strong>2、支付调用方式</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>  private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .baseUrl(baseUrl)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .publicKey(base64EncodedPublicKey)
+          .baseUrl(baseUrl)
+          .setParams(params)
+          .payTest(1)
+          .goodsID(productID, &quot;16&quot;)
+          .packageID(packageName)
+          .googlePlay(true)
+          .requestCode(selfRequestCode)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre><ul>
+<li>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</li>
+</ul>
+</li>
+</ul>
+<pre><code>      OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+    @Override
+    public void onState(Activity activity, RechargeResult result) {
+    switch (result.state) {
+    case RechargeResult.STATE_RECHARGE_SUCCESS://支付成功回调
+    mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_START://支付开始回调
+    Log.e(TAG, &quot;开始支付&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_FAILED://支付失败回调
+    Log.e(TAG, &quot;支付错误&quot; + result.getErrorMsg());
+    break;
+    }
+   }
+
+};</code></pre><ul>
+<li>3、支付开始</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setBaseUrl(baseUrl);//baseUrl（请根据具体服务器配置）
+result.setLTAppID(LTAppID); //乐推AppID
+result.setLTAppKey(LTAppKey); //乐推AppKey
+result.setSku(productID);//商品
+result.setGoodsID(&quot;16&quot;);//商品ID（在服务器配置）
+result.setPublicKey(base64EncodedPublicKey);//公钥
+result.setmPackageID(packageName);//包名
+result.setParams(params);//自定义参数（Map&lt;String,Object&gt;）
+result.setPayTest(1);//是否是沙盒测试
+
+      RechargeManager.recharge(GooglePlayActivity.this, Target.RECHARGE_GOOGLE,
+              result, mOnRechargeListener);</code></pre><ul>
+<li><p>4 、Google play 配置参考<br> <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google Play 配置参考</a></p>
+</li>
+<li><p>5、结果码（具体以接口回调结果为准）</p>
+</li>
+</ul>
+<pre><code>1、 STATE_RECHARGE_START  开始支付
+2、 STATE_RECHARGE_SUCCESS 支付成功
+3、 STATE_RECHARGE_FAILED 支付失败
+4、order create failed:user token is empty 订单创建失败：原因是乐推token为空或者未登录</code></pre><h4 id="OneStore-接入"><a href="#OneStore-接入" class="headerlink" title="OneStore 接入"></a>OneStore 接入</h4><h5 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h5><p>  <strong>手机上必须支持OneStore服务并且安装OneStore客户端</strong></p>
+<p><strong>接入说明</strong><br>如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略2、3、5配置，直接看4</p>
+<ul>
+<li><p>2、在project 下的build 导入仓库地址</p>
+<pre><code>  maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>3 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>4、在moudle下面的build文件下添加网络库依赖</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKOneStore-Android:1.0.2&apos;</code></pre></li>
+<li><p>5、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">goodsType</td>
+<td align="center">String</td>
+<td align="center">商品类型</td>
+<td align="left">商品类型（管理型商品(inapp), 包月自动支付商品(auto)</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">服务器配置的id</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">params</td>
+<td align="center">Map&lt;String,Object&gt;</td>
+<td align="center">是</td>
+<td align="left">游戏上自定义数据，可以包含充值的区服等信息</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">内购商品唯一ID</td>
+</tr>
+<tr>
+<td align="center">oneStore</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否添加OneStore支付</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否是沙盒测试：1是，0否</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">OneStore后台配置的公钥</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启OneStore支付</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">支付配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">支付回调接口</td>
+</tr>
+</tbody></table>
+<p><strong>2、支付调用方式</strong></p>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>  private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .publicKey(PUBLIC_KEY)
+          .baseUrl(baseUrl)
+          .goodsType(&quot;inapp&quot;)
+          .setParams(params)
+          .payTest(1)
+          .oneStore()
+          .goodsID(productID, &quot;11&quot;)
+          .packageID(packageName)
+          .requestCode(selfRequestCode)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre></li>
+<li><p>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</p>
+<pre><code>OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+@Override
+public void onState(Activity activity, RechargeResult result) {
+    switch (result.state) {
+        case RechargeResult.STATE_RECHARGE_SUCCESS:
+            mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+            break;
+        case RechargeResult.STATE_RECHARGE_START:
+            Log.e(TAG, &quot;开始支付&quot;);
+            break;
+        case RechargeResult.STATE_RECHARGE_RESULT:
+            switch (result.getResult()) {
+                case RESULT_BILLING_NEED_UPDATE: {
+                    Log.e(TAG, &quot;RESULT_BILLING_NEED_UPDATE&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_UN_CONNECTED: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_UN_CONNECTED&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_CONNECTED: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_CONNECTED&quot;);
+                    break;
+                }
+                case RESULT_PURCHASES_REMOTE_ERROR: {
+                    Log.e(TAG, &quot;RESULT_PURCHASES_REMOTE_ERROR&quot;);
+                    break;
+                }
+                case RESULT_PURCHASES_SECURITY_ERROR: {
+                    Log.e(TAG, &quot;RESULT_PURCHASES_SECURITY_ERROR&quot;);
+                    break;
+                }
+                case RESULT_CLIENT_NOT_INIT: {
+                    Log.e(TAG, &quot;RESULT_CLIENT_NOT_INIT&quot;);
+                    break;
+                }
+                case RESULT_BILLING_OK: {
+                    Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                    break;
+                }
+                case RESULT_CONNECTED_NEED_UPDATE: {
+                    Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                    break;
+                }
+                case RESULT_BILLING_REMOTE_ERROR: {
+                    Log.e(TAG, &quot;RESULT_BILLING_REMOTE_ERROR&quot;);
+                    break;
+                }
+                case RESULT_BILLING_SECURITY_ERROR: {
+                    Log.e(TAG, &quot;RESULT_BILLING_SECURITY_ERROR&quot;);
+                    break;
+                }
+                case IAP_ERROR_UNDEFINED_CODE: {
+                    Log.e(TAG, &quot;IAP_ERROR_UNDEFINED_CODE&quot;);
+                    break;
+                }
+            }
+            break;
+        case RechargeResult.STATE_RECHARGE_FAILED:
+            Log.e(TAG, &quot;支付错误&quot; + result.getErrorMsg());
+            break;
+
+      }
+   }
+
+ };</code></pre><ul>
+<li>3、支付开始</li>
+</ul>
+</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setBaseUrl(baseUrl);//服务器url
+result.setLTAppID(LTAppID);//乐推AppID
+result.setLTAppKey(LTAppKey);//乐推AppKey
+result.setSku(productID);//商品
+result.setGoodsID(&quot;11&quot;);//商品ID（服务器配置的）
+result.setmGoodsType(&quot;inapp&quot;);//支付类型
+result.setPublicKey(PUBLIC_KEY);//公钥
+result.setmPackageID(packageName);//包名
+result.setParams(params);//自定义参数（Map&lt;String,Object&gt;）
+result.setPayTest(1);//是否是沙盒测试
+RechargeManager.recharge(OneStoreActivity.this,     Target.RECHARGE_ONE_STORE,result, mOnRechargeListener);</code></pre><ul>
+<li>4、参考配置<br><a href="https://dev.onestore.co.kr/devpoc/reference/view/IAP_v17_cn" target="_blank" rel="noopener">OneStore 配置参考</a><br><a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">OneStore github参考</a></li>
+</ul>
+<h4 id="结果码"><a href="#结果码" class="headerlink" title="结果码"></a>结果码</h4><ul>
+<li>5、结果码（具体以接口回调结果为准）</li>
+</ul>
+<pre><code>1、 STATE_RECHARGE_START  开始支付
+2、 STATE_RECHARGE_SUCCESS 支付成功
+3、order create failed:user token is empty 订单创建失败：原因是乐推token为空或者未登录
+4、 STATE_RECHARGE_FAILED 支付失败（具体结果码参考下面的结果码）
+
+ RESULT_PAY_OK(0, &quot;Payment success&quot;) 支付成功
+ RESULT_USER_CANCELED(1, &quot;User cancel&quot;) 用户取消
+ RESULT_SERVICE_UNAVAILABLE(2, &quot;service unavailable&quot;) 未连接上服务器
+ RESULT_BILLING_UNAVAILABLE(3, &quot;billing unavailable&quot;) 不支持oneStore支付
+ RESULT_ITEM_UNAVAILABLE(4, &quot;item unavailable&quot;) 商品不可用
+ RESULT_DEVELOPER_ERROR(5, &quot;developer error&quot;)开发账户异常
+ RESULT_CONNECTED_SUCCESS(6, &quot;PurchaseClient connect success&quot;) 连接成功
+ RESULT_DISCONNECT_ERROR(7, &quot;PurchaseClient Disconnect&quot;) 连接失败
+ RESULT_CONNECTED_NEED_UPDATE(8, &quot;Connected need update&quot;) oneStore客户端需要更新
+ RESULT_BILLING_OK(9, &quot;Billing success&quot;) 支持支付
+ RESULT_BILLING_REMOTE_ERROR(10, &quot;Billing Remote Connection Failed&quot;) 查询是否支持oneStore服务时提示远端服务器连接异常（未连接到服务器）
+ RESULT_BILLING_SECURITY_ERROR(11, &quot;Billing Apply State exceptions&quot;)查询是否支持oneStore服务时提示支付状态异常
+RESULT_BILLING_NEED_UPDATE(12, &quot;Billing need update&quot;)查询是否支持oneStore服务时提示oneStore客户端需要更新
+RESULT_PURCHASES_OK(13, &quot;Purchases success&quot;)查询购买信息成功
+RESULT_PURCHASES_REMOTE_ERROR(14, &quot;Purchases Remote Connection Failed&quot;)查询购买信息时提示oneStore远程服务器连接异常（未连接到服务器）
+RESULT_PURCHASES_SECURITY_ERROR(15, &quot;Purchases Apply State exceptions&quot;)查询购买信息时提示支付状态异常
+RESULT_PURCHASES_NEED_UPDATE(16, &quot;Purchases need update&quot;)查询购买信息时提示oneStore客户端需要更新
+RESULT_CONSUME_OK(17, &quot;Consume success&quot;)消费成功
+RESULT_CONSUME_REMOTE_ERROR(18, &quot;Consume Remote Connection Failed&quot;)购买时提示远端服务器连接异常（未连接到oneStore）
+RESULT_CONSUME_SECURITY_ERROR(19, &quot;Consume Apply State exceptions&quot;)购买时提示支付状态异常
+RESULT_CONSUME_NEED_UPDATE(20, &quot;Consume need update&quot;)购买时提示oneStore客户端需要更新
+RESULT_SIGNATURE_FAILED(21, &quot;Signature failed&quot;)签名异常
+RESULT_PURCHASES_FLOW_OK(22, &quot;Purchases Flow success&quot;)购买成功
+RESULT_PURCHASES_FLOW_REMOTE_ERROR(23, &quot;Purchases Flow Remote Connection 
+Failed&quot;)购买时提示远端服务器连接异常（未连接到服务器）
+RESULT_PURCHASES_FLOW_SECURITY_ERROR(24, &quot;Purchases Flow Apply State 
+ exceptions&quot;)购买时提示支付状态异常
+RESULT_PURCHASES_FLOW_NEED_UPDATE(25, &quot;Purchases Flow need update&quot;)购买时提 
+示oneStore需要更新</code></pre>
+          
         
       
     </div>
@@ -1400,23 +2863,868 @@ GooglePlay 接入(1)、客户端调用支付模块代码，由SDK向LT服务器�
       
         
           
-          google登录接入说明
-1、在project 下的build 导入仓库地址
-maven {
+            <h3 id="google登录接入说明"><a href="#google登录接入说明" class="headerlink" title="google登录接入说明"></a>google登录接入说明</h3><ul>
+<li><p>1、在project 下的build 导入仓库地址</p>
+<pre><code>maven {
  url &quot;https://jitpack.io&quot;
- credentials { username authToken }
+ credentials { username authToken }</code></pre><ul>
+<li>}</li>
+</ul>
+</li>
+<li><p>2 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>3、在moudle下面的build文件下添加网络库依赖<br> ​     </p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKGoogle-Android:1.0.3&apos;</code></pre></li>
+<li><p>4、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>1、初始化参数说明</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">clientID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">Google平台配置的客户端ID</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启Google登录</td>
+</tr>
+<tr>
+<td align="center">LoginObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">登录配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录回调接口</td>
+</tr>
+</tbody></table>
+<p><strong>2、支付调用方式</strong></p>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .baseUrl(baseUrl)
+          .setAdID(mAdID)
+          .packageID(mPackageID)
+          .google(clientID)
+          .requestCode(REQUEST_CODE)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre><ul>
+<li><p>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</p>
+<p>  OnLoginStateListener mOnLoginListener = new OnLoginStateListener() {</p>
+<p>@Override<br>  public void onState(Activity activity, LoginResult result) {<br>  switch (result.state) {<br>   case LoginResult.STATE_SUCCESS:</p>
+<pre><code>Log.e(TAG, result.getResultModel().toString());
+mTxtResult.setText(result.getResultModel().toString());
+break;
+}
 }
 
+};</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>3、登录开始</li>
+</ul>
+<pre><code>LoginObject object = new LoginObject();
+object.setBaseUrl(baseUrl);//服务器url
+object.setmAdID(mAdID);//唯一ID（广告ID）
+object.setLTAppID(LTAppID);//乐推AppID
+object.setLTAppKey(LTAppKey);//乐推AppKey
+object.setmGoogleClient(clientID);//客户端ID
+object.setSelfRequestCode(REQUEST_CODE);//请求码
+object.setLoginOut(false);//是否清空登录信息重新登录
+object.setmPackageID(mPackageID);//包名
+LoginManager.login(GoogleActivity.this, Target.LOGIN_GOOGLE,      object, mOnLoginListener);</code></pre><ul>
+<li>4、结果码（具体以接口回调结果为准）</li>
+</ul>
+<pre><code>//开始
+STATE_START
+//成功
+STATE_SUCCESS 
+//失败
+STATE_FAIL
+//取消
+STATE_CANCEL
+//完成
+STATE_COMPLETE 
+//有效
+STATE_ACTIVE </code></pre><p><strong>注意：LoginResult</strong> 附带有登录结果 <strong>result.getResultModel().toString()</strong>为具体信息</p>
+<h4 id="Facebook登录说明"><a href="#Facebook登录说明" class="headerlink" title="Facebook登录说明"></a>Facebook登录说明</h4><p><strong>注意:如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略1、2配置，直接看3和4</strong></p>
+<ul>
+<li><p>1、在project 下的build 导入仓库地址</p>
+<pre><code>maven {</code></pre><p>   url “<a href="https://jitpack.io&quot;" target="_blank" rel="noopener">https://jitpack.io&quot;</a></p>
+<pre><code>credentials { username authToken }</code></pre><p>   }</p>
+<ul>
+<li><p>2 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<p> authToken=jp_vut53cpq7p6ot31plvu1esqa7r</p>
+</li>
+<li><p>3、在moudle下面的build文件下添加网络库依赖<br>​     </p>
+<p> implementation ‘com.github.muyishuangfeng:LTGameSDKFacebook-Android:1.0.2’</p>
+</li>
+<li><p>4、在moudle的build文件夹下的android —&gt;defaultConfig 和 android—&gt;buildTypes 下的release 和 debug下面配置 Facebook ID和scheme</p>
+<p>  defaultConfig {<br>  …<br>  manifestPlaceholders = [Facebook_app_id         : “xxx”,//FacebookID（Facebook申请的ApplicationId）</p>
+<pre><code>fb_login_protocol_scheme: &quot;xxx&quot;]//FacebookScheme</code></pre><p>  javaCompileOptions {</p>
+<pre><code>annotationProcessorOptions {
+    includeCompileClasspath false
+}</code></pre><p>  }<br>   }</p>
+<p>   buildTypes {</p>
+<pre><code>release {</code></pre><p>   …<br>   signingConfig signingConfigs.config</p>
+<pre><code>manifestPlaceholders = [Facebook_app_id         :    &quot;xx&quot;,//FacebookID（Facebook申请的ApplicationId）
+fb_login_protocol_scheme: &quot;xxx&quot;]//FacebookScheme</code></pre><p>  }<br>  debug {</p>
+<pre><code>signingConfig signingConfigs.config
+manifestPlaceholders = [Facebook_app_id         : &quot;xx&quot;,//FacebookID（Facebook申请的ApplicationId）
+                        fb_login_protocol_scheme: &quot;xxx&quot;]//FacebookScheme</code></pre><p>  }<br>}</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>1、初始化参数说明</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">否</td>
+<td align="left">是否开启debug模式</td>
+</tr>
+<tr>
+<td align="center">LT-AppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appid</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用对应的appKey</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">每个应用的包名</td>
+</tr>
+<tr>
+<td align="center">clientID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">Google平台配置的客户端ID</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">支付请求码</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">是</td>
+<td align="left">是否开启Google登录</td>
+</tr>
+<tr>
+<td align="center">LoginObject</td>
+<td align="center">bean</td>
+<td align="center">是</td>
+<td align="left">登录配置的参数</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录回调接口</td>
+</tr>
+</tbody></table>
+<p><strong>2、支付调用方式</strong></p>
+<ul>
+<li><p>1、初始化（刚进入应用或者支付页面的时候配置）</p>
+<pre><code>private void init() {
+  LTGameOptions options = new LTGameOptions.Builder(this)
+          .debug(true)
+          .appID(LTAppID)
+          .appKey(LTAppKey)
+          .baseUrl(baseUrl)
+          .setAdID(mAdID)
+          .packageID(mPackageID)
+          .facebookEnable()
+          .requestCode(REQUEST_CODE)
+          .build();
+  LTGameSdk.init(options);
+}</code></pre><ul>
+<li>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</li>
+</ul>
+</li>
+</ul>
+<pre><code> OnLoginStateListener mOnLoginListener = new   OnLoginStateListener() {
 
-2 、在 $HOME/.gradle/gradle.p
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/SDK Login/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+@Override
+ public void onState(Activity activity, LoginResult result) {
+ switch (result.state) {
+ case LoginResult.STATE_SUCCESS:
+ Log.e(TAG, result.getResultModel().toString());
+ mTxtResult.setText(result.getResultModel().toString());
+ break;
+   }
+ }
+
+  };</code></pre><ul>
+<li>3、登录开始</li>
+</ul>
+<pre><code>LoginObject object = new LoginObject();
+object.setBaseUrl(baseUrl);//服务器url
+object.setmAdID(mAdID);//唯一ID（广告ID）
+object.setLTAppID(LTAppID);//乐推AppID
+object.setLTAppKey(LTAppKey);//乐推AppKey
+object.setFacebookAppID(&quot;xxx&quot;);//Facebook的ApplicationID
+object.setSelfRequestCode(REQUEST_CODE);//请求码
+object.setLoginOut(false);//是否清空登录信息重新登录
+object.setmPackageID(mPackageID);//包名
+LoginManager.login(GoogleActivity.this, Target.LOGIN_GOOGLE, object, mOnLoginListener);</code></pre><ul>
+<li><p>4、结果码（具体以接口回调结果为准）</p>
+<pre><code>//开始
+STATE_START
+//成功
+STATE_SUCCESS 
+//失败
+STATE_FAIL
+//取消
+STATE_CANCEL
+//完成
+STATE_COMPLETE 
+//有效
+STATE_ACTIVE </code></pre></li>
+</ul>
+<p><strong>注意：LoginResult</strong> 附带有登录结果 <strong>result.getResultModel().toString()</strong>为具体信息</p>
+<h4 id="UI登录"><a href="#UI登录" class="headerlink" title="UI登录"></a>UI登录</h4><h5 id="前提（如果集成了UI包就不需要集成Google和Facebook包，UI包里面默认集成了Google和Facebook两种登录方式只需要集成UI包就可以）"><a href="#前提（如果集成了UI包就不需要集成Google和Facebook包，UI包里面默认集成了Google和Facebook两种登录方式只需要集成UI包就可以）" class="headerlink" title="前提（如果集成了UI包就不需要集成Google和Facebook包，UI包里面默认集成了Google和Facebook两种登录方式只需要集成UI包就可以）"></a>前提（如果集成了UI包就不需要集成Google和Facebook包，UI包里面默认集成了Google和Facebook两种登录方式只需要集成UI包就可以）</h5><p><strong>注意:如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略1、2、4配置，直接看3</strong></p>
+<ul>
+<li><p>1、在project 下的build 导入仓库地址</p>
+<pre><code> maven {
+  url &quot;https://jitpack.io&quot;
+  credentials { username authToken }
+}</code></pre></li>
+<li><p>2 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>3、在moudle下面的build文件下添加网络库依赖<br> ​     </p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameKoreaSDKUI-Android:1.0.1&apos;</code></pre></li>
+<li><p>4、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><p>1、登录方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">mAgreementUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">用户协议url</td>
+</tr>
+<tr>
+<td align="center">mPrivacyUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">隐私政策url</td>
+</tr>
+<tr>
+<td align="center">googleClientID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">google客户端ID</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPackageID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">包名</td>
+</tr>
+<tr>
+<td align="center">mIsLoginOut</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否清除登录信息重新登录</td>
+</tr>
+<tr>
+<td align="center">OnResultClickListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">首次登录数据回调接口</td>
+</tr>
+<tr>
+<td align="center">OnReLoginInListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">第二次登录数据回调接口</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>2、登出方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">mFacebookID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">Facebook的ApplicationID</td>
+</tr>
+<tr>
+<td align="center">mAgreementUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">用户协议url</td>
+</tr>
+<tr>
+<td align="center">mPrivacyUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">隐私政策url</td>
+</tr>
+<tr>
+<td align="center">googleClientID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">google客户端ID</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPackageID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">包名</td>
+</tr>
+<tr>
+<td align="center">mIsLoginOut</td>
+<td align="center">boolean</td>
+<td align="center">是</td>
+<td align="left">是否清除登录信息重新登录</td>
+</tr>
+<tr>
+<td align="center">OnResultClickListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登出重新登录数据回调接口</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h4><ul>
+<li>1、登录方法</li>
+</ul>
+<pre><code>  private void login() {
+    LoginUIManager.getInstance().loginIn(UIActivity.this, baseUrl,   mFacebookID,mAgreementUrl, mPrivacyUrl, clientID,LTAppID, LTAppKey, mAdID, mPackageID, false, new OnResultClickListener() {
+
+ @SuppressLint(&quot;SetTextI18n&quot;)
+ @Override
+ public void onResult(ResultData result) {
+ mTxtResult.setText(&quot;First Login=============&quot; + result.toString());
+   Log.e(&quot;ResultData&quot;, result.toString());
+  }
+ }, new OnReLoginInListener() {
+ @Override
+  public void OnLoginResult(ResultData result) {
+    mTxtResult.setText(&quot;Second Login=============&quot;  +result.toString());
+  }
+});
+}</code></pre><ul>
+<li><p>2、登出方法</p>
+<pre><code>private void loginOut() {
+  LoginUIManager.getInstance().loginOut(this, baseUrl, mFacebookID, mAgreementUrl,
+          mPrivacyUrl, clientID, LTAppID, LTAppKey, mAdID, mPackageID, true,
+          new OnResultClickListener() {
+              @SuppressLint(&quot;SetTextI18n&quot;)
+              @Override
+              public void onResult(ResultData result) {
+                  mTxtResult.setText(&quot;退出重新登录=============&quot; +result.toString());
+              }
+          });
+ }</code></pre><p>=================================================================================<br>​     <strong>注意:广告ID必须写，获取广告ID的方法如下</strong></p>
+<pre><code>Executors.newSingleThreadExecutor().execute(new Runnable() {
+      @Override
+      public void run() {
+          try {
+            String  mAdID = DeviceUtils.getGoogleAdId(Context上下文);
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      }
+  });</code></pre></li>
+</ul>
+<p> <strong>注意：兼容Android9.0 Http请求的网络请求方式</strong></p>
+<ul>
+<li>1、在res目录下创建xml文件夹</li>
+<li>2、在xml文件夹下创建network_security_config.xml文件夹</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;network-security-config&gt;
+&lt;base-config cleartextTrafficPermitted=&quot;true&quot; /&gt;
+&lt;/network-security-config&gt;</code></pre><ul>
+<li>3、在清单文件（AndroidManifest）中的Application节点下配置引用</li>
+</ul>
+<pre><code>&lt;application
+android:networkSecurityConfig=&quot;@xml/network_security_config&quot;
+/&gt;</code></pre><h4 id="手机登录"><a href="#手机登录" class="headerlink" title="手机登录"></a>手机登录</h4><p><strong>注意:如果在project下的build文件和在 $HOME/.gradle/gradle.properties 文件下添加了 token，请忽略1、2、4配置，直接看3</strong></p>
+<ul>
+<li><p>1、在project 下的build 导入仓库地址</p>
+<pre><code>maven {
+ url &quot;https://jitpack.io&quot;
+ credentials { username authToken }
+  }</code></pre></li>
+<li><p>2 、在 $HOME/.gradle/gradle.properties 文件下添加 token</p>
+<pre><code>authToken=jp_vut53cpq7p6ot31plvu1esqa7r</code></pre></li>
+<li><p>3、在moudle下面的build文件下添加网络库依赖<br> ​     </p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:LTGameSDKPhone-Android:1.0.0&apos;</code></pre></li>
+<li><p>4、在moudle的build文件夹下的android —&gt;defaultConfig 相关配置</p>
+<pre><code>defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<h4 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><p>1、登录方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是2）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+<ul>
+<li>2、注册方法</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是1）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>3、修改密码方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">activity</td>
+<td align="center">Context</td>
+<td align="center">是</td>
+<td align="left">上下文</td>
+</tr>
+<tr>
+<td align="center">baseUrl</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">根据具体服务器配置</td>
+</tr>
+<tr>
+<td align="center">LTAppID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppID</td>
+</tr>
+<tr>
+<td align="center">LTAppKey</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">乐推AppKey</td>
+</tr>
+<tr>
+<td align="center">mAdID</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">广告ID（获取方法看文档）</td>
+</tr>
+<tr>
+<td align="center">mPhone</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">手机号</td>
+</tr>
+<tr>
+<td align="center">mPassword</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">新密码</td>
+</tr>
+<tr>
+<td align="center">loginCode</td>
+<td align="center">String</td>
+<td align="center">是</td>
+<td align="left">登录标记（固定值是3）</td>
+</tr>
+<tr>
+<td align="center">OnLoginStateListener</td>
+<td align="center">Interface</td>
+<td align="center">是</td>
+<td align="left">登录数据回调接口</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="方法调用-1"><a href="#方法调用-1" class="headerlink" title="方法调用"></a>方法调用</h4><ul>
+<li>1、初始化（刚进入应用或者支付页面的时候配置）</li>
+</ul>
+<pre><code>  private void init() {
+
+LTGameOptions options = new LTGameOptions.Builder(this)
+  .debug(true)
+  .appID(LTAppID)
+  .appKey(LTAppKey)
+  .baseUrl(baseUrl)
+  .setAdID(mAdID)
+  .loginCode(&quot;1&quot;)//登录标记默认设为1
+  .phoneAndPass(mPhone, mPassword)
+  .phoneEnable()
+  .build();
+  LTGameSdk.init(options);
+ }</code></pre><ul>
+<li>2、接口回调（可以写成匿名内部类的方式也可以写成全局方式）</li>
+</ul>
+<pre><code>   OnLoginStateListener  mOnLoginListener = new OnLoginStateListener() {
+ @Override
+public void onState(Activity activity, LoginResult result) {
+switch (result.state) {
+case LoginResult.STATE_SUCCESS:
+Log.e(TAG,result.getResultModel().toString());
+mTxtResult.setText(result.getResultModel().toString());
+break;
+case LoginResult.STATE_FAIL:
+Log.e(TAG, &quot;STATE_FAIL&quot;);
+ break;
+   }
+  }
+  };</code></pre><ul>
+<li>3 登录方法调用</li>
+</ul>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mPassword);//密码
+          object.setmLoginCode(&quot;2&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre><ul>
+<li><p>3 注册方法调用</p>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mPassword);//密码
+          object.setmLoginCode(&quot;1&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre></li>
+<li><p>4修改密码方法调用</p>
+<pre><code>LoginObject object = new LoginObject();
+          object.setBaseUrl(baseUrl);//服务器url
+          object.setmAdID(mAdID);//广告ID
+          object.setLTAppID(LTAppID);//乐推appID 
+          object.setLTAppKey(LTAppKey);//乐推appKey
+          object.setmPhone(mPhone);//手机号
+          object.setmPassword(mNewPassword);//新密码
+          object.setmLoginCode(&quot;3&quot;);//登录标记
+          LoginManager.login(PhoneActivity.this, Target.LOGIN_PHONE, object, mOnLoginListener);</code></pre></li>
+</ul>
+<h3 id="方法回调"><a href="#方法回调" class="headerlink" title="方法回调"></a>方法回调</h3><pre><code>1、200（“OK”） 成功
+2、400 （“NO&quot;）失败</code></pre>
+          
         
       
     </div>

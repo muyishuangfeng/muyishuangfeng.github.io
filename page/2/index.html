@@ -388,17 +388,74 @@
       
         
           
-          前提：   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。
-准备条件
-nginx
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/windows-下基于nginx和ffmpeg的rtmp流媒体服务器搭建/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><p>   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。<br>ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。</p>
+<h3 id="准备条件"><a href="#准备条件" class="headerlink" title="准备条件"></a>准备条件</h3><ul>
+<li><p><a href="https://link.jianshu.com?t=http%3A%2F%2Fnginx-win.ecsds.eu%2Fdownload%2Fnginx%25201.7.11.3%2520Gryphon.zip" target="_blank" rel="noopener">nginx-rtmp-module（带rtmp模块）</a></p>
+<ul>
+<li><a href="https://pan.baidu.com/s/1QkD7zMgiIDhgvPI8e1GkLw" target="_blank" rel="noopener">ffmpeg</a> 密码：eha3</li>
+<li><a href="https://pan.baidu.com/s/1MJ99kRlyaPUXkEODXMEq2w" target="_blank" rel="noopener">screencapturer</a> 密码：ypgz （是一个虚拟设备，在使用FFMpeg之前，需要安装）</li>
+<li><a href="https://pan.baidu.com/s/1lEUwLWOGimEijEA4DEk03w" target="_blank" rel="noopener">vlc播放器</a> 密码：3yjf</li>
+</ul>
+<p>######首先 nginx-rtmp-module是nginx的一个组件，可以自己编译生成，也可以从网上下载。需要注意的是，从nginx官网上下载的版本是不带rtmp模块的，但您可以通过： <a href="https://link.jianshu.com?t=http%3A%2F%2Fnginx-win.ecsds.eu%2F" target="_blank" rel="noopener">http://nginx-win.ecsds.eu/</a>找到包含rtmp组件的nginx版本，比如：nginx 1.7.8.1 Gryphon<br>然后，解压按下ctrl+R键输入cmd打开命令行窗口，切换到解压的路径下，输入nginx -V 查看 nginx版本，如下图所示表示成功：<br><img src="https://upload-images.jianshu.io/upload_images/1716569-bc4e73c2489ed0ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看nginx版本.png"></p>
+</li>
+</ul>
+<ul>
+<li>conf 下的nginx.conf配置文件（如果没有需要自己新建）<br>如下图所示路径：<br><img src="https://upload-images.jianshu.io/upload_images/1716569-fae932939f8505b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx配置文件路径.png"><br><strong>PS：下图是nginx配置文件，如果没有需要自己手动创建</strong></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c044fd512ee17214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx配置文件.png"></p>
+<ul>
+<li><p>nginx.conf的配置内容</p>
+<pre><code>  #将以下内容拷贝到conf/nginx.conf文件中。
+#nginx进程数，建议设置为等于CPU总核心数
+worker_processes  2;
+#工作模式与连接数上限
+ events {</code></pre><p>  ​     worker_connections  8192;</p>
+<pre><code> }
+
+ rtmp_auto_push on;
+
+rtmp {
+server {</code></pre><p>  ​    listen 1935;<br>  ​    application myapp {<br>  ​        live on;<br>  ​    }       </p>
+<pre><code> }
+}</code></pre></li>
+<li><p>nginx启动方式<br><img src="https://upload-images.jianshu.io/upload_images/1716569-d2f22a0cf1def188.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx启动方式.png"><br>如上图所示：切换到你的nginx安装路径下然后输入 start nginx即可启动<br><strong>注意：</strong> 启动也可以输入 nginx.exe -c conf\nginx-win-rtmp.conf，这种方法带来的问题是不能优雅退出，<strong>切记！</strong><br>然后打开任务管理器可以看到nginx进程已经启动,如下图所示：</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-dcea9e15095c0afc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx进程.png"></p>
+<h3 id="其次，基于ffmpeg的推拉流测试"><a href="#其次，基于ffmpeg的推拉流测试" class="headerlink" title="其次，基于ffmpeg的推拉流测试"></a>其次，基于ffmpeg的推拉流测试</h3><pre><code>    ffmpeg是一个自由软件，它提供了一整套多媒体的解决方案，从采集、编码、转换、播放应有尽有。
+在流媒体应用领域不借助 ffmpeg 的力量，就好比做 windows 程序而不用 Visual Studio ，做 iOSApp 
+不用 XCode 一样，需要很大的勇气。</code></pre><ul>
+<li>ffmpeg 安装<br> 解压ffmpeg到指定文件夹下，我这里是在D盘的ProgramFile下的ffmpeg路径，然后将ffmpeng的bin路径添加到系统的path路径下<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-e91f1f69260693f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FFMPEGbin路径.png"></li>
+</ul>
+<p><strong>注意：</strong>里面的里面的两个视频文件是我添加进去的，没有什么作用。<br>将D:\ProgramFile\ffmpg\ffmpeg-win64\bin 添加到环境变量的PATH后面，当然要根据你自己的安装路径配置环境变量。</p>
+<ul>
+<li><p>1、 ffmpeg实现录屏推流<br>打开windows命令行在命令行下输入：</p>
+<pre><code>ffmpeg -f gdigrab -i desktop -r 16 -vcodec h264 -acodec aac -f flv 
+rtmp://192.168.0.197/myapp/pc</code></pre><p><strong>注意:</strong> 这是一行命令行下的，没有空格，这里是方便你们查看。如下图所示，推流已经开始了。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-14bff993d2b3701d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ffmpeg推流.png"></p>
+</li>
+<li><p>vlc串流配置<br> 打开vlc客户端，点击媒体，在下拉框选项中选中<strong>打开网络串流</strong>这一个选项，会弹出如下图所示的对话框，在对话框中填入刚才第二行连接（ rtmp://192.168.0.197/myapp/pc）即可，当然我这个是在局域网下面的。<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-c5f7e6ae5b3f0f66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vlcrtmp串流配置.png"></p>
+</li>
+</ul>
+<p><strong>解释：</strong></p>
+<ul>
+<li><p>1、myapp为application的名字，由nginx的conf中定义</p>
+</li>
+<li><p>2、pc为直播流的名字，由推送方定义</p>
+</li>
+<li><p>2、ffmpeg播放视频文件<br> 切换到保存视频文件的路径下，我这里是在nginx路径下，如下图所示：<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-773ed2e5c0f474d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ffmpeg视频文件.png"></p>
+</li>
+</ul>
+<p>那么对应的命令就是这样写：</p>
+<pre><code>ffmpeg -re -i gdiOut.avi -vcodec libx264 -acodec aac -f flv 
+rtmp://192.168.0.197:1935/myapp/home</code></pre><p><strong>解释：</strong></p>
+<ul>
+<li>1、myapp为application的名字，由nginx的conf中定义</li>
+<li>2、home为直播流的名字，由推送方定义</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><pre><code>  经过两天的采坑不断尝试终于搞定了服务器这块，下来直播的还需要自己去努力完成了。我相信有志者事竟成，
+一定会死磕到底，去解决那个难题。</code></pre><h4 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h4><p><a href="https://www.jianshu.com/p/e5a1510de26a" target="_blank" rel="noopener">第一讲：win7下快速搭建媒体服务器的方法</a><br><a href="https://www.jianshu.com/p/4f96e18827e2" target="_blank" rel="noopener">Nginx搭建RTMP推拉流服务器</a><br>另外推荐一个Android交流群493180098，如需转载请标明出处，谢谢。</p>
+
+          
         
       
     </div>
@@ -557,18 +614,127 @@ nginx
       
         
           
-          一、前提：    一直想着写一篇关于搭建个人博客的文章，但是最近总是被各种琐事缠身,抽不开身。
+            <h3 id="一、前提："><a href="#一、前提：" class="headerlink" title="一、前提："></a>一、前提：</h3><pre><code>    一直想着写一篇关于搭建个人博客的文章，但是最近总是被各种琐事缠身,抽不开身。
 PS:（其实还不是因为自己最近懒了，手动捂脸），今天终于有时间来写一篇文章了。网上
 有很多关于搭建个人博客的文章，有的需要购买域名有的需要买服务器，并且需要收费，本着
-绿色无污染（免费）的原则，来开始我们
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/专属博客，你值得拥有（Windows-版本）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+绿色无污染（免费）的原则，来开始我们的旅程。</code></pre><p>###二、准备条件</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-495847ccd2ed55aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo.png"></p>
+<ul>
+<li><p><strong>NodeJs</strong></p>
+<pre><code>Nodejs框架是基于V8的引擎，是目前速度最快的Javascript引擎。chrome浏览器就基于V8，同时打开20-30个网页都很流畅。</code></pre><p>   Nodejs标准的web开发框架Express，可以帮助我们迅速建立web站点，比起PHP的开发效率更高，而且学习曲线更低。非常适合小型网站，<br>   个性化网站，我们自己的Geek网站！！</p>
+<pre><code>JS是脚本语言，脚本语言需要一个解析器才能运行。对于写在HTML页面里面的JS，</code></pre><p>   浏览器充当了解析器的角色。而对于需要独立运行的JS，NodeJS就是一个解析器。</p>
+<pre><code>   每种解析器就是一个运行环境，不但允许JS定义各种数据结构，进行各种计算，还允许JS使用运行环境提供的内置对象和方法做一些事情。
+例如运行在浏览器中的JS的用途是操作DOM，浏览器就提供了document之类的内置对象。而运行在NodeJS中的JS的用途是操作磁盘文件或者搭
+建HTTP服务器，NodeJS就相应提供了fs、http等内置对象。</code></pre></li>
+<li><p><strong>Hexo</strong></p>
+<p>  Hexo 是一款基于Node.js、快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 <a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">官网及文档</a></p>
+</li>
+<li><p><strong>github</strong></p>
+<p>  GitHub is the single largest host for Git repositories, and is the central point of collaboration for millions of developers and projects. A large percentage of all Git repositories are hosted on GitHub, and many open-source projects use it for Git hosting, issue tracking, code review, and other things. So while it’s not a direct part of the Git open source project, there’s a good chance that you’ll want or need to interact with GitHub at some point while using Git professionally.（摘自官方文档）<br>  <strong>英文有限，我就直接翻译一下，可能会有点辣眼睛</strong></p>
+<pre><code> GitHub 是 Git 存储库的最大主机, 是数以百万计的开发人员和项目协作的中心点。所有 git 存储库中有很大一部分驻留在 GitHub 上, 
+许多开源项目都使用它来进行 git 托管、问题跟踪、代码审阅和其他操作。因此, 虽然它不是 Git 开源项目的直接部分, 但在使用 Git 的
+专业性时, 您可能希望或需要与 GitHub 进行交互。 </code></pre></li>
+<li><p><strong>Markdown</strong></p>
+<pre><code>  Markdown 是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，
+然后转换成有效的XHTML(或者HTML)文档”。[1]这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
+
+优点：
+
+1、简单，容易上手
+2、纯文本实现，程序员最爱，容易扩展，方便和其他工具联动
+3、平台支持广：以Github为首的各种平台、各种博客都支持，基本上现在面向程序员的输入框都可以用Markdown来写了
+4、丰富的工具链
+5、编辑器：各种支持所见即所得的编辑器
+6、和各种其他格式互相转化的工具。PDF、Mobi、Epub、HTML等等，几乎你能想到的所有格式它都能转换。</code></pre><p>  ###三、软件安装</p>
+</li>
+<li><p>NodeJS <a href="http://nodejs.cn/download/" target="_blank" rel="noopener">下载地址</a><br><img src="https://upload-images.jianshu.io/upload_images/1716569-1d74ef7f690a32dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NodeJs.png"><br>PS：软件安装直接设置一个路径就OK了，我是安装在E盘下的E:\ProgramFiles\NodeJs中，当然默认也可以，但是需要你记住路径即可。</p>
+</li>
+<li><p>git <a href="https://git-scm.com/download" target="_blank" rel="noopener">下载地址</a><br>  ​    <img src="https://upload-images.jianshu.io/upload_images/1716569-e72b3ed0e216803a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="git.png"><br>  PS：和上面那个设置差不多软件安装直接设置一个路径就OK了，我是安装在E盘下的E:\ProgramFiles\git，当然默认也可以，但是需要你记住路径即可。<br>  ​                                        </p>
+</li>
+</ul>
+<p>+Typora(MarkDown编辑器)<a href="https://typora.io/?mt=8&uo=4&ct=appcards#windows" target="_blank" rel="noopener">下载地址</a><br><img src="https://upload-images.jianshu.io/upload_images/1716569-839f280b6d59f4d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MarkDown.png"></p>
+<p>PS:和上面那个设置差不多软件安装直接设置一个路径就OK了，我是安装在E盘下的E:\ProgramFiles\MarkDown，当然默认也可以，但是需要你记住路径即可。</p>
+<h3 id="四、环境变量配置"><a href="#四、环境变量配置" class="headerlink" title="四、环境变量配置"></a>四、环境变量配置</h3><p>  1、右击属性电脑—&gt;属性打开—&gt;高级系统设置——-&gt;环境变量—&gt;path，点击编辑在里面，输入你的NodeJS的安装路径即可，E:\ProgramFiles\NodeJs是我的NodeJs的安装目录，<strong>注意:</strong>你配环境变量的时候要配你自己安装的目录。配环境变量是为了让windows的命令行能调用到NodeJS里面的命令。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-46fe2b7da44d7ac1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="环境变量.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-dbad1173e4e19f74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="环境变量配置.png"></p>
+<p>2、安装Hexo<br>  <strong>第一步：</strong>打开命令行</p>
+<pre><code>在键盘中直接按下win+R键打开运行窗口，输入cmd打开命令行</code></pre><p><strong>第二步：</strong>进入安装NodeJs路径<br><img src="https://upload-images.jianshu.io/upload_images/1716569-cbb8e80e462f8670.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nodejs路径.png"></p>
+<p><strong>第三步：</strong>开始安装hexo，利用 npm 命令即可安装。 </p>
+<pre><code>npm install -g hexo</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-8399996f7686d92e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="安装hexo.png"></p>
+<h2 id="开始搭建博客"><a href="#开始搭建博客" class="headerlink" title="开始搭建博客"></a><strong>开始搭建博客</strong></h2><p> 稍作等待，即可安装成功。接下来，执行</p>
+<pre><code>mkdir blog &amp;&amp; cd blog</code></pre><p>此处blog便是你的博客目录，当然其他什么名字也是极好的，看心情了，此时最好将此目录备份到云盘或者其他地方，以防文件夹丢失后博客就没有了。</p>
+<p>然后执行</p>
+<pre><code>hexo init</code></pre><p>安装依赖包</p>
+<pre><code>npm install</code></pre><p>至此，博客搭建成功！当然，仅仅是本地的了。此时执行</p>
+<pre><code>hexo g</code></pre><p>即可生成静态页面，然后执行</p>
+<pre><code>hexo s</code></pre><p>访问<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000</a>即可看到你的博客(运行了是这样的如下图所示)。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-20eadacf934c3be8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo页面.png"> </p>
+<p>如果想让放到网上该怎么办呢？那就接着往下看咯。<strong>注意：</strong>暂时别关你的cmd窗口。</p>
+<p>###五、部署博客到github</p>
+<ul>
+<li>1、<strong>注册账号</strong></li>
+</ul>
+<p>The first thing you need to do is set up a free user account. Simply visit<a href="https://github.com/" target="_blank" rel="noopener">https://github.com</a>, choose a user name that isn’t already taken, provide an email address and a password, and click the big green “Sign up for GitHub” button.</p>
+<p>你所要做的第一件事就是创建一个免费的用户账号。简单地访问<a href="https://github.com，选择一个未被使用过的用户名，提供一个邮箱地址以及密码，并点击写着“sign" target="_blank" rel="noopener">https://github.com，选择一个未被使用过的用户名，提供一个邮箱地址以及密码，并点击写着“sign</a> up for GitHub”的绿色按钮。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716569-ee7da9c152bae6e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>经过邮箱认证后，该账号就会被激活的。</p>
+<ul>
+<li>2、<strong>创建一个仓库</strong></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d449a8a7fa71742b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建仓库.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-7515bc5507eaca67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建仓库1.png"></p>
+<p><strong>注</strong>：Github Pages的Repository名字是特定的，比如我Github账号是muyishuangfeng，那么我Github Pages Repository名字就是muyishuangfeng.github.io(因为我之前创建过自己的个人博客了所以输入muyishuangfeng.github.io时是已经存在的<strong>如下图所示</strong>，为了说明所以多加了一个s)。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-9528d19c75e7dfbe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建仓库2.png"></p>
+<ul>
+<li><strong>3、设置github pages</strong></li>
+</ul>
+<p>创建成功后，回到主页面，点击进入你刚刚创建好的仓库</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-47137519f9d9b24d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gitpages.png"></p>
+<p>接着点击settings，进入仓库管理<br><img src="https://upload-images.jianshu.io/upload_images/1716569-ab04f2de356b65ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gitpages.png"></p>
+<p>选择主题并发布</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-8099382d7bc34b48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择主题.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-e3347176faf167de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主题.png"></p>
+<p> 更新你的站点（点击链接即可进入，<strong>注意:</strong>这里为了让大家看清楚效果，申请了另外一个账号进行演示的，其实都是一样的。）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-e228cb8f322a5f3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="更新站点.png"></p>
+<p>至此，你的github pages就发布成功了。试试在浏览器的地址栏输入”你github的用户名.github.io”吧！<br>我的效果如下图所示：（比较丑，当然这还没有结束）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-0035c5fb38ba692a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="站点效果.png"></p>
+<p>现在回到你的 github仓库,并且复制地址<br><img src="https://upload-images.jianshu.io/upload_images/1716569-2b4310c5e075441a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="复制仓库地址.png"></p>
+<p>打开你安装好的NodeJS的根目录，然后点击进入刚刚新建的blog文件夹：（右击_config.yml打开配置文件）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-438476f72b160d2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打开配置文件.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-443d717e1e4df720.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置.png"><br><strong>注意：</strong>地址是你自己的地址。</p>
+<ul>
+<li><p><strong>4、 更新</strong><br>接下来，回到你的cmd窗口，只需执行两个命令：</p>
+<pre><code>npm install hexo-deployer-git --save （这命令是为了解决hexo新版本的部署问题）
+
+hexo g 回车 （这是重新生成blog）
+
+hexo d 回车 （这是将本地blog部署到github的仓库）
+
+现在，试试在浏览器的地址栏输入：“你的用户名.github.io”，此时，你应该会看到这样的界面（我这个 经配置过样式的博客）：</code></pre></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-50b74d6dc0ef2b68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="个人博客.png"></p>
+<h3 id="六、主题配置"><a href="#六、主题配置" class="headerlink" title="六、主题配置"></a>六、主题配置</h3><p>接下来，开始对博客进行一番改造。毕竟博客是自己精神上的一个家园，当然要装饰打造一番了。</p>
+<p>首先嘛，自然是进行主题的选择了，主题在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">这里</a>。选择好一个主题之后，就是进行主题的安装了。在刚刚那个网站上，点击右边的链接可以看到主题的Demo，选则一个喜欢的主题然后点击左边的链接进入github上：（我这里的是NexT）<br>​<br><img src="https://upload-images.jianshu.io/upload_images/1716569-5c1a5e341a5966ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样式.png"><br><strong>clone 主题样式</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-ba7010b4d820db43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主题设置.png"></p>
+<h3 id="第一步：克隆主题到本地-themes目录下"><a href="#第一步：克隆主题到本地-themes目录下" class="headerlink" title="第一步：克隆主题到本地 themes目录下"></a><strong>第一步：克隆主题到本地 themes目录下</strong></h3><p>然后命令行进入到你的博客目录的themes目录下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1716569-929e3da19a6dc151.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>点击鼠标右键，打开github bash执行下面语句：</p>
+<p> <a href="git@github.com:iissnan/hexo-theme-next.git">git clone主题</a><br> 或者<br> git clone <a href="https://github.com/iissnan/hexo-theme-next.git" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next.git</a></p>
+<p>（这个是刚刚那个页面的Install下的命令 ）</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-3fa77d6a1c2f003c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="clone样式.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-4495b0568517ba35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="next.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-dcbbcd04f1ddf02a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ图片20180520215416.png"></p>
+<p>其中git clone后面的链接为你进入的主题的链接地址，themes/NexT为你的保存目录，此处以NexT主题为栗子，具体的以你选择的主题为准。</p>
+<h3 id="第二步：配置你将要生成的博客主题为刚刚克隆的主题"><a href="#第二步：配置你将要生成的博客主题为刚刚克隆的主题" class="headerlink" title="第二步：配置你将要生成的博客主题为刚刚克隆的主题"></a><strong>第二步：配置你将要生成的博客主题为刚刚克隆的主题</strong></h3><p>然后进入到/blog/_config.yml里面，将theme改为你刚刚下载保存的主题的名字，我这里是NexT。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-b34120f94c44b72b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主题.png"></p>
+<p>然后回到命令行，执行:</p>
+<pre><code>hexo g 回车 （这是重新生成blog）
+
+hexo d 回车 （这是将本地blog部署到github的仓库）</code></pre><p>好了，试试在浏览器的地址栏输入：“你的github用户名.github.io”，你将会看到如下主题的blog页面/：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-50b74d6dc0ef2b68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="个人博客.png"></p>
+<h2 id="编写与发布博客"><a href="#编写与发布博客" class="headerlink" title="编写与发布博客"></a><strong>编写与发布博客</strong></h2><p><img src="https://upload-images.jianshu.io/upload_images/1716569-67320394dda97e1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编写博客.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-7e12fec725b08141.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="博客文章.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-f1db5dddfc09cf14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="markdown.png"></p>
+<p>怎么发布到github的博客呢？还是老样子啊：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-24539b1af0c1363a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同步.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-deeb1e793f9f3ccd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="保存.png"></p>
+<p>接着：</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>   终于奋战了好几个小时一份热乎的搭建博客的文章出来了，这里需要感谢开源网站和各种好用软件的支持了。<br>感谢冯皓林的 <a href="http://www.cnblogs.com/dantefung/p/d8c48ba8030bcab7cfc364d423186fee.html" target="_blank" rel="noopener">《Hexo+github搭建个人博客》</a><br>感谢 GitHub、Git、NodeJs<br>如果有写的不对的地方还请各位不吝赐教。<br><a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" rel="noopener">我的简书</a><br><a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" rel="noopener">我的掘金</a><br><a href="https://github.com/muyishuangfeng" target="_blank" rel="noopener">我的github</a><br><a href="https://muyishuangfeng.github.io/" target="_blank" rel="noopener">我的个人博客</a><br> <strong>小弟就厚着脸皮说欢迎关注哈</strong></p>
+
+          
         
       
     </div>
@@ -727,17 +893,218 @@ PS:（其实还不是因为自己最近懒了，手动捂脸），今天终于�
       
         
           
-          前言之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。
-首先 在将socket编程前，先了解一下socket的知识。
-TCP/IP协议我们举个不恰当的例子：比
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-Socket编程（tcp）初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直对socket编程这块比较陌生，并且在刚开始工作的时候比较抗拒。其实，都是因为当时自己比较菜，这块比较难处理，在舒适区呆的习惯了。所以，还是应该让自己走出舒适区，多接触一些陌生的区域。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p> 在将socket编程前，先了解一下socket的知识。</p>
+<h4 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP/IP协议"></a>TCP/IP协议</h4><p>我们举个不恰当的例子：比如通过QQ和服务器进行通信，都需要哪些东西呢？<br>两台电脑建立连接进行通信，需要知道双方的地址（也就是IP地址）；知道两台电脑的IP地址之后，我们还需要知道我发送到目标电脑的目标软件（使用端口标记）。如果两台电脑连接成功之后就可以进行通信了。<br>那么这些东西如何进行规定的呢，这就需要有一定的通讯协议，比如我和张三约定在西安钟楼见面，然后两个人都必须手拿一把白色茉莉花。只有当我们双方见面并且看到对方拿的是我们之前商量好的白色茉莉花才可以进行通讯。那么，这个白色茉莉花就是我们之间的约定，也就是socket中的协议。大家都使用这个协议，统一成一个规范，这样符合这个规范的各种设备之间能够进行兼容性的通信。<br>最为广泛的的协议就是OSI协议和TCP/IP协议了，但是OSI协议较为繁琐，未推广（想了解的自己Google）。反而TCP/IP(transfer control protocol/internet protocol,传输控制协议/网际协议)协议简单明了，得到现今的广泛使用。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-ff87e4994d2b6574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="协议.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-3fa7b4355b1c03e6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="协议传输示意图.jpg"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p> 说了那么多的文字性描述，那么接下来看看我们的基于TCP协议的客户端和服务端实现</p>
+<ul>
+<li><p>客户端图片<br> 这里封装到了线程中，如果需要修改，那么自行修改，小可这里只是抛砖引玉，废话不说先上图<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-a0dfc130f99a50e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tcp客户端.png"></p>
+</li>
+<li><p>客户端代码（线程中）<br><strong>代码中的注释比较详细，我这里就不逐一解释了</strong></p>
+<pre><code>public class TcpClientThread extends Thread {
+
+//IP地址
+private String address;
+//端口
+private int port;
+//发送内容
+private String msg;
+private Handler mHandler;
+
+public TcpClientThread(Handler handler, String address, int port, String msg) {
+  this.mHandler = handler;
+  this.address = address;
+  this.port = port;
+  this.msg = msg;
+}
+
+@Override
+public void run() {
+  super.run();
+  sendSocket();
+}
+
+/**
+ * 设置
+ */
+private void sendSocket() {
+  InputStreamReader reader = null;
+  BufferedReader bufReader = null;
+  Socket socket = null;
+  try {
+      //1.创建监听指定服务器地址以及指定服务器监听的端口号
+      //IP地址，端口号
+      socket = new Socket(address, port);
+      // 2.拿到客户端的socket对象的输出流发送给服务器数据
+      OutputStream os = socket.getOutputStream();
+      //写入要发送给服务器的数据
+      os.write(msg.getBytes());
+      os.flush();
+      socket.shutdownOutput();
+      //拿到socket的输入流，这里存储的是服务器返回的数据
+      InputStream is = socket.getInputStream();
+      //解析服务器返回的数据
+      reader = new InputStreamReader(is);
+      bufReader = new BufferedReader(reader);
+      String s = null;
+      final StringBuffer sb = new StringBuffer();
+      while ((s = bufReader.readLine()) != null) {
+          sb.append(s);
+      }
+      sendMsg(0, sb.toString());
+  } catch (UnknownHostException e) {
+      e.printStackTrace();
+  } catch (IOException e) {
+      e.printStackTrace();
+  } finally { //3、关闭IO资源
+      try {
+          if (bufReader != null)
+              bufReader.close();
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
+      try {
+          if (socket != null)
+              socket.close();
+      } catch (IOException ex) {
+          ex.printStackTrace();
+      }
+
+  }
+ }
+
+/**
+ * 发送消息
+ */
+private void sendMsg(int what, Object object) {
+  Message msg = new Message();
+  msg.what = what;
+  msg.obj = object;
+  mHandler.sendMessage(msg);
+}
+}</code></pre></li>
+<li><p>客户端（Activity中使用）</p>
+<pre><code>public class TcpClientActivity extends AppCompatActivity 
+   implements   View.OnClickListener {
+
+  EditText mEdtContent;
+ TextView mTxtContent;
+ Button mBtnSend;
+ String address = &quot;192.168.0.197&quot;;
+ int port = 12345;</code></pre></li>
+</ul>
+<pre><code> @Override
+ protected void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_tcpclient);
+  initView();
+ }
+
+private void initView() {
+  mEdtContent = findViewById(R.id.edt_content);
+  mBtnSend = findViewById(R.id.btn_send);
+  mTxtContent = findViewById(R.id.txt_content);
+  mBtnSend.setOnClickListener(this);
+}
+
+ @Override
+ public void onClick(View view) {
+  switch (view.getId()) {
+      case R.id.btn_send: {//发送
+          TcpClientThread mThread = new TcpClientThread(mHandler, address, port,
+                  mEdtContent.getText().toString());
+          mThread.start();
+
+          break;
+      }
+  }
+}
+
+/**
+ * Handler
+ */
+private Handler mHandler = new Handler(Looper.myLooper()) {
+  @Override
+  public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what) {
+          case 0: {
+              String content= (String) msg.obj;
+              mTxtContent.setText(content);
+              break;
+          }
+      }
+  }
+};
+}</code></pre><ul>
+<li><p>服务端（图片）</p>
+<p> <img src="https://upload-images.jianshu.io/upload_images/1716569-603d01c240080afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tcp服务端.png"></p>
+</li>
+<li><p>服务端（代码–&gt;线程中）</p>
+<pre><code>public class TcpServerThread extends Thread {</code></pre><p>   private Socket socket;</p>
+<p>  /**</p>
+<ul>
+<li><p>初始化</p>
+</li>
+<li></li>
+<li><p>@param socket<br>   */</p>
+<pre><code>public TcpServerThread(Socket socket) {</code></pre><p>   this.socket = socket;</p>
+<pre><code>}</code></pre><p>@Override<br>public void run() {<br>​    super.run();</p>
+<p>InputStreamReader reader = null;<br>BufferedReader bufReader = null;<br>OutputStream os = null;<br>try {<br>   reader = new InputStreamReader(socket.getInputStream());<br>   bufReader = new BufferedReader(reader);<br>   String s = null;<br>   StringBuffer sb = new StringBuffer();<br>   while ((s = bufReader.readLine()) != null) {</p>
+<pre><code>sb.append(s);</code></pre><p>   }<br>   System.out.println(“服务器：” + sb.toString());<br>   // 关闭输入流<br>   socket.shutdownInput();</p>
+<p>   // 返回给客户端数据<br>   os = socket.getOutputStream();<br>   os.write((“我是服务端,客户端发给我的数据就是：” + sb.toString()).getBytes());<br>   os.flush();<br>   socket.shutdownOutput();<br>} catch (IOException e2) {<br>   e2.printStackTrace();<br>} finally {// 关闭IO资源<br>   if (reader != null) {</p>
+<pre><code>try {
+    reader.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }</p>
+<p>   if (bufReader != null) {</p>
+<pre><code>try {
+    bufReader.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }<br>   if (os != null) {</p>
+<pre><code>try {
+    os.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}</code></pre><p>   }<br> }</p>
+<p>}</p>
+<p>}</p>
+</li>
+</ul>
+</li>
+<li><p>服务端（调用）</p>
+<pre><code>public class TcpServer {
+
+   /**
+    * @param args
+    */
+      public static void main(String[] args) {
+      try {
+    ​     @SuppressWarnings(&quot;resource&quot;)
+    ​    ServerSocket serverSocket = new ServerSocket(12345);
+    ​    while (true) {
+    ​        System.out.println(&quot;Server开始~~~监听~~~&quot;);
+    ​        // accept方法会阻塞，直到有客户端与之建立连接
+    ​        Socket socket = serverSocket.accept();
+    ​        TcpServerThread serverThread = new TcpServerThread(socket);
+    ​        serverThread.start();
+    ​    }
+    } catch (IOException e) {
+    ​    e.printStackTrace();
+      }
+      }
+
+  }</code></pre></li>
+<li><p>说明<br>这里用了一个while循环，然后就可以无限接收客户端发送的数据，如果把while中的条件改成你需要的，就会实现你所需要的东西。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 刚开始写的时候自己也是一脸懵逼，克服了重重困难才做了出来，当然这种也不是最终的，没有加入自己的协议。需要根据自己的实际需求做出来，然后改成自己的需要的东西。</p>
+<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p><a href="https://www.jianshu.com/p/fb4dfab4eec1" target="_blank" rel="noopener">Android网络编程之–Socket编程</a></p>
+</li>
+</ul>
+
+          
         
       
     </div>
@@ -896,20 +1263,177 @@ TCP/IP协议我们举个不恰当的例子：比
       
         
           
-          前言  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。
-首先 先上图，俗话说no pic say a xx
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>  昨天刚把socket tcp编程简单讲解了，今天趁热打铁把udp编程也讲一下。一个是为了提醒自己，坚持下去，另外还是为了提升技术打下基础。如果讲的有什么不对的还请各位指正。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p> 先上图，俗话说no pic say a xx<br><img src="https://upload-images.jianshu.io/upload_images/1716569-021209115a4e12a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程服务端.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c396df1b7f103409.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="udp编程客户端.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li><p>客户端代码（线程中）</p>
+<pre><code>public class UdpClientThread extends Thread {
 
-其次
-客户端代码（线程中）
-public class UdpCl
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-Socket编程（udp）初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+//IP地址
+private String mAddress;
+//端口
+private int port;
+//发送内容
+private String msg;
+private Handler mHandler;
+
+public UdpClientThread(Handler handler, String address, int port, String msg) {
+  this.mHandler = handler;
+  this.mAddress = address;
+  this.port = port;
+  this.msg = msg;
+}
+
+@Override
+public void run() {
+  super.run();
+  sendSocket();
+}
+
+/**
+ * 设置
+ */
+private void sendSocket() {
+  byte[] bytes = msg.getBytes();
+  try {
+      /*******************发送数据***********************/
+      InetAddress address = InetAddress.getByName(mAddress);
+      //1.构造数据包
+      DatagramPacket packet = new DatagramPacket(bytes, 
+bytes.length, address, port);
+      //2.创建数据报套接字并将其绑定到本地主机上的指定端口。
+      DatagramSocket socket = new DatagramSocket();
+      //3.从此套接字发送数据报包。
+      socket.send(packet);
+      /*******************接收数据***********************/
+      //1.构造 DatagramPacket，用来接收长度为 length 的数据包。
+      final byte[] bytes1 = new byte[1024];
+      DatagramPacket receiverPacket = new DatagramPacket(bytes1, bytes1.length);
+      socket.receive(receiverPacket);
+      sendMsg(0,new String(bytes1, 0, bytes1.length));
+      socket.close();
+  } catch (UnknownHostException e) {
+      e.printStackTrace();
+  } catch (SocketException e) {
+      e.printStackTrace();
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+/**
+ * 发送消息
+ */
+private void sendMsg(int what, Object object) {
+  Message msg = new Message();
+  msg.what = what;
+  msg.obj = object;
+  mHandler.sendMessage(msg);
+ }
+ }</code></pre><p><strong>说明:</strong>这里的封装和tcp中的一样，就是换一下参数和包装类，代码中的解释都比较清楚。</p>
+</li>
+<li><p>客户端（使用）</p>
+<pre><code>public class UdpClientActivity extends AppCompatActivity
+  implements View.OnClickListener {
+
+Button mBtnSend;
+String mAddress = &quot;192.168.0.197&quot;;
+int port = 12306;
+TextView mTxtContent;
+EditText mEdtContent;
+
+@Override
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_udp_client);
+  initView();
+}
+
+private void initView() {
+  mEdtContent = findViewById(R.id.edt_udp_content);
+  mBtnSend = findViewById(R.id.btn_udp_send);
+  mTxtContent = findViewById(R.id.txt_udp_content);
+  mBtnSend.setOnClickListener(this);
+}</code></pre></li>
+</ul>
+<pre><code>@Override
+public void onClick(View view) {
+  switch (view.getId()) {
+      case R.id.btn_udp_send: {
+          UdpClientThread mThread = new UdpClientThread(mHandler, mAddress, port,
+                  mEdtContent.getText().toString());
+          mThread.start();
+          break;
+      }
+  }
+}
+
+/**
+ * Handler
+ */
+private Handler mHandler = new Handler(Looper.myLooper()) {
+  @Override
+  public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what) {
+          case 0: {
+              String content = (String) msg.obj;
+              mTxtContent.setText(content);
+              break;
+          }
+      }
+  }
+};
+}</code></pre><p><strong>说明：</strong>这里直接点击按钮调用线程使用即可，当然，也可以直接用线程池来构造参数。</p>
+<ul>
+<li><p>服务端（代码）</p>
+<pre><code>public class UdpServer {
+
+    /**
+     * @param args
+     */
+      public static void main(String[] args) {
+      while (true) {
+         getMsg();
+      }
+      }
+
+    /**
+     * 获取信息
+     */
+
+       private static void getMsg() {
+       try {
+    ​    byte[] buf = new byte[1024];
+    ​    // 一、接收数据
+    ​    // 1、创建接收数据的数据包
+    ​    DatagramPacket packet = new DatagramPacket(buf, buf.length);
+    ​    // 2.创建UPD 的 socket
+    ​    DatagramSocket socket = new DatagramSocket(12306);
+    ​    // 3、接收数据
+    ​    System.out.println(&quot;服务端开始监听！~~~~&quot;);
+    ​    socket.receive(packet);
+    ​    // 4、处理数据
+    ​    System.out.println(&quot;服务端：&quot; + new String(buf, 0, buf.length));
+
+        // 二、返回数据
+        DatagramPacket packet2 = new DatagramPacket(buf, buf.length,
+                packet.getAddress(), packet.getPort());
+        socket.send(packet2);
+        socket.close();
+    } catch (Exception e) {
+    ​    e.printStackTrace();
+    }
+
+ }
+
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>唠叨一下，做事一定要善始善终，做人一定要诚信（ps：最近遇到了一个不诚信的公司，offer发了之后，第二天告诉我不用去了，问过原因之后，人事和老板助理回复还不一样，这样就有点好玩了，真的是越想越生气。尤其是对于我这种对诚信比较看重的人，真的是不能忍。特别痛恨那种答应别人却做不到的人，要不就别答应，要不就做到。我一般答应别人的事情，一定会做到，不管我要付出什么，起码我兑现了自己的承诺。）。发了一顿牢骚，还请各位看官见谅。</p>
+<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p><a href="https://www.jianshu.com/p/fb4dfab4eec1" target="_blank" rel="noopener">Android网络编程之–Socket编程</a></p>
+</li>
+</ul>
+
+          
         
       
     </div>
@@ -1068,15 +1592,142 @@ public class UdpCl
       
         
           
-          前提  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Andorid装饰者模式初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p><strong>1、 定义</strong><br>   动态地给一个对象添加一些额外的职责。就增加功能来说，装饰模式相比生成子类更为灵活。<br><strong>2、 介绍</strong></p>
+<ul>
+<li>装饰者模式是一种结构模式<ul>
+<li>装饰者模式的运用挺广的，举一个不太恰当的例子。比如花，花有颜色，有寓意也有花语。如果是花的花语是：“我足以与你相配”并且寓意是：“天真、纯洁、尊敬、父爱”，那么她就是白玫瑰。如果花的花语是：“莫离 幸福,就是你属于我”，寓意是：“清纯，贞洁，质朴，玲珑”，那么她就是白茉莉。</li>
+<li>通常我们扩展类的功能是通过继承的方式来实现，但是装饰者模式是通过组合的方式来实现，这是继承的替代方案之一。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3、角色说明：</strong></p>
+<ul>
+<li><p>Component（抽象组件）：接口或者抽象类，被装饰的最原始的对象。具体组件与抽象装饰角色的父类。</p>
+</li>
+<li><p>ConcreteComponent（具体组件）：实现抽象组件的接口。</p>
+</li>
+<li><p>Decorator（抽象装饰角色）：一般是抽象类，抽象组件的子类，同时持有一个被装饰者的引用，用来调用被装饰者的方法;同时可以给被装饰者增加新的职责。</p>
+</li>
+<li><p>ConcreteDecorator（具体装饰类）：抽象装饰角色的具体实现。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>原理讲了那么多，也许有的人对于枯燥的原理早都没有好感了（我能说我看到原理很头疼吗？），下面用一个实例来给大家讲解一番，就以花举例。</p>
+</li>
+<li><p><strong>创建抽象组件</strong><br>这里是一个抽象花类，定义一个装修的方法：</p>
+<pre><code>public abstract class Flower {
+ //装饰方法(显示颜色)
+public abstract void showColor();
+}</code></pre></li>
+<li><p><strong>创建具体组件</strong><br>这里是一个具体花类，并且给花定义了寓意</p>
+<pre><code>public class SpecificFlower extends  Flower{</code></pre></li>
+</ul>
+<pre><code>private static final String TAG=SpecificFlower.class.getSimpleName();
+
+@Override
+public void showColor() {
+  Log.e(TAG,&quot;花开花落花有时&quot;);
+ }
+
+}</code></pre><ul>
+<li><p><strong>创建抽象装饰角色</strong><br>要为花定义颜色寓意等，定义抽象的花的装饰类：</p>
+<pre><code>public abstract class FlowerDecorator extends Flower {
+
+Flower mFlower;
+
+public FlowerDecorator(Flower mFlower) {
+  this.mFlower = mFlower;
+}
+
+@Override
+public void showColor() {
+  mFlower.showColor();
+}
+
+/**
+ * 显示感情（寓意）
+ */
+public void showEmotion(){
+
+}
+}</code></pre></li>
+<li><p><strong>创建具体的装饰类</strong></p>
+</li>
+</ul>
+<p>我们要定义不同的花（白玫瑰和白茉莉），那么他们的寓意和花语也是不同的，下面具体实现是不同的：</p>
+<pre><code>/**
+ * 
+ * 具体装饰类（白玫瑰）
+ */
+  public class WhiteRose extends FlowerDecorator {
+
+  private static final String TAG=SpecificFlower.class.getSimpleName();
+
+  public WhiteRose(Flower mFlower) {
+    super(mFlower);
+  }
+
+  @Override
+  public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;我是白玫瑰，我的花语是：我足以与你相配&quot;);
+
+  }
+
+  @Override
+  public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;我是白玫瑰，我的寓意是：天真、纯洁、尊敬、父爱&quot;);
+  }
+}
+
+ /**
+ * 
+ * 具体装饰类（白茉莉）
+ */
+
+public class WhiteMolly extends FlowerDecorator {
+
+private static final String TAG=SpecificFlower.class.getSimpleName();
+
+public WhiteMolly(Flower mFlower) {
+    super(mFlower);
+}
+
+@Override
+public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;我是白茉莉，我的花语是：莫离 幸福,就是你属于我&quot;);
+}
+
+@Override
+public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;我是白茉莉，我的寓意是：清纯，贞洁，质朴，玲珑 &quot;);
+ }
+}</code></pre><ul>
+<li><p><strong>调用实现（使用）</strong></p>
+<pre><code>Flower flower=new SpecificFlower();
+FlowerDecorator flowerDecorator= new WhiteMolly(flower);
+flowerDecorator.showColor();
+flowerDecorator.showEmotion();
+FlowerDecorator mFlower= new WhiteRose(flower);
+mFlower.showColor();
+mFlower.showEmotion();</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>打印日志</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="装饰者模式日志.png"></p>
+</li>
+<li><p><strong>应用场景</strong><br>需要扩展一个类的功能，或给一个类增加附加功能时<br>需要动态的给一个对象增加功能，这些功能可以再动态的撤销<br>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。</p>
+</li>
+<li><p><strong>优点</strong><br>采用组合的方式，可以动态的扩展功能，同时也可以在运行时选择不同的装饰器，来实现不同的功能。<br>有效避免了使用继承的方式扩展对象功能而带来的灵活性差，子类无限制扩张的问题。<br>被装饰者与装饰者解偶，被装饰者可以不知道装饰者的存在，同时新增功能时原有代码也无需改变，符合开放封闭原则。</p>
+</li>
+<li><p><strong>缺点</strong><br>装饰层过多的话，维护起来比较困难。<br>如果要修改抽象组件这个基类的话，后面的一些子类可能也需跟着修改，较容易出错,装饰者模式虽好，切不可贪杯，用的太多，不容易处理。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 上面就是小可最近所学到的设计模式，如果有不对的地方还请给我大佬指正提点。源码就是文中所列出来的这些，如果需要尝试，复制粘贴即可实现。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://www.jianshu.com/p/df1a96c5c046" target="_blank" rel="noopener">Android的设计模式-装饰者模式</a></p>
+</li>
+</ul>
+
+          
         
       
     </div>
@@ -1235,16 +1886,212 @@ public class UdpCl
       
         
           
-          前提 今天在群里聊天的时候有群友问如何捕获错误日志，我说可以自己写，也可以用第三方的比如腾讯的bugly，友盟的错误统计等等，但是那些是别人的东西，作为一个程序员当然是要知其然，并且要知其所以然。因此今天就在此写一下关于捕获错误日志的文章，希望可以给新手指导，大佬请绕行。
-首先  要捕获错误日志当然
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-捕获错误日志（上篇）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p> <strong>今天在群里聊天的时候有群友问如何捕获错误日志，我说可以自己写，也可以用第三方的比如腾讯的bugly，友盟的错误统计等等，但是那些是别人的东西，作为一个程序员当然是要知其然，并且要知其所以然。因此今天就在此写一下关于捕获错误日志的文章，希望可以给新手指导，大佬请绕行。</strong></p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  要捕获错误日志当然是调用系统的了，这样最方便，也是大家常用的了，废话不多说，直接上图，no pic say a xx.<br><img src="https://upload-images.jianshu.io/upload_images/1716569-2caa8755611fe702.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误日志.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p> <strong>上面的图是日志信息，下面来看看代码如何编写。</strong></p>
+<ul>
+<li><p>捕获错误日志信息类</p>
+<pre><code> public class CrashHandler implements UncaughtExceptionHandler {
+
+ private static final String TAG = &quot;CrashHandler&quot;;
+ private static final boolean DEBUG = true;
+
+ private static final String FILE_NAME = &quot;crash&quot;;
+
+ // log文件的后缀名
+ private static final String FILE_NAME_SUFFIX = &quot;.txt&quot;;
+
+ private static CrashHandler sInstance = new CrashHandler();
+
+ // 系统默认的异常处理（默认情况下，系统会终止当前的异常程序）
+ private UncaughtExceptionHandler mDefaultCrashHandler;
+
+ private Context mContext;
+ //log路径
+ private  String mLogPath=null;
+
+ // 构造方法私有，防止外部构造多个实例，即采用单例模式
+private CrashHandler() {
+}
+
+ public static CrashHandler getInstance() {
+     return sInstance;
+}
+
+// 这里主要完成初始化工作
+public void init(Context context,String logPath) {</code></pre><p>   ​    // 获取系统默认的异常处理器</p>
+<pre><code>mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler();
+// 将当前实例设为系统默认的异常处理器
+Thread.setDefaultUncaughtExceptionHandler(this);
+// 获取Context，方便内部使用
+mContext = context.getApplicationContext();
+this.mLogPath=logPath;
+}
+
+/**</code></pre><p>   ​    * 这个是最关键的函数，当程序中有未被捕获的异常，系统将会自动调用#uncaughtException方法<br>   ​    * thread为出现未捕获异常的线程，ex为未捕获的异常，有了这个ex，我们就可以得到异常信息。<br>   ​    */<br>   ​    @Override<br>   ​    public void uncaughtException(Thread thread, Throwable ex) {<br>   ​    try {<br>   ​    // 导出异常信息到SD卡中<br>   ​         dumpExceptionToSDCard(ex);<br>   ​    // 这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug<br>   ​    uploadExceptionToServer();<br>   ​    } catch (IOException e) {<br>   ​    e.printStackTrace();<br>   ​    }</p>
+<pre><code>     // 打印出当前调用栈信息
+   ex.printStackTrace();
+
+ // 如果系统提供了默认的异常处理器，则交给系统去结束我们的程序，否则就由我们自己结束自己
+ if (mDefaultCrashHandler != null) {
+     mDefaultCrashHandler.uncaughtException(thread, ex);
+ } else {
+     Process.killProcess(Process.myPid());
+ }
+
+}
+
+/**</code></pre><p> ​    * 写入SD卡<br> ​   *<br> ​   * @param ex<br> ​   * @throws IOException<br> ​   */<br>​      @SuppressLint(“SimpleDateFormat”)<br>​      private void dumpExceptionToSDCard(Throwable ex) throws IOException {<br> ​    // 如果SD卡不存在或无法使用，则无法把异常信息写入SD卡<br> ​    if (!Environment.getExternalStorageState().equals(<br> ​            Environment.MEDIA_MOUNTED)) {<br> ​        if (DEBUG) {<br> ​            Log.e(TAG, “sdcard unmounted,skip dump exception”);<br> ​            return;<br> ​        }<br> ​    }</p>
+<pre><code>File dir = new File(mLogPath);
+if (!dir.exists()) {
+    dir.mkdirs();
+}
+long current = System.currentTimeMillis();
+String time = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;)
+        .format(new Date(current));
+// 以当前时间创建log文件
+File file = new File(mLogPath + FILE_NAME + time
+        + FILE_NAME_SUFFIX);
+
+try {
+    PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
+            file)));
+    // 导出发生异常的时间
+    pw.println(time);
+
+    // 导出手机信息
+    dumpPhoneInfo(pw);
+
+    pw.println();
+    // 导出异常的调用栈信息
+    ex.printStackTrace(pw);
+
+    pw.close();
+} catch (Exception e) {
+    Log.e(TAG, &quot;dump crash info failed&quot;);
+}</code></pre><p>​      }</p>
+<pre><code>private void dumpPhoneInfo(PrintWriter pw) throws NameNotFoundException {</code></pre><p> ​    // 应用的版本名称和版本号<br> ​    PackageManager pm = mContext.getPackageManager();<br> ​    PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(),<br> ​            PackageManager.GET_ACTIVITIES);<br> ​    pw.print(“App Version: “);<br> ​    pw.print(pi.versionName);<br> ​    pw.print(‘_’);<br> ​    pw.println(pi.versionCode);</p>
+<pre><code>// android版本号
+pw.print(&quot;OS Version: &quot;);
+pw.print(Build.VERSION.RELEASE);
+pw.print(&quot;_&quot;);
+pw.println(Build.VERSION.SDK_INT);
+
+// 手机制造商
+pw.print(&quot;Vendor: &quot;);
+pw.println(Build.MANUFACTURER);
+
+// 手机型号
+pw.print(&quot;Model: &quot;);
+pw.println(Build.MODEL);
+
+// cpu架构
+pw.print(&quot;CPU ABI: &quot;);
+pw.println(Build.CPU_ABI);</code></pre><p>​      }</p>
+<pre><code>/**</code></pre><p> ​    * 上传到服务器(这里需要实现)<br> ​    */<br>​      private void uploadExceptionToServer() {<br>​      }</p>
+<pre><code>}</code></pre></li>
+<li><p>APP（自定义的Application）</p>
+<pre><code>public class APP extends Application {
+ //log路径
+ private static final String LOG_PATH= Environment
+      .getExternalStorageDirectory().getPath() + File.separator + &quot;Live&quot; + File.separator
+      + &quot;log&quot; + File.separator;
+
+ @Override
+public void onCreate() {
+  super.onCreate();
+  CrashHandler.getInstance().init(this,LOG_PATH);
+}
+}</code></pre></li>
+<li><p>MainActivity</p>
+<pre><code>class MainActivity : AppCompatActivity(){</code></pre></li>
+</ul>
+<pre><code>var mBtnSecond:Button?=null;
+
+override fun onCreate(savedInstanceState: Bundle?) {
+  super.onCreate(savedInstanceState)
+  setContentView(R.layout.activity_main)
+  checkPermission()
+  initView()
+}
+
+
+fun  initView(){
+  mBtnSecond=findViewById(R.id.btn_second)
+  mBtnSecond?.setOnClickListener{
+     var intent= Intent(this,SecondActivity::class.java)
+     startActivity(intent)
+ }
+}
+
+
+/**
+ * 6.0以下版本(系统自动申请) 不会弹框
+ * 有些厂商修改了6.0系统申请机制，他们修改成系统自动申请权限了
+ */
+private fun checkPermission(){
+  val permissionItems = ArrayList&lt;PermissionItem&gt;()
+  permissionItems.add(PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, &quot;读取空间&quot;, R.drawable.permission_ic_phone))
+  permissionItems.add(PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE,&quot;存储空间&quot;,R.drawable.permission_ic_storage))
+  HiPermission.create(this)
+          .title(&quot;亲爱的上帝&quot;)
+          .msg(&quot;为了能够正常使用，请开启这些权限吧！&quot;)
+          .permissions(permissionItems)
+          .style(R.style.PermissionDefaultBlueStyle)
+          .animStyle(R.style.PermissionAnimScale)
+          .checkMutiPermission(object : PermissionCallback {
+              override fun onClose() {
+                  Toast.makeText(this@MainActivity,&quot;用户关闭了权限&quot;,Toast.LENGTH_LONG).show();
+              }
+
+              override fun onFinish() {
+                  Toast.makeText(this@MainActivity,&quot;初始化完毕！&quot;,Toast.LENGTH_LONG).show();
+              }
+
+              override fun onDeny(permission: String, position: Int) {
+              }
+
+              override fun onGuarantee(permission: String, position: Int) {
+              }
+          })
+}
+
+ }</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-1010920eff13ff10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MainActivity.png"></p>
+<ul>
+<li><p>CrashActivity</p>
+<pre><code>public class CrashActivity extends AppCompatActivity {
+
+Button mBtnCrash;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_second);
+ mBtnCrash=findViewById(R.id.btn_crash);
+ mBtnCrash.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+         Toast.makeText(CrashActivity.this,&quot;出现异常了&quot;,Toast.LENGTH_LONG).show();
+             throw new RuntimeException(toUtf8(&quot;出现异常了&quot;));
+     }
+ });
+}
+
+public static String toUtf8(String str) {
+  String result = null;
+  try {
+      result = new String(str.getBytes(&quot;UTF-8&quot;), &quot;UTF-8&quot;);
+  } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+  }
+  return result;
+}
+}</code></pre></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-3a47dcd9133561d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CrashActivity.png"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 这里需要注意的是，在MainActivity中用的是Kotlin写的权限控制，也就是运行时权限<br> <a href="https://github.com/yewei02538/HiPermission" target="_blank" rel="noopener">implementation ‘me.weyye.hipermission:library:1.0.7’</a><br>要保存日志当然需要SD卡的读写权限。<br><a href="https://gitee.com/1032200695/CrashException" target="_blank" rel="noopener">项目地址</a></p>
+
+          
         
       
     </div>
@@ -1403,16 +2250,274 @@ public class UdpCl
       
         
           
-          前提昨天写了捕获错误日志的文章，但是没有写上传到服务器的部分，今天就针对上传服务器的部分进行编写和分析，如果没有观看的请先移步到上篇Android 捕获错误日志（上篇）。
-在写之前我们首先分析一下，我们首先分析一下昨天写的东西，我们在crash类里面当崩溃的时候再上传到服务器这个显然是不正确的。因为
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-捕获错误日志（下篇）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p><strong>昨天写了捕获错误日志的文章，但是没有写上传到服务器的部分，今天就针对上传服务器的部分进行编写和分析，如果没有观看的请先移步到上篇<a href="https://www.jianshu.com/p/d231e62e4e6c" target="_blank" rel="noopener">Android 捕获错误日志（上篇）</a>。</strong></p>
+<p>在写之前我们首先分析一下，我们首先分析一下昨天写的东西，我们在crash类里面当崩溃的时候再上传到服务器这个显然是不正确的。因为当程序已经崩溃了，写到本地之后就会直接退出，如下面的代码所示，不可能再进行上传文件的耗时操作了。那么我们该怎么来解决呢？我这里有两种方法，第一种就是把文件名保存在SharedPreferences里面，当第二次进入的时候直接上传（已经实现），还有一种方法是发送一个广播或者用EventBus传递出去然后直接上传（未实现，感兴趣的可以自己实现，也是很方便）。</p>
+<pre><code>  @Override
+  public void uncaughtException(Thread thread, Throwable ex) {
+  try {
+ // 导出异常信息到SD卡中
+ dumpExceptionToSDCard(ex);
+ // 这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug
+ uploadExceptionToServer();
+} catch (IOException e) {
+ e.printStackTrace();
+}
+
+// 打印出当前调用栈信息
+ex.printStackTrace();
+
+// 如果系统提供了默认的异常处理器，则交给系统去结束我们的程序，否则就由我们自己结束自己
+if (mDefaultCrashHandler != null) {
+  mDefaultCrashHandler.uncaughtException(thread, ex);
+ } else {
+ Process.killProcess(Process.myPid());
+}
+
+ }</code></pre><h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  先上图，no pic say a xx<br><img src="https://upload-images.jianshu.io/upload_images/1716569-9d45034d08af0f4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="客户端文件上传成功.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-633380c8b68f1281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文件上传后台.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d2c009a1b0f8e43a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="服务器保存文件.png"></p>
+<p><strong>分析：</strong>文件上传的时候，客户端有两种方式一种是HttpClient当然这种现在已经不用了，还有一种是用现在大家都知道的RxJava+Retrofit封装的方式进行上传的，我们客户端用第二种方式。服务器使用servlet的方式进行接收。</p>
+<ul>
+<li><p>客户端需要引入的库</p>
+<pre><code> //RxAndroid
+implementation &apos;io.reactivex.rxjava2:rxandroid:2.0.1&apos;</code></pre><p> ​    //RxJava2</p>
+<pre><code>implementation &apos;io.reactivex.rxjava2:rxjava:2.1.8&apos;
+//Retrofit2的RxJava适配
+implementation &apos;com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0&apos;
+//Retrofit2
+implementation &apos;com.squareup.retrofit2:retrofit:2.3.0&apos;
+//RxJava2Gson适配
+implementation &apos;com.squareup.retrofit2:converter-gson:2.3.0&apos;
+//网络日志拦截
+implementation &apos;com.squareup.okhttp3:logging-interceptor:3.8.1&apos;</code></pre></li>
+</ul>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p> 图片看完之后咱们来看看实现方法</p>
+<ul>
+<li><p>CrashHandler（修改一番）</p>
+<pre><code>public class CrashHandler implements UncaughtExceptionHandler {</code></pre><p>  private static final String TAG = “CrashHandler”;<br>  private static final boolean DEBUG = true;</p>
+<p>  private static final String FILE_NAME = “crash”;</p>
+<p>  // log文件的后缀名<br>  private static final String FILE_NAME_SUFFIX = “.txt”;</p>
+<p>  private static CrashHandler sInstance = new CrashHandler();</p>
+<p>  // 系统默认的异常处理（默认情况下，系统会终止当前的异常程序）<br>  private UncaughtExceptionHandler mDefaultCrashHandler;</p>
+<p>  private Context mContext;<br>  //log路径<br>  private  String mLogPath=null;<br>  private String fileName=””;</p>
+</li>
+</ul>
+<pre><code>// 构造方法私有，防止外部构造多个实例，即采用单例模式
+private CrashHandler() {
+}
+
+public static CrashHandler getInstance() {
+  return sInstance;
+}
+
+// 这里主要完成初始化工作
+public void init(Context context,String logPath) {
+  // 获取系统默认的异常处理器
+  mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler();
+  // 将当前实例设为系统默认的异常处理器
+  Thread.setDefaultUncaughtExceptionHandler(this);
+  // 获取Context，方便内部使用
+  mContext = context.getApplicationContext();
+  this.mLogPath=logPath;
+}
+
+/**
+ * 这个是最关键的函数，当程序中有未被捕获的异常，系统将会自动调用#uncaughtException方法
+ * thread为出现未捕获异常的线程，ex为未捕获的异常，有了这个ex，我们就可以得到异常信息。
+ */
+@Override
+public void uncaughtException(Thread thread, Throwable ex) {
+  try {
+      // 导出异常信息到SD卡中
+      dumpExceptionToSDCard(ex);
+      // 这里可以通过网络上传异常信息到服务器，便于开发人员分析日志从而解决bug（有问题舍弃掉）
+ //    if (!TextUtils.isEmpty(fileName)){
+//        uploadExceptionToServer(new File(fileName));
+//    }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+
+  // 打印出当前调用栈信息
+  ex.printStackTrace();
+
+  // 如果系统提供了默认的异常处理器，则交给系统去结束我们的程序，否则就由我们自己结束自己
+  if (mDefaultCrashHandler != null) {
+      mDefaultCrashHandler.uncaughtException(thread, ex);
+  } else {
+      Process.killProcess(Process.myPid());
+  }
+
+}
+
+/**
+ * 写入SD卡
+ * 
+ * @param ex
+ * @throws IOException
+ */
+@SuppressLint(&quot;SimpleDateFormat&quot;)
+private void dumpExceptionToSDCard(Throwable ex) throws IOException {
+  // 如果SD卡不存在或无法使用，则无法把异常信息写入SD卡
+  if (!Environment.getExternalStorageState().equals(
+          Environment.MEDIA_MOUNTED)) {
+      if (DEBUG) {
+          Log.e(TAG, &quot;sdcard unmounted,skip dump exception&quot;);
+          return;
+      }
+  }
+
+  File dir = new File(mLogPath);
+  if (!dir.exists()) {
+      dir.mkdirs();
+  }
+  long current = System.currentTimeMillis();
+  String time = new SimpleDateFormat(&quot;yyyyMMddHHmmss&quot;)
+          .format(new Date(current));
+  fileName=mLogPath + FILE_NAME + time + FILE_NAME_SUFFIX;
+  PreferencesUtils.putString(mContext,CRASH_FILE_NAME,fileName);
+  // 以当前时间创建log文件
+  File file = new File(fileName);
+
+  try {
+      PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
+              file)));
+      // 导出发生异常的时间
+      pw.println(time);
+
+      // 导出手机信息
+      dumpPhoneInfo(pw);
+
+      pw.println();
+      // 导出异常的调用栈信息
+      ex.printStackTrace(pw);
+
+      pw.close();
+  } catch (Exception e) {
+      Log.e(TAG, &quot;dump crash info failed&quot;);
+  }
+}
+
+private void dumpPhoneInfo(PrintWriter pw) throws NameNotFoundException {
+  // 应用的版本名称和版本号
+  PackageManager pm = mContext.getPackageManager();
+  PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(),
+          PackageManager.GET_ACTIVITIES);
+  pw.print(&quot;App Version: &quot;);
+  pw.print(pi.versionName);
+  pw.print(&apos;_&apos;);
+  pw.println(pi.versionCode);
+
+  // android版本号
+  pw.print(&quot;OS Version: &quot;);
+  pw.print(Build.VERSION.RELEASE);
+  pw.print(&quot;_&quot;);
+  pw.println(Build.VERSION.SDK_INT);
+
+  // 手机制造商
+  pw.print(&quot;Vendor: &quot;);
+  pw.println(Build.MANUFACTURER);
+
+  // 手机型号
+  pw.print(&quot;Model: &quot;);
+  pw.println(Build.MODEL);
+
+  // cpu架构
+  pw.print(&quot;CPU ABI: &quot;);
+  pw.println(Build.CPU_ABI);
+}
+
+/**
+ * 上传到服务器（可以舍弃这种了）
+ */
+private void uploadExceptionToServer(File file) {
+
+}
+
+
+}</code></pre><p><strong>分析：</strong> 这里主要用的是SharedPreferences保存报错的文件路径名，然后第二次进入的时候直接上传</p>
+<ul>
+<li><p>CrashActivity</p>
+<pre><code>public class CrashActivity extends AppCompatActivity {</code></pre></li>
+</ul>
+<pre><code>Button mBtnCrash;
+private ProgressDialog dialog;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_second);
+  mBtnCrash=findViewById(R.id.btn_crash);
+  mBtnCrash.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          throw new RuntimeException(toUtf8(&quot;出现异常了&quot;));
+      }
+  });
+
+  dialog = new ProgressDialog(CrashActivity.this);
+  dialog.setMax(100);
+  dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+  dialog.setMessage(&quot;上传文件中&quot;);
+
+  if (!TextUtils.isEmpty(PreferencesUtils.getString(this,CRASH_FILE_NAME))){
+      upload(new File(PreferencesUtils.getString(this,CRASH_FILE_NAME)));
+  }
+ }
+
+public static String toUtf8(String str) {
+  String result = null;
+  try {
+      result = new String(str.getBytes(&quot;UTF-8&quot;), &quot;UTF-8&quot;);
+  } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+  }
+  return result;
+}
+
+/**
+ * 封装后的单文件上传方法
+ */
+  public void upload(File file) {
+  dialog.show();
+  Log.e(&quot;File&quot;,file.getAbsolutePath());
+  RetrofitClient
+          .getInstance()
+          .upLoadFile(URL, file, new FileUploadObserver&lt;ResponseBody&gt;() {
+              @Override
+              public void onUpLoadSuccess(ResponseBody responseBody) {
+                  Toast.makeText(CrashActivity.this, &quot;上传成功&quot;, Toast.LENGTH_SHORT).show();
+                  try {
+                      Log.e(&quot;上传进度&quot;,responseBody.string());
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  dialog.dismiss();
+              }
+
+              @Override
+              public void onUpLoadFail(Throwable e) {
+                  Toast.makeText(CrashActivity.this, &quot;上传失败&quot;+e.getMessage(), Toast.LENGTH_SHORT).show();
+                  dialog.dismiss();
+              }
+              @Override
+              public void onProgress(int progress) {
+                  dialog.setProgress(progress);
+              }
+          });
+}
+
+@Override
+protected void onStop() {
+  super.onStop();
+  if (!TextUtils.isEmpty(PreferencesUtils.getString(this,CRASH_FILE_NAME))){
+      PreferencesUtils.remove(this,CRASH_FILE_NAME);
+  }
+}
+}</code></pre><p><strong>分析：</strong> 我们这里的变化是上传文件和保存文件名，并且在onStop的时候清除了一次保存的key。试想一下，如果第一次崩溃的时候是会把我们所需要的文件名保存到SharedPreferences中，那么第二次进入的时候就会直接上传。但是，当我们第三次第四次进入的时候还需要上传吗？当然是不需要了，不仅造成服务器压力，也不太优雅，所以要清除SharedPreferences中的键值对。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>  再啰嗦一句：做任何事情的时候应该全方面考虑，如果各位同仁有更好的建议的话，请告诉我。正所谓：三人行必有我师。<br><a href="https://gitee.com/1032200695/Crash" target="_blank" rel="noopener">代码已经上传到码云</a><br><a href="https://gitee.com/1032200695/CrashServer" target="_blank" rel="noopener">后台代码</a></p>
+
+          
         
       
     </div>
@@ -1571,15 +2676,142 @@ public class UdpCl
       
         
           
-          前提  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android 装饰者模式初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p><strong>1、 定义</strong><br>   动态地给一个对象添加一些额外的职责。就增加功能来说，装饰模式相比生成子类更为灵活。<br><strong>2、 介绍</strong></p>
+<ul>
+<li>装饰者模式是一种结构模式<ul>
+<li>装饰者模式的运用挺广的，举一个不太恰当的例子。比如花，花有颜色，有寓意也有花语。如果是花的花语是：“我足以与你相配”并且寓意是：“天真、纯洁、尊敬、父爱”，那么她就是白玫瑰。如果花的花语是：“莫离 幸福,就是你属于我”，寓意是：“清纯，贞洁，质朴，玲珑”，那么她就是白茉莉。</li>
+<li>通常我们扩展类的功能是通过继承的方式来实现，但是装饰者模式是通过组合的方式来实现，这是继承的替代方案之一。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3、角色说明：</strong></p>
+<ul>
+<li><p>Component（抽象组件）：接口或者抽象类，被装饰的最原始的对象。具体组件与抽象装饰角色的父类。</p>
+</li>
+<li><p>ConcreteComponent（具体组件）：实现抽象组件的接口。</p>
+</li>
+<li><p>Decorator（抽象装饰角色）：一般是抽象类，抽象组件的子类，同时持有一个被装饰者的引用，用来调用被装饰者的方法;同时可以给被装饰者增加新的职责。</p>
+</li>
+<li><p>ConcreteDecorator（具体装饰类）：抽象装饰角色的具体实现。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>原理讲了那么多，也许有的人对于枯燥的原理早都没有好感了（我能说我看到原理很头疼吗？），下面用一个实例来给大家讲解一番，就以花举例。</p>
+</li>
+<li><p><strong>创建抽象组件</strong><br>这里是一个抽象花类，定义一个装修的方法：</p>
+<pre><code>public abstract class Flower {
+ //装饰方法(显示颜色)
+public abstract void showColor();
+}</code></pre></li>
+<li><p><strong>创建具体组件</strong><br>这里是一个具体花类，并且给花定义了寓意</p>
+<pre><code>public class SpecificFlower extends  Flower{</code></pre></li>
+</ul>
+<pre><code>private static final String TAG=SpecificFlower.class.getSimpleName();
+
+@Override
+public void showColor() {
+  Log.e(TAG,&quot;花开花落花有时&quot;);
+ }
+
+}</code></pre><ul>
+<li><p><strong>创建抽象装饰角色</strong><br>要为花定义颜色寓意等，定义抽象的花的装饰类：</p>
+<pre><code>public abstract class FlowerDecorator extends Flower {
+
+Flower mFlower;
+
+public FlowerDecorator(Flower mFlower) {
+  this.mFlower = mFlower;
+}
+
+@Override
+public void showColor() {
+  mFlower.showColor();
+}
+
+/**
+ * 显示感情（寓意）
+ */
+public void showEmotion(){
+
+}
+}</code></pre></li>
+<li><p><strong>创建具体的装饰类</strong></p>
+</li>
+</ul>
+<p>我们要定义不同的花（白玫瑰和白茉莉），那么他们的寓意和花语也是不同的，下面具体实现是不同的：</p>
+<pre><code>/**
+ * 
+ * 具体装饰类（白玫瑰）
+ */
+  public class WhiteRose extends FlowerDecorator {
+
+  private static final String TAG=SpecificFlower.class.getSimpleName();
+
+  public WhiteRose(Flower mFlower) {
+    super(mFlower);
+  }
+
+  @Override
+  public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;我是白玫瑰，我的花语是：我足以与你相配&quot;);
+
+  }
+
+  @Override
+  public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;我是白玫瑰，我的寓意是：天真、纯洁、尊敬、父爱&quot;);
+  }
+}
+
+ /**
+ * 
+ * 具体装饰类（白茉莉）
+ */
+
+public class WhiteMolly extends FlowerDecorator {
+
+private static final String TAG=SpecificFlower.class.getSimpleName();
+
+public WhiteMolly(Flower mFlower) {
+    super(mFlower);
+}
+
+@Override
+public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;我是白茉莉，我的花语是：莫离 幸福,就是你属于我&quot;);
+}
+
+@Override
+public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;我是白茉莉，我的寓意是：清纯，贞洁，质朴，玲珑 &quot;);
+ }
+}</code></pre><ul>
+<li><p><strong>调用实现（使用）</strong></p>
+<pre><code>Flower flower=new SpecificFlower();
+FlowerDecorator flowerDecorator= new WhiteMolly(flower);
+flowerDecorator.showColor();
+flowerDecorator.showEmotion();
+FlowerDecorator mFlower= new WhiteRose(flower);
+mFlower.showColor();
+mFlower.showEmotion();</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>打印日志</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="装饰者模式日志.png"></p>
+</li>
+<li><p><strong>应用场景</strong><br>需要扩展一个类的功能，或给一个类增加附加功能时<br>需要动态的给一个对象增加功能，这些功能可以再动态的撤销<br>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。</p>
+</li>
+<li><p><strong>优点</strong><br>采用组合的方式，可以动态的扩展功能，同时也可以在运行时选择不同的装饰器，来实现不同的功能。<br>有效避免了使用继承的方式扩展对象功能而带来的灵活性差，子类无限制扩张的问题。<br>被装饰者与装饰者解偶，被装饰者可以不知道装饰者的存在，同时新增功能时原有代码也无需改变，符合开放封闭原则。</p>
+</li>
+<li><p><strong>缺点</strong><br>装饰层过多的话，维护起来比较困难。<br>如果要修改抽象组件这个基类的话，后面的一些子类可能也需跟着修改，较容易出错,装饰者模式虽好，切不可贪杯，用的太多，不容易处理。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 上面就是小可最近所学到的设计模式，如果有不对的地方还请给我大佬指正提点。源码就是文中所列出来的这些，如果需要尝试，复制粘贴即可实现。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://www.jianshu.com/p/df1a96c5c046" target="_blank" rel="noopener">Android的设计模式-装饰者模式</a></p>
+</li>
+</ul>
+
+          
         
       
     </div>
@@ -1738,15 +2970,67 @@ public class UdpCl
       
         
           
-          前言：   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-动画初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>   好久没来写文章了，一方面是因为自己懒了，另外一个是因为最近工作比较忙，没有闲时间（其实主要还是因为懒）。话说八月多换了一个新工作，在之前的公司，主要是横向发展，了解了很多技术。在现在的公司主要是纵向发展，更加深入的探索。之前是广而不精，没有深入学习。在现在的公司呢，能够更加深入的学习技术。就拿最近的工作来说吧，动画很多，刚开始只是知道Android动画分为属性动画、帧动画和补间动画。但是，他们之间有什么具体的区别就不是特别清楚了。尤其是属性动画和补间动画的区别，我能说自己被补间动画坑惨了吗？（其实，还是自己学艺不精，需要继续努力了。）好了，废话说多了，还是来看看今天的文章吧。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>   要学习Android动画，我们以一个例子来深入学习，毕竟都是要把功能实现出来，写一些大而空没有实用性的东西，不但是敷衍别人，更是对自己的不负责任。如下图所示：（原谅我自恋一下，放了自己的图像照）<br><img src="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200259.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-4842b1b8db6ffb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200103.png"></p>
+<ul>
+<li><p>分析<br> 1、要实现从大图到小图的过度，我们需要怎么实现呢？又需要用哪些技术呢？首先图片缩小了，那么就需要缩放动画；其次，图片向右移动和向上移动了，那么就需要位移动画。背景动画是用Lottie实现的，中间的圆形变叉也是用的lottie监听帧率变化，这个不在今天的讨论和实现范围内。今天主要实现布局从大到小的缩放和移动。<br> 2、 那么缩放和移动可以用哪些动画实现呢？可能有朋友说是用补间动画实现了，那么如果布局上面有点击事件呢？点击事件的位置在原位置还是新位置呢？答案是还在原来的位置，补间动画只能实现view的变化，而不能改变点击事件的位置，如果只是做一个页面展示用，那么补间动画完全够用了。但是，如果想改变点击事件的位置，必须要用属性动画。我能说我在这里被坑了好久吗？好了，现在来看看我们如何实现控件的缩放和移动。</p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>   /**</p>
+<pre><code>* 动画
+*/</code></pre><p>  public static void scanAnimation(Context context, FrameLayout mLytAll) {</p>
+<pre><code>WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+DisplayMetrics dm = new DisplayMetrics();
+wm.getDefaultDisplay().getMetrics(dm);
+final int width = dm.widthPixels;// 屏幕宽度（像素）
+int height = dm.heightPixels;// 屏幕高度（像素）
+ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));</code></pre></li>
+</ul>
+<pre><code>    ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleX&quot;, (94 / DensityUtils.px2dp(context, width)));
+    ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleY&quot;, (166 / DensityUtils.px2dp(context, height)));
+
+    AnimatorSet animatorSet = new AnimatorSet();  //组合动画
+    animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //设置动画
+    animatorSet.setDuration(350);
+    animatorSet.start();
+}</code></pre><ul>
+<li>分析：<br> 1、这里要移动，那么就需要屏幕的宽和高，然后进行等比缩放，因为上面和右边有一定的距离，那么就要计算右边距和上边距；<br>   2、这里因为是X轴和Y轴进行移动并且缩放，所以我这边用了组合动画，AnimatorSet；<br>   3、X轴的移动动画用了ObjectAnimator然后设置X轴移动和Y轴移动,。假设，距离右边距是36dp，上边距是23。那么X轴的移动就是，从1到屏幕宽转换成dp值后减去右边距（36dp）。Y轴的移动就是屏幕的高转换为dp后减去上边距（23dp），然后加上一个负号（-），为什么呢，因为Y轴向上为负，向下为正；<br>   4、现在来看缩放动画，假设缩放后的小屏幕高是166dp，宽是94dp，那么就是缩放后的屏幕宽（94dp）除以屏幕宽转换成dp值之后的比率了。当然，这样做显然是不太严谨的（为什么说不严谨呢，后面会讲）。Y轴的缩放呢就是缩放后小图的高（166dp）除以屏幕高转换成dp之后的值。<br>   5、完成后用AnimatorSet设置X轴Y轴的平移和缩放动画同步进行，然后设置动画的执行时长至此就完成了动画从大屏幕到小屏幕的移动和缩放。<h3 id="再次"><a href="#再次" class="headerlink" title="再次"></a>再次</h3>之前在分析的时候说上面直接写死宽高值之后进行缩放不严谨，那么我们来分析一下。因为Android手机屏幕分辨率很多，如果在大屏幕手机上面可能不会出现太大的问题，那么在屏幕分辨率比较低的手机上呢？有可能显示不全或者按钮挤压到一起去了。那么，就要动态计算小屏幕的宽高了。比如说UI给了我们的UI图的宽高比是360<em>640，那么我们如何来动态计算屏幕的宽高比呢？那么，X轴的缩放比率就不应该是94/DensityUtils.px2dp(context, width))了，而应该是(94</em>(DensityUtils.px2dp(context, width))/360))/DensityUtils.px2dp(context, width)),就是说我们应该计算UI图的宽和手机实际的宽的比率乘以94再除以屏幕的宽，这才是我们需要缩放的宽。那么高呢？当然是一样的了166 / DensityUtils.px2dp(context, height))，这样写当然也是有问题的了，而应该是(166*(DensityUtils.px2dp(context, height))/640))/DensityUtils.px2dp(context, height))，这样才是更加严谨的写法。</li>
+</ul>
+<pre><code>/**
+ * 动画
+ */
+public static void scanAnimation(Context context, FrameLayout mLytAll) {
+   WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+   DisplayMetrics dm = new DisplayMetrics();
+   wm.getDefaultDisplay().getMetrics(dm);
+   final int width = dm.widthPixels;// 屏幕宽度（像素）
+   int height = dm.heightPixels;// 屏幕高度（像素）
+   ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+  ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));
+
+
+   ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleX&quot;, ((94(DensityUtils.px2dp(context, width)/360)) / DensityUtils.px2dp(context, width)));
+   ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleY&quot;, ((166(DensityUtils.px2dp(context, height)/640)) / DensityUtils.px2dp(context, height)));
+
+   AnimatorSet animatorSet = new AnimatorSet();  //组合动画
+   animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //设置动画
+   animatorSet.setDuration(350);
+   animatorSet.start();
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>   好了，今天就写到这里，如果有不正确的还希望各位指正，小可这里不胜感激，还有就是，能用属性动画实现的，尽量不要用补间动画来做，因为你会碰到各种坑。</p>
+
+          
         
       
     </div>
@@ -1905,15 +3189,765 @@ public class UdpCl
       
         
           
-          前提  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看Android Socket编程（tcp）初探和Android Socket编程（udp）初探。相信很多朋友在公司使用socket开发的时候都会自定义协议来传
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看<a href="https://www.jianshu.com/p/2ee8d427d011" target="_blank" rel="noopener">Android Socket编程（tcp）初探</a>和<a href="https://www.jianshu.com/p/ccbc727fd8f4" target="_blank" rel="noopener">Android Socket编程（udp）初探</a>。相信很多朋友在公司使用socket开发的时候都会自定义协议来传递信息。一方面是为了安全排除脏数据，另一个方面是为了更加高效的处理自己所需要的数据。今天就来介绍一下关于socket自定义协议和使用Protocol Buffer解析数据。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  既然说到了Protocol Buffer，那么我们就简单介绍一下Protocol Buffer是什么？并且使用为什么要使用Protocol Buffer？</p>
+<ul>
+<li>1、<strong>什么是Protocol Buffer</strong></li>
+</ul>
+<p>一种 结构化数据 的数据存储格式（类似于 XML、Json ），其作用是通过将 结构化的数据 进行 串行化（序列化），从而实现 数据存储 / RPC 数据交换的功能。至于更详细的用法和介绍请移步<a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？</a></p>
+<ul>
+<li><p>2、<strong>为什么要使用Protocol Buffer</strong></p>
+<p> 在回答这个问题之前，我们还是先给出一个在实际开发中经常会遇到的系统场景。比如：我们的客户端程序是使用Java开发的，可能运行自不同的平台，如：Linux、Windows或者是Android，而我们的服务器程序通常是基于Linux平台并使用C++或者Python开发完成的。在这两种程序之间进行数据通讯时存在多种方式用于设计消息格式，如：</p>
+<pre><code>1、 直接传递C/C++/Python语言中一字节对齐的结构体数据，只要结构体的声明为定长格式，那么该方式对于C/C++/Python程序而言就非常方便了，仅需将接收到的数据按照结构体类型强行转换即可。事实上对于变长结构体也不会非常麻烦。在发送数据时，也只需定义一个结构体变量并设置各个成员变量的值之后，再以char*的方式将该二进制数据发送到远端。反之，该方式对于Java开发者而言就会非常繁琐，首先需要将接收到的数据存于ByteBuffer之中，再根据约定的字节序逐个读取每个字段，并将读取后的值再赋值给另外一个值对象中的域变量，以便于程序中其他代码逻辑的编写。对于该类型程序而言，联调的基准是必须客户端和服务器双方均完成了消息报文构建程序的编写后才能展开，而该设计方式将会直接导致Java程序开发的进度过慢。即便是Debug阶段，也会经常遇到Java程序中出现各种域字段拼接的小错误。
+2、 使用SOAP协议(WebService)作为消息报文的格式载体，由该方式生成的报文是基于文本格式的，同时还存在大量的XML描述信息，因此将会大大增加网络IO的负担。又由于XML解析的复杂性，这也会大幅降低报文解析的性能。总之，使用该设计方式将会使系统的整体运行性能明显下降。
+对于以上两种方式所产生的问题，Protocol Buffer均可以很好的解决，不仅如此，Protocol Buffer还有一个非常重要的优点就是可以保证同一消息报文新旧版本之间的兼容性。__对于Protocol Buffer具体的用法请移步[Protocol Buffer技术详解(语言规范)](https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html)今天主要讲解的是socket自定义协议这块__</code></pre></li>
+</ul>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>  说了那么多，我们来看看我们今天的主要内容— <strong>自定义socket协议</strong><br><strong>先看一张心跳返回的图</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心跳返回.png"></p>
+<ul>
+<li>1、<strong>Protobuf协议</strong></li>
+</ul>
+<ul>
+<li>假设客户端请求包体数据协议如下</li>
+</ul>
+<p>request.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// 登录的包体数据
+message Request {
+ int32   uid = 0;
+string  api_token = 1;
+}</code></pre><p>发送的格式：</p>
+<p>{包头}{命令}{包体}<br>{包头} -&gt; 包体转成protubuf的长度<br>{命令} -&gt; 对应功能的命令字参数<br>{包体} -&gt; 对应的protubuf数据</p>
+<ul>
+<li>假设服务端返回包体数据协议</li>
+</ul>
+<p>response.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// 登录成功后服务器返回的包体数据
+message Response {
+int32   login = 1;
+}</code></pre><p>服务器返回的格式:</p>
+<p>{包头}{命令}{状态码}{包体}<br>{包头} -&gt; 包体转成protubuf的长度<br>{命令} -&gt; 对应功能的命令字参数<br>{状态码} -&gt; 对应状态的状态码<br>{包体} -&gt; 对应的protubuf数据</p>
+<ul>
+<li><p>2、<strong>客户端socket写法</strong></p>
+</li>
+<li><p>分析：试想一下，要socket不会因为手机屏幕的熄灭或者其他什么的而断开，我们应该把socket放到哪里去写，又要怎么保证socket的连接状态呢？对于Android来说放到 service里面去是最合适的，并且为了保证连接状态。那么，就要发送一个心跳包保证连接状态。既然这样，那么我们来写service和socket。</p>
+<ul>
+<li><p>3、<strong>service写法</strong></p>
+<pre><code>public class SocketService extends Service {
+
+ Thread mSocketThread;
+ Socket mSocket;
+ InetSocketAddress mSocketAddress;
+ //心跳线程
+  Thread mHeartThread;
+ //接收线程
+ Thread mReceiveThread;
+  //登录线程
+ Thread mLoginThread;
+  boolean isHeart = false;
+  boolean isReceive = false;</code></pre><p>   SocketBinder mBinder = new SocketBinder(this);</p>
+<p>   public SocketService() {</p>
+<p>   }</p>
+<p>   @Override<br>   public void onCreate() {<br> ​     super.onCreate();<br> ​     createConnection();<br> ​     receiveMsg();<br> ​     isHeart = true;<br> ​     isReceive = true;<br>   }</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>@Override
+public IBinder onBind(Intent intent) {
+ return mBinder;
+}
+
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+ startGps();
+ sendHeart();
+ if (!TextUtils.isEmpty(intent.getStringExtra(AppConfig.SERVICE_TAG))) {
+     String TAG = intent.getStringExtra(AppConfig.SERVICE_TAG);
+     switch (TAG) {
+         case AppConfig.STOP_SERVICE_VALUE: {//停止服务
+             ClientSocket.getsInstance().shutDownConnection(mSocket);
+             stopSelf();
+             mSocket = null;
+             mHeartThread = null;
+             mReceiveThread = null;
+             mLoginThread = null;
+             mSocketThread = null;
+             isHeart = false;
+             isReceive = false;
+             break;
+         }
+
+         default:
+             break;
+     }
+ }
+ return super.onStartCommand(intent, flags, startId);
+
+ }
+
+
+/**
+ * 发送心跳包
+ */
+private void sendHeart() {
+ mHeartThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isHeart) {
+             ClientSocket.getsInstance().sendHeart(mSocket, SocketStatus.HEART_CODE);
+             try {
+                 Thread.sleep(1000);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mHeartThread.start();
+ }
+
+ /**
+  * 登录
+  */
+ private void login(final double mLatitude, final double mLongitude) {
+   mLoginThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         if (PreferencesUtils.getInt(SocketService.this, Constants.USER_ID) != 0 &amp;&amp;
+                 !TextUtils.isEmpty(PreferencesUtils.getString(SocketService.this,
+                         Constants.USER_TOKEN))) {
+             Request.Request requestLogin =
+                     Request.Request.newBuilder()
+                             .setUid(PreferencesUtils.getInt(SocketService.this,
+                                     Constants.USER_ID))
+                             .setApiToken(PreferencesUtils.getString(SocketService.this,
+                                     Constants.USER_TOKEN).trim())
+                             .build();
+
+             ClientSocket.getsInstance().sendLogin(mSocket, requestLogin, SocketStatus.LOGIN_CODE);
+
+         }
+     }
+   });
+   mLoginThread.start();
+
+ }
+
+/**
+ * 创建连接
+ *
+ * @return
+ */
+ public void createConnection() {
+ mSocketThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         try {
+             mSocket = new Socket();
+             mSocketAddress = new InetSocketAddress(AppConfig.TCP_IP, AppConfig.TCP_PORT);
+             mSocket.connect(mSocketAddress, 20 * 1000);
+             // 设置 socket 读取数据流的超时时间
+             mSocket.setSoTimeout(20 * 1000);
+             // 发送数据包，默认为 false，即客户端发送数据采用 Nagle 算法；
+             // 但是对于实时交互性高的程序，建议其改为 true，即关闭 Nagle
+             // 算法，客户端每发送一次数据，无论数据包大小都会将这些数据发送出去
+             mSocket.setTcpNoDelay(true);
+             // 设置客户端 socket 关闭时，close() 方法起作用时延迟 30 秒关闭，如果 30 秒内尽量将未发送的数据包发送出去
+             // socket.setSoLinger(true, 30);
+             // 设置输出流的发送缓冲区大小，默认是4KB，即4096字节
+             mSocket.setSendBufferSize(10 * 1024);
+             // 设置输入流的接收缓冲区大小，默认是4KB，即4096字节
+             mSocket.setReceiveBufferSize(10 * 1024);
+             // 作用：每隔一段时间检查服务器是否处于活动状态，如果服务器端长时间没响应，自动关闭客户端socket
+             // 防止服务器端无效时，客户端长时间处于连接状态
+             mSocket.setKeepAlive(true);
+         } catch (UnknownHostException e) {
+             Logger.e(e.getMessage() + &quot;========+UnknownHostException&quot;);
+             e.printStackTrace();
+         } catch (IOException e) {
+             createConnection();
+             Logger.e(e.getMessage() + &quot;========IOException&quot;);
+             e.printStackTrace();
+         } catch (NetworkOnMainThreadException e) {
+             Logger.e(e.getMessage() + &quot;========NetworkOnMainThreadException&quot;);
+             e.printStackTrace();
+         }
+     }
+ });
+ mSocketThread.start();
+}
+
+
+/**
+ * 接收
+ */
+private void receiveMsg() {
+ mReceiveThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isReceive) {
+             try {
+                 if (mSocket != null &amp;&amp; mSocket.isConnected()) {
+                     DataInputStream dis = ClientSocket.getsInstance().getMessageStream(mSocket);
+                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                     if (dis != null) {
+                         int length = 0;
+                         int head = 0;
+                         int buffer_size = 4;
+                         byte[] headBuffer = new byte[4];
+                         byte[] cmdBuffer = new byte[4];
+                         byte[] stateBuffer = new byte[4];
+                         length = dis.read(headBuffer, 0, buffer_size);
+                         if (length == 4) {
+                             bos.write(headBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 0, headBuffer, 0, buffer_size);
+                             head = ByteUtil.bytesToInt(headBuffer, 0);
+                             length = dis.read(cmdBuffer, 0, buffer_size);
+                             bos.write(cmdBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 4, cmdBuffer, 0, buffer_size);
+                             int cmd = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(ByteUtil.byte2hex(cmdBuffer)));
+                             int heartNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.HEART));
+                             String discover = Integer.toHexString(0x0101);
+                             int discoverNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.DISCOVER));
+                             int giftNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.GIFT));
+                             if (cmd == heartNumber) {
+                                 length = dis.read(stateBuffer, 0, buffer_size);
+                                 bos.write(stateBuffer, 0, length);
+                                 System.arraycopy(bos.toByteArray(), 8, stateBuffer, 0, buffer_size);
+                                 switch (ByteUtil.bytesToInt(stateBuffer, 0)) {
+                                     case SocketStatus.LOGIN_SUCCESS: {//登录成功
+                                         Logger.e(&quot;登录成功&quot;);
+                                         mLoginValue = &quot;1&quot;;
+                                         EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_LOGIN_SUCCESS));
+                                         break;
+                                     }
+
+                                     case SocketStatus.HEART_SUCCESS: {//心跳返回
+                                         if (ByteUtil.bytesToInt(stateBuffer, 0) == 200
+                                                 &amp;&amp; Integer.toHexString(ByteUtil.bytesToInt(cmdBuffer, 0))
+                                                 .equals(discover)) {
+                                             byte[] buffer = new byte[head];
+                                             length = dis.read(buffer, 0, head);
+                                             bos.write(buffer, 0, length);
+                                             Response.Response response = Response.
+                                                     Response.parseFrom(buffer);
+                                             Logger.e(responseExplore.getNickname() + responseExplore.getAvatar());
+                                             //发送到activity中对数据进行处理
+                                             EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_START_DISCOVER_RESULT,
+                                                     responseExplore));
+                                             Logger.e(responseExplore + &quot;=======response&quot;);
+                                         } else {
+                                             Logger.e(&quot;心跳返回&quot;);
+                                         }
+                                         break;
+                                     }
+
+                                     default:
+                                         break;
+                                 }
+                             }
+                         } else {
+                                //出错重连
+                             ClientSocket.getsInstance().shutDownConnection(mSocket);
+                             createConnection();
+                         }
+
+                     } else {
+                         createConnection();
+                     }
+                 }
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             try {
+                 Thread.sleep(50);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mReceiveThread.start();
+}
+
+
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    ClientSocket.getsInstance().shutDownConnection(mSocket);
+    stopSelf();
+    mHeartThread = null;
+    mReceiveThread = null;
+    mLoginThread = null;
+    mSocketThread = null;
+    mStopDiscoverThread = null;
+    isHeart = false;
+    isReceive = false;
+
+}
+
+
+
+
+/**
+ * Binder
+ */
+public class SocketBinder extends Binder {
+
+ private SocketService mService;
+ public OnServiceCallBack mCallBack;
+
+ public SocketBinder(SocketService mService) {
+     this.mService = mService;
+ }
+
+ /**
+  * 发送方法
+  *
+  * @param object
+  */
+ public void sendMethod(Object object) {
+     mService.sendMsg(object);
+     mCallBack.onService(object);
+ }
+
+ /**
+  * 设置回调
+  *
+  * @param callBack
+  */
+ public void setOnServiceCallBack(OnServiceCallBack callBack) {
+     this.mCallBack = callBack;
+   }
+  }
+
+}</code></pre><ul>
+<li><p>分析<br>  上面的service中首先创建socket，然后连接，在socket发生错误的时候（比如网络异常）重新进行创建在连接。然后，开一个接收线程一直接收，每次接收都是接收4个字节的int值进行判断是否可以进入到下一步，如果可以则继续向下。读取4个字节的<strong>包头</strong>然后读取4个字节的<strong>命令</strong> 再读取4个字节的<strong>状态码</strong> 最后读取4个字节的<strong>包体</strong>，包体就包含我们所需要返回的数据。并且，在刚开始的时候就开启了一个接收线程每隔50毫秒接收一次数据，这样不仅可以读取到心跳包还可以读取到我们需要的数据。在最后，server生命周期结束的时候停止所有的线程。</p>
+</li>
+<li><p>4、<strong>发送数据的类</strong></p>
+<pre><code>public class ClientSocket {
+private DataOutputStream out = null;
+private DataInputStream getMessageStream;
+private static ClientSocket sInstance;
+
+private ClientSocket() {
+}
+
+/**
+ * 单例
+ *
+ * @return
+ */
+public static ClientSocket getsInstance() {
+ if (sInstance == null) {
+     synchronized (ClientSocket.class) {
+         if (sInstance == null) {
+             sInstance = new ClientSocket();
+         }
+     }
+ }
+ return sInstance;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * 登录
+  *
+  * @return
+  */
+ public void sendLogin(Socket socket, Request.RequestLogin requestLogin, int code) {
+  byte[] data = requestLogin.toByteArray();
+  byte[] head = ByteUtil.intToBytes(data.length);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd, data);
+  if (socket != null) {
+      if (socket.isConnected()) {
+          try {
+              OutputStream os = socket.getOutputStream();
+              os.write(bytes);
+              os.flush();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
+ }
+
+
+ /**
+  * 心跳
+  *
+  * @param code 关键字（命令）
+  * @return
+  */
+ public boolean sendHeart(Socket socket, int code) {
+  boolean isSuccess;
+  byte[] head = ByteUtil.intToBytes(0);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd);
+  if (socket.isConnected()) {
+      try {
+          out = new DataOutputStream(socket.getOutputStream());
+          out.write(bytes);
+          out.flush();
+          isSuccess = true;
+      } catch (IOException e) {
+          e.printStackTrace();
+          isSuccess = false;
+      }
+  } else {
+      isSuccess = false;
+  }
+  return isSuccess;
+ }
+
+ /**
+  * 断开连接
+  */
+ public void shutDownConnection(Socket socket) {
+  try {
+      if (out != null) {
+          out.close();
+      }
+      if (getMessageStream != null) {
+          getMessageStream.close();
+      }
+      if (socket != null) {
+          socket.close();
+      }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+ /**
+  * 获取服务器返回的流
+  *
+  * @param socket
+  * @return
+  */
+ public DataInputStream getMessageStream(Socket socket) {
+  if (socket == null) {
+      return null;
+  }
+
+  if (socket.isClosed()) {
+      return null;
+  }
+  if (!socket.isConnected()) {
+      return null;
+  }
+  try {
+      getMessageStream = new DataInputStream(new BufferedInputStream(
+              socket.getInputStream()));
+  } catch (IOException e) {
+      e.printStackTrace();
+      if (getMessageStream != null) {
+          try {
+              getMessageStream.close();
+          } catch (IOException e1) {
+              e1.printStackTrace();
+          }
+      }
+  }
+  return getMessageStream;
+  }
+ }</code></pre><ul>
+<li><p>分析：<br>这里使用了单例模式，保证了数据的唯一性，不会重复创建，可以看到登录发送了包头、命令和数据长度，而心跳只是包头和命令，因为包体长度为空，所以不用发送，最后转成4个字节的二进制数据进行发送。这样，proto buffer的优点就体现出来了，方便客户端和服务端的解析。</p>
+</li>
+<li><p><strong>二进制转换工具类</strong></p>
+<pre><code> public class ByteUtil {
+
+ /**
+  * 将2个byte数组进行拼接
+  */
+ public static byte[] addBytes(byte[] data1, byte[] data2) {
+  byte[] data3 = new byte[data1.length + data2.length];
+  System.arraycopy(data1, 0, data3, 0, data1.length);
+  System.arraycopy(data2, 0, data3, data1.length, data2.length);
+  return data3;
+}
+
+ /**
+  * 将3个byte数组进行拼接
+  */
+public static byte[] addBytes(byte[] data1, byte[] data2, byte[] data3) {</code></pre><p> ​     byte[] data4 = new byte[data1.length + data2.length + data3.length];<br> ​     System.arraycopy(data1, 0, data4, 0, data1.length);<br> ​     System.arraycopy(data2, 0, data4, data1.length, data2.length);<br> ​     System.arraycopy(data3, 0, data4, data1.length + data2.length, data3.length);<br> ​     return data4;<br> ​    }</p>
+<pre><code>/**
+ * int转byte{}
+ */
+public static byte[] intToBytes(int value, ByteOrder mode) {
+ byte[] src = new byte[4];
+ if (mode == ByteOrder.LITTLE_ENDIAN) {
+     src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[0] = (byte) (value &amp; 0xFF);
+ } else {
+     src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[3] = (byte) (value &amp; 0xFF);
+ }
+ return src;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * 16进制表示的字符串转换为字节数组
+  *
+  * @param s 16进制表示的字符串
+  * @return byte[] 字节数组
+  */
+ public static byte[] hexStringToByteArray(String s) {
+  int len = s.length();
+  byte[] b = new byte[len / 2];
+  for (int i = 0; i &lt; len; i += 2) {
+      // 两位一组，表示一个字节,把这样表示的16进制字符串，还原成一个字节
+      b[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) &lt;&lt; 4) + Character
+              .digit(s.charAt(i + 1), 16));
+  }
+  return b;
+ }
+
+
+ /**
+  * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+  *
+  * @param src    byte数组
+  * @param offset 从数组的第offset位开始
+  * @return int数值
+  */
+ public static int bytesToInt(byte[] src, int offset) {
+  int value;
+  value = (int) ((src[offset] &amp; 0xFF)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 8)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 3] &amp; 0xFF) &lt;&lt; 24));
+  return value;
+  }
+
+ /**
+  * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。和intToBytes2（）配套使用
+  */
+public static int bytesToInt2(byte[] src, int offset) {
+  int value;
+  value = (int) (((src[offset] &amp; 0xFF) &lt;&lt; 24)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 8)
+          | (src[offset + 3] &amp; 0xFF));
+  return value;
+ }
+
+ /**
+  * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和 
+   bytesToInt（）配套使用
+  *
+  * @param value 要转换的int值
+  * @return byte数组
+  */
+ public static byte[] intToBytes(int value) {
+  byte[] src = new byte[4];
+  src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[0] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和 
+   bytesToInt2（）配套使用
+  */
+ public static byte[] intToBytes2(int value) {
+  byte[] src = new byte[4];
+  src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[3] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * 将字节转换为二进制字符串
+  *
+  * @param bytes 字节数组
+  * @return 二进制字符串
+  */
+ public static String byteToBit(byte... bytes) {
+  StringBuffer sb = new StringBuffer();
+  int z, len;
+  String str;
+  for (int w = 0; w &lt; bytes.length; w++) {
+      z = bytes[w];
+      z |= 256;
+      str = Integer.toBinaryString(z);
+      len = str.length();
+      sb.append(str.substring(len - 8, len));
+    }
+    return sb.toString();
+   }
+
+    /**
+     * 字节数组转为普通字符串（ASCII对应的字符）
+     *
+     * @param bytearray byte[]
+     * @return String
+     */
+    public static String byte2String(byte[] bytearray) {
+  String result = &quot;&quot;;
+  char temp;
+
+  int length = bytearray.length;
+  for (int i = 0; i &lt; length; i++) {
+      temp = (char) bytearray[i];
+      result += temp;
+  }
+  return result;
+ }
+
+ /**
+  * 二进制字符串转十进制
+  *
+  * @param binary 二进制字符串
+  * @return 十进制数值
+  */
+public static int binaryToAlgorism(String binary) {
+  int max = binary.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = binary.charAt(i - 1);
+      int algorism = c - &apos;0&apos;;
+      result += Math.pow(2, max - i) * algorism;
+  }
+  return result;
+ }
+
+ /**
+  * 字节数组转换为十六进制字符串
+  *
+  * @param b byte[] 需要转换的字节数组
+  * @return String 十六进制字符串
+  */
+ public static String byte2hex(byte b[]) {
+  if (b == null) {
+      throw new IllegalArgumentException(
+              &quot;Argument b ( byte array ) is null! &quot;);
+  }
+  String hs = &quot;&quot;;
+  String stmp = &quot;&quot;;
+  for (int n = 0; n &lt; b.length; n++) {
+      stmp = Integer.toHexString(b[n] &amp; 0xff);
+      if (stmp.length() == 1) {
+          hs = hs + &quot;0&quot; + stmp;
+      } else {
+          hs = hs + stmp;
+      }
+  }
+  return hs.toUpperCase();
+}
+
+ /**
+  * 十六进制字符串转换十进制
+  *
+  * @param hex 十六进制字符串
+  * @return 十进制数值
+  */
+public static int hexStringToAlgorism(String hex) {
+  hex = hex.toUpperCase();
+  int max = hex.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = hex.charAt(i - 1);
+      int algorism = 0;
+      if (c &gt;= &apos;0&apos; &amp;&amp; c &lt;= &apos;9&apos;) {
+          algorism = c - &apos;0&apos;;
+      } else {
+          algorism = c - 55;
+      }
+      result += Math.pow(16, max - i) * algorism;
+  }
+  return result;
+ }
+
+/**
+ * 字符串转换成十六进制字符串
+ *
+ * @param str 待转换的ASCII字符串
+ * @return String 每个Byte之间空格分隔，如: [61 6C 6B]
+ */
+ public static String str2HexStr(String str) {
+
+  char[] chars = &quot;0123456789ABCDEF&quot;.toCharArray();
+  StringBuilder sb = new StringBuilder(&quot;&quot;);
+  byte[] bs = str.getBytes();
+  int bit;
+
+  for (int i = 0; i &lt; bs.length; i++) {
+      bit = (bs[i] &amp; 0x0f0) &gt;&gt; 4;
+      sb.append(chars[bit]);
+      bit = bs[i] &amp; 0x0f;
+      sb.append(chars[bit]);
+      sb.append(&apos; &apos;);
+  }
+  return sb.toString().trim();
+ }
+
+ /**
+  * 16进制转换成字符串
+  *
+  * @param hexStr
+  * @return
+  */
+ public static String hexStr2Str(String hexStr) {
+  String str = &quot;0123456789ABCDEF&quot;;
+  char[] hexs = hexStr.toCharArray();
+  byte[] bytes = new byte[hexStr.length() / 2];
+  int n;
+
+  for (int i = 0; i &lt; bytes.length; i++) {
+      n = str.indexOf(hexs[2 * i]) * 16;
+      n += str.indexOf(hexs[2 * i + 1]);
+      bytes[i] = (byte) (n &amp; 0xff);
+  }
+  return new String(bytes);
+ }
+
+/**
+ * 重写了Inpustream 中的skip(long n) 方法，
+ * 将数据流中起始的n 个字节跳过
+ */
+public static long skipBytesFromStream(InputStream inputStream, long n) {
+  long remaining = n;
+  // SKIP_BUFFER_SIZE is used to determine the size of skipBuffer
+  int SKIP_BUFFER_SIZE = 2048;
+  // skipBuffer is initialized in skip(long), if needed.
+  byte[] skipBuffer = null;
+  int nr = 0;
+  if (skipBuffer == null) {
+      skipBuffer = new byte[SKIP_BUFFER_SIZE];
+  }
+  byte[] localSkipBuffer = skipBuffer;
+  if (n &lt;= 0) {
+      return 0;
+  }
+  while (remaining &gt; 0) {
+      try {
+          nr = inputStream.read(localSkipBuffer, 0,
+                  (int) Math.min(SKIP_BUFFER_SIZE, remaining));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      if (nr &lt; 0) {
+          break;
+      }
+      remaining -= nr;
+  }
+  return n - remaining;
+}
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>  对于socket和 proto buffer来说，能灵活运用，首先要感谢我们公司的同事，没有他们提供思路，估计很难灵活运用socket和proto buffer。其次，要感谢之前公司的大佬，还有给我提供宝贵意见的各位好友。还有要感谢自己，能静下心来，坚持不懈，克服proto buffer和socket相结合的写法。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>  <a href="https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html" target="_blank" rel="noopener">Protocol Buffer技术详解(语言规范)</a><br><a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？</a></p>
+
+          
         
       
     </div>
