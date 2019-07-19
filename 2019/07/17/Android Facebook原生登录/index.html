@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Silence潇湘夜雨">
 <meta property="og:description" content="前言：   在写这篇文章之前先吐槽一下自己的英文水平，之前一直没感觉，因为做的项目都是国内的项目，很少看英文文档。但是，自从换了一个工作之后， 做的是国外的项目。并且，写了给第三方写了一个SDK，需要使用Google登录和Facebook登录。那么，就必须用原生登录，说到原生登录，那么就逃不掉要看 英文文档。看了英文文档之后才感觉自己的英文是多么的差劲。好了，废话不多说，我们进入今天的正题。如何使">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-19T01:44:24.096Z">
+<meta property="og:updated_time" content="2019-07-19T05:34:17.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Facebook 原生登录">
 <meta name="twitter:description" content="前言：   在写这篇文章之前先吐槽一下自己的英文水平，之前一直没感觉，因为做的项目都是国内的项目，很少看英文文档。但是，自从换了一个工作之后， 做的是国外的项目。并且，写了给第三方写了一个SDK，需要使用Google登录和Facebook登录。那么，就必须用原生登录，说到原生登录，那么就逃不掉要看 英文文档。看了英文文档之后才感觉自己的英文是多么的差劲。好了，废话不多说，我们进入今天的正题。如何使">
@@ -322,6 +322,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/登录/" itemprop="url" rel="index">
+                    <span itemprop="name">登录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -413,22 +435,9 @@ implementation &apos;com.facebook.android:facebook-login:4.39.0&apos;</code></pr
 </ul>
 <h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><pre><code>上面的配置算是搞定了，那么就是代码的编写了，我这里为了方便，所以封装了一个Facebook登录类。</code></pre><ul>
 <li><p>1、首先看工具类的封装</p>
-<p>1)、Facebook登录封装类<br>​<br>​     private static CallbackManager mFaceBookCallBack;<br>​     private static FaceBookLoginManager sInstance;<br>​<br>​     private FaceBookLoginManager() {<br>​<br>​     }<br>​<br>/**</p>
-<ul>
-<li><p>单例</p>
-</li>
-<li></li>
-<li><p>@return</p>
-</li>
-<li><p>/<br>public static FaceBookLoginManager getInstance() {<br>  if (sInstance == null) {</p>
-<pre><code>synchronized (FaceBookLoginManager.class) {
-    if (sInstance == null) {
-        sInstance = new FaceBookLoginManager();
-
-    }
-}</code></pre><p>  }<br>  return sInstance;<br>}</p>
-</li>
-</ul>
+<p>1)、Facebook登录封装类<br>​<br>​     private static CallbackManager mFaceBookCallBack;<br>​     private static FaceBookLoginManager sInstance;<br>​<br>​     private FaceBookLoginManager() {<br>​<br>​     }<br>​<br>​    /**<br>​     * 单例<br>​     *<br>​     * @return<br>​     */<br>​    public static FaceBookLoginManager getInstance() {<br>​        if (sInstance == null) {<br>​            synchronized (FaceBookLoginManager.class) {<br>​                if (sInstance == null) {<br>​                    sInstance = new FaceBookLoginManager();<br>​    </p>
+<pre><code>    }
+}</code></pre><p>   }<br>   return sInstance;<br>}</p>
 </li>
 </ul>
 <pre><code>/**
@@ -711,7 +720,7 @@ mBtnSend.setOnClickListener(new View.OnClickListener() {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -787,7 +796,7 @@ mBtnSend.setOnClickListener(new View.OnClickListener() {
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48.5k</span>
+    <span title="Site words total count">48.3k</span>
   
 </div>
 

@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-ba28f705f413f968.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-1abeee5865840f27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-4c3c4f0a04a2ca9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-17T10:41:16.512Z">
+<meta property="og:updated_time" content="2019-07-19T05:31:32.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 自定义Toast，并且勘误Android工具类里面的ToastUtils">
 <meta name="twitter:description" content="前言相信大部分仁兄在使用系统Toast的时候，都感觉不太尽如人意，因为系统Toast显示的位置比较固定，并且字体颜色等会跟随系统版本变化，那么能不能自己写一个呢，答案是当然的。当然，这是本文的一个重点，还有一个重点是，要对上一篇Android工具类里面的ToastUtils进行勘误，大概你现在还不太明白，容我慢慢道来，你且看着。  先上图     ##首先先看toast源码    public v">
@@ -326,6 +326,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">Android设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -363,7 +385,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  6
                 </span>
               
             </div>
@@ -619,15 +641,8 @@ public static void showIconToastMessage(Context context, String message,
         toast.show();
     }
 }
-}</code></pre><p>##再次，资源文件，我也一并贴出来吧<br><strong>比较简单，就一个ImageView和一个textview</strong><br>​<br>​      &lt;LinearLayout xmlns:android=”<a href="http://schemas.android.com/apk/res/android&quot;" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android&quot;</a><br>​    android:layout_width=”match_parent”<br>​    android:layout_height=”wrap_content”<br>​    android:layout_margin=”5dp”<br>​    android:background=”@drawable/toast_background”<br>​    android:orientation=”vertical” &gt;<br>​<br>    <linearlayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:orientation="horizontal" android:padding="5dp"></linearlayout></p>
-<pre><code>    &lt;ImageView
-        android:id=&quot;@+id/img_toast&quot;
-        android:layout_width=&quot;32dp&quot;
-        android:layout_height=&quot;32dp&quot;
-        android:layout_gravity=&quot;center&quot;
-        android:src=&quot;@drawable/ic_launcher&quot; /&gt;
-
-    &lt;TextView
+}</code></pre><p>##再次，资源文件，我也一并贴出来吧<br><strong>比较简单，就一个ImageView和一个textview</strong><br>​<br>​      &lt;LinearLayout xmlns:android=”<a href="http://schemas.android.com/apk/res/android&quot;" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android&quot;</a><br>​    android:layout_width=”match_parent”<br>​    android:layout_height=”wrap_content”<br>​    android:layout_margin=”5dp”<br>​    android:background=”@drawable/toast_background”<br>​    android:orientation=”vertical” &gt;<br>​<br>​    &lt;LinearLayout<br>​        android:layout_width=”wrap_content”<br>​        android:layout_height=”wrap_content”<br>​        android:layout_gravity=”center”<br>​        android:gravity=”center”<br>​        android:orientation=”horizontal”<br>​        android:padding=”5dp” &gt;<br>​<br>        <imageview android:id="@+id/img_toast" android:layout_width="32dp" android:layout_height="32dp" android:layout_gravity="center" android:src="@drawable/ic_launcher"></imageview></p>
+<pre><code>    &lt;TextView
         android:id=&quot;@+id/toast_tv&quot;
         android:layout_width=&quot;match_parent&quot;
         android:layout_height=&quot;wrap_content&quot;
@@ -765,7 +780,7 @@ public static void showIconToastMessage(Context context, String message,
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -841,7 +856,7 @@ public static void showIconToastMessage(Context context, String message,
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48.5k</span>
+    <span title="Site words total count">48.3k</span>
   
 </div>
 
