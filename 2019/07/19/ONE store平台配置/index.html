@@ -79,27 +79,31 @@
 
 
 
-<meta name="description" content="前提：   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。 准备条件 nginx-rtmp-module（带rtmp模块）  ffmpeg 密码：eha3 screencaptur">
+<meta name="description" content="前提：要使用onestore支付首先需要有onestore的账户密码配置步骤 第一步：打开官网登录ONE store    第二步：点击app然后点击注册，创建应用  第三步：填写配置内容（app名称和包名）     第四步：填写配置详情      第五步：设置商品价格 第六步：上传apk 第七步：应用内商品注册">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/windows-下基于nginx和ffmpeg的rtmp流媒体服务器搭建/index.html">
+<meta property="og:title" content="ONE store 平台配置">
+<meta property="og:url" content="http://yoursite.com/2019/07/19/ONE store平台配置/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="前提：   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。 准备条件 nginx-rtmp-module（带rtmp模块）  ffmpeg 密码：eha3 screencaptur">
+<meta property="og:description" content="前提：要使用onestore支付首先需要有onestore的账户密码配置步骤 第一步：打开官网登录ONE store    第二步：点击app然后点击注册，创建应用  第三步：填写配置内容（app名称和包名）     第四步：填写配置详情      第五步：设置商品价格 第六步：上传apk 第七步：应用内商品注册">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-bc4e73c2489ed0ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-fae932939f8505b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c044fd512ee17214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-d2f22a0cf1def188.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-dcea9e15095c0afc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-e91f1f69260693f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-14bff993d2b3701d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c5f7e6ae5b3f0f66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-773ed2e5c0f474d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-19T05:30:26.116Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-7793e1c75921807c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-f62a0e5db740b0fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-b031e93347e024a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c4b2695249ed1d8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-281de25240589d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-3c83b5f085673410.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-6ae5e11c60b8f244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-167f0d5f61a2f52e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-e1576095b6ff572f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-81f69049ab9fcd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-6f65fc4de212de2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-13723b286926092f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-a1e81cd6617c748b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T08:38:46.263Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建">
-<meta name="twitter:description" content="前提：   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。 准备条件 nginx-rtmp-module（带rtmp模块）  ffmpeg 密码：eha3 screencaptur">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-bc4e73c2489ed0ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="ONE store 平台配置">
+<meta name="twitter:description" content="前提：要使用onestore支付首先需要有onestore的账户密码配置步骤 第一步：打开官网登录ONE store    第二步：点击app然后点击注册，创建应用  第三步：填写配置内容（app名称和包名）     第四步：填写配置详情      第五步：设置商品价格 第六步：上传apk 第七步：应用内商品注册">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-7793e1c75921807c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/windows-下基于nginx和ffmpeg的rtmp流媒体服务器搭建/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/19/ONE store平台配置/">
 
 
 
 
 
-  <title>windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建 | Silence潇湘夜雨</title>
+  <title>ONE store 平台配置 | Silence潇湘夜雨</title>
   
 
 
@@ -292,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/windows-下基于nginx和ffmpeg的rtmp流媒体服务器搭建/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/ONE store平台配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -309,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建</h1>
+          <h1 class="post-title" itemprop="name headline">ONE store 平台配置</h1>
         
 
         <div class="post-meta">
@@ -321,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:37:20+08:00">
-                2019-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-19T16:37:29+08:00">
+                2019-07-19
               </time>
             
 
@@ -344,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ffmpeg/" itemprop="url" rel="index">
-                    <span itemprop="name">ffmpeg</span>
+                  <a href="/categories/平台配置/" itemprop="url" rel="index">
+                    <span itemprop="name">平台配置</span>
                   </a>
                 </span>
 
@@ -375,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  98
                 </span>
               
 
@@ -391,7 +395,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  1
                 </span>
               
             </div>
@@ -412,72 +416,28 @@
       
 
       
-        <h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><p>   最近公司要做直播方面的APP开发，刚接触到的时候是一脸懵逼状态，经过两天的采坑填坑终于搞懂了直播的流程，在此记录一下。一是怕自己忘记，另外一个是给其他人做一个参考吧。<br>ps：现在好多的文章千篇一律，不负责任的复制粘贴，让人摸不着头脑，并且话说的不够细致，让人很是头疼。</p>
-<h3 id="准备条件"><a href="#准备条件" class="headerlink" title="准备条件"></a>准备条件</h3><ul>
-<li><p><a href="https://link.jianshu.com?t=http%3A%2F%2Fnginx-win.ecsds.eu%2Fdownload%2Fnginx%25201.7.11.3%2520Gryphon.zip" target="_blank" rel="noopener">nginx-rtmp-module（带rtmp模块）</a></p>
+        <h3 id="前提：要使用onestore支付首先需要有onestore的账户密码"><a href="#前提：要使用onestore支付首先需要有onestore的账户密码" class="headerlink" title="前提：要使用onestore支付首先需要有onestore的账户密码"></a>前提：要使用onestore支付首先需要有onestore的账户密码</h3><h5 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h5><ul>
+<li>第一步：打开官网登录<a href="https://dev.onestore.co.kr/devpoc/index.omp" target="_blank" rel="noopener">ONE store</a></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-7793e1c75921807c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="onestore登录.png"></p>
 <ul>
-<li><a href="https://pan.baidu.com/s/1QkD7zMgiIDhgvPI8e1GkLw" target="_blank" rel="noopener">ffmpeg</a> 密码：eha3</li>
-<li><a href="https://pan.baidu.com/s/1MJ99kRlyaPUXkEODXMEq2w" target="_blank" rel="noopener">screencapturer</a> 密码：ypgz （是一个虚拟设备，在使用FFMpeg之前，需要安装）</li>
-<li><a href="https://pan.baidu.com/s/1lEUwLWOGimEijEA4DEk03w" target="_blank" rel="noopener">vlc播放器</a> 密码：3yjf</li>
-</ul>
-<p>######首先 nginx-rtmp-module是nginx的一个组件，可以自己编译生成，也可以从网上下载。需要注意的是，从nginx官网上下载的版本是不带rtmp模块的，但您可以通过： <a href="https://link.jianshu.com?t=http%3A%2F%2Fnginx-win.ecsds.eu%2F" target="_blank" rel="noopener">http://nginx-win.ecsds.eu/</a>找到包含rtmp组件的nginx版本，比如：nginx 1.7.8.1 Gryphon<br>然后，解压按下ctrl+R键输入cmd打开命令行窗口，切换到解压的路径下，输入nginx -V 查看 nginx版本，如下图所示表示成功：<br><img src="https://upload-images.jianshu.io/upload_images/1716569-bc4e73c2489ed0ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看nginx版本.png"></p>
+<li><p>第二步：点击app然后点击注册，创建应用<br><img src="https://upload-images.jianshu.io/upload_images/1716569-f62a0e5db740b0fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建应用.png"></p>
+</li>
+<li><p>第三步：填写配置内容（app名称和包名）</p>
 </li>
 </ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-b031e93347e024a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置1.png"></p>
 <ul>
-<li>conf 下的nginx.conf配置文件（如果没有需要自己新建）<br>如下图所示路径：<br><img src="https://upload-images.jianshu.io/upload_images/1716569-fae932939f8505b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx配置文件路径.png"><br><strong>PS：下图是nginx配置文件，如果没有需要自己手动创建</strong></li>
+<li>第四步：填写配置详情</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c044fd512ee17214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx配置文件.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c4b2695249ed1d8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置详情.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-281de25240589d7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置详情1.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-3c83b5f085673410.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置详情2.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-6ae5e11c60b8f244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置详情3.png"></p>
 <ul>
-<li><p>nginx.conf的配置内容</p>
-<pre><code>  #将以下内容拷贝到conf/nginx.conf文件中。
-#nginx进程数，建议设置为等于CPU总核心数
-worker_processes  2;
-#工作模式与连接数上限
- events {</code></pre><p>  ​     worker_connections  8192;</p>
-<pre><code> }
-
- rtmp_auto_push on;
-
-rtmp {
-server {</code></pre><p>  ​    listen 1935;<br>  ​    application myapp {<br>  ​        live on;<br>  ​    }       </p>
-<pre><code> }
-}</code></pre></li>
-<li><p>nginx启动方式<br><img src="https://upload-images.jianshu.io/upload_images/1716569-d2f22a0cf1def188.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx启动方式.png"><br>如上图所示：切换到你的nginx安装路径下然后输入 start nginx即可启动<br><strong>注意：</strong> 启动也可以输入 nginx.exe -c conf\nginx-win-rtmp.conf，这种方法带来的问题是不能优雅退出，<strong>切记！</strong><br>然后打开任务管理器可以看到nginx进程已经启动,如下图所示：</p>
-</li>
+<li>第五步：设置商品价格<br><img src="https://upload-images.jianshu.io/upload_images/1716569-167f0d5f61a2f52e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="商品价格.png"></li>
+<li>第六步：上传apk<br><img src="https://upload-images.jianshu.io/upload_images/1716569-e1576095b6ff572f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上传apk.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-81f69049ab9fcd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上传apk2.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-6f65fc4de212de2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="上传详情.png"></li>
+<li>第七步：应用内商品注册<br><img src="https://upload-images.jianshu.io/upload_images/1716569-13723b286926092f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="应用内商品注册.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-a1e81cd6617c748b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="应用内商品信息详情.png"></li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/1716569-dcea9e15095c0afc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx进程.png"></p>
-<h3 id="其次，基于ffmpeg的推拉流测试"><a href="#其次，基于ffmpeg的推拉流测试" class="headerlink" title="其次，基于ffmpeg的推拉流测试"></a>其次，基于ffmpeg的推拉流测试</h3><pre><code>    ffmpeg是一个自由软件，它提供了一整套多媒体的解决方案，从采集、编码、转换、播放应有尽有。
-在流媒体应用领域不借助 ffmpeg 的力量，就好比做 windows 程序而不用 Visual Studio ，做 iOSApp 
-不用 XCode 一样，需要很大的勇气。</code></pre><ul>
-<li>ffmpeg 安装<br> 解压ffmpeg到指定文件夹下，我这里是在D盘的ProgramFile下的ffmpeg路径，然后将ffmpeng的bin路径添加到系统的path路径下<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-e91f1f69260693f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FFMPEGbin路径.png"></li>
-</ul>
-<p><strong>注意：</strong>里面的里面的两个视频文件是我添加进去的，没有什么作用。<br>将D:\ProgramFile\ffmpg\ffmpeg-win64\bin 添加到环境变量的PATH后面，当然要根据你自己的安装路径配置环境变量。</p>
-<ul>
-<li><p>1、 ffmpeg实现录屏推流<br>打开windows命令行在命令行下输入：</p>
-<pre><code>ffmpeg -f gdigrab -i desktop -r 16 -vcodec h264 -acodec aac -f flv 
-rtmp://192.168.0.197/myapp/pc</code></pre><p><strong>注意:</strong> 这是一行命令行下的，没有空格，这里是方便你们查看。如下图所示，推流已经开始了。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-14bff993d2b3701d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ffmpeg推流.png"></p>
-</li>
-<li><p>vlc串流配置<br> 打开vlc客户端，点击媒体，在下拉框选项中选中<strong>打开网络串流</strong>这一个选项，会弹出如下图所示的对话框，在对话框中填入刚才第二行连接（ rtmp://192.168.0.197/myapp/pc）即可，当然我这个是在局域网下面的。<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-c5f7e6ae5b3f0f66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vlcrtmp串流配置.png"></p>
-</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><p>1、myapp为application的名字，由nginx的conf中定义</p>
-</li>
-<li><p>2、pc为直播流的名字，由推送方定义</p>
-</li>
-<li><p>2、ffmpeg播放视频文件<br> 切换到保存视频文件的路径下，我这里是在nginx路径下，如下图所示：<br> <img src="https://upload-images.jianshu.io/upload_images/1716569-773ed2e5c0f474d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ffmpeg视频文件.png"></p>
-</li>
-</ul>
-<p>那么对应的命令就是这样写：</p>
-<pre><code>ffmpeg -re -i gdiOut.avi -vcodec libx264 -acodec aac -f flv 
-rtmp://192.168.0.197:1935/myapp/home</code></pre><p><strong>解释：</strong></p>
-<ul>
-<li>1、myapp为application的名字，由nginx的conf中定义</li>
-<li>2、home为直播流的名字，由推送方定义</li>
-</ul>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><pre><code>  经过两天的采坑不断尝试终于搞定了服务器这块，下来直播的还需要自己去努力完成了。我相信有志者事竟成，
-一定会死磕到底，去解决那个难题。</code></pre><h4 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h4><p><a href="https://www.jianshu.com/p/e5a1510de26a" target="_blank" rel="noopener">第一讲：win7下快速搭建媒体服务器的方法</a><br><a href="https://www.jianshu.com/p/4f96e18827e2" target="_blank" rel="noopener">Nginx搭建RTMP推拉流服务器</a><br>另外推荐一个Android交流群493180098，如需转载请标明出处，谢谢。</p>
 
       
     </div>
@@ -502,8 +462,8 @@ rtmp://192.168.0.197:1935/myapp/home</code></pre><p><strong>解释：</strong></
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/17/专属博客，你值得拥有（Windows-版本）/" rel="next" title="专属博客，你值得拥有（Windows 版本）">
-                <i class="fa fa-chevron-left"></i> 专属博客，你值得拥有（Windows 版本）
+              <a href="/2019/07/19/QQ平台配置/" rel="next" title="QQ平台配置">
+                <i class="fa fa-chevron-left"></i> QQ平台配置
               </a>
             
           </div>
@@ -511,10 +471,6 @@ rtmp://192.168.0.197:1935/myapp/home</code></pre><p><strong>解释：</strong></
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/17/Ubuntu环境变量配置/" rel="prev" title="Ubuntu环境变量配置">
-                Ubuntu环境变量配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -659,7 +615,7 @@ rtmp://192.168.0.197:1935/myapp/home</code></pre><p><strong>解释：</strong></
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提："><span class="nav-number">1.</span> <span class="nav-text">前提：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备条件"><span class="nav-number">2.</span> <span class="nav-text">准备条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次，基于ffmpeg的推拉流测试"><span class="nav-number">3.</span> <span class="nav-text">其次，基于ffmpeg的推拉流测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">3.1.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#致谢"><span class="nav-number">3.2.</span> <span class="nav-text">致谢</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提：要使用onestore支付首先需要有onestore的账户密码"><span class="nav-number">1.</span> <span class="nav-text">前提：要使用onestore支付首先需要有onestore的账户密码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置步骤"><span class="nav-number">1.0.1.</span> <span class="nav-text">配置步骤</span></a></li></ol></li></ol></div>
             
 
           </div>
