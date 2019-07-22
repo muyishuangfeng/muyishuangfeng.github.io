@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前提  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看Android Socket编程（tcp）初探和Android Socket编程（udp）初探。相信很多朋友在公司使用socket开发的时候都会自定义协议来传递信息。一方面是为了安全排除脏数据，另一个方面是为了更加高效的处理自己所需要的数据。今天就来介绍一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前提  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看Android Socket编程（tcp）初探和Android Socket编程（udp）初探。相信很多朋友在公司使用socket开发的时候都会自定义协议来传递信息。一方面是为了安全排除脏数据，另一个方面是为了更加高效的处理自己所需要的数据。今天就来介绍一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T04:31:42.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+<meta name="twitter:description" content="前提  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看Android Socket编程（tcp）初探和Android Socket编程（udp）初探。相信很多朋友在公司使用socket开发的时候都会自定义协议来传递信息。一方面是为了安全排除脏数据，另一个方面是为了更加高效的处理自己所需要的数据。今天就来介绍一下">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/">
+
+
+
+
+
+  <title>Android socket高级用法（自定义协议和Protocol Buffer使用） | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android socket高级用法（自定义协议和Protocol Buffer使用）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:20:51+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/socket/" itemprop="url" rel="index">
+                    <span itemprop="name">socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>  之前写过两篇关于socket的文章，但是，只是简单的介绍了一下关于socket Tcp和Udp的简单使用。如果没有看过的朋友可以去看看<a href="https://www.jianshu.com/p/2ee8d427d011" target="_blank" rel="noopener">Android Socket编程（tcp）初探</a>和<a href="https://www.jianshu.com/p/ccbc727fd8f4" target="_blank" rel="noopener">Android Socket编程（udp）初探</a>。相信很多朋友在公司使用socket开发的时候都会自定义协议来传递信息。一方面是为了安全排除脏数据，另一个方面是为了更加高效的处理自己所需要的数据。今天就来介绍一下关于socket自定义协议和使用Protocol Buffer解析数据。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  既然说到了Protocol Buffer，那么我们就简单介绍一下Protocol Buffer是什么？并且使用为什么要使用Protocol Buffer？</p>
+<ul>
+<li>1、<strong>什么是Protocol Buffer</strong></li>
+</ul>
+<p>一种 结构化数据 的数据存储格式（类似于 XML、Json ），其作用是通过将 结构化的数据 进行 串行化（序列化），从而实现 数据存储 / RPC 数据交换的功能。至于更详细的用法和介绍请移步<a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？</a></p>
+<ul>
+<li><p>2、<strong>为什么要使用Protocol Buffer</strong></p>
+<p> 在回答这个问题之前，我们还是先给出一个在实际开发中经常会遇到的系统场景。比如：我们的客户端程序是使用Java开发的，可能运行自不同的平台，如：Linux、Windows或者是Android，而我们的服务器程序通常是基于Linux平台并使用C++或者Python开发完成的。在这两种程序之间进行数据通讯时存在多种方式用于设计消息格式，如：</p>
+<pre><code>1、 直接传递C/C++/Python语言中一字节对齐的结构体数据，只要结构体的声明为定长格式，那么该方式对于C/C++/Python程序而言就非常方便了，仅需将接收到的数据按照结构体类型强行转换即可。事实上对于变长结构体也不会非常麻烦。在发送数据时，也只需定义一个结构体变量并设置各个成员变量的值之后，再以char*的方式将该二进制数据发送到远端。反之，该方式对于Java开发者而言就会非常繁琐，首先需要将接收到的数据存于ByteBuffer之中，再根据约定的字节序逐个读取每个字段，并将读取后的值再赋值给另外一个值对象中的域变量，以便于程序中其他代码逻辑的编写。对于该类型程序而言，联调的基准是必须客户端和服务器双方均完成了消息报文构建程序的编写后才能展开，而该设计方式将会直接导致Java程序开发的进度过慢。即便是Debug阶段，也会经常遇到Java程序中出现各种域字段拼接的小错误。
+2、 使用SOAP协议(WebService)作为消息报文的格式载体，由该方式生成的报文是基于文本格式的，同时还存在大量的XML描述信息，因此将会大大增加网络IO的负担。又由于XML解析的复杂性，这也会大幅降低报文解析的性能。总之，使用该设计方式将会使系统的整体运行性能明显下降。
+对于以上两种方式所产生的问题，Protocol Buffer均可以很好的解决，不仅如此，Protocol Buffer还有一个非常重要的优点就是可以保证同一消息报文新旧版本之间的兼容性。__对于Protocol Buffer具体的用法请移步[Protocol Buffer技术详解(语言规范)](https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html)今天主要讲解的是socket自定义协议这块__</code></pre></li>
+</ul>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>  说了那么多，我们来看看我们今天的主要内容— <strong>自定义socket协议</strong><br><strong>先看一张心跳返回的图</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心跳返回.png"></p>
+<ul>
+<li>1、<strong>Protobuf协议</strong></li>
+</ul>
+<ul>
+<li>假设客户端请求包体数据协议如下</li>
+</ul>
+<p>request.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// 登录的包体数据
+message Request {
+ int32   uid = 0;
+string  api_token = 1;
+}</code></pre><p>发送的格式：</p>
+<p>{包头}{命令}{包体}<br>{包头} -&gt; 包体转成protubuf的长度<br>{命令} -&gt; 对应功能的命令字参数<br>{包体} -&gt; 对应的protubuf数据</p>
+<ul>
+<li>假设服务端返回包体数据协议</li>
+</ul>
+<p>response.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// 登录成功后服务器返回的包体数据
+message Response {
+int32   login = 1;
+}</code></pre><p>服务器返回的格式:</p>
+<p>{包头}{命令}{状态码}{包体}<br>{包头} -&gt; 包体转成protubuf的长度<br>{命令} -&gt; 对应功能的命令字参数<br>{状态码} -&gt; 对应状态的状态码<br>{包体} -&gt; 对应的protubuf数据</p>
+<ul>
+<li><p>2、<strong>客户端socket写法</strong></p>
+</li>
+<li><p>分析：试想一下，要socket不会因为手机屏幕的熄灭或者其他什么的而断开，我们应该把socket放到哪里去写，又要怎么保证socket的连接状态呢？对于Android来说放到 service里面去是最合适的，并且为了保证连接状态。那么，就要发送一个心跳包保证连接状态。既然这样，那么我们来写service和socket。</p>
+<ul>
+<li><p>3、<strong>service写法</strong></p>
+<pre><code>public class SocketService extends Service {
+
+ Thread mSocketThread;
+ Socket mSocket;
+ InetSocketAddress mSocketAddress;
+ //心跳线程
+  Thread mHeartThread;
+ //接收线程
+ Thread mReceiveThread;
+  //登录线程
+ Thread mLoginThread;
+  boolean isHeart = false;
+  boolean isReceive = false;</code></pre><p>   SocketBinder mBinder = new SocketBinder(this);</p>
+<p>   public SocketService() {</p>
+<p>   }</p>
+<p>   @Override<br>   public void onCreate() {<br> ​     super.onCreate();<br> ​     createConnection();<br> ​     receiveMsg();<br> ​     isHeart = true;<br> ​     isReceive = true;<br>   }</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>@Override
+public IBinder onBind(Intent intent) {
+ return mBinder;
+}
+
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+ startGps();
+ sendHeart();
+ if (!TextUtils.isEmpty(intent.getStringExtra(AppConfig.SERVICE_TAG))) {
+     String TAG = intent.getStringExtra(AppConfig.SERVICE_TAG);
+     switch (TAG) {
+         case AppConfig.STOP_SERVICE_VALUE: {//停止服务
+             ClientSocket.getsInstance().shutDownConnection(mSocket);
+             stopSelf();
+             mSocket = null;
+             mHeartThread = null;
+             mReceiveThread = null;
+             mLoginThread = null;
+             mSocketThread = null;
+             isHeart = false;
+             isReceive = false;
+             break;
+         }
+
+         default:
+             break;
+     }
+ }
+ return super.onStartCommand(intent, flags, startId);
+
+ }
+
+
+/**
+ * 发送心跳包
+ */
+private void sendHeart() {
+ mHeartThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isHeart) {
+             ClientSocket.getsInstance().sendHeart(mSocket, SocketStatus.HEART_CODE);
+             try {
+                 Thread.sleep(1000);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mHeartThread.start();
+ }
+
+ /**
+  * 登录
+  */
+ private void login(final double mLatitude, final double mLongitude) {
+   mLoginThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         if (PreferencesUtils.getInt(SocketService.this, Constants.USER_ID) != 0 &amp;&amp;
+                 !TextUtils.isEmpty(PreferencesUtils.getString(SocketService.this,
+                         Constants.USER_TOKEN))) {
+             Request.Request requestLogin =
+                     Request.Request.newBuilder()
+                             .setUid(PreferencesUtils.getInt(SocketService.this,
+                                     Constants.USER_ID))
+                             .setApiToken(PreferencesUtils.getString(SocketService.this,
+                                     Constants.USER_TOKEN).trim())
+                             .build();
+
+             ClientSocket.getsInstance().sendLogin(mSocket, requestLogin, SocketStatus.LOGIN_CODE);
+
+         }
+     }
+   });
+   mLoginThread.start();
+
+ }
+
+/**
+ * 创建连接
+ *
+ * @return
+ */
+ public void createConnection() {
+ mSocketThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         try {
+             mSocket = new Socket();
+             mSocketAddress = new InetSocketAddress(AppConfig.TCP_IP, AppConfig.TCP_PORT);
+             mSocket.connect(mSocketAddress, 20 * 1000);
+             // 设置 socket 读取数据流的超时时间
+             mSocket.setSoTimeout(20 * 1000);
+             // 发送数据包，默认为 false，即客户端发送数据采用 Nagle 算法；
+             // 但是对于实时交互性高的程序，建议其改为 true，即关闭 Nagle
+             // 算法，客户端每发送一次数据，无论数据包大小都会将这些数据发送出去
+             mSocket.setTcpNoDelay(true);
+             // 设置客户端 socket 关闭时，close() 方法起作用时延迟 30 秒关闭，如果 30 秒内尽量将未发送的数据包发送出去
+             // socket.setSoLinger(true, 30);
+             // 设置输出流的发送缓冲区大小，默认是4KB，即4096字节
+             mSocket.setSendBufferSize(10 * 1024);
+             // 设置输入流的接收缓冲区大小，默认是4KB，即4096字节
+             mSocket.setReceiveBufferSize(10 * 1024);
+             // 作用：每隔一段时间检查服务器是否处于活动状态，如果服务器端长时间没响应，自动关闭客户端socket
+             // 防止服务器端无效时，客户端长时间处于连接状态
+             mSocket.setKeepAlive(true);
+         } catch (UnknownHostException e) {
+             Logger.e(e.getMessage() + &quot;========+UnknownHostException&quot;);
+             e.printStackTrace();
+         } catch (IOException e) {
+             createConnection();
+             Logger.e(e.getMessage() + &quot;========IOException&quot;);
+             e.printStackTrace();
+         } catch (NetworkOnMainThreadException e) {
+             Logger.e(e.getMessage() + &quot;========NetworkOnMainThreadException&quot;);
+             e.printStackTrace();
+         }
+     }
+ });
+ mSocketThread.start();
+}
+
+
+/**
+ * 接收
+ */
+private void receiveMsg() {
+ mReceiveThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isReceive) {
+             try {
+                 if (mSocket != null &amp;&amp; mSocket.isConnected()) {
+                     DataInputStream dis = ClientSocket.getsInstance().getMessageStream(mSocket);
+                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                     if (dis != null) {
+                         int length = 0;
+                         int head = 0;
+                         int buffer_size = 4;
+                         byte[] headBuffer = new byte[4];
+                         byte[] cmdBuffer = new byte[4];
+                         byte[] stateBuffer = new byte[4];
+                         length = dis.read(headBuffer, 0, buffer_size);
+                         if (length == 4) {
+                             bos.write(headBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 0, headBuffer, 0, buffer_size);
+                             head = ByteUtil.bytesToInt(headBuffer, 0);
+                             length = dis.read(cmdBuffer, 0, buffer_size);
+                             bos.write(cmdBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 4, cmdBuffer, 0, buffer_size);
+                             int cmd = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(ByteUtil.byte2hex(cmdBuffer)));
+                             int heartNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.HEART));
+                             String discover = Integer.toHexString(0x0101);
+                             int discoverNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.DISCOVER));
+                             int giftNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.GIFT));
+                             if (cmd == heartNumber) {
+                                 length = dis.read(stateBuffer, 0, buffer_size);
+                                 bos.write(stateBuffer, 0, length);
+                                 System.arraycopy(bos.toByteArray(), 8, stateBuffer, 0, buffer_size);
+                                 switch (ByteUtil.bytesToInt(stateBuffer, 0)) {
+                                     case SocketStatus.LOGIN_SUCCESS: {//登录成功
+                                         Logger.e(&quot;登录成功&quot;);
+                                         mLoginValue = &quot;1&quot;;
+                                         EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_LOGIN_SUCCESS));
+                                         break;
+                                     }
+
+                                     case SocketStatus.HEART_SUCCESS: {//心跳返回
+                                         if (ByteUtil.bytesToInt(stateBuffer, 0) == 200
+                                                 &amp;&amp; Integer.toHexString(ByteUtil.bytesToInt(cmdBuffer, 0))
+                                                 .equals(discover)) {
+                                             byte[] buffer = new byte[head];
+                                             length = dis.read(buffer, 0, head);
+                                             bos.write(buffer, 0, length);
+                                             Response.Response response = Response.
+                                                     Response.parseFrom(buffer);
+                                             Logger.e(responseExplore.getNickname() + responseExplore.getAvatar());
+                                             //发送到activity中对数据进行处理
+                                             EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_START_DISCOVER_RESULT,
+                                                     responseExplore));
+                                             Logger.e(responseExplore + &quot;=======response&quot;);
+                                         } else {
+                                             Logger.e(&quot;心跳返回&quot;);
+                                         }
+                                         break;
+                                     }
+
+                                     default:
+                                         break;
+                                 }
+                             }
+                         } else {
+                                //出错重连
+                             ClientSocket.getsInstance().shutDownConnection(mSocket);
+                             createConnection();
+                         }
+
+                     } else {
+                         createConnection();
+                     }
+                 }
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             try {
+                 Thread.sleep(50);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mReceiveThread.start();
+}
+
+
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    ClientSocket.getsInstance().shutDownConnection(mSocket);
+    stopSelf();
+    mHeartThread = null;
+    mReceiveThread = null;
+    mLoginThread = null;
+    mSocketThread = null;
+    mStopDiscoverThread = null;
+    isHeart = false;
+    isReceive = false;
+
+}
+
+
+
+
+/**
+ * Binder
+ */
+public class SocketBinder extends Binder {
+
+ private SocketService mService;
+ public OnServiceCallBack mCallBack;
+
+ public SocketBinder(SocketService mService) {
+     this.mService = mService;
+ }
+
+ /**
+  * 发送方法
+  *
+  * @param object
+  */
+ public void sendMethod(Object object) {
+     mService.sendMsg(object);
+     mCallBack.onService(object);
+ }
+
+ /**
+  * 设置回调
+  *
+  * @param callBack
+  */
+ public void setOnServiceCallBack(OnServiceCallBack callBack) {
+     this.mCallBack = callBack;
+   }
+  }
+
+}</code></pre><ul>
+<li><p>分析<br>  上面的service中首先创建socket，然后连接，在socket发生错误的时候（比如网络异常）重新进行创建在连接。然后，开一个接收线程一直接收，每次接收都是接收4个字节的int值进行判断是否可以进入到下一步，如果可以则继续向下。读取4个字节的<strong>包头</strong>然后读取4个字节的<strong>命令</strong> 再读取4个字节的<strong>状态码</strong> 最后读取4个字节的<strong>包体</strong>，包体就包含我们所需要返回的数据。并且，在刚开始的时候就开启了一个接收线程每隔50毫秒接收一次数据，这样不仅可以读取到心跳包还可以读取到我们需要的数据。在最后，server生命周期结束的时候停止所有的线程。</p>
+</li>
+<li><p>4、<strong>发送数据的类</strong></p>
+<pre><code>public class ClientSocket {
+private DataOutputStream out = null;
+private DataInputStream getMessageStream;
+private static ClientSocket sInstance;
+
+private ClientSocket() {
+}
+
+/**
+ * 单例
+ *
+ * @return
+ */
+public static ClientSocket getsInstance() {
+ if (sInstance == null) {
+     synchronized (ClientSocket.class) {
+         if (sInstance == null) {
+             sInstance = new ClientSocket();
+         }
+     }
+ }
+ return sInstance;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * 登录
+  *
+  * @return
+  */
+ public void sendLogin(Socket socket, Request.RequestLogin requestLogin, int code) {
+  byte[] data = requestLogin.toByteArray();
+  byte[] head = ByteUtil.intToBytes(data.length);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd, data);
+  if (socket != null) {
+      if (socket.isConnected()) {
+          try {
+              OutputStream os = socket.getOutputStream();
+              os.write(bytes);
+              os.flush();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
+ }
+
+
+ /**
+  * 心跳
+  *
+  * @param code 关键字（命令）
+  * @return
+  */
+ public boolean sendHeart(Socket socket, int code) {
+  boolean isSuccess;
+  byte[] head = ByteUtil.intToBytes(0);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd);
+  if (socket.isConnected()) {
+      try {
+          out = new DataOutputStream(socket.getOutputStream());
+          out.write(bytes);
+          out.flush();
+          isSuccess = true;
+      } catch (IOException e) {
+          e.printStackTrace();
+          isSuccess = false;
+      }
+  } else {
+      isSuccess = false;
+  }
+  return isSuccess;
+ }
+
+ /**
+  * 断开连接
+  */
+ public void shutDownConnection(Socket socket) {
+  try {
+      if (out != null) {
+          out.close();
+      }
+      if (getMessageStream != null) {
+          getMessageStream.close();
+      }
+      if (socket != null) {
+          socket.close();
+      }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+ /**
+  * 获取服务器返回的流
+  *
+  * @param socket
+  * @return
+  */
+ public DataInputStream getMessageStream(Socket socket) {
+  if (socket == null) {
+      return null;
+  }
+
+  if (socket.isClosed()) {
+      return null;
+  }
+  if (!socket.isConnected()) {
+      return null;
+  }
+  try {
+      getMessageStream = new DataInputStream(new BufferedInputStream(
+              socket.getInputStream()));
+  } catch (IOException e) {
+      e.printStackTrace();
+      if (getMessageStream != null) {
+          try {
+              getMessageStream.close();
+          } catch (IOException e1) {
+              e1.printStackTrace();
+          }
+      }
+  }
+  return getMessageStream;
+  }
+ }</code></pre><ul>
+<li><p>分析：<br>这里使用了单例模式，保证了数据的唯一性，不会重复创建，可以看到登录发送了包头、命令和数据长度，而心跳只是包头和命令，因为包体长度为空，所以不用发送，最后转成4个字节的二进制数据进行发送。这样，proto buffer的优点就体现出来了，方便客户端和服务端的解析。</p>
+</li>
+<li><p><strong>二进制转换工具类</strong></p>
+<pre><code> public class ByteUtil {
+
+ /**
+  * 将2个byte数组进行拼接
+  */
+ public static byte[] addBytes(byte[] data1, byte[] data2) {
+  byte[] data3 = new byte[data1.length + data2.length];
+  System.arraycopy(data1, 0, data3, 0, data1.length);
+  System.arraycopy(data2, 0, data3, data1.length, data2.length);
+  return data3;
+}
+
+ /**
+  * 将3个byte数组进行拼接
+  */
+public static byte[] addBytes(byte[] data1, byte[] data2, byte[] data3) {</code></pre><p> ​     byte[] data4 = new byte[data1.length + data2.length + data3.length];<br> ​     System.arraycopy(data1, 0, data4, 0, data1.length);<br> ​     System.arraycopy(data2, 0, data4, data1.length, data2.length);<br> ​     System.arraycopy(data3, 0, data4, data1.length + data2.length, data3.length);<br> ​     return data4;<br> ​    }</p>
+<pre><code>/**
+ * int转byte{}
+ */
+public static byte[] intToBytes(int value, ByteOrder mode) {
+ byte[] src = new byte[4];
+ if (mode == ByteOrder.LITTLE_ENDIAN) {
+     src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[0] = (byte) (value &amp; 0xFF);
+ } else {
+     src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[3] = (byte) (value &amp; 0xFF);
+ }
+ return src;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * 16进制表示的字符串转换为字节数组
+  *
+  * @param s 16进制表示的字符串
+  * @return byte[] 字节数组
+  */
+ public static byte[] hexStringToByteArray(String s) {
+  int len = s.length();
+  byte[] b = new byte[len / 2];
+  for (int i = 0; i &lt; len; i += 2) {
+      // 两位一组，表示一个字节,把这样表示的16进制字符串，还原成一个字节
+      b[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) &lt;&lt; 4) + Character
+              .digit(s.charAt(i + 1), 16));
+  }
+  return b;
+ }
+
+
+ /**
+  * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+  *
+  * @param src    byte数组
+  * @param offset 从数组的第offset位开始
+  * @return int数值
+  */
+ public static int bytesToInt(byte[] src, int offset) {
+  int value;
+  value = (int) ((src[offset] &amp; 0xFF)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 8)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 3] &amp; 0xFF) &lt;&lt; 24));
+  return value;
+  }
+
+ /**
+  * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。和intToBytes2（）配套使用
+  */
+public static int bytesToInt2(byte[] src, int offset) {
+  int value;
+  value = (int) (((src[offset] &amp; 0xFF) &lt;&lt; 24)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 8)
+          | (src[offset + 3] &amp; 0xFF));
+  return value;
+ }
+
+ /**
+  * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和 
+   bytesToInt（）配套使用
+  *
+  * @param value 要转换的int值
+  * @return byte数组
+  */
+ public static byte[] intToBytes(int value) {
+  byte[] src = new byte[4];
+  src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[0] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和 
+   bytesToInt2（）配套使用
+  */
+ public static byte[] intToBytes2(int value) {
+  byte[] src = new byte[4];
+  src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[3] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * 将字节转换为二进制字符串
+  *
+  * @param bytes 字节数组
+  * @return 二进制字符串
+  */
+ public static String byteToBit(byte... bytes) {
+  StringBuffer sb = new StringBuffer();
+  int z, len;
+  String str;
+  for (int w = 0; w &lt; bytes.length; w++) {
+      z = bytes[w];
+      z |= 256;
+      str = Integer.toBinaryString(z);
+      len = str.length();
+      sb.append(str.substring(len - 8, len));
+    }
+    return sb.toString();
+   }
+
+    /**
+     * 字节数组转为普通字符串（ASCII对应的字符）
+     *
+     * @param bytearray byte[]
+     * @return String
+     */
+    public static String byte2String(byte[] bytearray) {
+  String result = &quot;&quot;;
+  char temp;
+
+  int length = bytearray.length;
+  for (int i = 0; i &lt; length; i++) {
+      temp = (char) bytearray[i];
+      result += temp;
+  }
+  return result;
+ }
+
+ /**
+  * 二进制字符串转十进制
+  *
+  * @param binary 二进制字符串
+  * @return 十进制数值
+  */
+public static int binaryToAlgorism(String binary) {
+  int max = binary.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = binary.charAt(i - 1);
+      int algorism = c - &apos;0&apos;;
+      result += Math.pow(2, max - i) * algorism;
+  }
+  return result;
+ }
+
+ /**
+  * 字节数组转换为十六进制字符串
+  *
+  * @param b byte[] 需要转换的字节数组
+  * @return String 十六进制字符串
+  */
+ public static String byte2hex(byte b[]) {
+  if (b == null) {
+      throw new IllegalArgumentException(
+              &quot;Argument b ( byte array ) is null! &quot;);
+  }
+  String hs = &quot;&quot;;
+  String stmp = &quot;&quot;;
+  for (int n = 0; n &lt; b.length; n++) {
+      stmp = Integer.toHexString(b[n] &amp; 0xff);
+      if (stmp.length() == 1) {
+          hs = hs + &quot;0&quot; + stmp;
+      } else {
+          hs = hs + stmp;
+      }
+  }
+  return hs.toUpperCase();
+}
+
+ /**
+  * 十六进制字符串转换十进制
+  *
+  * @param hex 十六进制字符串
+  * @return 十进制数值
+  */
+public static int hexStringToAlgorism(String hex) {
+  hex = hex.toUpperCase();
+  int max = hex.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = hex.charAt(i - 1);
+      int algorism = 0;
+      if (c &gt;= &apos;0&apos; &amp;&amp; c &lt;= &apos;9&apos;) {
+          algorism = c - &apos;0&apos;;
+      } else {
+          algorism = c - 55;
+      }
+      result += Math.pow(16, max - i) * algorism;
+  }
+  return result;
+ }
+
+/**
+ * 字符串转换成十六进制字符串
+ *
+ * @param str 待转换的ASCII字符串
+ * @return String 每个Byte之间空格分隔，如: [61 6C 6B]
+ */
+ public static String str2HexStr(String str) {
+
+  char[] chars = &quot;0123456789ABCDEF&quot;.toCharArray();
+  StringBuilder sb = new StringBuilder(&quot;&quot;);
+  byte[] bs = str.getBytes();
+  int bit;
+
+  for (int i = 0; i &lt; bs.length; i++) {
+      bit = (bs[i] &amp; 0x0f0) &gt;&gt; 4;
+      sb.append(chars[bit]);
+      bit = bs[i] &amp; 0x0f;
+      sb.append(chars[bit]);
+      sb.append(&apos; &apos;);
+  }
+  return sb.toString().trim();
+ }
+
+ /**
+  * 16进制转换成字符串
+  *
+  * @param hexStr
+  * @return
+  */
+ public static String hexStr2Str(String hexStr) {
+  String str = &quot;0123456789ABCDEF&quot;;
+  char[] hexs = hexStr.toCharArray();
+  byte[] bytes = new byte[hexStr.length() / 2];
+  int n;
+
+  for (int i = 0; i &lt; bytes.length; i++) {
+      n = str.indexOf(hexs[2 * i]) * 16;
+      n += str.indexOf(hexs[2 * i + 1]);
+      bytes[i] = (byte) (n &amp; 0xff);
+  }
+  return new String(bytes);
+ }
+
+/**
+ * 重写了Inpustream 中的skip(long n) 方法，
+ * 将数据流中起始的n 个字节跳过
+ */
+public static long skipBytesFromStream(InputStream inputStream, long n) {
+  long remaining = n;
+  // SKIP_BUFFER_SIZE is used to determine the size of skipBuffer
+  int SKIP_BUFFER_SIZE = 2048;
+  // skipBuffer is initialized in skip(long), if needed.
+  byte[] skipBuffer = null;
+  int nr = 0;
+  if (skipBuffer == null) {
+      skipBuffer = new byte[SKIP_BUFFER_SIZE];
+  }
+  byte[] localSkipBuffer = skipBuffer;
+  if (n &lt;= 0) {
+      return 0;
+  }
+  while (remaining &gt; 0) {
+      try {
+          nr = inputStream.read(localSkipBuffer, 0,
+                  (int) Math.min(SKIP_BUFFER_SIZE, remaining));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      if (nr &lt; 0) {
+          break;
+      }
+      remaining -= nr;
+  }
+  return n - remaining;
+}
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>  对于socket和 proto buffer来说，能灵活运用，首先要感谢我们公司的同事，没有他们提供思路，估计很难灵活运用socket和proto buffer。其次，要感谢之前公司的大佬，还有给我提供宝贵意见的各位好友。还有要感谢自己，能静下心来，坚持不懈，克服proto buffer和socket相结合的写法。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>  <a href="https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html" target="_blank" rel="noopener">Protocol Buffer技术详解(语言规范)</a><br><a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Android 发布项目到jitpack详解/" rel="next" title="Android 发布项目到jitpack详解">
+                <i class="fa fa-chevron-left"></i> Android 发布项目到jitpack详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/Android-动画初探/" rel="prev" title="Android 动画初探">
+                Android 动画初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">5.</span> <span class="nav-text">感谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">49.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

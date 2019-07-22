@@ -1,0 +1,2902 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言相信用过工具类的各位仁兄都觉得工具类好用，小弟不才，今天斗胆拿出自己感觉比较顺手的工具类。  ##1、Activity控制类 public class ActivityCollector{     //activity集合  public static List&amp;lt;Activity&amp;gt; mActList = new ArrayList&amp;lt;Activity&amp;gt;();">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 工具类">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/Android-工具类/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前言相信用过工具类的各位仁兄都觉得工具类好用，小弟不才，今天斗胆拿出自己感觉比较顺手的工具类。  ##1、Activity控制类 public class ActivityCollector{     //activity集合  public static List&amp;lt;Activity&amp;gt; mActList = new ArrayList&amp;lt;Activity&amp;gt;();">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-19T05:31:59.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 工具类">
+<meta name="twitter:description" content="前言相信用过工具类的各位仁兄都觉得工具类好用，小弟不才，今天斗胆拿出自己感觉比较顺手的工具类。  ##1、Activity控制类 public class ActivityCollector{     //activity集合  public static List&amp;lt;Activity&amp;gt; mActList = new ArrayList&amp;lt;Activity&amp;gt;();">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/Android-工具类/">
+
+
+
+
+
+  <title>Android 工具类 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Android-工具类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 工具类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:44:29+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">工具类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  42
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>相信用过工具类的各位仁兄都觉得工具类好用，小弟不才，今天斗胆拿出自己感觉比较顺手的工具类。</strong></p>
+<hr>
+<p>##1、Activity控制类</p>
+<pre><code>public class ActivityCollector{
+    //activity集合
+ public static List&lt;Activity&gt; mActList = new ArrayList&lt;Activity&gt;();
+        /**
+          * 添加Activity
+          * 
+          * @param activity
+          */
+
+   public static void addActivity(Activity activity){
+      mActList.add.add(activity);
+    }
+    }
+         /**
+           * 移除Activity
+           */
+          public static void removeActivity(Activity activity) {
+            mActList.remove(activity);
+         }
+
+        /**
+          * 退出
+          */
+         public static void finishAll() {
+            for (Activity activity : mActList) {
+              if (!activity.isFinishing()) {
+
+                  activity.finish();
+           }
+         }
+       }
+
+}</code></pre><h2 id="2、应用市场管理类"><a href="#2、应用市场管理类" class="headerlink" title="2、应用市场管理类"></a>2、应用市场管理类</h2><pre><code>  public class MarketUtils {
+     // 360手机助手
+    public static final String MARKET = &quot;com.qihoo.appstore&quot;;
+    // 淘宝手机助手
+    public static final String MARKET_TAOBAO = &quot;com.taobao.appcenter&quot;;
+    // 应用宝
+    public static final String MARKET_QQDOWNLOADER = &quot;com.tencent.Android.qqdownloader&quot;;
+    // 安卓市场
+    public static final String MARKET_HIAPK = &quot;com.hiapk.marketpho&quot;;
+    // 安智市场
+    public static final String MARKET_GOAPK = &quot;cn.goapk.market&quot;;
+    // 包名
+    public static final String APP_PACKAGE_NAME = &quot;com.*.*&quot;;
+
+   public MarketUtils() {
+    throw new AssertionError();
+}
+  /**
+    * 跳转到应用市场
+    * 
+    * @param appPkg
+    *            ：上传到应用市场上app的包名,不是本项目的包名
+    * @param marketPkg
+    *            ：应用市场的包名
+    */
+    public static void goToMarket(Context context, String packageName) {
+    Uri uri = Uri.parse(&quot;market://details?id=&quot; + packageName);
+    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+    try {
+        context.startActivity(goToMarket);
+    } catch (ActivityNotFoundException e) {
+    }
+}
+
+   /**
+     * 启动App
+     * 
+     * @param context
+     */
+   public static void launchapp(Context context) {
+    // 判断是否安装过App，否则去市场下载
+    if (isAppInstalled(context, APP_PACKAGE_NAME)) {
+        context.startActivity(context.getPackageManager()
+            .getLaunchIntentForPackage(APP_PACKAGE_NAME));
+    } else {
+        goToMarket(context, APP_PACKAGE_NAME);
+    }
+}
+
+     /**
+       * 检测某个应用是否安装
+       * 
+       * @param context
+       * @param packageName
+       * @return
+       */
+   public static boolean isAppInstalled(Context context, String packageName) {
+    try {
+        context.getPackageManager().getPackageInfo(packageName, 0);
+        return true;
+    } catch (NameNotFoundException e) {
+        return false;
+    }
+}
+    /**
+       * 判断市场是否存在的方法
+       * 
+       * @param context
+       * @param packageName
+       *            应用市场包名
+       * @return true or false
+       */
+  public static boolean isAvilible(Context context, String packageName) {
+    final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+    List&lt;PackageInfo&gt; packageInfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+    List&lt;String&gt; NameList = new ArrayList&lt;String&gt;();// 用于存储所有已安装程序的包名
+    // 从packageInfo中取出包名，放入NameList中
+    if (packageInfo != null) {
+        for (int i = 0; i &lt; packageInfo.size(); i++) {
+            String pn = packageInfo.get(i).packageName;
+            NameList.add(pn);
+        }
+    }
+    return NameList.contains(packageName);// 判断pName中是否有目标程序的包名，有TRUE，没有FALSE
+}
+ } </code></pre><h2 id="3、Toast工具类（不建议使用，请看另外一篇-Android-自定义Toast，并且勘误"><a href="#3、Toast工具类（不建议使用，请看另外一篇-Android-自定义Toast，并且勘误" class="headerlink" title="3、Toast工具类（不建议使用，请看另外一篇[Android 自定义Toast，并且勘误"></a>3、<del>Toast工具类</del>（不建议使用，请看另外一篇[Android 自定义Toast，并且勘误</h2><p>Android工具类里面的ToastUtils]()）<br>​      public class ToastUtils {~<br>​       public static Toast toast;<br>​       public static boolean isShow = true;</p>
+<pre><code>   private ToastUtils() {
+    // 不能被实例化
+    throw new UnsupportedOperationException(&quot;cannot be instantiated&quot;);
+}
+
+    public static void showToast(Context context, String message) {
+    if (toast == null) {
+        toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+    } else {
+        toast.setText(message);
+    }
+    toast.show();
+}
+/**
+ * 屏幕中间位置显示短时间Toast
+ * 
+ * @param context
+ * @param msg
+ */
+public static void ToastShortCenter(Context context, String msg) {
+    if (isShow) {
+        if (context != null) {
+            Toast toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+}
+
+/**
+ * 屏幕中心位置长时间显示Toast
+ * 
+ * @param context
+ * @param message
+ */
+public static void ToastLongCenter(Context context, String message) {
+    if (isShow) {
+        if (context != null) {
+            Toast toast = Toast.makeText(context, message,
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+}
+
+/**
+ * 自定义显示Toast时间
+ * 
+ * @param context
+ * @param message
+ * @param duration
+ */
+public static void ToastShow(Context context, String message, int duration) {
+    if (isShow)
+        Toast.makeText(context, message, duration).show();
+}
+}</code></pre><h2 id="4、KeyBoardUtils"><a href="#4、KeyBoardUtils" class="headerlink" title="4、KeyBoardUtils"></a>4、KeyBoardUtils</h2><p>​      public class KeyBoardUtils {</p>
+<pre><code>public KeyBoardUtils() {
+    throw new AssertionError();
+}
+
+/**
+ * 打卡软键盘
+ * 
+ * @param mEditText
+ *            输入框
+ * @param mContext
+ *            上下文
+ */
+public static void openKeybord(EditText mEditText, Context mContext) {
+    InputMethodManager imm = (InputMethodManager) mContext
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+            InputMethodManager.HIDE_IMPLICIT_ONLY);
+}
+
+/**
+ * 关闭软键盘
+ * 
+ * @param mEditText
+ *            输入框
+ * @param mContext
+ *            上下文
+ */
+public static void closeKeybord(EditText mEditText, Context mContext) {
+    InputMethodManager imm = (InputMethodManager) mContext
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+    imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+}
+}</code></pre><h2 id="5、AES工具类"><a href="#5、AES工具类" class="headerlink" title="5、AES工具类"></a>5、AES工具类</h2><p>​      public class AESUtils {</p>
+<pre><code>// 密钥算法
+private static final String KEY_ALGORITHM = &quot;AES&quot;;
+// AES/CBC/PKCS7Padding 分别对应 加密||解密算法、工作模式、填充方式
+private static final String CIPHER_ALGORITHM = &quot;AES/CBC/PKCS7Padding&quot;;
+// 定义自己的秘钥
+public final static String SECRETKEY = &quot;A9e4/vnQTrKF6otAGbM6zGsulKEL7b3x&quot;;
+// 位移量
+public final static String DISPLACEMENT = &quot;9mg+!7ed8b36*w`X&quot;;
+
+/**
+ * 获取KEY
+ * 
+ * @return
+ * @throws Exception
+ */
+private static byte[] getKey() throws Exception {
+    return SECRETKEY.getBytes(Charset.forName(&quot;UTF-8&quot;));
+}
+
+/**
+ * 加密
+ * 
+ * @param toEncrypt
+ *            文本
+ * @return
+ * 
+ *         加密返回数组
+ * @throws Exception
+ */
+@SuppressLint(&quot;TrulyRandom&quot;)
+public static byte[] Encrypt(String toEncrypt) throws Exception {
+    // 秘钥
+    Key secretKey = new SecretKeySpec(getKey(), KEY_ALGORITHM);
+    // libs中bcprov的支持,bouncycastle支持 64 位密钥
+    Security.addProvider(new BouncyCastleProvider());
+    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+    // 获取位移，并初始化
+    final byte[] data = DISPLACEMENT.getBytes();
+    IvParameterSpec mIvParameterSpec = new IvParameterSpec(data);
+    // 用 iv 初始化
+    cipher.init(Cipher.ENCRYPT_MODE, secretKey, mIvParameterSpec);
+
+    final byte[] mEncrypted = cipher.doFinal(toEncrypt.getBytes(Charset
+            .forName(&quot;UTF-8&quot;)));
+
+    final byte[] mSpecEncrypted = new byte[data.length + mEncrypted.length];
+    System.arraycopy(data, 0, mSpecEncrypted, 0, data.length);
+    System.arraycopy(mEncrypted, 0, mSpecEncrypted, data.length,
+            mEncrypted.length);
+    return mSpecEncrypted;
+}
+
+/**
+ * 加密数据
+ * 
+ * @param encryption
+ * 
+ *            文本
+ * @return
+ * 
+ *         返回字符串
+ * @throws Exception
+ */
+public static String Encryption(String encryption) throws Exception {
+    byte[] entroyResult = Encrypt(encryption);
+    String result = new String(Base64.encode(entroyResult, 0), &quot;UTF-8&quot;);
+    return result;
+}
+
+/**
+ * 解密数据
+ * 
+ * @param toDecrypt
+ *            文本
+ * @return &lt;br&gt;
+ *         返回字符串
+ * @throws Exception
+ */
+public static String Decrypt(String decrypt) throws Exception {
+    byte[] data = Base64.decode(decrypt, 0);
+    // 秘钥
+    Key secretKey = new SecretKeySpec(getKey(), KEY_ALGORITHM);
+    Security.addProvider(new BouncyCastleProvider());
+    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+    final byte[] mData = DISPLACEMENT.getBytes();
+    IvParameterSpec mIvParameterSpec = new IvParameterSpec(mData);
+    cipher.init(Cipher.DECRYPT_MODE, secretKey, mIvParameterSpec);
+    final byte[] mEncrypted = cipher.doFinal(data);
+    // 结果
+    final byte[] result = new byte[mEncrypted.length - mData.length];
+    System.arraycopy(mEncrypted, mData.length, result, 0, result.length);
+    return new String(result);
+}
+}</code></pre><p>##6、APP版本工具类<br>​      public class VersionUtil {</p>
+<pre><code>/**
+ * 获取应用程序名称
+ * 
+ * @param context
+ * @return
+ */
+public static String getAppName(Context context) {
+    try {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo = packageManager.getPackageInfo(
+                context.getPackageName(), 0);
+        int labelRes = packageInfo.applicationInfo.labelRes;
+        return context.getResources().getString(labelRes);
+    } catch (PackageManager.NameNotFoundException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+/**
+ * 获取版本号
+ * 
+ * @param context
+ * @return 当前应用的版本号
+ */
+public static String getVersion(Context context) {
+    try {
+        PackageManager manager = context.getPackageManager();
+        PackageInfo info = manager.getPackageInfo(context.getPackageName(),
+                0);
+        String version = info.versionName;
+        return version;
+    } catch (PackageManager.NameNotFoundException e) {
+        e.printStackTrace();
+        return &quot;&quot;;
+    }
+}
+
+/**
+ * 版本比较
+ * 
+ * @param nowVersion
+ *            app版本
+ * @param serverVersion
+ *            服务器版本
+ * @return
+ */
+public static boolean compareVersion(String nowVersion, String serverVersion) {
+    if (nowVersion != null &amp;&amp; serverVersion != null) {
+        String[] nowVersions = nowVersion.split(&quot;\\.&quot;);
+        String[] serverVersions = serverVersion.split(&quot;\\.&quot;);
+        if (nowVersion != null &amp;&amp; serverVersion != null
+                &amp;&amp; nowVersions.length &gt; 1 &amp;&amp; serverVersions.length &gt; 1) {
+            int nowVersionFirst = Integer.parseInt(nowVersions[0]);
+            int serverVersionFirst = Integer.parseInt(serverVersions[0]);
+            int nowVersionSecond = Integer.parseInt(nowVersions[1]);
+            int serverVersionSecond = Integer.parseInt(serverVersions[1]);
+            if (nowVersionFirst &lt; serverVersionFirst) {
+                return true;
+            } else if (nowVersionFirst == serverVersionFirst
+                    &amp;&amp; nowVersionSecond &lt; serverVersionSecond) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+}</code></pre><p>##7、GlideUtils<br><strong>话说用开源库的时候应该自行封装一下，为了后面修改方便。</strong><br>​      public class GlideUtils {</p>
+<pre><code>public GlideUtils(){
+    throw new AssertionError();
+}
+
+/**
+ * 显示照片
+ * @param context
+ * @param imageView
+ * @param url
+ */
+public static void displays(Context context, ImageView imageView, Object url) {
+    Glide.with(context).load(url).skipMemoryCache(true)  //跳过内存缓存
+            .diskCacheStrategy(DiskCacheStrategy.ALL) //硬盘缓存全部
+           .into(imageView);
+}
+
+/**
+ * 显示图片
+ * @param context
+ * @param imageView
+ * @param url
+ * @param tag
+ */
+public static void display(Context context, ImageView imageView, String url, Object tag) {
+    Glide.with(context).load(url).
+            error(R.drawable.ic_error).placeholder(R.drawable.ic_progress).into(imageView);
+}
+
+public static void display(Context context, ImageView imageView, String url, int progressId) {
+    RequestManager manager = Glide.with(context);
+    DrawableTypeRequest&lt;String&gt; load = manager.load(url);
+    load.error(R.drawable.ic_error).placeholder(new ColorDrawable(Color.GRAY)).into
+            (imageView);
+    if (progressId != -1) {
+        load.placeholder(progressId);
+    }
+}
+
+public static void display(Context context, ImageView imageView, String url) {
+    display(context, imageView, url, -1);
+}
+
+public static void cancel(Context context) {
+}
+/**
+ * 设置磁盘缓存大小和位置,这里设置150M
+ */
+public static void setInnerCacheDir(Context context){
+    GlideBuilder builder = new GlideBuilder(context);
+    builder.setDiskCache(new InternalCacheDiskCacheFactory(context, &quot;ImgCache&quot;, 150 * 1024 * 1024));
+}
+
+/**
+ * 可以用ExternalCacheDiskCacheFactory来把你的磁盘缓存放到sd卡的公共缓存目录上,这里默认设置150M
+ */
+public static void setDiskCacheDir(Context context){
+    GlideBuilder builder = new GlideBuilder(context);
+    builder.setDiskCache( new ExternalCacheDiskCacheFactory(context, &quot;ImgCache&quot;, 150 * 1024 * 1024));
+}
+
+/**
+ * 清除缓存
+ */
+public static  void clearCache(final Context context){
+    Glide.get(context).clearMemory(); //清理内存缓存
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            Glide.get(context).clearDiskCache(); //清理磁盘缓存
+        }
+    }).start();
+}
+}</code></pre><p>##8、缓存工具类<br>​      public class CacheUtil {</p>
+<pre><code>public CacheUtil() {
+    throw new UnsupportedOperationException(&quot;cannot be instantiated&quot;);
+}
+
+/**
+ * 得到缓存大小
+ *
+ * @param context 上下文
+ * @return
+ * @throws IOException
+ */
+public static String getTotalCacheSize(Context context) throws IOException {
+    //缓存大小
+    long cacheSize = getFolderSize(context.getCacheDir());
+    // 如果SD卡正常挂载才可以创建文件或者写入文件等
+    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        cacheSize += getFolderSize(context.getCacheDir());
+    }
+     return  getFormatSize(cacheSize);
+}
+
+/**
+ * 得到临时缓存数据
+ *
+ * @param file
+ * @return
+ * @throws IOException
+ */
+public static long getFolderSize(File file) throws IOException {
+    long size = 0;
+    //文件
+    File[] fileList = file.listFiles();
+    for (int i = 0; i &lt; fileList.length; i++) {
+        if (fileList[i].isDirectory()) {
+            size = size + getFolderSize(fileList[i]);
+        } else {
+            size = size + fileList[i].length();
+        }
+    }
+    return size;
+}
+
+/**
+ * 清除所有缓存
+ */
+public static void clearAllCache(Context context) {
+    //删除缓存
+    deleteDir(context.getCacheDir());
+    //如果存在SD卡则删除本地缓存
+    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        deleteDir(context.getExternalCacheDir());
+    }
+
+}
+
+/**
+ * 是否删除文件
+ *
+ * @return
+ */
+public static boolean deleteDir(File dir) {
+    // 文件不为空并且是一个文件夹时
+    if (dir != null &amp;&amp; dir.isDirectory()) {
+        //得到文件集合
+        String[] child = dir.list();
+        for (int i = 0; i &lt; child.length; i++) {
+            //是否删除成功
+            boolean isSuccess = deleteDir(new File(dir, child[i]));
+            if (!isSuccess) {
+                return false;
+            }
+        }
+    }
+    return dir.delete();
+}
+
+/**
+ * 格式化
+ *
+ * @return
+ */
+public static String getFormatSize(double size) {
+    //KB
+    double kiloByte = size / 1024;
+    if (kiloByte&lt;1){
+        return size+&quot;Byte&quot;;
+    }
+    //MB
+    double megaByte=kiloByte/1024;
+    if (megaByte&lt;1){
+        //高精度计算结果
+        BigDecimal result1=new BigDecimal(Double.toString(kiloByte));
+        //四舍五入
+        return result1.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString()+&quot;KB&quot;;
+    }
+    //GB
+    double gigaByte = megaByte/1024;
+    if (gigaByte&lt;1){
+        BigDecimal result2= new BigDecimal(Double.toString(megaByte));
+        return  result2.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString()+&quot;MB&quot;;
+    }
+    //TB
+    double teraByte =gigaByte/1024;
+    if (teraByte&lt;1){
+        BigDecimal result3= new BigDecimal(Double.toString(gigaByte));
+        return  result3.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString()+&quot;GB&quot;;
+    }
+    BigDecimal result4= new BigDecimal(teraByte);
+    return result4.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString()+&quot;TB&quot;;
+}
+}</code></pre><p>##9、SharedPreferences封装类<br>​      public class SPUtils {<br>​    /**<br>​     * 保存在手机里面的文件名<br>​     */<br>​    public static final String FILE_NAME = “share_data”;</p>
+<pre><code>/**
+ * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+ * 
+ * @param context
+ * @param key
+ * @param object
+ */
+public static void put(Context context, String key, Object object) {
+
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+
+    if (object instanceof String) {
+        editor.putString(key, (String) object);
+    } else if (object instanceof Integer) {
+        editor.putInt(key, (Integer) object);
+    } else if (object instanceof Boolean) {
+        editor.putBoolean(key, (Boolean) object);
+    } else if (object instanceof Float) {
+        editor.putFloat(key, (Float) object);
+    } else if (object instanceof Long) {
+        editor.putLong(key, (Long) object);
+    } else {
+        editor.putString(key, object.toString());
+    }
+
+    /**
+     * commit操作使用了SharedPreferencesCompat.apply进行了替代，目的是尽可能的使用apply代替commit
+     * 因为commit方法是同步的，并且我们很多时候的commit操作都是UI线程中，毕竟是IO操作，尽可能异步；
+     */
+    SharedPreferencesCompat.apply(editor);
+}
+
+/**
+ * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+ * 
+ * @param context
+ * @param key
+ * @param defaultObject
+ * @return
+ */
+public static Object get(Context context, String key, Object defaultObject) {
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+
+    if (defaultObject instanceof String) {
+        return sp.getString(key, (String) defaultObject);
+    } else if (defaultObject instanceof Integer) {
+        return sp.getInt(key, (Integer) defaultObject);
+    } else if (defaultObject instanceof Boolean) {
+        return sp.getBoolean(key, (Boolean) defaultObject);
+    } else if (defaultObject instanceof Float) {
+        return sp.getFloat(key, (Float) defaultObject);
+    } else if (defaultObject instanceof Long) {
+        return sp.getLong(key, (Long) defaultObject);
+    }
+
+    return null;
+}
+
+/**
+ * 移除某个key值已经对应的值
+ * 
+ * @param context
+ * @param key
+ */
+public static void remove(Context context, String key) {
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.remove(key);
+    SharedPreferencesCompat.apply(editor);
+}
+
+/**
+ * 清除所有数据
+ * 
+ * @param context
+ */
+public static void clear(Context context) {
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.clear();
+    SharedPreferencesCompat.apply(editor);
+}
+
+/**
+ * 查询某个key是否已经存在
+ * 
+ * @param context
+ * @param key
+ * @return
+ */
+public static boolean contains(Context context, String key) {
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+    return sp.contains(key);
+}
+
+/**
+ * 返回所有的键值对
+ * 
+ * @param context
+ * @return
+ */
+public static Map&lt;String, ?&gt; getAll(Context context) {
+    SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+            Context.MODE_PRIVATE);
+    return sp.getAll();
+}
+
+/**
+ * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
+ * 
+ * @author dj
+ */
+private static class SharedPreferencesCompat {
+    private static final Method sApplyMethod = findApplyMethod();
+
+    /**
+     * 反射查找apply的方法
+     * 
+     * @return
+     */
+    @SuppressWarnings({ &quot;unchecked&quot;, &quot;rawtypes&quot; })
+    private static Method findApplyMethod() {
+        try {
+            Class clz = SharedPreferences.Editor.class;
+            return clz.getMethod(&quot;apply&quot;);
+        } catch (NoSuchMethodException e) {
+        }
+
+        return null;
+    }
+
+    /**
+     * 如果找到则使用apply执行，否则使用commit
+     * 
+     * @param editor
+     */
+    public static void apply(SharedPreferences.Editor editor) {
+        try {
+            if (sApplyMethod != null) {
+                sApplyMethod.invoke(editor);
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        editor.commit();
+    }
+}
+}</code></pre><p>##10、手机信息采集工具类<br>​      public class MobileUtil {</p>
+<pre><code>/**
+ * Print telephone info.
+ */
+public static String printMobileInfo(Context context) {
+    Date date = new Date(System.currentTimeMillis());
+    SimpleDateFormat dateFormat = new SimpleDateFormat(
+            &quot;yyyy-MM-dd HH:mm:ss&quot;);
+    String time = dateFormat.format(date);
+    StringBuilder sb = new StringBuilder();
+    sb.append(&quot;系统时间：&quot;).append(time).append(&quot;\n&quot;);
+    TelephonyManager tm = (TelephonyManager) context
+            .getSystemService(Context.TELEPHONY_SERVICE);
+    String IMSI = tm.getSubscriberId();
+    // IMSI前面三位460是国家号码，其次的两位是运营商代号，00、02是中国移动，01是联通，03是电信。
+    String providerName = null;
+    if (IMSI != null) {
+        if (IMSI.startsWith(&quot;46000&quot;) || IMSI.startsWith(&quot;46002&quot;)) {
+            providerName = &quot;中国移动&quot;;
+        } else if (IMSI.startsWith(&quot;46001&quot;)) {
+            providerName = &quot;中国联通&quot;;
+        } else if (IMSI.startsWith(&quot;46003&quot;)) {
+            providerName = &quot;中国电信&quot;;
+        }
+    }
+    sb.append(providerName).append(&quot;\n&quot;)
+            .append(getNativePhoneNumber(context)).append(&quot;\n网络模式：&quot;)
+            .append(getNetType(context)).append(&quot;\nIMSI是：&quot;).append(IMSI);
+    sb.append(&quot;\nDeviceID(IMEI)       :&quot;).append(tm.getDeviceId());
+    sb.append(&quot;\nDeviceSoftwareVersion:&quot;).append(
+            tm.getDeviceSoftwareVersion());
+    sb.append(&quot;\ngetLine1Number       :&quot;).append(tm.getLine1Number());
+    sb.append(&quot;\nNetworkCountryIso    :&quot;).append(tm.getNetworkCountryIso());
+    sb.append(&quot;\nNetworkOperator      :&quot;).append(tm.getNetworkOperator());
+    sb.append(&quot;\nNetworkOperatorName  :&quot;).append(
+            tm.getNetworkOperatorName());
+    sb.append(&quot;\nNetworkType          :&quot;).append(tm.getNetworkType());
+    sb.append(&quot;\nPhoneType            :&quot;).append(tm.getPhoneType());
+    sb.append(&quot;\nSimCountryIso        :&quot;).append(tm.getSimCountryIso());
+    sb.append(&quot;\nSimOperator          :&quot;).append(tm.getSimOperator());
+    sb.append(&quot;\nSimOperatorName      :&quot;).append(tm.getSimOperatorName());
+    sb.append(&quot;\nSimSerialNumber      :&quot;).append(tm.getSimSerialNumber());
+    sb.append(&quot;\ngetSimState          :&quot;).append(tm.getSimState());
+    sb.append(&quot;\nSubscriberId         :&quot;).append(tm.getSubscriberId());
+    sb.append(&quot;\nVoiceMailNumber      :&quot;).append(tm.getVoiceMailNumber());
+
+    return sb.toString();
+}
+
+/**
+ * 打印系统信息
+ * 
+ * @return
+ */
+public static String printSystemInfo() {
+    Date date = new Date(System.currentTimeMillis());
+    SimpleDateFormat dateFormat = new SimpleDateFormat(
+            &quot;yyyy-MM-dd HH:mm:ss&quot;);
+    String time = dateFormat.format(date);
+    StringBuilder sb = new StringBuilder();
+    sb.append(&quot;_______  系统信息  &quot;).append(time).append(&quot; ______________&quot;);
+    sb.append(&quot;\nID                 :&quot;).append(Build.ID);
+    sb.append(&quot;\nBRAND              :&quot;).append(Build.BRAND);
+    sb.append(&quot;\nMODEL              :&quot;).append(Build.MODEL);
+    sb.append(&quot;\nRELEASE            :&quot;).append(Build.VERSION.RELEASE);
+    sb.append(&quot;\nSDK                :&quot;).append(Build.VERSION.SDK);
+
+    sb.append(&quot;\n_______ OTHER _______&quot;);
+    sb.append(&quot;\nBOARD              :&quot;).append(Build.BOARD);
+    sb.append(&quot;\nPRODUCT            :&quot;).append(Build.PRODUCT);
+    sb.append(&quot;\nDEVICE             :&quot;).append(Build.DEVICE);
+    sb.append(&quot;\nFINGERPRINT        :&quot;).append(Build.FINGERPRINT);
+    sb.append(&quot;\nHOST               :&quot;).append(Build.HOST);
+    sb.append(&quot;\nTAGS               :&quot;).append(Build.TAGS);
+    sb.append(&quot;\nTYPE               :&quot;).append(Build.TYPE);
+    sb.append(&quot;\nTIME               :&quot;).append(Build.TIME);
+    sb.append(&quot;\nINCREMENTAL        :&quot;).append(Build.VERSION.INCREMENTAL);
+
+    sb.append(&quot;\n_______ CUPCAKE-3 _______&quot;);
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.CUPCAKE) {
+        sb.append(&quot;\nDISPLAY            :&quot;).append(Build.DISPLAY);
+    }
+
+    sb.append(&quot;\n_______ DONUT-4 _______&quot;);
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.DONUT) {
+        sb.append(&quot;\nSDK_INT            :&quot;).append(Build.VERSION.SDK_INT);
+        sb.append(&quot;\nMANUFACTURER       :&quot;).append(Build.MANUFACTURER);
+        sb.append(&quot;\nBOOTLOADER         :&quot;).append(Build.BOOTLOADER);
+        sb.append(&quot;\nCPU_ABI            :&quot;).append(Build.CPU_ABI);
+        sb.append(&quot;\nCPU_ABI2           :&quot;).append(Build.CPU_ABI2);
+        sb.append(&quot;\nHARDWARE           :&quot;).append(Build.HARDWARE);
+        sb.append(&quot;\nUNKNOWN            :&quot;).append(Build.UNKNOWN);
+        sb.append(&quot;\nCODENAME           :&quot;).append(Build.VERSION.CODENAME);
+    }
+
+    sb.append(&quot;\n_______ GINGERBREAD-9 _______&quot;);
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.GINGERBREAD) {
+        sb.append(&quot;\nSERIAL             :&quot;).append(Build.SERIAL);
+    }
+    return sb.toString();
+}
+
+/****
+ * 获取网络类型
+ * 
+ * @param context
+ * @return
+ */
+public static String getNetType(Context context) {
+    try {
+        ConnectivityManager connectMgr = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectMgr.getActiveNetworkInfo();
+        if (info == null) {
+            return &quot;&quot;;
+        }
+        if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+            return &quot;WIFI&quot;;
+        } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
+            if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_CDMA) {
+                return &quot;CDMA&quot;;
+            } else if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_EDGE) {
+                return &quot;EDGE&quot;;
+            } else if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_EVDO_0) {
+                return &quot;EVDO0&quot;;
+            } else if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_EVDO_A) {
+                return &quot;EVDOA&quot;;
+            } else if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_GPRS) {
+                return &quot;GPRS&quot;;
+            }
+            /*
+             * else if(info.getSubtype() ==
+             * TelephonyManager.NETWORK_TYPE_HSDPA){ return &quot;HSDPA&quot;; }else
+             * if(info.getSubtype() == TelephonyManager.NETWORK_TYPE_HSPA){
+             * return &quot;HSPA&quot;; }else if(info.getSubtype() ==
+             * TelephonyManager.NETWORK_TYPE_HSUPA){ return &quot;HSUPA&quot;; }
+             */
+            else if (info.getSubtype() == TelephonyManager.NETWORK_TYPE_UMTS) {
+                return &quot;UMTS&quot;;
+            } else {
+                return &quot;3G&quot;;
+            }
+        } else {
+            return &quot;&quot;;
+        }
+    } catch (Exception e) {
+        return &quot;&quot;;
+    }
+}
+
+/**
+ * 获取当前设置的电话号码
+ */
+public static String getNativePhoneNumber(Context context) {
+    TelephonyManager telephonyManager = (TelephonyManager) context
+            .getSystemService(Context.TELEPHONY_SERVICE);
+    String NativePhoneNumber = null;
+    NativePhoneNumber = telephonyManager.getLine1Number();
+    return String.format(&quot;手机号: %s&quot;, NativePhoneNumber);
+}
+
+/**
+ * IMSI是国际移动用户识别码的简称(International Mobile Subscriber Identity)
+ * IMSI共有15位，其结构如下： &lt;br&gt;
+ * MCC+MNC+MIN &lt;br&gt;
+ * MCC：Mobile Country Code，移动国家码，共3位，中国为460;&lt;br&gt;
+ * MNC:Mobile NetworkCode，移动网络码，共2位 &lt;br&gt;
+ * 在中国，移动的代码为电00和02，联通的代码为01，电信的代码为03&lt;br&gt;
+ * 合起来就是（也是Android手机中APN配置文件中的代码）： &lt;br&gt;
+ * 中国移动：46000 46002 &lt;br&gt;
+ * 中国联通：46001 &lt;br&gt;
+ * 中国电信：46003 &lt;br&gt;
+ * 举例，一个典型的IMSI号码为460030912121001 &lt;br&gt;
+ */
+public static String getIMSI(Context context) {
+    TelephonyManager telephonyManager = (TelephonyManager) context
+            .getSystemService(Context.TELEPHONY_SERVICE);
+    String IMSI = telephonyManager.getSubscriberId();
+    return IMSI;
+}
+
+/**
+ * IMEI是International Mobile Equipment Identity （国际移动设备标识）的简称
+ * IMEI由15位数字组成的”电子串号”，它与每台手机一一对应，而且该码是全世界唯一的 其组成为：
+ * 1.前6位数(TAC)是”型号核准号码”，一般代表机型 &lt;br&gt;
+ * 2. 接着的2位数(FAC)是”最后装配号”，一般代表产地 &lt;br&gt;
+ * 3.之后的6位数(SNR)是”串号”，一般代表生产顺序号 &lt;br&gt;
+ * 4. 最后1位数(SP)通常是”0″，为检验码，目前暂备用&lt;br&gt;
+ */
+public static String getIMEI(Context context) {
+    TelephonyManager telephonyManager = (TelephonyManager) context
+            .getSystemService(Context.TELEPHONY_SERVICE);
+    String IMEI = telephonyManager.getDeviceId();
+    return IMEI;
+}
+
+// ///_________________ 双卡双待系统IMEI和IMSI方案（see more on
+// http://benson37.iteye.com/blog/1923946）
+
+/**
+ * 双卡双待神机IMSI、IMSI、PhoneType信息 &lt;uses-permission
+ * android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;
+ */
+public static class TeleInfo {
+    public String imsi_1;
+    public String imsi_2;
+    public String imei_1;
+    public String imei_2;
+    public int phoneType_1;
+    public int phoneType_2;
+
+    @Override
+    public String toString() {
+        return &quot;TeleInfo{&quot; + &quot;imsi_1=&apos;&quot; + imsi_1 + &apos;\&apos;&apos; + &quot;, imsi_2=&apos;&quot;
+                + imsi_2 + &apos;\&apos;&apos; + &quot;, imei_1=&apos;&quot; + imei_1 + &apos;\&apos;&apos;
+                + &quot;, imei_2=&apos;&quot; + imei_2 + &apos;\&apos;&apos; + &quot;, phoneType_1=&quot;
+                + phoneType_1 + &quot;, phoneType_2=&quot; + phoneType_2 + &apos;}&apos;;
+    }
+}
+
+/**
+ * MTK Phone.
+ * &lt;p&gt;
+ * 获取 MTK 神机的双卡 IMSI、IMSI 信息
+ */
+public static TeleInfo getMtkTeleInfo(Context context) {
+    TeleInfo teleInfo = new TeleInfo();
+    try {
+        Class&lt;?&gt; phone = Class
+                .forName(&quot;com.android.internal.telephony.Phone&quot;);
+
+        Field fields1 = phone.getField(&quot;GEMINI_SIM_1&quot;);
+        fields1.setAccessible(true);
+        int simId_1 = (Integer) fields1.get(null);
+
+        Field fields2 = phone.getField(&quot;GEMINI_SIM_2&quot;);
+        fields2.setAccessible(true);
+        int simId_2 = (Integer) fields2.get(null);
+
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        Method getSubscriberIdGemini = TelephonyManager.class
+                .getDeclaredMethod(&quot;getSubscriberIdGemini&quot;, int.class);
+        String imsi_1 = (String) getSubscriberIdGemini.invoke(tm, simId_1);
+        String imsi_2 = (String) getSubscriberIdGemini.invoke(tm, simId_2);
+        teleInfo.imsi_1 = imsi_1;
+        teleInfo.imsi_2 = imsi_2;
+
+        Method getDeviceIdGemini = TelephonyManager.class
+                .getDeclaredMethod(&quot;getDeviceIdGemini&quot;, int.class);
+        String imei_1 = (String) getDeviceIdGemini.invoke(tm, simId_1);
+        String imei_2 = (String) getDeviceIdGemini.invoke(tm, simId_2);
+
+        teleInfo.imei_1 = imei_1;
+        teleInfo.imei_2 = imei_2;
+
+        Method getPhoneTypeGemini = TelephonyManager.class
+                .getDeclaredMethod(&quot;getPhoneTypeGemini&quot;, int.class);
+        int phoneType_1 = (Integer) getPhoneTypeGemini.invoke(tm, simId_1);
+        int phoneType_2 = (Integer) getPhoneTypeGemini.invoke(tm, simId_2);
+        teleInfo.phoneType_1 = phoneType_1;
+        teleInfo.phoneType_2 = phoneType_2;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return teleInfo;
+}
+
+/**
+ * MTK Phone.
+ * &lt;p&gt;
+ * 获取 MTK 神机的双卡 IMSI、IMSI 信息
+ */
+public static TeleInfo getMtkTeleInfo2(Context context) {
+    TeleInfo teleInfo = new TeleInfo();
+    try {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        Class&lt;?&gt; phone = Class
+                .forName(&quot;com.android.internal.telephony.Phone&quot;);
+        Field fields1 = phone.getField(&quot;GEMINI_SIM_1&quot;);
+        fields1.setAccessible(true);
+        int simId_1 = (Integer) fields1.get(null);
+        Field fields2 = phone.getField(&quot;GEMINI_SIM_2&quot;);
+        fields2.setAccessible(true);
+        int simId_2 = (Integer) fields2.get(null);
+
+        Method getDefault = TelephonyManager.class.getMethod(&quot;getDefault&quot;,
+                int.class);
+        TelephonyManager tm1 = (TelephonyManager) getDefault.invoke(tm,
+                simId_1);
+        TelephonyManager tm2 = (TelephonyManager) getDefault.invoke(tm,
+                simId_2);
+
+        String imsi_1 = tm1.getSubscriberId();
+        String imsi_2 = tm2.getSubscriberId();
+        teleInfo.imsi_1 = imsi_1;
+        teleInfo.imsi_2 = imsi_2;
+
+        String imei_1 = tm1.getDeviceId();
+        String imei_2 = tm2.getDeviceId();
+        teleInfo.imei_1 = imei_1;
+        teleInfo.imei_2 = imei_2;
+
+        int phoneType_1 = tm1.getPhoneType();
+        int phoneType_2 = tm2.getPhoneType();
+        teleInfo.phoneType_1 = phoneType_1;
+        teleInfo.phoneType_2 = phoneType_2;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return teleInfo;
+}
+
+/**
+ * Qualcomm Phone. 获取 高通 神机的双卡 IMSI、IMSI 信息
+ */
+public static TeleInfo getQualcommTeleInfo(Context context) {
+    TeleInfo teleInfo = new TeleInfo();
+    try {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        Class&lt;?&gt; simTMclass = Class
+                .forName(&quot;android.telephony.MSimTelephonyManager&quot;);
+        // Object sim = context.getSystemService(&quot;phone_msim&quot;);
+        Object sim = context.getSystemService(Context.TELEPHONY_SERVICE);
+        int simId_1 = 0;
+        int simId_2 = 1;
+
+        Method getSubscriberId = simTMclass.getMethod(&quot;getSubscriberId&quot;,
+                int.class);
+        String imsi_1 = (String) getSubscriberId.invoke(sim, simId_1);
+        String imsi_2 = (String) getSubscriberId.invoke(sim, simId_2);
+        teleInfo.imsi_1 = imsi_1;
+        teleInfo.imsi_2 = imsi_2;
+
+        Method getDeviceId = simTMclass.getMethod(&quot;getDeviceId&quot;, int.class);
+        String imei_1 = (String) getDeviceId.invoke(sim, simId_1);
+        String imei_2 = (String) getDeviceId.invoke(sim, simId_2);
+        teleInfo.imei_1 = imei_1;
+        teleInfo.imei_2 = imei_2;
+
+        Method getDataState = simTMclass.getMethod(&quot;getDataState&quot;);
+        int phoneType_1 = tm.getDataState();
+        int phoneType_2 = (Integer) getDataState.invoke(sim);
+        teleInfo.phoneType_1 = phoneType_1;
+        teleInfo.phoneType_2 = phoneType_2;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return teleInfo;
+}
+
+/**
+ * Spreadtrum Phone.
+ * &lt;p&gt;
+ * 获取 展讯 神机的双卡 IMSI、IMSI 信息
+ */
+public static TeleInfo getSpreadtrumTeleInfo(Context context) {
+    TeleInfo teleInfo = new TeleInfo();
+    try {
+
+        TelephonyManager tm1 = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        String imsi_1 = tm1.getSubscriberId();
+        String imei_1 = tm1.getDeviceId();
+        int phoneType_1 = tm1.getPhoneType();
+        teleInfo.imsi_1 = imsi_1;
+        teleInfo.imei_1 = imei_1;
+        teleInfo.phoneType_1 = phoneType_1;
+
+        Class&lt;?&gt; phoneFactory = Class
+                .forName(&quot;com.android.internal.telephony.PhoneFactory&quot;);
+        Method getServiceName = phoneFactory.getMethod(&quot;getServiceName&quot;,
+                String.class, int.class);
+        getServiceName.setAccessible(true);
+        TelephonyManager tm2 = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        String imsi_2 = tm2.getSubscriberId();
+        String imei_2 = tm2.getDeviceId();
+        int phoneType_2 = tm2.getPhoneType();
+        teleInfo.imsi_2 = imsi_2;
+        teleInfo.imei_2 = imei_2;
+        teleInfo.phoneType_2 = phoneType_2;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return teleInfo;
+}
+
+/**
+ * 获取 MAC 地址 &lt;uses-permission
+ * android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+ */
+public static String getMacAddress(Context context) {
+    // wifi mac地址
+    WifiManager wifi = (WifiManager) context
+            .getSystemService(Context.WIFI_SERVICE);
+    WifiInfo info = wifi.getConnectionInfo();
+    String mac = info.getMacAddress();
+
+    return mac;
+}
+
+/**
+ * 获取 开机时间
+ */
+public static String getBootTimeString() {
+    long ut = SystemClock.elapsedRealtime() / 1000;
+    int h = (int) ((ut / 3600));
+    int m = (int) ((ut / 60) % 60);
+
+    return h + &quot;:&quot; + m;
+}
+}</code></pre><p>##11、CommonUtils<br>​      public class CommonUtils {<br>​<br>​    static Context context;<br>​    // 手机网络类型<br>​    public static final int NETTYPE_WIFI = 0x01;<br>​    public static final int NETTYPE_CMWAP = 0x02;<br>​    public static final int NETTYPE_CMNET = 0x03;<br>​<br>​    public static boolean GTE_HC;<br>​    public static boolean GTE_ICS;<br>​    public static boolean PRE_HC;<br>​    private static Boolean _hasBigScreen = null;<br>​    private static Boolean _hasCamera = null;<br>​    private static Boolean _isTablet = null;<br>​    private static Integer _loadFactor = null;<br>​<br>​    private static int _pageSize = -1;<br>​    public static float displayDensity = 0.0F;<br>​    public static final String TAG = context.getClass().getSimpleName();<br>​<br>​    static {<br>​        GTE_ICS = Build.VERSION.SDK_INT &gt;= 14;<br>​        GTE_HC = Build.VERSION.SDK_INT &gt;= 11;<br>​        PRE_HC = Build.VERSION.SDK_INT &gt;= 11 ? false : true;<br>​    }<br>​<br>    public CommonUtils() {<br>        throw new AssertionError();<br>    }</p>
+<pre><code>/**
+ * 获取系统当前当前时间戳
+ */
+
+public static String getTimesTamp() {
+    long timestamp = System.currentTimeMillis() / 1000;
+    return String.valueOf(timestamp);
+}
+
+public static int[] getRealScreenSize(Activity activity) {
+    int[] size = new int[2];
+    int screenWidth = 0, screenHeight = 0;
+    WindowManager w = activity.getWindowManager();
+    Display d = w.getDefaultDisplay();
+    DisplayMetrics metrics = new DisplayMetrics();
+    d.getMetrics(metrics);
+    // since SDK_INT = 1;
+    screenWidth = metrics.widthPixels;
+    screenHeight = metrics.heightPixels;
+    // includes window decorations (statusbar bar/menu bar)
+    if (Build.VERSION.SDK_INT &gt;= 14 &amp;&amp; Build.VERSION.SDK_INT &lt; 17)
+        try {
+            screenWidth = (Integer) Display.class.getMethod(&quot;getRawWidth&quot;)
+                    .invoke(d);
+            screenHeight = (Integer) Display.class
+                    .getMethod(&quot;getRawHeight&quot;).invoke(d);
+        } catch (Exception ignored) {
+        }
+    // includes window decorations (statusbar bar/menu bar)
+    if (Build.VERSION.SDK_INT &gt;= 17)
+        try {
+            Point realSize = new Point();
+            Display.class.getMethod(&quot;getRealSize&quot;, Point.class).invoke(d,
+                    realSize);
+            screenWidth = realSize.x;
+            screenHeight = realSize.y;
+        } catch (Exception ignored) {
+        }
+    size[0] = screenWidth;
+    size[1] = screenHeight;
+    return size;
+}
+
+/**
+ * 是否存在相机
+ * 
+ * @return
+ */
+public static final boolean hasCamera(Context context) {
+    if (_hasCamera == null) {
+        PackageManager pckMgr = context.getPackageManager();
+        boolean flag = pckMgr
+                .hasSystemFeature(&quot;android.hardware.camera.front&quot;);
+        boolean flag1 = pckMgr.hasSystemFeature(&quot;android.hardware.camera&quot;);
+        boolean flag2;
+        if (flag || flag1)
+            flag2 = true;
+        else
+            flag2 = false;
+        _hasCamera = Boolean.valueOf(flag2);
+    }
+    return _hasCamera.booleanValue();
+}
+
+/**
+ * 判断是否有物理的menu键
+ * 
+ * @param context
+ * @return
+ */
+public static boolean hasHardwareMenuKey(Context context) {
+    boolean flag = false;
+    if (PRE_HC)
+        flag = true;
+    else if (GTE_ICS) {
+        flag = ViewConfiguration.get(context).hasPermanentMenuKey();
+    } else
+        flag = false;
+    return flag;
+}
+
+/**
+ * 是否有google商店
+ * 
+ * @param activity
+ * @param pck
+ * @return
+ */
+public static boolean gotoGoogleMarket(Activity activity, String pck) {
+    try {
+        Intent intent = new Intent();
+        intent.setPackage(&quot;com.android.vending&quot;);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(&quot;market://details?id=&quot; + pck));
+        activity.startActivity(intent);
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+/**
+ * 隐藏动画视图
+ * 
+ * @param view
+ */
+public static void hideAnimatedView(View view) {
+    if (PRE_HC &amp;&amp; view != null)
+        view.setPadding(view.getWidth(), 0, 0, 0);
+}
+
+/**
+ * 显示动画视图
+ * 
+ * @param view
+ */
+public static void showAnimatedView(View view) {
+    if (PRE_HC &amp;&amp; view != null)
+        view.setPadding(0, 0, 0, 0);
+}
+
+/**
+ * 显示键盘dialog
+ * 
+ * @param dialog
+ */
+public static void showSoftKeyboard(Dialog dialog) {
+    dialog.getWindow().setSoftInputMode(4);
+}
+
+/**
+ * 切换键盘
+ * 
+ * @param view
+ */
+
+public static void toogleSoftKeyboard(Context context, View view) {
+    ((InputMethodManager) context
+            .getSystemService(Context.INPUT_METHOD_SERVICE))
+            .toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+}
+
+/**
+ * 判断是否横屏
+ * 
+ * @return
+ */
+public static boolean isLandscape(Context context) {
+    boolean flag;
+    if (context.getResources().getConfiguration().orientation == 2)
+        flag = true;
+    else
+        flag = false;
+    return flag;
+}
+
+/**
+ * 判断是否竖屏
+ * 
+ * @return
+ */
+
+public static boolean isPortrait(Context context) {
+    boolean flag = true;
+    if (context.getResources().getConfiguration().orientation != 1)
+        flag = false;
+    return flag;
+}
+
+/**
+ * 判断是否平板
+ * 
+ * @return
+ */
+
+public static boolean isTablet(Context context) {
+    if (_isTablet == null) {
+        boolean flag;
+        if ((0xf &amp; context.getResources().getConfiguration().screenLayout) &gt;= 3)
+            flag = true;
+        else
+            flag = false;
+        _isTablet = Boolean.valueOf(flag);
+    }
+    return _isTablet.booleanValue();
+}
+
+/**
+ * 判断是否有sd卡
+ * 
+ * @return
+ */
+
+public static boolean isSdcardReady() {
+    return Environment.MEDIA_MOUNTED.equals(Environment
+            .getExternalStorageState());
+}
+
+/**
+ * 判断系统语言国家
+ * 
+ * @return
+ */
+public static String getCurCountryLan(Context context) {
+    return context.getResources().getConfiguration().locale.getLanguage()
+            + &quot;-&quot;
+            + context.getResources().getConfiguration().locale.getCountry();
+}
+
+/**
+ * 判断是否中文简体（CN）国家中国
+ * 
+ * @return
+ */
+
+public static boolean isZhCN(Context context) {
+    String lang = context.getResources().getConfiguration().locale
+            .getCountry();
+    if (lang.equalsIgnoreCase(&quot;CN&quot;)) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * 获取两个数的百分比
+ * 
+ * @param p1
+ * @param p2
+ * @return
+ */
+public static String percent(double p1, double p2) {
+    String str;
+    double p3 = p1 / p2;
+    NumberFormat nf = NumberFormat.getPercentInstance();
+    nf.setMinimumFractionDigits(5);// 保留的小数位数(精度)
+    str = nf.format(p3);
+    return str;
+}
+
+public static String percent2(double p1, double p2) {
+    String str;
+    double p3 = p1 / p2;
+    NumberFormat nf = NumberFormat.getPercentInstance();
+    nf.setMinimumFractionDigits(0);
+    str = nf.format(p3);
+    return str;
+}
+
+/**
+ * 打开本app在应用商店的页面
+ * 
+ * @param context
+ */
+public static void openAppInMarket(Context context) {
+
+    if (context != null) {
+        String pckName = context.getPackageName();
+        try {
+            String str = &quot;market://details?id=&quot; + pckName;
+            Intent localIntent = new Intent(&quot;android.intent.action.VIEW&quot;);
+            localIntent.setData(Uri.parse(str));
+            context.startActivity(localIntent);
+
+        } catch (Exception ex) {
+
+        }
+    }
+}
+
+/**
+ * 全屏显示，去掉顶部状态栏
+ * 
+ * @param activity
+ */
+public static void setFullScreen(Activity activity) {
+    WindowManager.LayoutParams params = activity.getWindow()
+            .getAttributes();
+    params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+    activity.getWindow().setAttributes(params);
+    activity.getWindow().addFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+}
+
+/**
+ * 关闭全屏显示
+ * 
+ * @param activity
+ */
+public static void cancelFullScreen(Activity activity) {
+    WindowManager.LayoutParams params = activity.getWindow()
+            .getAttributes();
+    params.flags &amp;= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    activity.getWindow().setAttributes(params);
+    activity.getWindow().clearFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+}
+
+/**
+ * 得到应用包名
+ * 
+ * @param pckName
+ * @return
+ */
+public static PackageInfo getPackageInfo(Context context, String pckName) {
+    try {
+        return context.getPackageManager().getPackageInfo(pckName, 0);
+    } catch (PackageManager.NameNotFoundException e) {
+        Log.e(&quot;&quot;, e.getMessage());
+    }
+    return null;
+}
+
+/**
+ * 获取版本名称
+ * 
+ * @return
+ */
+public static String getVersionName(Context context) {
+    String name = &quot;&quot;;
+    try {
+        name = context.getPackageManager().getPackageInfo(
+                context.getPackageName(), 0).versionName;
+    } catch (PackageManager.NameNotFoundException ex) {
+        name = &quot;&quot;;
+    }
+    return name;
+}
+
+/**
+ * 安装apk
+ * 
+ * @param context
+ * @param file
+ */
+public static void installAPK(Context context, File file) {
+    if (file == null || !file.exists())
+        return;
+    Intent intent = new Intent();
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.setAction(Intent.ACTION_VIEW);
+    intent.setDataAndType(Uri.fromFile(file),
+            &quot;application/vnd.android.package-archive&quot;);
+    context.startActivity(intent);
+}
+
+/**
+ * 获得安转的apk
+ * 
+ * @param file
+ * @return
+ */
+public static Intent getInstallApkIntent(File file) {
+    Intent intent = new Intent();
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.setAction(Intent.ACTION_VIEW);
+    intent.setDataAndType(Uri.fromFile(file),
+            &quot;application/vnd.android.package-archive&quot;);
+    return intent;
+}
+
+/**
+ * 打电话
+ * 
+ * @param context
+ * @param number
+ */
+public static void openDial(Context context, String number) {
+    Uri uri = Uri.parse(&quot;tel:&quot; + number);
+    Intent it = new Intent(Intent.ACTION_DIAL, uri);
+    context.startActivity(it);
+}
+
+/**
+ * 发短信
+ * 
+ * @param context
+ * @param smsBody
+ * @param tel
+ */
+
+public static void openSMS(Context context, String smsBody, String tel) {
+    Uri uri = Uri.parse(&quot;smsto:&quot; + tel);
+    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+    it.putExtra(&quot;sms_body&quot;, smsBody);
+    context.startActivity(it);
+}
+
+public static void openDail(Context context) {
+    Intent intent = new Intent(Intent.ACTION_DIAL);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    context.startActivity(intent);
+}
+
+public static void openSendMsg(Context context) {
+    Uri uri = Uri.parse(&quot;smsto:&quot;);
+    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    context.startActivity(intent);
+}
+
+/**
+ * 调用系统相机
+ * 
+ * @param context
+ */
+public static void openCamera(Context context) {
+    Intent intent = new Intent(); // 调用照相机
+    intent.setAction(&quot;android.media.action.STILL_IMAGE_CAMERA&quot;);
+    intent.setFlags(0x34c40000);
+    context.startActivity(intent);
+}
+
+/**
+ * 获取移动设备标识码 需要权限android.permission.READ_PHONE_STATE
+ * 
+ * @return
+ */
+public static String getIMEI(Context context) {
+    TelephonyManager tel = (TelephonyManager) context
+            .getSystemService(Context.TELEPHONY_SERVICE);
+    return tel.getDeviceId();
+}
+
+/**
+ * 获得手机型号
+ * 
+ * @return
+ */
+public static String getPhoneType() {
+    return Build.MODEL;
+}
+
+/**
+ * 打开手机上安装的指定包名的app
+ * 
+ * @param context
+ * @param packageName
+ */
+public static void openApp(Context context, String packageName) {
+    Intent mainIntent = context.getPackageManager()
+            .getLaunchIntentForPackage(packageName);
+    if (mainIntent == null) {
+        mainIntent = new Intent(packageName);
+    } else {
+        Log.i(TAG, &quot;Action:&quot; + mainIntent.getAction());
+    }
+    context.startActivity(mainIntent);
+}
+
+public static boolean openAppActivity(Context context, String packageName,
+        String activityName) {
+    Intent intent = new Intent(Intent.ACTION_MAIN);
+    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+    ComponentName cn = new ComponentName(packageName, activityName);
+    intent.setComponent(cn);
+    try {
+        context.startActivity(intent);
+        return true;
+    } catch (Exception e) {
+        return false;
+    }
+}
+
+/**
+ * 发送邮件
+ * 
+ * @param context
+ * @param subject
+ *            主题
+ * @param content
+ *            内容
+ * @param emails
+ *            邮件地址
+ */
+public static void sendEmail(Context context, String subject,
+        String content, String... emails) {
+    try {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        // 模拟器
+        // intent.setType(&quot;text/plain&quot;);
+        intent.setType(&quot;message/rfc822&quot;); // 真机
+        intent.putExtra(Intent.EXTRA_EMAIL, emails);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, content);
+        context.startActivity(intent);
+    } catch (ActivityNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+
+public static boolean hasStatusBar(Activity activity) {
+    WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+    if ((attrs.flags &amp; WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**
+ * 调用系统安装了的应用分享
+ * 
+ * @param context
+ * @param title
+ * @param url
+ */
+public static void showSystemShareOption(Activity context,
+        final String title, final String url) {
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType(&quot;text/plain&quot;);
+    intent.putExtra(Intent.EXTRA_SUBJECT, &quot;分享：&quot; + title);
+    intent.putExtra(Intent.EXTRA_TEXT, title + &quot; &quot; + url);
+    context.startActivity(Intent.createChooser(intent, &quot;选择分享&quot;));
+}
+
+/**
+ * 获取当前网络类型
+ * 
+ * @return 0：没有网络 1：WIFI网络 2：WAP网络 3：NET网络
+ */
+public static int getNetworkType(Context context) {
+    int netType = 0;
+    ConnectivityManager connectivityManager = (ConnectivityManager) context
+            .getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+    if (networkInfo == null) {
+        return netType;
+    }
+    int nType = networkInfo.getType();
+    if (nType == ConnectivityManager.TYPE_MOBILE) {
+        String extraInfo = networkInfo.getExtraInfo();
+        if (!TextUtils.isEmpty(extraInfo)) {
+            if (extraInfo.toLowerCase().equals(&quot;cmnet&quot;)) {
+                netType = NETTYPE_CMNET;
+            } else {
+                netType = NETTYPE_CMWAP;
+            }
+        }
+    } else if (nType == ConnectivityManager.TYPE_WIFI) {
+        netType = NETTYPE_WIFI;
+    }
+    return netType;
+}
+ }</code></pre><p>##12、打开地图工具类<br>​      public class OpenLocalMapUtil {</p>
+<pre><code>public OpenLocalMapUtil() {
+    throw new AssertionError();
+}
+
+/**
+ * 高德地图应用是否安装
+ * 
+ * @return
+ */
+public static boolean isGdMapInstalled() {
+    return isInstallPackage(&quot;com.autonavi.minimap&quot;);
+}
+
+/**
+ * 百度地图应用是否安装
+ * 
+ * @return
+ */
+public static boolean isBaiduMapInstalled() {
+    return isInstallPackage(&quot;com.baidu.BaiduMap&quot;);
+}
+
+private static boolean isInstallPackage(String packageName) {
+    return new File(&quot;/data/data/&quot; + packageName).exists();
+}
+
+/**
+ * 获取打开百度地图应用uri [http://lbsyun.baidu.com/index.php?title=uri/api/android]
+ * 
+ * @param originLat
+ * @param originLon
+ * @param desLat
+ * @param desLon
+ * @return
+ */
+public static String getBaiduMapUri(String originLat, String originLon,
+        String originName, String desLat, String desLon,
+        String destination, String region, String src) {
+    String uri = &quot;intent://map/direction?origin=latlng:%1$s,%2$s|name:%3$s&quot;
+            + &quot;&amp;destination=latlng:%4$s,%5$s|name:%6$s&amp;mode=driving&amp;region=%7$s&amp;src=%8$s#Intent;&quot;
+            + &quot;scheme=bdapp;package=com.baidu.BaiduMap;end&quot;;
+
+    return String.format(uri, originLat, originLon, originName, desLat,
+            desLon, destination, region, src);
+}
+
+/**
+ * 获取打开高德地图应用uri
+ */
+public static String getGdMapUri(String appName, String slat, String slon,
+        String sname, String dlat, String dlon, String dname) {
+    String uri = &quot;androidamap://route?sourceApplication=%1$s&amp;slat=%2$s&amp;slon=%3$s&amp;sname=%4$s&amp;dlat=%5$s&amp;dlon=%6$s&amp;dname=%7$s&amp;dev=0&amp;m=0&amp;t=2&quot;;
+    return String
+            .format(uri, appName, slat, slon, sname, dlat, dlon, dname);
+}
+
+/**
+ * 网页版百度地图 有经纬度
+ * 
+ * @param originLat
+ * @param originLon
+ * @param originName
+ *            -&gt;注：必填
+ * @param desLat
+ * @param desLon
+ * @param destination
+ * @param region
+ *            : 当给定region时，认为起点和终点都在同一城市，除非单独给定起点或终点的城市。--&gt;注：必填，不填不会显示导航路线
+ * @param appName
+ * @return
+ */
+public static String getWebBaiduMapUri(String originLat, String originLon,
+        String originName, String desLat, String desLon,
+        String destination, String region, String appName) {
+    String uri = &quot;http://api.map.baidu.com/direction?origin=latlng:%1$s,%2$s|name:%3$s&quot;
+            + &quot;&amp;destination=latlng:%4$s,%5$s|name:%6$s&amp;mode=driving&amp;region=%7$s&amp;output=html&quot;
+            + &quot;&amp;src=%8$s&quot;;
+    return String.format(uri, originLat, originLon, originName, desLat,
+            desLon, destination, region, appName);
+}
+
+/**
+ * 百度地图定位经纬度转高德经纬度
+ * 
+ * @param bd_lat
+ * @param bd_lon
+ * @return
+ */
+public static double[] bdToGaoDe(double bd_lat, double bd_lon) {
+    double[] gd_lat_lon = new double[2];
+    double PI = 3.14159265358979324 * 3000.0 / 180.0;
+    double x = bd_lon - 0.0065, y = bd_lat - 0.006;
+    double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * PI);
+    double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * PI);
+    gd_lat_lon[0] = z * Math.cos(theta);
+    gd_lat_lon[1] = z * Math.sin(theta);
+    return gd_lat_lon;
+}
+
+/**
+ * 高德地图定位经纬度转百度经纬度
+ * 
+ * @param gd_lon
+ * @param gd_lat
+ * @return
+ */
+public static double[] gaoDeToBaidu(double gd_lon, double gd_lat) {
+    double[] bd_lat_lon = new double[2];
+    double PI = 3.14159265358979324 * 3000.0 / 180.0;
+    double x = gd_lon, y = gd_lat;
+    double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * PI);
+    double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * PI);
+    bd_lat_lon[0] = z * Math.cos(theta) + 0.0065;
+    bd_lat_lon[1] = z * Math.sin(theta) + 0.006;
+    return bd_lat_lon;
+}
+}</code></pre><p>##13、SDCard工具类<br>​      public class SDCardUtils {<br>​    private SDCardUtils() {<br>​        /* cannot be instantiated */<br>​        throw new UnsupportedOperationException(“cannot be instantiated”);<br>​    }</p>
+<pre><code>/**
+ * 判断SDCard是否可用
+ * 
+ * @return
+ */
+public static boolean isSDCardEnable() {
+    return Environment.getExternalStorageState().equals(
+            Environment.MEDIA_MOUNTED);
+}
+
+/**
+ * 获取SD卡路径
+ * 
+ * @return
+ */
+public static String getSDCardPath() {
+    return Environment.getExternalStorageDirectory().getAbsolutePath()
+            + File.separator;
+}
+
+/**
+ * 获取SD卡的剩余容量 单位byte
+ * 
+ * @return
+ */
+public static long getSDCardAllSize() {
+    if (isSDCardEnable()) {
+        StatFs stat = new StatFs(getSDCardPath());
+        // 获取空闲的数据块的数量
+        long availableBlocks = (long) stat.getAvailableBlocks() - 4;
+        // 获取单个数据块的大小（byte）
+        long freeBlocks = stat.getAvailableBlocks();
+        return freeBlocks * availableBlocks;
+    }
+    return 0;
+}
+
+/**
+ * 获取指定路径所在空间的剩余可用容量字节数，单位byte
+ * 
+ * @param filePath
+ * @return 容量字节 SDCard可用空间，内部存储可用空间
+ */
+public static long getFreeBytes(String filePath) {
+    // 如果是sd卡的下的路径，则获取sd卡可用容量
+    if (filePath.startsWith(getSDCardPath())) {
+        filePath = getSDCardPath();
+    } else {// 如果是内部存储的路径，则获取内存存储的可用容量
+        filePath = Environment.getDataDirectory().getAbsolutePath();
+    }
+    StatFs stat = new StatFs(filePath);
+    long availableBlocks = (long) stat.getAvailableBlocks() - 4;
+    return stat.getBlockSize() * availableBlocks;
+}
+
+/**
+ * 获取系统存储路径
+ * 
+ * @return
+ */
+public static String getRootDirectoryPath() {
+    return Environment.getRootDirectory().getAbsolutePath();
+}
+}</code></pre><p>##14、TimeUtils<br>​      public class TimeUtils {</p>
+<pre><code>public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat(
+        &quot;yyyy-MM-dd HH:mm:ss&quot;);
+public static final SimpleDateFormat DATE_FORMAT_DATE = new SimpleDateFormat(
+        &quot;yyyy-MM-dd&quot;);
+
+private TimeUtils() {
+    throw new AssertionError();
+}
+
+/**
+ * long time to string
+ * 
+ * @param timeInMillis
+ * @param dateFormat
+ * @return
+ */
+public static String getTime(long timeInMillis, SimpleDateFormat dateFormat) {
+    return dateFormat.format(new Date(timeInMillis));
+}
+
+/**
+ * long time to string, format is {@link #DEFAULT_DATE_FORMAT}
+ * 
+ * @param timeInMillis
+ * @return
+ */
+public static String getTime(long timeInMillis) {
+    return getTime(timeInMillis, DEFAULT_DATE_FORMAT);
+}
+
+/**
+ * get current time in milliseconds
+ * 
+ * @return
+ */
+public static long getCurrentTimeInLong() {
+    return System.currentTimeMillis();
+}
+
+/**
+ * get current time in milliseconds, format is {@link #DEFAULT_DATE_FORMAT}
+ * 
+ * @return
+ */
+public static String getCurrentTimeInString() {
+    return getTime(getCurrentTimeInLong());
+}
+
+/**
+ * get current time in milliseconds
+ * 
+ * @return
+ */
+public static String getCurrentTimeInString(SimpleDateFormat dateFormat) {
+    return getTime(getCurrentTimeInLong(), dateFormat);
+}
+
+/**
+ * UTC转换为本地时间
+ * 
+ * @param pattern
+ * @param dateTime
+ * @return
+ */
+public static String utc2Local(String dateTime) {
+    dateTime = DEFAULT_DATE_FORMAT.format(new Date(
+            (Long.valueOf(dateTime)) * 1000));
+    return dateTime;
+}
+}</code></pre><p>##15、SnackbarUtil<br>​      public class SnackbarUtil {</p>
+<pre><code>public static final   int Info = 1;
+public static final  int Confirm = 2;
+public static final  int Warning = 3;
+public static final  int Alert = 4;
+
+
+public static  int red = 0xfff44336;
+public static  int green = 0xff4caf50;
+public static  int blue = 0xff2195f3;
+public static  int orange = 0xffffc107;
+
+/**
+ * 短显示Snackbar，自定义颜色
+ * @param view
+ * @param message
+ * @param messageColor
+ * @param backgroundColor
+ * @return
+ */
+public static Snackbar ShortSnackbar(View view, String message, int messageColor, int backgroundColor){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT);
+    setSnackbarColor(snackbar,messageColor,backgroundColor);
+    return snackbar;
+}
+
+/**
+ * 长显示Snackbar，自定义颜色
+ * @param view
+ * @param message
+ * @param messageColor
+ * @param backgroundColor
+ * @return
+ */
+public static Snackbar LongSnackbar(View view, String message, int messageColor, int backgroundColor){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_LONG);
+    setSnackbarColor(snackbar,messageColor,backgroundColor);
+    return snackbar;
+}
+
+/**
+ * 自定义时常显示Snackbar，自定义颜色
+ * @param view
+ * @param message
+ * @param messageColor
+ * @param backgroundColor
+ * @return
+ */
+public static Snackbar IndefiniteSnackbar(View view, String message, int duration, int messageColor, int backgroundColor){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
+    setSnackbarColor(snackbar,messageColor,backgroundColor);
+    return snackbar;
+}
+
+/**
+ * 短显示Snackbar，可选预设类型
+ * @param view
+ * @param message
+ * @param type
+ * @return
+ */
+public static Snackbar ShortSnackbar(View view, String message, int type){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT);
+    switchType(snackbar,type);
+    return snackbar;
+}
+
+/**
+ * 长显示Snackbar，可选预设类型
+ * @param view
+ * @param message
+ * @param type
+ * @return
+ */
+public static Snackbar LongSnackbar(View view, String message, int type){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_LONG);
+    switchType(snackbar,type);
+    return snackbar;
+}
+
+/**
+ * 自定义时常显示Snackbar，可选预设类型
+ * @param view
+ * @param message
+ * @param type
+ * @return
+ */
+public static Snackbar IndefiniteSnackbar(View view, String message, int duration, int type){
+    Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
+    switchType(snackbar,type);
+    return snackbar;
+}
+
+//选择预设类型
+private static void switchType(Snackbar snackbar, int type){
+    switch (type){
+        case Info:
+            setSnackbarColor(snackbar,blue);
+            break;
+        case Confirm:
+            setSnackbarColor(snackbar,green);
+            break;
+        case Warning:
+            setSnackbarColor(snackbar,orange);
+            break;
+        case Alert:
+            setSnackbarColor(snackbar, Color.YELLOW,red);
+            break;
+    }
+}
+
+/**
+ * 设置Snackbar背景颜色
+ * @param snackbar
+ * @param backgroundColor
+ */
+public static void setSnackbarColor(Snackbar snackbar, int backgroundColor) {
+    View view = snackbar.getView();
+    if(view!=null){
+        view.setBackgroundColor(backgroundColor);
+    }
+}
+
+/**
+ * 设置Snackbar文字和背景颜色
+ * @param snackbar
+ * @param messageColor
+ * @param backgroundColor
+ */
+public static void setSnackbarColor(Snackbar snackbar, int messageColor, int backgroundColor) {
+    View view = snackbar.getView();
+    if(view!=null){
+        view.setBackgroundColor(backgroundColor);
+        ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
+    }
+}
+
+/**
+ * 向Snackbar中添加view
+ * @param snackbar
+ * @param layoutId
+ * @param index 新加布局在Snackbar中的位置
+ */
+public static void SnackbarAddView(Snackbar snackbar, int layoutId, int index) {
+    View snackbarview = snackbar.getView();
+    Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+
+    View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+
+    LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    p.gravity= Gravity.CENTER_VERTICAL;
+
+    snackbarLayout.addView(add_view,index,p);
+}
+ }</code></pre><p>#感谢<br>[<a href="https://github.com/Trinea/android-common/tree/master/src/cn/trinea/android/common][http://www.jianshu.com/p/cd1e80e64311]:Android" target="_blank" rel="noopener">https://github.com/Trinea/android-common/tree/master/src/cn/trinea/android/common][http://www.jianshu.com/p/cd1e80e64311]:Android</a> Snackbar花式使用指南</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/17/Android-DatePicker/" rel="next" title="Android DatePicker">
+                <i class="fa fa-chevron-left"></i> Android DatePicker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/Android 自定义接口/" rel="prev" title="Android 自定义接口">
+                Android 自定义接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2、应用市场管理类"><span class="nav-number"></span> <span class="nav-text">2、应用市场管理类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、Toast工具类（不建议使用，请看另外一篇-Android-自定义Toast，并且勘误"><span class="nav-number"></span> <span class="nav-text">3、Toast工具类（不建议使用，请看另外一篇[Android 自定义Toast，并且勘误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、KeyBoardUtils"><span class="nav-number"></span> <span class="nav-text">4、KeyBoardUtils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、AES工具类"><span class="nav-number"></span> <span class="nav-text">5、AES工具类</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">49.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
