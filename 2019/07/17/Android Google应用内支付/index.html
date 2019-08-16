@@ -87,7 +87,7 @@
 <meta property="og:description" content="前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。 准备工作  要集成Google支付的准备工作有哪些呢？  1、手机上安装Google服务(当然是针对国内的用户，国外的相信大部分都有Google服务)；  2、一个绑定信用卡的Google账号；">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-acc4040df1416005.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-19T05:34:00.820Z">
+<meta property="og:updated_time" content="2019-08-15T03:34:03.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Google应用内支付">
 <meta name="twitter:description" content="前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。 准备工作  要集成Google支付的准备工作有哪些呢？  1、手机上安装Google服务(当然是针对国内的用户，国外的相信大部分都有Google服务)；  2、一个绑定信用卡的Google账号；">
@@ -367,7 +367,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.7k
+                  1.8k
                 </span>
               
 
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  8
                 </span>
               
             </div>
@@ -676,7 +676,71 @@ private static List&lt;String&gt; getGoodsList(
     return mGoodsList;
 }
 }</code></pre><p><strong>流程说明:</strong>首先初始化Google支付，初始化成功后查询是否有未消费的，如果有则消费，如果没有则继续调用购买功能。当然，购买之前需要创建订单，之后传入Google支付需要的参数支付。支付成功后在onActivityResult方法里获取到Google返回的token，然后到自己的服务器做验证。验证成功后再次调用Google的消费功能，用于消耗此次购买。这一步千万不能省，要不下次可能就不能进行购买了。</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 好了，这就是今天的Google支付说明了，写的不好还请谅解。</p>
+<p> public class GoogleModel {</p>
+<pre><code>private String orderId;
+private String packageName;
+private String productId;
+private long purchaseTime;
+private int purchaseState;
+private String developerPayload;
+private String purchaseToken;
+
+public String getOrderId() {
+    return orderId;
+}
+
+public void setOrderId(String orderId) {
+    this.orderId = orderId;
+}
+
+public String getPackageName() {
+    return packageName;
+}
+
+public void setPackageName(String packageName) {
+    this.packageName = packageName;
+}
+
+public String getProductId() {
+    return productId;
+}
+
+public void setProductId(String productId) {
+    this.productId = productId;
+}
+
+public long getPurchaseTime() {
+    return purchaseTime;
+}
+
+public void setPurchaseTime(long purchaseTime) {
+    this.purchaseTime = purchaseTime;
+}
+
+public int getPurchaseState() {
+    return purchaseState;
+}
+
+public void setPurchaseState(int purchaseState) {
+    this.purchaseState = purchaseState;
+}
+
+public String getDeveloperPayload() {
+    return developerPayload;
+}
+
+public void setDeveloperPayload(String developerPayload) {
+    this.developerPayload = developerPayload;
+}
+
+public String getPurchaseToken() {
+    return purchaseToken;
+}
+
+public void setPurchaseToken(String purchaseToken) {
+    this.purchaseToken = purchaseToken;
+}
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 好了，这就是今天的Google支付说明了，写的不好还请谅解。</p>
 <h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>   <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">谷歌支付验证 403错误</a></p>
 
       
