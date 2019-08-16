@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="前提  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。 首先1、 定义   动态地给一个对象添加一些额外的职责。就增">
+<meta name="description" content="前提 1、要使用Google支付，手机上必须要有Google 服务套件（Google Play 服务、Google Play 商店、Google Play service for Instant Apps） 2 、手机必须要有VPN，并且是比较稳定的。 3、 Google Play 商店的账号必须和Google Play服务的账号必须保持一致 4、如果出现支付调不起来的情况，首先在应用管理中清空G">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 装饰者模式初探">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/Andorid装饰者模式初探/index.html">
+<meta property="og:title" content="Google Play 支付调用错误分析">
+<meta property="og:url" content="http://yoursite.com/2019/08/16/Google Play 支付调用错误分析/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="前提  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。 首先1、 定义   动态地给一个对象添加一些额外的职责。就增">
+<meta property="og:description" content="前提 1、要使用Google支付，手机上必须要有Google 服务套件（Google Play 服务、Google Play 商店、Google Play service for Instant Apps） 2 、手机必须要有VPN，并且是比较稳定的。 3、 Google Play 商店的账号必须和Google Play服务的账号必须保持一致 4、如果出现支付调不起来的情况，首先在应用管理中清空G">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-19T05:34:23.981Z">
+<meta property="og:updated_time" content="2019-08-16T11:04:24.197Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 装饰者模式初探">
-<meta name="twitter:description" content="前提  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。 首先1、 定义   动态地给一个对象添加一些额外的职责。就增">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="Google Play 支付调用错误分析">
+<meta name="twitter:description" content="前提 1、要使用Google支付，手机上必须要有Google 服务套件（Google Play 服务、Google Play 商店、Google Play service for Instant Apps） 2 、手机必须要有VPN，并且是比较稳定的。 3、 Google Play 商店的账号必须和Google Play服务的账号必须保持一致 4、如果出现支付调不起来的情况，首先在应用管理中清空G">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/Andorid装饰者模式初探/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/16/Google Play 支付调用错误分析/">
 
 
 
 
 
-  <title>Android 装饰者模式初探 | Silence潇湘夜雨</title>
+  <title>Google Play 支付调用错误分析 | Silence潇湘夜雨</title>
   
 
 
@@ -284,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Andorid装饰者模式初探/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/Google Play 支付调用错误分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -301,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android 装饰者模式初探</h1>
+          <h1 class="post-title" itemprop="name headline">Google Play 支付调用错误分析</h1>
         
 
         <div class="post-meta">
@@ -313,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:30:24+08:00">
-                2019-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T18:47:30+08:00">
+                2019-08-16
               </time>
             
 
@@ -336,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">Android设计模式</span>
+                  <a href="/categories/支付/" itemprop="url" rel="index">
+                    <span itemprop="name">支付</span>
                   </a>
                 </span>
 
@@ -367,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  211
                 </span>
               
 
@@ -383,7 +381,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  1
                 </span>
               
             </div>
@@ -404,139 +402,12 @@
       
 
       
-        <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>  最近刚换了一份工作，这段时间一直在熟悉公司的代码逻辑，从中受益颇多。里面的设计模式也挺多的，运用的那个潇洒飘逸，让我好生羡慕。自己对设计模式这块理解的不是特别的深入，能拿出手的也就那么几个，刚好最近也学习了一些设计模式。所以，在这里斗胆写一下关于设计模式的文章，一方面是加深记忆，一方面是做一下总结。如果有不对的地方还请各位指正。</p>
-<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p><strong>1、 定义</strong><br>   动态地给一个对象添加一些额外的职责。就增加功能来说，装饰模式相比生成子类更为灵活。<br><strong>2、 介绍</strong></p>
-<ul>
-<li>装饰者模式是一种结构模式<ul>
-<li>装饰者模式的运用挺广的，举一个不太恰当的例子。比如花，花有颜色，有寓意也有花语。如果是花的花语是：“我足以与你相配”并且寓意是：“天真、纯洁、尊敬、父爱”，那么她就是白玫瑰。如果花的花语是：“莫离 幸福,就是你属于我”，寓意是：“清纯，贞洁，质朴，玲珑”，那么她就是白茉莉。</li>
-<li>通常我们扩展类的功能是通过继承的方式来实现，但是装饰者模式是通过组合的方式来实现，这是继承的替代方案之一。</li>
-</ul>
-</li>
-</ul>
-<p><strong>3、角色说明：</strong></p>
-<ul>
-<li><p>Component（抽象组件）：接口或者抽象类，被装饰的最原始的对象。具体组件与抽象装饰角色的父类。</p>
-</li>
-<li><p>ConcreteComponent（具体组件）：实现抽象组件的接口。</p>
-</li>
-<li><p>Decorator（抽象装饰角色）：一般是抽象类，抽象组件的子类，同时持有一个被装饰者的引用，用来调用被装饰者的方法;同时可以给被装饰者增加新的职责。</p>
-</li>
-<li><p>ConcreteDecorator（具体装饰类）：抽象装饰角色的具体实现。</p>
-<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>原理讲了那么多，也许有的人对于枯燥的原理早都没有好感了（我能说我看到原理很头疼吗？），下面用一个实例来给大家讲解一番，就以花举例。</p>
-</li>
-<li><p><strong>创建抽象组件</strong><br>这里是一个抽象花类，定义一个装修的方法：</p>
-<pre><code>public abstract class Flower {
- //装饰方法(显示颜色)
-public abstract void showColor();
-}</code></pre></li>
-<li><p><strong>创建具体组件</strong><br>这里是一个具体花类，并且给花定义了寓意</p>
-<pre><code>public class SpecificFlower extends  Flower{</code></pre></li>
-</ul>
-<pre><code>private static final String TAG=SpecificFlower.class.getSimpleName();
-
-@Override
-public void showColor() {
-  Log.e(TAG,&quot;花开花落花有时&quot;);
- }
-
-}</code></pre><ul>
-<li><p><strong>创建抽象装饰角色</strong><br>要为花定义颜色寓意等，定义抽象的花的装饰类：</p>
-<pre><code>public abstract class FlowerDecorator extends Flower {
-
-Flower mFlower;
-
-public FlowerDecorator(Flower mFlower) {
-  this.mFlower = mFlower;
-}
-
-@Override
-public void showColor() {
-  mFlower.showColor();
-}
-
-/**
- * 显示感情（寓意）
- */
-public void showEmotion(){
-
-}
-}</code></pre></li>
-<li><p><strong>创建具体的装饰类</strong></p>
-</li>
-</ul>
-<p>我们要定义不同的花（白玫瑰和白茉莉），那么他们的寓意和花语也是不同的，下面具体实现是不同的：</p>
-<pre><code>/**
- * 
- * 具体装饰类（白玫瑰）
- */
-  public class WhiteRose extends FlowerDecorator {
-
-  private static final String TAG=SpecificFlower.class.getSimpleName();
-
-  public WhiteRose(Flower mFlower) {
-    super(mFlower);
-  }
-
-  @Override
-  public void showColor() {
-    super.showColor();
-    Log.e(TAG,&quot;我是白玫瑰，我的花语是：我足以与你相配&quot;);
-
-  }
-
-  @Override
-  public void showEmotion() {
-    super.showEmotion();
-    Log.e(TAG,&quot;我是白玫瑰，我的寓意是：天真、纯洁、尊敬、父爱&quot;);
-  }
-}
-
- /**
- * 
- * 具体装饰类（白茉莉）
- */
-
-public class WhiteMolly extends FlowerDecorator {
-
-private static final String TAG=SpecificFlower.class.getSimpleName();
-
-public WhiteMolly(Flower mFlower) {
-    super(mFlower);
-}
-
-@Override
-public void showColor() {
-    super.showColor();
-    Log.e(TAG,&quot;我是白茉莉，我的花语是：莫离 幸福,就是你属于我&quot;);
-}
-
-@Override
-public void showEmotion() {
-    super.showEmotion();
-    Log.e(TAG,&quot;我是白茉莉，我的寓意是：清纯，贞洁，质朴，玲珑 &quot;);
- }
-}</code></pre><ul>
-<li><p><strong>调用实现（使用）</strong></p>
-<pre><code>Flower flower=new SpecificFlower();
-FlowerDecorator flowerDecorator= new WhiteMolly(flower);
-flowerDecorator.showColor();
-flowerDecorator.showEmotion();
-FlowerDecorator mFlower= new WhiteRose(flower);
-mFlower.showColor();
-mFlower.showEmotion();</code></pre></li>
-</ul>
-<ul>
-<li><p><strong>打印日志</strong></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="装饰者模式日志.png"></p>
-</li>
-<li><p><strong>应用场景</strong><br>需要扩展一个类的功能，或给一个类增加附加功能时<br>需要动态的给一个对象增加功能，这些功能可以再动态的撤销<br>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。</p>
-</li>
-<li><p><strong>优点</strong><br>采用组合的方式，可以动态的扩展功能，同时也可以在运行时选择不同的装饰器，来实现不同的功能。<br>有效避免了使用继承的方式扩展对象功能而带来的灵活性差，子类无限制扩张的问题。<br>被装饰者与装饰者解偶，被装饰者可以不知道装饰者的存在，同时新增功能时原有代码也无需改变，符合开放封闭原则。</p>
-</li>
-<li><p><strong>缺点</strong><br>装饰层过多的话，维护起来比较困难。<br>如果要修改抽象组件这个基类的话，后面的一些子类可能也需跟着修改，较容易出错,装饰者模式虽好，切不可贪杯，用的太多，不容易处理。</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 上面就是小可最近所学到的设计模式，如果有不对的地方还请给我大佬指正提点。源码就是文中所列出来的这些，如果需要尝试，复制粘贴即可实现。</p>
-<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://www.jianshu.com/p/df1a96c5c046" target="_blank" rel="noopener">Android的设计模式-装饰者模式</a></p>
-</li>
+        <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
+<li>1、要使用Google支付，手机上必须要有<strong>Google 服务套件（Google Play 服务、Google Play 商店、Google Play service for Instant Apps）</strong></li>
+<li>2 、手机必须要有VPN，并且是比较稳定的。</li>
+<li>3、 <strong>Google Play 商店的账号必须和Google Play服务的账号必须保持一致</strong></li>
+<li>4、如果出现支付调不起来的情况，首先在应用管理中<strong>清空Google Play商店的数据和缓存</strong>，然后打开VPN，再打开Google Play商店，登录你的账号。然后在设置中找到__Google __这一选项，点击进去，打开账户设置，登录和Google Play账户相同的账户。</li>
+<li>5、再打开应用，进行支付操作，支付之前，<strong>必须登录</strong>。没有登录之前是，不能创建订单的，so，也不能调用起来Google 支付的页面。</li>
 </ul>
 
       
@@ -562,8 +433,8 @@ mFlower.showEmotion();</code></pre></li>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/17/Android-捕获错误日志（上篇）/" rel="next" title="Android 捕获错误日志（上篇）">
-                <i class="fa fa-chevron-left"></i> Android 捕获错误日志（上篇）
+              <a href="/2019/08/07/Facebook平台配置/" rel="next" title="Facebook 平台配置">
+                <i class="fa fa-chevron-left"></i> Facebook 平台配置
               </a>
             
           </div>
@@ -571,10 +442,6 @@ mFlower.showEmotion();</code></pre></li>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/17/Android-Socket编程（udp）初探/" rel="prev" title="Android Socket编程（udp）初探">
-                Android Socket编程（udp）初探 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -725,7 +592,7 @@ mFlower.showEmotion();</code></pre></li>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">5.</span> <span class="nav-text">感谢</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li></ol></div>
             
 
           </div>
