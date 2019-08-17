@@ -79,25 +79,26 @@
 
 
 
-<meta name="description" content="#前提：​       之前一直想用ubuntu，但是现在大部分编程都是在windows上，所以很少用。但是现在需要编译ffmpeg，​    奈何windows上遇到了各种bug，不好处理，索性直接给自己的老人机上安装了ubuntu系统。今天主要是针对​    小白来讲解一下ubuntu配置jdk和ndk环境变量的，还请给为大佬绕道轻点打脸。 ###首先本篇ubuntu版本是16.04，JDK版">
+<meta name="description" content="前提： 最近一直在做SDK开发，因为SDK是给特定的用户服务的，所以需要对SDK的安全性慎重考虑。之前一直在 JitPack上面发布私有库，让用户可以很方便的集成。但是，JitPack有时间限制。所以，就萌生了自己搭建私服的想法。刚好，今天刚配置起来，趁热打铁顺便撸一篇文章，既是给自己做一个笔记。也是为了给不太明白的小伙伴讲解一下，不足之处还望大佬指正。  首先  话不多说，直接开始配置。首先，需">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu环境变量配置">
-<meta property="og:url" content="http://yoursite.com/2019/07/17/Ubuntu环境变量配置/index.html">
+<meta property="og:title" content="nexus 3.x私服配置（windows版）">
+<meta property="og:url" content="http://yoursite.com/2019/08/17/nexus-3.x私服配置（windows版）/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="#前提：​       之前一直想用ubuntu，但是现在大部分编程都是在windows上，所以很少用。但是现在需要编译ffmpeg，​    奈何windows上遇到了各种bug，不好处理，索性直接给自己的老人机上安装了ubuntu系统。今天主要是针对​    小白来讲解一下ubuntu配置jdk和ndk环境变量的，还请给为大佬绕道轻点打脸。 ###首先本篇ubuntu版本是16.04，JDK版">
+<meta property="og:description" content="前提： 最近一直在做SDK开发，因为SDK是给特定的用户服务的，所以需要对SDK的安全性慎重考虑。之前一直在 JitPack上面发布私有库，让用户可以很方便的集成。但是，JitPack有时间限制。所以，就萌生了自己搭建私服的想法。刚好，今天刚配置起来，趁热打铁顺便撸一篇文章，既是给自己做一个笔记。也是为了给不太明白的小伙伴讲解一下，不足之处还望大佬指正。  首先  话不多说，直接开始配置。首先，需">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-1c9bdab5e1dcf735.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-11506c5412342c39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-1127ecd1fabcb74b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-4e00ca7cb878ae89.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-9bedfee9c5c728fa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-bb67867f4db6f4bd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-38746433544edec2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-07-19T05:29:55.811Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-1bcdefd1c36269d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-07cfc908851f24fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-b4d05460b0b51705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-66f441750f6cc120.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-14399dc63d8b3b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-eb6478948fd9f8ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-fb3b45b42720d7a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-415780963f55057e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-08-17T06:30:27.824Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu环境变量配置">
-<meta name="twitter:description" content="#前提：​       之前一直想用ubuntu，但是现在大部分编程都是在windows上，所以很少用。但是现在需要编译ffmpeg，​    奈何windows上遇到了各种bug，不好处理，索性直接给自己的老人机上安装了ubuntu系统。今天主要是针对​    小白来讲解一下ubuntu配置jdk和ndk环境变量的，还请给为大佬绕道轻点打脸。 ###首先本篇ubuntu版本是16.04，JDK版">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-1c9bdab5e1dcf735.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="nexus 3.x私服配置（windows版）">
+<meta name="twitter:description" content="前提： 最近一直在做SDK开发，因为SDK是给特定的用户服务的，所以需要对SDK的安全性慎重考虑。之前一直在 JitPack上面发布私有库，让用户可以很方便的集成。但是，JitPack有时间限制。所以，就萌生了自己搭建私服的想法。刚好，今天刚配置起来，趁热打铁顺便撸一篇文章，既是给自己做一个笔记。也是为了给不太明白的小伙伴讲解一下，不足之处还望大佬指正。  首先  话不多说，直接开始配置。首先，需">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-1bcdefd1c36269d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -127,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/17/Ubuntu环境变量配置/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/17/nexus-3.x私服配置（windows版）/">
 
 
 
 
 
-  <title>Ubuntu环境变量配置 | Silence潇湘夜雨</title>
+  <title>nexus 3.x私服配置（windows版） | Silence潇湘夜雨</title>
   
 
 
@@ -290,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/Ubuntu环境变量配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/17/nexus-3.x私服配置（windows版）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -307,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubuntu环境变量配置</h1>
+          <h1 class="post-title" itemprop="name headline">nexus 3.x私服配置（windows版）</h1>
         
 
         <div class="post-meta">
@@ -319,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T18:38:25+08:00">
-                2019-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T14:29:37+08:00">
+                2019-08-17
               </time>
             
 
@@ -342,8 +343,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/私服配置/" itemprop="url" rel="index">
+                    <span itemprop="name">私服配置</span>
                   </a>
                 </span>
 
@@ -373,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k
+                  684
                 </span>
               
 
@@ -389,7 +390,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  2
                 </span>
               
             </div>
@@ -410,71 +411,25 @@
       
 
       
-        <p>#前提：<br>​       之前一直想用ubuntu，但是现在大部分编程都是在windows上，所以很少用。但是现在需要编译ffmpeg，<br>​    奈何windows上遇到了各种bug，不好处理，索性直接给自己的老人机上安装了ubuntu系统。今天主要是针对<br>​    小白来讲解一下ubuntu配置jdk和ndk环境变量的，还请给为大佬绕道轻点打脸。</p>
-<p>###首先<br><strong>本篇ubuntu版本是16.04，JDK版本是1.8和NDK版本是android-ndk-r12b，下面的是链接地址</strong></p>
-<ul>
-<li><p>下载<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html?utm_source=androiddevtools&utm_medium=website" target="_blank" rel="noopener">Linux版本的JDK</a></p>
-</li>
-<li><p>下载 <a href="https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip?utm_source=androiddevtools&utm_medium=website" target="_blank" rel="noopener">Linux版本的NDK</a></p>
-</li>
-<li><p>下载 <a href="https://dl.google.com/dl/android/studio/ide-zips/3.0.1.0/android-studio-ide-171.4443003-linux.zip?utm_source=androiddevtools&utm_medium=website" target="_blank" rel="noopener">Linux版本的Android Studio</a><br>###其次</p>
-<ul>
-<li>使用crtl+alt+t切换到终端，然后切换到你的jdk下载地址，我的下载地址在“/home/silence/下载” 路径下如下图所示，当然我这个是已经安装过的了目前没有JDK和NDK安装包<br>#####1、JDK安装<br><img src="https://upload-images.jianshu.io/upload_images/1716569-1c9bdab5e1dcf735.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ubuntuJDK下载路径.jpg"></li>
+        <h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><blockquote>
+<p>最近一直在做SDK开发，因为SDK是给特定的用户服务的，所以需要对SDK的安全性慎重考虑。之前一直在 <a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>上面发布私有库，让用户可以很方便的集成。但是，JitPack有时间限制。所以，就萌生了自己搭建私服的想法。刚好，今天刚配置起来，趁热打铁顺便撸一篇文章，既是给自己做一个笔记。也是为了给不太明白的小伙伴讲解一下，不足之处还望大佬指正。</p>
+</blockquote>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  话不多说，直接开始配置。首先，需要到<a href="https://www.sonatype.com/download-oss-sonatype" target="_blank" rel="noopener">nexus官网</a>下载文件,如下图所示<br><img src="https://upload-images.jianshu.io/upload_images/1716569-1bcdefd1c36269d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus地址.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-07cfc908851f24fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus版本选择.png"><br><img src="https://upload-images.jianshu.io/upload_images/1716569-b4d05460b0b51705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus文档.png"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
+<li>1、 nexus下载下来后就是配置了，先解压到指定文件夹下，我这里是放到<strong>E:\programFiles\nexus</strong>文件夹下的，解压文件，进入到<strong>E:\programFiles\nexus\nexus-3.18.1-01\bin</strong>文件夹下，将，E:\programFiles\nexus\nexus-3.18.1-01\bin添加到Path环境变量中，如下图所示<br><img src="https://upload-images.jianshu.io/upload_images/1716569-66f441750f6cc120.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus路径.png"></li>
+<li>2、打开命令行窗口，跳转到E:\programFiles\nexus\nexus-3.18.1-01\bin路径下，并且执行，nexus.exe/start命令,如下图所示，这样就成功了。然后，在浏览器输入<a href="http://localhost:8081/" target="_blank" rel="noopener">http://localhost:8081/</a> 默认8081端口，就ok了，如下图所示，<strong>因为我这里改了默认端口和密码，所以端口不一样</strong><br><img src="https://upload-images.jianshu.io/upload_images/1716569-14399dc63d8b3b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus页面.png"></li>
 </ul>
-</li>
-<li><p>选择索要下载的Linux安装包，我这里使用的是jdk-8u161-linux-x64.tar.gz<br><img src="https://upload-images.jianshu.io/upload_images/1716569-11506c5412342c39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JDK版本.png"></p>
-</li>
-<li><p>在usr/lib下新建jdk包，并且移动jdk-8u161-linux-x64.tar.gz并且解压</p>
-<pre><code>1、在终端输入sudo mkdir /usr/lib/jdk新建jdk包
-2、移动jdk-8u161-linux-x64.tar.gz到jdk包下，在终端输入
-   sudo mv jdk-8u161-linux-x64.tar.gz /usr/lib/jdk
-3、解压jdk-8u161-linux-x64.tar.gz包 ，在终端输入
-   sudo tar zxvf jdk-8u161-linux-x64.tar.gz 解压之后得到 
-   jdk1.8.0_161 包</code></pre></li>
-<li><p>配置环境变量</p>
-<pre><code>1、在终端输入sudo gedit ~/.bashrc 打开~/.bashrc文件其中
-  【~/】表示/home/用户名,如下图所示，其中sudo是超级用户需要输入密码</code></pre><p>   <img src="https://upload-images.jianshu.io/upload_images/1716569-1127ecd1fabcb74b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="终端打开bashrc.jpg"></p>
-<pre><code>2、在~/.bashrc的最下面输入（如下图所示）
-   export JAVA_HOME=/usr/lib/jdk/jdk1.8.0_161  
-   export JRE_HOME=${JAVA_HOME}/jre  
-   export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
-   export PATH=${JAVA_HOME}/bin:$PATH</code></pre></li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/1716569-4e00ca7cb878ae89.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bashrc输入环境变量.jpg"></p>
-<pre><code>3、在终端输入source ~/.bashrc是环境变量生效（如下图）</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-9bedfee9c5c728fa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="环境变量生效.jpg"><br><strong>当然，我这里已经把JDK环境和NDK的环境变量都已经配置了</strong></p>
+<h3 id="再次"><a href="#再次" class="headerlink" title="再次"></a>再次</h3><blockquote>
+<p>再讲两点，关于密码和默认端口的</p>
 <ul>
-<li><p>其中/usr/lib/jdk表示的就是刚才新建的那个文件夹</p>
-</li>
-<li><p>后面的JRE_HOME、CLASSPATH、PATH依次写入即可。</p>
-</li>
-<li><p>然后在终端输入java -version如下图所示即表示成功（如下图所示）。<br><img src="https://upload-images.jianshu.io/upload_images/1716569-bb67867f4db6f4bd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JDK成功图.jpg"><br>#####2、NDK安装</p>
-<ul>
-<li>首先下载NDK包，我这里使用的是<a href="https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip?utm_source=androiddevtools&utm_medium=website" target="_blank" rel="noopener">android-ndk-r12b-linux-x86_64.zip</a>下载之后<br>切换到下载路径下即—– /home/silence/下载</li>
+<li>1、网上大部分博客都会讲默认的用户名和密码分别是admin和admin123。但是，如果你在3.x上面直接输入是进不去的。会有一个Incorrect username or password, or no permission to use the application.错误提示，如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/1716569-eb6478948fd9f8ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus密码错误提示.png"><br>至于怎么解决呢？来，看这边，当nexus解压之后会有两个文件夹<strong>nexus3.x</strong>和<strong>sonatype-work</strong>, <strong>默认的密码</strong>在<strong>sonatype-work</strong>文件夹下,会有一个<strong>admin.password</strong>的文件，里面就是默认的密码，复制即可，然后输入用户名：admin，密码：就是复制的那一串数字字母组合的东东。进去之后会让你更改密码，改成你自己的密码即可。</li>
+<li>2、修改默认的端口<br>在你的nexus路径下的etc文件夹下的nexus-default.properties里面修改，我这里的路径是E:\programFiles\nexus\nexus-3.18.1-01\etc，打开nexus-default.properties文件，如下图所示，修改默认端口8081为8092即可。</li>
 </ul>
-</li>
-<li><p>新建NDK安装路径，我这里是先安装了 <a href="https://dl.google.com/dl/android/studio/ide-zips/3.0.1.0/android-studio-ide-171.4443003-linux.zip?utm_source=androiddevtools&utm_medium=website" target="_blank" rel="noopener">android-studio-ide-171.4443003-linux.zip</a></p>
-<pre><code>1、会在/home/silence/Android下生成一个Sdk包，把NDK包移动到/home/silence/Android路径下，
-2、在终端输入 sudo mv android-studio-ide-171.4443003-linux.zip即可，
-然后终端切换到Android路径下，即cd /home/silence/Android 
-3、输入 ls -all 即可看到/home/silence/Android路径下所有的文件，
-4、再对android-studio-ide-171.4443003-linux.zip进行解压，在终端输入 
-sudo unzip android-studio-ide-171.4443003-linux.zip即可得到一个
-Android-studio 包 
-5、切换到android-studio/bin目录下打开.studio.sh即可打开android-studio
- 在终端输入 cd android-studio/bin,然后再输入 sudo ./studio.sh即可，这样    
- 就可以打开android studio
-6、解压NDK包，在终端输入 sudo unzip android-ndk-r12b-linux-
-   x86_64.zip即可得到一个 包名为android-ndk-r12b的包。
-7、配置NDK环境变量，在终端输入 sudo ~/.bashrc打开~/.bashrc文件，
-   在最后输入多需要的环境变量路径，然后保存关闭。
-8、使环境变量生效，在终端输入source ~/.bashrc即可。
-9、验证环境变量成功与否，在终端输入 ndk-build -v,如下图所示则配置成功。</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1716569-38746433544edec2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NDK成功图.jpg"></p>
-</li>
-</ul>
-<h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p>  <a href="https://www.jianshu.com/p/9d8322e5de7f" target="_blank" rel="noopener">Android NDK开发（三） 在Linux环境下编译FFmpeg</a><br><a href="http://www.androiddevtools.cn/index.html" target="_blank" rel="noopener">AndroidDevTools</a></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>   配置环境变量总体来说还是比较顺利的，但是当刚接触到新东西的时候会有所胆怯，但是当我们真正战胜
-自己的胆怯而完成的时候却又是另一番景象，所以遇到问题还是迎难而上吧。推荐一个Android交流群，群号
-493180098。还有一句，请尊重作者的辛苦劳动，转载请标明出处，谢谢。</code></pre><p> <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" rel="noopener">我的简书</a><br><a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" rel="noopener">我的掘金</a><br><a href="https://github.com/muyishuangfeng" target="_blank" rel="noopener">我的github</a><br><a href="https://muyishuangfeng.github.io/" target="_blank" rel="noopener">我的个人博客</a><br><strong>小弟就厚着脸皮说欢迎关注哈</strong></p>
+</blockquote>
+<p>  <img src="https://upload-images.jianshu.io/upload_images/1716569-fb3b45b42720d7a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus默认端口.png"><br>  <img src="https://upload-images.jianshu.io/upload_images/1716569-415780963f55057e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nexus默认端口修改.png"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>  本来想着以后再做这件事（其实是想偷懒，拖延症可不太好）。但是，想着既然想了，那么直接就开始做。所以有了这么一篇文章,嗯，如果有不懂的地方可以加群（493180098），我们共同探讨一下。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://blog.csdn.net/vipbupafeng/article/details/80232566" target="_blank" rel="noopener">使用nexus3.10搭建maven私有仓库</a></p>
 
       
     </div>
@@ -499,8 +454,8 @@ Android-studio 包
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/17/windows-下基于nginx和ffmpeg的rtmp流媒体服务器搭建/" rel="next" title="windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建">
-                <i class="fa fa-chevron-left"></i> windows 下基于nginx和ffmpeg的rtmp流媒体服务器搭建
+              <a href="/2019/08/16/Google Play 支付调用错误分析/" rel="next" title="Google Play 支付调用错误分析">
+                <i class="fa fa-chevron-left"></i> Google Play 支付调用错误分析
               </a>
             
           </div>
@@ -508,10 +463,6 @@ Android-studio 包
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/17/Git用法初探/" rel="prev" title="Git用法初探">
-                Git用法初探 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -662,7 +613,7 @@ Android-studio 包
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#致谢"><span class="nav-number">1.</span> <span class="nav-text">致谢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提："><span class="nav-number">1.</span> <span class="nav-text">前提：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次"><span class="nav-number">4.</span> <span class="nav-text">再次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">6.</span> <span class="nav-text">感谢</span></a></li></ol></div>
             
 
           </div>
