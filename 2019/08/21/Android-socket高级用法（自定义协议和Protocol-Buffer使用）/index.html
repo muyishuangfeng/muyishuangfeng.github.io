@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E24;&amp;#x7BC7;&amp;#x5173;&amp;#x4E8E;socket&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#xFF0C;&amp;#x53EA;&amp;#x662F;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x4ECB;&amp;#x7ECD;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E24;&amp;#x7BC7;&amp;#x5173;&amp;#x4E8E;socket&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#xFF0C;&amp;#x53EA;&amp;#x662F;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x4ECB;&amp;#x7ECD;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T04:31:42.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android socket高级用法（自定义协议和Protocol Buffer使用）">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E24;&amp;#x7BC7;&amp;#x5173;&amp;#x4E8E;socket&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#xFF0C;&amp;#x53EA;&amp;#x662F;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x4ECB;&amp;#x7ECD;">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/">
+
+
+
+
+
+  <title>Android socket高级用法（自定义协议和Protocol Buffer使用） | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-socket高级用法（自定义协议和Protocol-Buffer使用）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android socket高级用法（自定义协议和Protocol Buffer使用）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/socket/" itemprop="url" rel="index">
+                    <span itemprop="name">socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x63D0;"><a href="#&#x524D;&#x63D0;" class="headerlink" title="&#x524D;&#x63D0;"></a>&#x524D;&#x63D0;</h3><p>  &#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x4E24;&#x7BC7;&#x5173;&#x4E8E;socket&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x4E0B;&#x5173;&#x4E8E;socket Tcp&#x548C;Udp&#x7684;&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x770B;&#x8FC7;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x4EE5;&#x53BB;&#x770B;&#x770B;<a href="https://www.jianshu.com/p/2ee8d427d011" target="_blank" rel="noopener">Android Socket&#x7F16;&#x7A0B;&#xFF08;tcp&#xFF09;&#x521D;&#x63A2;</a>&#x548C;<a href="https://www.jianshu.com/p/ccbc727fd8f4" target="_blank" rel="noopener">Android Socket&#x7F16;&#x7A0B;&#xFF08;udp&#xFF09;&#x521D;&#x63A2;</a>&#x3002;&#x76F8;&#x4FE1;&#x5F88;&#x591A;&#x670B;&#x53CB;&#x5728;&#x516C;&#x53F8;&#x4F7F;&#x7528;socket&#x5F00;&#x53D1;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x4F1A;&#x81EA;&#x5B9A;&#x4E49;&#x534F;&#x8BAE;&#x6765;&#x4F20;&#x9012;&#x4FE1;&#x606F;&#x3002;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x4E3A;&#x4E86;&#x5B89;&#x5168;&#x6392;&#x9664;&#x810F;&#x6570;&#x636E;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x65B9;&#x9762;&#x662F;&#x4E3A;&#x4E86;&#x66F4;&#x52A0;&#x9AD8;&#x6548;&#x7684;&#x5904;&#x7406;&#x81EA;&#x5DF1;&#x6240;&#x9700;&#x8981;&#x7684;&#x6570;&#x636E;&#x3002;&#x4ECA;&#x5929;&#x5C31;&#x6765;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x5173;&#x4E8E;socket&#x81EA;&#x5B9A;&#x4E49;&#x534F;&#x8BAE;&#x548C;&#x4F7F;&#x7528;Protocol Buffer&#x89E3;&#x6790;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p>  &#x65E2;&#x7136;&#x8BF4;&#x5230;&#x4E86;Protocol Buffer&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5C31;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;Protocol Buffer&#x662F;&#x4EC0;&#x4E48;&#xFF1F;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Protocol Buffer&#xFF1F;</p>
+<ul>
+<li>1&#x3001;<strong>&#x4EC0;&#x4E48;&#x662F;Protocol Buffer</strong></li>
+</ul>
+<p>&#x4E00;&#x79CD; &#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E; &#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x683C;&#x5F0F;&#xFF08;&#x7C7B;&#x4F3C;&#x4E8E; XML&#x3001;Json &#xFF09;&#xFF0C;&#x5176;&#x4F5C;&#x7528;&#x662F;&#x901A;&#x8FC7;&#x5C06; &#x7ED3;&#x6784;&#x5316;&#x7684;&#x6570;&#x636E; &#x8FDB;&#x884C; &#x4E32;&#x884C;&#x5316;&#xFF08;&#x5E8F;&#x5217;&#x5316;&#xFF09;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0; &#x6570;&#x636E;&#x5B58;&#x50A8; / RPC &#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x529F;&#x80FD;&#x3002;&#x81F3;&#x4E8E;&#x66F4;&#x8BE6;&#x7EC6;&#x7684;&#x7528;&#x6CD5;&#x548C;&#x4ECB;&#x7ECD;&#x8BF7;&#x79FB;&#x6B65;<a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer &#x5E8F;&#x5217;&#x5316;&#x539F;&#x7406;&#x5927;&#x63ED;&#x79D8; - &#x4E3A;&#x4EC0;&#x4E48;Protocol Buffer&#x6027;&#x80FD;&#x8FD9;&#x4E48;&#x597D;&#xFF1F;</a></p>
+<ul>
+<li><p>2&#x3001;<strong>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;Protocol Buffer</strong></p>
+<p> &#x5728;&#x56DE;&#x7B54;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x5148;&#x7ED9;&#x51FA;&#x4E00;&#x4E2A;&#x5728;&#x5B9E;&#x9645;&#x5F00;&#x53D1;&#x4E2D;&#x7ECF;&#x5E38;&#x4F1A;&#x9047;&#x5230;&#x7684;&#x7CFB;&#x7EDF;&#x573A;&#x666F;&#x3002;&#x6BD4;&#x5982;&#xFF1A;&#x6211;&#x4EEC;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x7A0B;&#x5E8F;&#x662F;&#x4F7F;&#x7528;Java&#x5F00;&#x53D1;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x8FD0;&#x884C;&#x81EA;&#x4E0D;&#x540C;&#x7684;&#x5E73;&#x53F0;&#xFF0C;&#x5982;&#xFF1A;Linux&#x3001;Windows&#x6216;&#x8005;&#x662F;Android&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7A0B;&#x5E8F;&#x901A;&#x5E38;&#x662F;&#x57FA;&#x4E8E;Linux&#x5E73;&#x53F0;&#x5E76;&#x4F7F;&#x7528;C++&#x6216;&#x8005;Python&#x5F00;&#x53D1;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x5728;&#x8FD9;&#x4E24;&#x79CD;&#x7A0B;&#x5E8F;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x901A;&#x8BAF;&#x65F6;&#x5B58;&#x5728;&#x591A;&#x79CD;&#x65B9;&#x5F0F;&#x7528;&#x4E8E;&#x8BBE;&#x8BA1;&#x6D88;&#x606F;&#x683C;&#x5F0F;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code>1&#x3001; &#x76F4;&#x63A5;&#x4F20;&#x9012;C/C++/Python&#x8BED;&#x8A00;&#x4E2D;&#x4E00;&#x5B57;&#x8282;&#x5BF9;&#x9F50;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x6570;&#x636E;&#xFF0C;&#x53EA;&#x8981;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x58F0;&#x660E;&#x4E3A;&#x5B9A;&#x957F;&#x683C;&#x5F0F;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x65B9;&#x5F0F;&#x5BF9;&#x4E8E;C/C++/Python&#x7A0B;&#x5E8F;&#x800C;&#x8A00;&#x5C31;&#x975E;&#x5E38;&#x65B9;&#x4FBF;&#x4E86;&#xFF0C;&#x4EC5;&#x9700;&#x5C06;&#x63A5;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#x6309;&#x7167;&#x7ED3;&#x6784;&#x4F53;&#x7C7B;&#x578B;&#x5F3A;&#x884C;&#x8F6C;&#x6362;&#x5373;&#x53EF;&#x3002;&#x4E8B;&#x5B9E;&#x4E0A;&#x5BF9;&#x4E8E;&#x53D8;&#x957F;&#x7ED3;&#x6784;&#x4F53;&#x4E5F;&#x4E0D;&#x4F1A;&#x975E;&#x5E38;&#x9EBB;&#x70E6;&#x3002;&#x5728;&#x53D1;&#x9001;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x4E5F;&#x53EA;&#x9700;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x53D8;&#x91CF;&#x5E76;&#x8BBE;&#x7F6E;&#x5404;&#x4E2A;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x4EE5;char*&#x7684;&#x65B9;&#x5F0F;&#x5C06;&#x8BE5;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#x53D1;&#x9001;&#x5230;&#x8FDC;&#x7AEF;&#x3002;&#x53CD;&#x4E4B;&#xFF0C;&#x8BE5;&#x65B9;&#x5F0F;&#x5BF9;&#x4E8E;Java&#x5F00;&#x53D1;&#x8005;&#x800C;&#x8A00;&#x5C31;&#x4F1A;&#x975E;&#x5E38;&#x7E41;&#x7410;&#xFF0C;&#x9996;&#x5148;&#x9700;&#x8981;&#x5C06;&#x63A5;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#x5B58;&#x4E8E;ByteBuffer&#x4E4B;&#x4E2D;&#xFF0C;&#x518D;&#x6839;&#x636E;&#x7EA6;&#x5B9A;&#x7684;&#x5B57;&#x8282;&#x5E8F;&#x9010;&#x4E2A;&#x8BFB;&#x53D6;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x5E76;&#x5C06;&#x8BFB;&#x53D6;&#x540E;&#x7684;&#x503C;&#x518D;&#x8D4B;&#x503C;&#x7ED9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x503C;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x57DF;&#x53D8;&#x91CF;&#xFF0C;&#x4EE5;&#x4FBF;&#x4E8E;&#x7A0B;&#x5E8F;&#x4E2D;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x7684;&#x7F16;&#x5199;&#x3002;&#x5BF9;&#x4E8E;&#x8BE5;&#x7C7B;&#x578B;&#x7A0B;&#x5E8F;&#x800C;&#x8A00;&#xFF0C;&#x8054;&#x8C03;&#x7684;&#x57FA;&#x51C6;&#x662F;&#x5FC5;&#x987B;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x5668;&#x53CC;&#x65B9;&#x5747;&#x5B8C;&#x6210;&#x4E86;&#x6D88;&#x606F;&#x62A5;&#x6587;&#x6784;&#x5EFA;&#x7A0B;&#x5E8F;&#x7684;&#x7F16;&#x5199;&#x540E;&#x624D;&#x80FD;&#x5C55;&#x5F00;&#xFF0C;&#x800C;&#x8BE5;&#x8BBE;&#x8BA1;&#x65B9;&#x5F0F;&#x5C06;&#x4F1A;&#x76F4;&#x63A5;&#x5BFC;&#x81F4;Java&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x7684;&#x8FDB;&#x5EA6;&#x8FC7;&#x6162;&#x3002;&#x5373;&#x4FBF;&#x662F;Debug&#x9636;&#x6BB5;&#xFF0C;&#x4E5F;&#x4F1A;&#x7ECF;&#x5E38;&#x9047;&#x5230;Java&#x7A0B;&#x5E8F;&#x4E2D;&#x51FA;&#x73B0;&#x5404;&#x79CD;&#x57DF;&#x5B57;&#x6BB5;&#x62FC;&#x63A5;&#x7684;&#x5C0F;&#x9519;&#x8BEF;&#x3002;
+2&#x3001; &#x4F7F;&#x7528;SOAP&#x534F;&#x8BAE;(WebService)&#x4F5C;&#x4E3A;&#x6D88;&#x606F;&#x62A5;&#x6587;&#x7684;&#x683C;&#x5F0F;&#x8F7D;&#x4F53;&#xFF0C;&#x7531;&#x8BE5;&#x65B9;&#x5F0F;&#x751F;&#x6210;&#x7684;&#x62A5;&#x6587;&#x662F;&#x57FA;&#x4E8E;&#x6587;&#x672C;&#x683C;&#x5F0F;&#x7684;&#xFF0C;&#x540C;&#x65F6;&#x8FD8;&#x5B58;&#x5728;&#x5927;&#x91CF;&#x7684;XML&#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x56E0;&#x6B64;&#x5C06;&#x4F1A;&#x5927;&#x5927;&#x589E;&#x52A0;&#x7F51;&#x7EDC;IO&#x7684;&#x8D1F;&#x62C5;&#x3002;&#x53C8;&#x7531;&#x4E8E;XML&#x89E3;&#x6790;&#x7684;&#x590D;&#x6742;&#x6027;&#xFF0C;&#x8FD9;&#x4E5F;&#x4F1A;&#x5927;&#x5E45;&#x964D;&#x4F4E;&#x62A5;&#x6587;&#x89E3;&#x6790;&#x7684;&#x6027;&#x80FD;&#x3002;&#x603B;&#x4E4B;&#xFF0C;&#x4F7F;&#x7528;&#x8BE5;&#x8BBE;&#x8BA1;&#x65B9;&#x5F0F;&#x5C06;&#x4F1A;&#x4F7F;&#x7CFB;&#x7EDF;&#x7684;&#x6574;&#x4F53;&#x8FD0;&#x884C;&#x6027;&#x80FD;&#x660E;&#x663E;&#x4E0B;&#x964D;&#x3002;
+&#x5BF9;&#x4E8E;&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x6240;&#x4EA7;&#x751F;&#x7684;&#x95EE;&#x9898;&#xFF0C;Protocol Buffer&#x5747;&#x53EF;&#x4EE5;&#x5F88;&#x597D;&#x7684;&#x89E3;&#x51B3;&#xFF0C;&#x4E0D;&#x4EC5;&#x5982;&#x6B64;&#xFF0C;Protocol Buffer&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x4F18;&#x70B9;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x540C;&#x4E00;&#x6D88;&#x606F;&#x62A5;&#x6587;&#x65B0;&#x65E7;&#x7248;&#x672C;&#x4E4B;&#x95F4;&#x7684;&#x517C;&#x5BB9;&#x6027;&#x3002;__&#x5BF9;&#x4E8E;Protocol Buffer&#x5177;&#x4F53;&#x7684;&#x7528;&#x6CD5;&#x8BF7;&#x79FB;&#x6B65;[Protocol Buffer&#x6280;&#x672F;&#x8BE6;&#x89E3;(&#x8BED;&#x8A00;&#x89C4;&#x8303;)](https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html)&#x4ECA;&#x5929;&#x4E3B;&#x8981;&#x8BB2;&#x89E3;&#x7684;&#x662F;socket&#x81EA;&#x5B9A;&#x4E49;&#x534F;&#x8BAE;&#x8FD9;&#x5757;__</code></pre></li>
+</ul>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p>  &#x8BF4;&#x4E86;&#x90A3;&#x4E48;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x6211;&#x4EEC;&#x4ECA;&#x5929;&#x7684;&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x2014; <strong>&#x81EA;&#x5B9A;&#x4E49;socket&#x534F;&#x8BAE;</strong><br><strong>&#x5148;&#x770B;&#x4E00;&#x5F20;&#x5FC3;&#x8DF3;&#x8FD4;&#x56DE;&#x7684;&#x56FE;</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-c6f7f16029540888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x5FC3;&#x8DF3;&#x8FD4;&#x56DE;.png"></p>
+<ul>
+<li>1&#x3001;<strong>Protobuf&#x534F;&#x8BAE;</strong></li>
+</ul>
+<ul>
+<li>&#x5047;&#x8BBE;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x5305;&#x4F53;&#x6570;&#x636E;&#x534F;&#x8BAE;&#x5982;&#x4E0B;</li>
+</ul>
+<p>request.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// &#x767B;&#x5F55;&#x7684;&#x5305;&#x4F53;&#x6570;&#x636E;
+message Request {
+ int32   uid = 0;
+string  api_token = 1;
+}</code></pre><p>&#x53D1;&#x9001;&#x7684;&#x683C;&#x5F0F;&#xFF1A;</p>
+<p>{&#x5305;&#x5934;}{&#x547D;&#x4EE4;}{&#x5305;&#x4F53;}<br>{&#x5305;&#x5934;} -&gt; &#x5305;&#x4F53;&#x8F6C;&#x6210;protubuf&#x7684;&#x957F;&#x5EA6;<br>{&#x547D;&#x4EE4;} -&gt; &#x5BF9;&#x5E94;&#x529F;&#x80FD;&#x7684;&#x547D;&#x4EE4;&#x5B57;&#x53C2;&#x6570;<br>{&#x5305;&#x4F53;} -&gt; &#x5BF9;&#x5E94;&#x7684;protubuf&#x6570;&#x636E;</p>
+<ul>
+<li>&#x5047;&#x8BBE;&#x670D;&#x52A1;&#x7AEF;&#x8FD4;&#x56DE;&#x5305;&#x4F53;&#x6570;&#x636E;&#x534F;&#x8BAE;</li>
+</ul>
+<p>response.proto</p>
+<pre><code>syntax = &quot;proto3&quot;;
+// &#x767B;&#x5F55;&#x6210;&#x529F;&#x540E;&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;&#x5305;&#x4F53;&#x6570;&#x636E;
+message Response {
+int32   login = 1;
+}</code></pre><p>&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;&#x683C;&#x5F0F;:</p>
+<p>{&#x5305;&#x5934;}{&#x547D;&#x4EE4;}{&#x72B6;&#x6001;&#x7801;}{&#x5305;&#x4F53;}<br>{&#x5305;&#x5934;} -&gt; &#x5305;&#x4F53;&#x8F6C;&#x6210;protubuf&#x7684;&#x957F;&#x5EA6;<br>{&#x547D;&#x4EE4;} -&gt; &#x5BF9;&#x5E94;&#x529F;&#x80FD;&#x7684;&#x547D;&#x4EE4;&#x5B57;&#x53C2;&#x6570;<br>{&#x72B6;&#x6001;&#x7801;} -&gt; &#x5BF9;&#x5E94;&#x72B6;&#x6001;&#x7684;&#x72B6;&#x6001;&#x7801;<br>{&#x5305;&#x4F53;} -&gt; &#x5BF9;&#x5E94;&#x7684;protubuf&#x6570;&#x636E;</p>
+<ul>
+<li><p>2&#x3001;<strong>&#x5BA2;&#x6237;&#x7AEF;socket&#x5199;&#x6CD5;</strong></p>
+</li>
+<li><p>&#x5206;&#x6790;&#xFF1A;&#x8BD5;&#x60F3;&#x4E00;&#x4E0B;&#xFF0C;&#x8981;socket&#x4E0D;&#x4F1A;&#x56E0;&#x4E3A;&#x624B;&#x673A;&#x5C4F;&#x5E55;&#x7684;&#x7184;&#x706D;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x4EC0;&#x4E48;&#x7684;&#x800C;&#x65AD;&#x5F00;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x628A;socket&#x653E;&#x5230;&#x54EA;&#x91CC;&#x53BB;&#x5199;&#xFF0C;&#x53C8;&#x8981;&#x600E;&#x4E48;&#x4FDD;&#x8BC1;socket&#x7684;&#x8FDE;&#x63A5;&#x72B6;&#x6001;&#x5462;&#xFF1F;&#x5BF9;&#x4E8E;Android&#x6765;&#x8BF4;&#x653E;&#x5230; service&#x91CC;&#x9762;&#x53BB;&#x662F;&#x6700;&#x5408;&#x9002;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x8FDE;&#x63A5;&#x72B6;&#x6001;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x5C31;&#x8981;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x5FC3;&#x8DF3;&#x5305;&#x4FDD;&#x8BC1;&#x8FDE;&#x63A5;&#x72B6;&#x6001;&#x3002;&#x65E2;&#x7136;&#x8FD9;&#x6837;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x6765;&#x5199;service&#x548C;socket&#x3002;</p>
+<ul>
+<li><p>3&#x3001;<strong>service&#x5199;&#x6CD5;</strong></p>
+<pre><code>public class SocketService extends Service {
+
+ Thread mSocketThread;
+ Socket mSocket;
+ InetSocketAddress mSocketAddress;
+ //&#x5FC3;&#x8DF3;&#x7EBF;&#x7A0B;
+  Thread mHeartThread;
+ //&#x63A5;&#x6536;&#x7EBF;&#x7A0B;
+ Thread mReceiveThread;
+  //&#x767B;&#x5F55;&#x7EBF;&#x7A0B;
+ Thread mLoginThread;
+  boolean isHeart = false;
+  boolean isReceive = false;</code></pre><p>   SocketBinder mBinder = new SocketBinder(this);</p>
+<p>   public SocketService() {</p>
+<p>   }</p>
+<p>   @Override<br>   public void onCreate() {<br> &#x200B;     super.onCreate();<br> &#x200B;     createConnection();<br> &#x200B;     receiveMsg();<br> &#x200B;     isHeart = true;<br> &#x200B;     isReceive = true;<br>   }</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>@Override
+public IBinder onBind(Intent intent) {
+ return mBinder;
+}
+
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+ startGps();
+ sendHeart();
+ if (!TextUtils.isEmpty(intent.getStringExtra(AppConfig.SERVICE_TAG))) {
+     String TAG = intent.getStringExtra(AppConfig.SERVICE_TAG);
+     switch (TAG) {
+         case AppConfig.STOP_SERVICE_VALUE: {//&#x505C;&#x6B62;&#x670D;&#x52A1;
+             ClientSocket.getsInstance().shutDownConnection(mSocket);
+             stopSelf();
+             mSocket = null;
+             mHeartThread = null;
+             mReceiveThread = null;
+             mLoginThread = null;
+             mSocketThread = null;
+             isHeart = false;
+             isReceive = false;
+             break;
+         }
+
+         default:
+             break;
+     }
+ }
+ return super.onStartCommand(intent, flags, startId);
+
+ }
+
+
+/**
+ * &#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#x5305;
+ */
+private void sendHeart() {
+ mHeartThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isHeart) {
+             ClientSocket.getsInstance().sendHeart(mSocket, SocketStatus.HEART_CODE);
+             try {
+                 Thread.sleep(1000);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mHeartThread.start();
+ }
+
+ /**
+  * &#x767B;&#x5F55;
+  */
+ private void login(final double mLatitude, final double mLongitude) {
+   mLoginThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         if (PreferencesUtils.getInt(SocketService.this, Constants.USER_ID) != 0 &amp;&amp;
+                 !TextUtils.isEmpty(PreferencesUtils.getString(SocketService.this,
+                         Constants.USER_TOKEN))) {
+             Request.Request requestLogin =
+                     Request.Request.newBuilder()
+                             .setUid(PreferencesUtils.getInt(SocketService.this,
+                                     Constants.USER_ID))
+                             .setApiToken(PreferencesUtils.getString(SocketService.this,
+                                     Constants.USER_TOKEN).trim())
+                             .build();
+
+             ClientSocket.getsInstance().sendLogin(mSocket, requestLogin, SocketStatus.LOGIN_CODE);
+
+         }
+     }
+   });
+   mLoginThread.start();
+
+ }
+
+/**
+ * &#x521B;&#x5EFA;&#x8FDE;&#x63A5;
+ *
+ * @return
+ */
+ public void createConnection() {
+ mSocketThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         try {
+             mSocket = new Socket();
+             mSocketAddress = new InetSocketAddress(AppConfig.TCP_IP, AppConfig.TCP_PORT);
+             mSocket.connect(mSocketAddress, 20 * 1000);
+             // &#x8BBE;&#x7F6E; socket &#x8BFB;&#x53D6;&#x6570;&#x636E;&#x6D41;&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;
+             mSocket.setSoTimeout(20 * 1000);
+             // &#x53D1;&#x9001;&#x6570;&#x636E;&#x5305;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; false&#xFF0C;&#x5373;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x6570;&#x636E;&#x91C7;&#x7528; Nagle &#x7B97;&#x6CD5;&#xFF1B;
+             // &#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x5B9E;&#x65F6;&#x4EA4;&#x4E92;&#x6027;&#x9AD8;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x5EFA;&#x8BAE;&#x5176;&#x6539;&#x4E3A; true&#xFF0C;&#x5373;&#x5173;&#x95ED; Nagle
+             // &#x7B97;&#x6CD5;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x6BCF;&#x53D1;&#x9001;&#x4E00;&#x6B21;&#x6570;&#x636E;&#xFF0C;&#x65E0;&#x8BBA;&#x6570;&#x636E;&#x5305;&#x5927;&#x5C0F;&#x90FD;&#x4F1A;&#x5C06;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x53D1;&#x9001;&#x51FA;&#x53BB;
+             mSocket.setTcpNoDelay(true);
+             // &#x8BBE;&#x7F6E;&#x5BA2;&#x6237;&#x7AEF; socket &#x5173;&#x95ED;&#x65F6;&#xFF0C;close() &#x65B9;&#x6CD5;&#x8D77;&#x4F5C;&#x7528;&#x65F6;&#x5EF6;&#x8FDF; 30 &#x79D2;&#x5173;&#x95ED;&#xFF0C;&#x5982;&#x679C; 30 &#x79D2;&#x5185;&#x5C3D;&#x91CF;&#x5C06;&#x672A;&#x53D1;&#x9001;&#x7684;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x51FA;&#x53BB;
+             // socket.setSoLinger(true, 30);
+             // &#x8BBE;&#x7F6E;&#x8F93;&#x51FA;&#x6D41;&#x7684;&#x53D1;&#x9001;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;4KB&#xFF0C;&#x5373;4096&#x5B57;&#x8282;
+             mSocket.setSendBufferSize(10 * 1024);
+             // &#x8BBE;&#x7F6E;&#x8F93;&#x5165;&#x6D41;&#x7684;&#x63A5;&#x6536;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;4KB&#xFF0C;&#x5373;4096&#x5B57;&#x8282;
+             mSocket.setReceiveBufferSize(10 * 1024);
+             // &#x4F5C;&#x7528;&#xFF1A;&#x6BCF;&#x9694;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x68C0;&#x67E5;&#x670D;&#x52A1;&#x5668;&#x662F;&#x5426;&#x5904;&#x4E8E;&#x6D3B;&#x52A8;&#x72B6;&#x6001;&#xFF0C;&#x5982;&#x679C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x957F;&#x65F6;&#x95F4;&#x6CA1;&#x54CD;&#x5E94;&#xFF0C;&#x81EA;&#x52A8;&#x5173;&#x95ED;&#x5BA2;&#x6237;&#x7AEF;socket
+             // &#x9632;&#x6B62;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x65E0;&#x6548;&#x65F6;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x957F;&#x65F6;&#x95F4;&#x5904;&#x4E8E;&#x8FDE;&#x63A5;&#x72B6;&#x6001;
+             mSocket.setKeepAlive(true);
+         } catch (UnknownHostException e) {
+             Logger.e(e.getMessage() + &quot;========+UnknownHostException&quot;);
+             e.printStackTrace();
+         } catch (IOException e) {
+             createConnection();
+             Logger.e(e.getMessage() + &quot;========IOException&quot;);
+             e.printStackTrace();
+         } catch (NetworkOnMainThreadException e) {
+             Logger.e(e.getMessage() + &quot;========NetworkOnMainThreadException&quot;);
+             e.printStackTrace();
+         }
+     }
+ });
+ mSocketThread.start();
+}
+
+
+/**
+ * &#x63A5;&#x6536;
+ */
+private void receiveMsg() {
+ mReceiveThread = new Thread(new Runnable() {
+     @Override
+     public void run() {
+         while (isReceive) {
+             try {
+                 if (mSocket != null &amp;&amp; mSocket.isConnected()) {
+                     DataInputStream dis = ClientSocket.getsInstance().getMessageStream(mSocket);
+                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                     if (dis != null) {
+                         int length = 0;
+                         int head = 0;
+                         int buffer_size = 4;
+                         byte[] headBuffer = new byte[4];
+                         byte[] cmdBuffer = new byte[4];
+                         byte[] stateBuffer = new byte[4];
+                         length = dis.read(headBuffer, 0, buffer_size);
+                         if (length == 4) {
+                             bos.write(headBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 0, headBuffer, 0, buffer_size);
+                             head = ByteUtil.bytesToInt(headBuffer, 0);
+                             length = dis.read(cmdBuffer, 0, buffer_size);
+                             bos.write(cmdBuffer, 0, length);
+                             System.arraycopy(bos.toByteArray(), 4, cmdBuffer, 0, buffer_size);
+                             int cmd = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(ByteUtil.byte2hex(cmdBuffer)));
+                             int heartNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.HEART));
+                             String discover = Integer.toHexString(0x0101);
+                             int discoverNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.DISCOVER));
+                             int giftNumber = ByteUtil.hexStringToAlgorism(ByteUtil.str2HexStr(SocketStatus.GIFT));
+                             if (cmd == heartNumber) {
+                                 length = dis.read(stateBuffer, 0, buffer_size);
+                                 bos.write(stateBuffer, 0, length);
+                                 System.arraycopy(bos.toByteArray(), 8, stateBuffer, 0, buffer_size);
+                                 switch (ByteUtil.bytesToInt(stateBuffer, 0)) {
+                                     case SocketStatus.LOGIN_SUCCESS: {//&#x767B;&#x5F55;&#x6210;&#x529F;
+                                         Logger.e(&quot;&#x767B;&#x5F55;&#x6210;&#x529F;&quot;);
+                                         mLoginValue = &quot;1&quot;;
+                                         EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_LOGIN_SUCCESS));
+                                         break;
+                                     }
+
+                                     case SocketStatus.HEART_SUCCESS: {//&#x5FC3;&#x8DF3;&#x8FD4;&#x56DE;
+                                         if (ByteUtil.bytesToInt(stateBuffer, 0) == 200
+                                                 &amp;&amp; Integer.toHexString(ByteUtil.bytesToInt(cmdBuffer, 0))
+                                                 .equals(discover)) {
+                                             byte[] buffer = new byte[head];
+                                             length = dis.read(buffer, 0, head);
+                                             bos.write(buffer, 0, length);
+                                             Response.Response response = Response.
+                                                     Response.parseFrom(buffer);
+                                             Logger.e(responseExplore.getNickname() + responseExplore.getAvatar());
+                                             //&#x53D1;&#x9001;&#x5230;activity&#x4E2D;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5904;&#x7406;
+                                             EventUtils.sendEvent(new Event&lt;&gt;(Constants.MSG_START_DISCOVER_RESULT,
+                                                     responseExplore));
+                                             Logger.e(responseExplore + &quot;=======response&quot;);
+                                         } else {
+                                             Logger.e(&quot;&#x5FC3;&#x8DF3;&#x8FD4;&#x56DE;&quot;);
+                                         }
+                                         break;
+                                     }
+
+                                     default:
+                                         break;
+                                 }
+                             }
+                         } else {
+                                //&#x51FA;&#x9519;&#x91CD;&#x8FDE;
+                             ClientSocket.getsInstance().shutDownConnection(mSocket);
+                             createConnection();
+                         }
+
+                     } else {
+                         createConnection();
+                     }
+                 }
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             try {
+                 Thread.sleep(50);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
+ });
+ mReceiveThread.start();
+}
+
+
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    ClientSocket.getsInstance().shutDownConnection(mSocket);
+    stopSelf();
+    mHeartThread = null;
+    mReceiveThread = null;
+    mLoginThread = null;
+    mSocketThread = null;
+    mStopDiscoverThread = null;
+    isHeart = false;
+    isReceive = false;
+
+}
+
+
+
+
+/**
+ * Binder
+ */
+public class SocketBinder extends Binder {
+
+ private SocketService mService;
+ public OnServiceCallBack mCallBack;
+
+ public SocketBinder(SocketService mService) {
+     this.mService = mService;
+ }
+
+ /**
+  * &#x53D1;&#x9001;&#x65B9;&#x6CD5;
+  *
+  * @param object
+  */
+ public void sendMethod(Object object) {
+     mService.sendMsg(object);
+     mCallBack.onService(object);
+ }
+
+ /**
+  * &#x8BBE;&#x7F6E;&#x56DE;&#x8C03;
+  *
+  * @param callBack
+  */
+ public void setOnServiceCallBack(OnServiceCallBack callBack) {
+     this.mCallBack = callBack;
+   }
+  }
+
+}</code></pre><ul>
+<li><p>&#x5206;&#x6790;<br>  &#x4E0A;&#x9762;&#x7684;service&#x4E2D;&#x9996;&#x5148;&#x521B;&#x5EFA;socket&#xFF0C;&#x7136;&#x540E;&#x8FDE;&#x63A5;&#xFF0C;&#x5728;socket&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x7684;&#x65F6;&#x5019;&#xFF08;&#x6BD4;&#x5982;&#x7F51;&#x7EDC;&#x5F02;&#x5E38;&#xFF09;&#x91CD;&#x65B0;&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x5728;&#x8FDE;&#x63A5;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x5F00;&#x4E00;&#x4E2A;&#x63A5;&#x6536;&#x7EBF;&#x7A0B;&#x4E00;&#x76F4;&#x63A5;&#x6536;&#xFF0C;&#x6BCF;&#x6B21;&#x63A5;&#x6536;&#x90FD;&#x662F;&#x63A5;&#x6536;4&#x4E2A;&#x5B57;&#x8282;&#x7684;int&#x503C;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8FDB;&#x5165;&#x5230;&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x5982;&#x679C;&#x53EF;&#x4EE5;&#x5219;&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x3002;&#x8BFB;&#x53D6;4&#x4E2A;&#x5B57;&#x8282;&#x7684;<strong>&#x5305;&#x5934;</strong>&#x7136;&#x540E;&#x8BFB;&#x53D6;4&#x4E2A;&#x5B57;&#x8282;&#x7684;<strong>&#x547D;&#x4EE4;</strong> &#x518D;&#x8BFB;&#x53D6;4&#x4E2A;&#x5B57;&#x8282;&#x7684;<strong>&#x72B6;&#x6001;&#x7801;</strong> &#x6700;&#x540E;&#x8BFB;&#x53D6;4&#x4E2A;&#x5B57;&#x8282;&#x7684;<strong>&#x5305;&#x4F53;</strong>&#xFF0C;&#x5305;&#x4F53;&#x5C31;&#x5305;&#x542B;&#x6211;&#x4EEC;&#x6240;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x3002;&#x5E76;&#x4E14;&#xFF0C;&#x5728;&#x521A;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x5F00;&#x542F;&#x4E86;&#x4E00;&#x4E2A;&#x63A5;&#x6536;&#x7EBF;&#x7A0B;&#x6BCF;&#x9694;50&#x6BEB;&#x79D2;&#x63A5;&#x6536;&#x4E00;&#x6B21;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x6837;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x5230;&#x5FC3;&#x8DF3;&#x5305;&#x8FD8;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x5230;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x6570;&#x636E;&#x3002;&#x5728;&#x6700;&#x540E;&#xFF0C;server&#x751F;&#x547D;&#x5468;&#x671F;&#x7ED3;&#x675F;&#x7684;&#x65F6;&#x5019;&#x505C;&#x6B62;&#x6240;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x3002;</p>
+</li>
+<li><p>4&#x3001;<strong>&#x53D1;&#x9001;&#x6570;&#x636E;&#x7684;&#x7C7B;</strong></p>
+<pre><code>public class ClientSocket {
+private DataOutputStream out = null;
+private DataInputStream getMessageStream;
+private static ClientSocket sInstance;
+
+private ClientSocket() {
+}
+
+/**
+ * &#x5355;&#x4F8B;
+ *
+ * @return
+ */
+public static ClientSocket getsInstance() {
+ if (sInstance == null) {
+     synchronized (ClientSocket.class) {
+         if (sInstance == null) {
+             sInstance = new ClientSocket();
+         }
+     }
+ }
+ return sInstance;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * &#x767B;&#x5F55;
+  *
+  * @return
+  */
+ public void sendLogin(Socket socket, Request.RequestLogin requestLogin, int code) {
+  byte[] data = requestLogin.toByteArray();
+  byte[] head = ByteUtil.intToBytes(data.length);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd, data);
+  if (socket != null) {
+      if (socket.isConnected()) {
+          try {
+              OutputStream os = socket.getOutputStream();
+              os.write(bytes);
+              os.flush();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
+ }
+
+
+ /**
+  * &#x5FC3;&#x8DF3;
+  *
+  * @param code &#x5173;&#x952E;&#x5B57;&#xFF08;&#x547D;&#x4EE4;&#xFF09;
+  * @return
+  */
+ public boolean sendHeart(Socket socket, int code) {
+  boolean isSuccess;
+  byte[] head = ByteUtil.intToBytes(0);
+  byte[] cmd = ByteUtil.intToBytes(code);
+  byte[] bytes = addBytes(head, cmd);
+  if (socket.isConnected()) {
+      try {
+          out = new DataOutputStream(socket.getOutputStream());
+          out.write(bytes);
+          out.flush();
+          isSuccess = true;
+      } catch (IOException e) {
+          e.printStackTrace();
+          isSuccess = false;
+      }
+  } else {
+      isSuccess = false;
+  }
+  return isSuccess;
+ }
+
+ /**
+  * &#x65AD;&#x5F00;&#x8FDE;&#x63A5;
+  */
+ public void shutDownConnection(Socket socket) {
+  try {
+      if (out != null) {
+          out.close();
+      }
+      if (getMessageStream != null) {
+          getMessageStream.close();
+      }
+      if (socket != null) {
+          socket.close();
+      }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+}
+
+ /**
+  * &#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;&#x6D41;
+  *
+  * @param socket
+  * @return
+  */
+ public DataInputStream getMessageStream(Socket socket) {
+  if (socket == null) {
+      return null;
+  }
+
+  if (socket.isClosed()) {
+      return null;
+  }
+  if (!socket.isConnected()) {
+      return null;
+  }
+  try {
+      getMessageStream = new DataInputStream(new BufferedInputStream(
+              socket.getInputStream()));
+  } catch (IOException e) {
+      e.printStackTrace();
+      if (getMessageStream != null) {
+          try {
+              getMessageStream.close();
+          } catch (IOException e1) {
+              e1.printStackTrace();
+          }
+      }
+  }
+  return getMessageStream;
+  }
+ }</code></pre><ul>
+<li><p>&#x5206;&#x6790;&#xFF1A;<br>&#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x4E86;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E86;&#x6570;&#x636E;&#x7684;&#x552F;&#x4E00;&#x6027;&#xFF0C;&#x4E0D;&#x4F1A;&#x91CD;&#x590D;&#x521B;&#x5EFA;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x767B;&#x5F55;&#x53D1;&#x9001;&#x4E86;&#x5305;&#x5934;&#x3001;&#x547D;&#x4EE4;&#x548C;&#x6570;&#x636E;&#x957F;&#x5EA6;&#xFF0C;&#x800C;&#x5FC3;&#x8DF3;&#x53EA;&#x662F;&#x5305;&#x5934;&#x548C;&#x547D;&#x4EE4;&#xFF0C;&#x56E0;&#x4E3A;&#x5305;&#x4F53;&#x957F;&#x5EA6;&#x4E3A;&#x7A7A;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x7528;&#x53D1;&#x9001;&#xFF0C;&#x6700;&#x540E;&#x8F6C;&#x6210;4&#x4E2A;&#x5B57;&#x8282;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x53D1;&#x9001;&#x3002;&#x8FD9;&#x6837;&#xFF0C;proto buffer&#x7684;&#x4F18;&#x70B9;&#x5C31;&#x4F53;&#x73B0;&#x51FA;&#x6765;&#x4E86;&#xFF0C;&#x65B9;&#x4FBF;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x89E3;&#x6790;&#x3002;</p>
+</li>
+<li><p><strong>&#x4E8C;&#x8FDB;&#x5236;&#x8F6C;&#x6362;&#x5DE5;&#x5177;&#x7C7B;</strong></p>
+<pre><code> public class ByteUtil {
+
+ /**
+  * &#x5C06;2&#x4E2A;byte&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x62FC;&#x63A5;
+  */
+ public static byte[] addBytes(byte[] data1, byte[] data2) {
+  byte[] data3 = new byte[data1.length + data2.length];
+  System.arraycopy(data1, 0, data3, 0, data1.length);
+  System.arraycopy(data2, 0, data3, data1.length, data2.length);
+  return data3;
+}
+
+ /**
+  * &#x5C06;3&#x4E2A;byte&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x62FC;&#x63A5;
+  */
+public static byte[] addBytes(byte[] data1, byte[] data2, byte[] data3) {</code></pre><p> &#x200B;     byte[] data4 = new byte[data1.length + data2.length + data3.length];<br> &#x200B;     System.arraycopy(data1, 0, data4, 0, data1.length);<br> &#x200B;     System.arraycopy(data2, 0, data4, data1.length, data2.length);<br> &#x200B;     System.arraycopy(data3, 0, data4, data1.length + data2.length, data3.length);<br> &#x200B;     return data4;<br> &#x200B;    }</p>
+<pre><code>/**
+ * int&#x8F6C;byte{}
+ */
+public static byte[] intToBytes(int value, ByteOrder mode) {
+ byte[] src = new byte[4];
+ if (mode == ByteOrder.LITTLE_ENDIAN) {
+     src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[0] = (byte) (value &amp; 0xFF);
+ } else {
+     src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+     src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+     src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+     src[3] = (byte) (value &amp; 0xFF);
+ }
+ return src;
+}</code></pre></li>
+</ul>
+<pre><code> /**
+  * 16&#x8FDB;&#x5236;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x8282;&#x6570;&#x7EC4;
+  *
+  * @param s 16&#x8FDB;&#x5236;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x4E32;
+  * @return byte[] &#x5B57;&#x8282;&#x6570;&#x7EC4;
+  */
+ public static byte[] hexStringToByteArray(String s) {
+  int len = s.length();
+  byte[] b = new byte[len / 2];
+  for (int i = 0; i &lt; len; i += 2) {
+      // &#x4E24;&#x4F4D;&#x4E00;&#x7EC4;&#xFF0C;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x5B57;&#x8282;,&#x628A;&#x8FD9;&#x6837;&#x8868;&#x793A;&#x7684;16&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD8;&#x539F;&#x6210;&#x4E00;&#x4E2A;&#x5B57;&#x8282;
+      b[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) &lt;&lt; 4) + Character
+              .digit(s.charAt(i + 1), 16));
+  }
+  return b;
+ }
+
+
+ /**
+  * byte&#x6570;&#x7EC4;&#x4E2D;&#x53D6;int&#x6570;&#x503C;&#xFF0C;&#x672C;&#x65B9;&#x6CD5;&#x9002;&#x7528;&#x4E8E;(&#x4F4E;&#x4F4D;&#x5728;&#x524D;&#xFF0C;&#x9AD8;&#x4F4D;&#x5728;&#x540E;)&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x548C;&#x548C;intToBytes&#xFF08;&#xFF09;&#x914D;&#x5957;&#x4F7F;&#x7528;
+  *
+  * @param src    byte&#x6570;&#x7EC4;
+  * @param offset &#x4ECE;&#x6570;&#x7EC4;&#x7684;&#x7B2C;offset&#x4F4D;&#x5F00;&#x59CB;
+  * @return int&#x6570;&#x503C;
+  */
+ public static int bytesToInt(byte[] src, int offset) {
+  int value;
+  value = (int) ((src[offset] &amp; 0xFF)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 8)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 3] &amp; 0xFF) &lt;&lt; 24));
+  return value;
+  }
+
+ /**
+  * byte&#x6570;&#x7EC4;&#x4E2D;&#x53D6;int&#x6570;&#x503C;&#xFF0C;&#x672C;&#x65B9;&#x6CD5;&#x9002;&#x7528;&#x4E8E;(&#x4F4E;&#x4F4D;&#x5728;&#x540E;&#xFF0C;&#x9AD8;&#x4F4D;&#x5728;&#x524D;)&#x7684;&#x987A;&#x5E8F;&#x3002;&#x548C;intToBytes2&#xFF08;&#xFF09;&#x914D;&#x5957;&#x4F7F;&#x7528;
+  */
+public static int bytesToInt2(byte[] src, int offset) {
+  int value;
+  value = (int) (((src[offset] &amp; 0xFF) &lt;&lt; 24)
+          | ((src[offset + 1] &amp; 0xFF) &lt;&lt; 16)
+          | ((src[offset + 2] &amp; 0xFF) &lt;&lt; 8)
+          | (src[offset + 3] &amp; 0xFF));
+  return value;
+ }
+
+ /**
+  * &#x5C06;int&#x6570;&#x503C;&#x8F6C;&#x6362;&#x4E3A;&#x5360;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x7684;byte&#x6570;&#x7EC4;&#xFF0C;&#x672C;&#x65B9;&#x6CD5;&#x9002;&#x7528;&#x4E8E;(&#x4F4E;&#x4F4D;&#x5728;&#x524D;&#xFF0C;&#x9AD8;&#x4F4D;&#x5728;&#x540E;)&#x7684;&#x987A;&#x5E8F;&#x3002; &#x548C; 
+   bytesToInt&#xFF08;&#xFF09;&#x914D;&#x5957;&#x4F7F;&#x7528;
+  *
+  * @param value &#x8981;&#x8F6C;&#x6362;&#x7684;int&#x503C;
+  * @return byte&#x6570;&#x7EC4;
+  */
+ public static byte[] intToBytes(int value) {
+  byte[] src = new byte[4];
+  src[3] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[0] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * &#x5C06;int&#x6570;&#x503C;&#x8F6C;&#x6362;&#x4E3A;&#x5360;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x7684;byte&#x6570;&#x7EC4;&#xFF0C;&#x672C;&#x65B9;&#x6CD5;&#x9002;&#x7528;&#x4E8E;(&#x9AD8;&#x4F4D;&#x5728;&#x524D;&#xFF0C;&#x4F4E;&#x4F4D;&#x5728;&#x540E;)&#x7684;&#x987A;&#x5E8F;&#x3002;  &#x548C; 
+   bytesToInt2&#xFF08;&#xFF09;&#x914D;&#x5957;&#x4F7F;&#x7528;
+  */
+ public static byte[] intToBytes2(int value) {
+  byte[] src = new byte[4];
+  src[0] = (byte) ((value &gt;&gt; 24) &amp; 0xFF);
+  src[1] = (byte) ((value &gt;&gt; 16) &amp; 0xFF);
+  src[2] = (byte) ((value &gt;&gt; 8) &amp; 0xFF);
+  src[3] = (byte) (value &amp; 0xFF);
+  return src;
+ }
+
+ /**
+  * &#x5C06;&#x5B57;&#x8282;&#x8F6C;&#x6362;&#x4E3A;&#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  *
+  * @param bytes &#x5B57;&#x8282;&#x6570;&#x7EC4;
+  * @return &#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  */
+ public static String byteToBit(byte... bytes) {
+  StringBuffer sb = new StringBuffer();
+  int z, len;
+  String str;
+  for (int w = 0; w &lt; bytes.length; w++) {
+      z = bytes[w];
+      z |= 256;
+      str = Integer.toBinaryString(z);
+      len = str.length();
+      sb.append(str.substring(len - 8, len));
+    }
+    return sb.toString();
+   }
+
+    /**
+     * &#x5B57;&#x8282;&#x6570;&#x7EC4;&#x8F6C;&#x4E3A;&#x666E;&#x901A;&#x5B57;&#x7B26;&#x4E32;&#xFF08;ASCII&#x5BF9;&#x5E94;&#x7684;&#x5B57;&#x7B26;&#xFF09;
+     *
+     * @param bytearray byte[]
+     * @return String
+     */
+    public static String byte2String(byte[] bytearray) {
+  String result = &quot;&quot;;
+  char temp;
+
+  int length = bytearray.length;
+  for (int i = 0; i &lt; length; i++) {
+      temp = (char) bytearray[i];
+      result += temp;
+  }
+  return result;
+ }
+
+ /**
+  * &#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x5341;&#x8FDB;&#x5236;
+  *
+  * @param binary &#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  * @return &#x5341;&#x8FDB;&#x5236;&#x6570;&#x503C;
+  */
+public static int binaryToAlgorism(String binary) {
+  int max = binary.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = binary.charAt(i - 1);
+      int algorism = c - &apos;0&apos;;
+      result += Math.pow(2, max - i) * algorism;
+  }
+  return result;
+ }
+
+ /**
+  * &#x5B57;&#x8282;&#x6570;&#x7EC4;&#x8F6C;&#x6362;&#x4E3A;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  *
+  * @param b byte[] &#x9700;&#x8981;&#x8F6C;&#x6362;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7EC4;
+  * @return String &#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  */
+ public static String byte2hex(byte b[]) {
+  if (b == null) {
+      throw new IllegalArgumentException(
+              &quot;Argument b ( byte array ) is null! &quot;);
+  }
+  String hs = &quot;&quot;;
+  String stmp = &quot;&quot;;
+  for (int n = 0; n &lt; b.length; n++) {
+      stmp = Integer.toHexString(b[n] &amp; 0xff);
+      if (stmp.length() == 1) {
+          hs = hs + &quot;0&quot; + stmp;
+      } else {
+          hs = hs + stmp;
+      }
+  }
+  return hs.toUpperCase();
+}
+
+ /**
+  * &#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x6362;&#x5341;&#x8FDB;&#x5236;
+  *
+  * @param hex &#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+  * @return &#x5341;&#x8FDB;&#x5236;&#x6570;&#x503C;
+  */
+public static int hexStringToAlgorism(String hex) {
+  hex = hex.toUpperCase();
+  int max = hex.length();
+  int result = 0;
+  for (int i = max; i &gt; 0; i--) {
+      char c = hex.charAt(i - 1);
+      int algorism = 0;
+      if (c &gt;= &apos;0&apos; &amp;&amp; c &lt;= &apos;9&apos;) {
+          algorism = c - &apos;0&apos;;
+      } else {
+          algorism = c - 55;
+      }
+      result += Math.pow(16, max - i) * algorism;
+  }
+  return result;
+ }
+
+/**
+ * &#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x6362;&#x6210;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x4E32;
+ *
+ * @param str &#x5F85;&#x8F6C;&#x6362;&#x7684;ASCII&#x5B57;&#x7B26;&#x4E32;
+ * @return String &#x6BCF;&#x4E2A;Byte&#x4E4B;&#x95F4;&#x7A7A;&#x683C;&#x5206;&#x9694;&#xFF0C;&#x5982;: [61 6C 6B]
+ */
+ public static String str2HexStr(String str) {
+
+  char[] chars = &quot;0123456789ABCDEF&quot;.toCharArray();
+  StringBuilder sb = new StringBuilder(&quot;&quot;);
+  byte[] bs = str.getBytes();
+  int bit;
+
+  for (int i = 0; i &lt; bs.length; i++) {
+      bit = (bs[i] &amp; 0x0f0) &gt;&gt; 4;
+      sb.append(chars[bit]);
+      bit = bs[i] &amp; 0x0f;
+      sb.append(chars[bit]);
+      sb.append(&apos; &apos;);
+  }
+  return sb.toString().trim();
+ }
+
+ /**
+  * 16&#x8FDB;&#x5236;&#x8F6C;&#x6362;&#x6210;&#x5B57;&#x7B26;&#x4E32;
+  *
+  * @param hexStr
+  * @return
+  */
+ public static String hexStr2Str(String hexStr) {
+  String str = &quot;0123456789ABCDEF&quot;;
+  char[] hexs = hexStr.toCharArray();
+  byte[] bytes = new byte[hexStr.length() / 2];
+  int n;
+
+  for (int i = 0; i &lt; bytes.length; i++) {
+      n = str.indexOf(hexs[2 * i]) * 16;
+      n += str.indexOf(hexs[2 * i + 1]);
+      bytes[i] = (byte) (n &amp; 0xff);
+  }
+  return new String(bytes);
+ }
+
+/**
+ * &#x91CD;&#x5199;&#x4E86;Inpustream &#x4E2D;&#x7684;skip(long n) &#x65B9;&#x6CD5;&#xFF0C;
+ * &#x5C06;&#x6570;&#x636E;&#x6D41;&#x4E2D;&#x8D77;&#x59CB;&#x7684;n &#x4E2A;&#x5B57;&#x8282;&#x8DF3;&#x8FC7;
+ */
+public static long skipBytesFromStream(InputStream inputStream, long n) {
+  long remaining = n;
+  // SKIP_BUFFER_SIZE is used to determine the size of skipBuffer
+  int SKIP_BUFFER_SIZE = 2048;
+  // skipBuffer is initialized in skip(long), if needed.
+  byte[] skipBuffer = null;
+  int nr = 0;
+  if (skipBuffer == null) {
+      skipBuffer = new byte[SKIP_BUFFER_SIZE];
+  }
+  byte[] localSkipBuffer = skipBuffer;
+  if (n &lt;= 0) {
+      return 0;
+  }
+  while (remaining &gt; 0) {
+      try {
+          nr = inputStream.read(localSkipBuffer, 0,
+                  (int) Math.min(SKIP_BUFFER_SIZE, remaining));
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      if (nr &lt; 0) {
+          break;
+      }
+      remaining -= nr;
+  }
+  return n - remaining;
+}
+}</code></pre><h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p>  &#x5BF9;&#x4E8E;socket&#x548C; proto buffer&#x6765;&#x8BF4;&#xFF0C;&#x80FD;&#x7075;&#x6D3B;&#x8FD0;&#x7528;&#xFF0C;&#x9996;&#x5148;&#x8981;&#x611F;&#x8C22;&#x6211;&#x4EEC;&#x516C;&#x53F8;&#x7684;&#x540C;&#x4E8B;&#xFF0C;&#x6CA1;&#x6709;&#x4ED6;&#x4EEC;&#x63D0;&#x4F9B;&#x601D;&#x8DEF;&#xFF0C;&#x4F30;&#x8BA1;&#x5F88;&#x96BE;&#x7075;&#x6D3B;&#x8FD0;&#x7528;socket&#x548C;proto buffer&#x3002;&#x5176;&#x6B21;&#xFF0C;&#x8981;&#x611F;&#x8C22;&#x4E4B;&#x524D;&#x516C;&#x53F8;&#x7684;&#x5927;&#x4F6C;&#xFF0C;&#x8FD8;&#x6709;&#x7ED9;&#x6211;&#x63D0;&#x4F9B;&#x5B9D;&#x8D35;&#x610F;&#x89C1;&#x7684;&#x5404;&#x4F4D;&#x597D;&#x53CB;&#x3002;&#x8FD8;&#x6709;&#x8981;&#x611F;&#x8C22;&#x81EA;&#x5DF1;&#xFF0C;&#x80FD;&#x9759;&#x4E0B;&#x5FC3;&#x6765;&#xFF0C;&#x575A;&#x6301;&#x4E0D;&#x61C8;&#xFF0C;&#x514B;&#x670D;proto buffer&#x548C;socket&#x76F8;&#x7ED3;&#x5408;&#x7684;&#x5199;&#x6CD5;&#x3002;</p>
+<h3 id="&#x611F;&#x8C22;"><a href="#&#x611F;&#x8C22;" class="headerlink" title="&#x611F;&#x8C22;"></a>&#x611F;&#x8C22;</h3><p>  <a href="https://www.cnblogs.com/stephen-liu74/archive/2013/01/02/2841485.html" target="_blank" rel="noopener">Protocol Buffer&#x6280;&#x672F;&#x8BE6;&#x89E3;(&#x8BED;&#x8A00;&#x89C4;&#x8303;)</a><br><a href="https://www.jianshu.com/p/30ef9b3780d9" target="_blank" rel="noopener">Protocol Buffer &#x5E8F;&#x5217;&#x5316;&#x539F;&#x7406;&#x5927;&#x63ED;&#x79D8; - &#x4E3A;&#x4EC0;&#x4E48;Protocol Buffer&#x6027;&#x80FD;&#x8FD9;&#x4E48;&#x597D;&#xFF1F;</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android-Socket编程（udp）初探/" rel="next" title="Android Socket编程（udp）初探">
+                <i class="fa fa-chevron-left"></i> Android Socket编程（udp）初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-studio-3.0配置OpenCV初探/" rel="prev" title="Android studio 3.0配置OpenCV初探">
+                Android studio 3.0配置OpenCV初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">5.</span> <span class="nav-text">感谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;&amp;#x6628;&amp;#x5929;&amp;#x5199;&amp;#x4E86;&amp;#x6355;&amp;#x83B7;&amp;#x9519;&amp;#x8BEF;&amp;#x65E5;&amp;#x5FD7;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x6CA1;&amp;#x6709;&amp;#x5199;&amp;#x4E0A;&amp;#x4F20;&amp;#x5230;&amp;#x670D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 捕获异常日志（下篇）">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-捕获异常日志（下篇）/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;&amp;#x6628;&amp;#x5929;&amp;#x5199;&amp;#x4E86;&amp;#x6355;&amp;#x83B7;&amp;#x9519;&amp;#x8BEF;&amp;#x65E5;&amp;#x5FD7;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x6CA1;&amp;#x6709;&amp;#x5199;&amp;#x4E0A;&amp;#x4F20;&amp;#x5230;&amp;#x670D;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-9d45034d08af0f4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-633380c8b68f1281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-d2c009a1b0f8e43a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-08-19T03:00:50.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 捕获异常日志（下篇）">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;&amp;#x6628;&amp;#x5929;&amp;#x5199;&amp;#x4E86;&amp;#x6355;&amp;#x83B7;&amp;#x9519;&amp;#x8BEF;&amp;#x65E5;&amp;#x5FD7;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x6CA1;&amp;#x6709;&amp;#x5199;&amp;#x4E0A;&amp;#x4F20;&amp;#x5230;&amp;#x670D;">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-9d45034d08af0f4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-捕获异常日志（下篇）/">
+
+
+
+
+
+  <title>Android 捕获异常日志（下篇） | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-捕获异常日志（下篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 捕获异常日志（下篇）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">工具类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x524D;&#x63D0;"><a href="#&#x524D;&#x63D0;" class="headerlink" title="&#x524D;&#x63D0;"></a>&#x524D;&#x63D0;</h2><p><strong>&#x6628;&#x5929;&#x5199;&#x4E86;&#x6355;&#x83B7;&#x9519;&#x8BEF;&#x65E5;&#x5FD7;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x5199;&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x4ECA;&#x5929;&#x5C31;&#x9488;&#x5BF9;&#x4E0A;&#x4F20;&#x670D;&#x52A1;&#x5668;&#x7684;&#x90E8;&#x5206;&#x8FDB;&#x884C;&#x7F16;&#x5199;&#x548C;&#x5206;&#x6790;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x89C2;&#x770B;&#x7684;&#x8BF7;&#x5148;&#x79FB;&#x6B65;&#x5230;&#x4E0A;&#x7BC7;<a href="https://www.jianshu.com/p/d231e62e4e6c" target="_blank" rel="noopener">Android &#x6355;&#x83B7;&#x9519;&#x8BEF;&#x65E5;&#x5FD7;&#xFF08;&#x4E0A;&#x7BC7;&#xFF09;</a>&#x3002;</strong></p>
+<p>&#x5728;&#x5199;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x6628;&#x5929;&#x5199;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x6211;&#x4EEC;&#x5728;crash&#x7C7B;&#x91CC;&#x9762;&#x5F53;&#x5D29;&#x6E83;&#x7684;&#x65F6;&#x5019;&#x518D;&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x8FD9;&#x4E2A;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#x3002;&#x56E0;&#x4E3A;&#x5F53;&#x7A0B;&#x5E8F;&#x5DF2;&#x7ECF;&#x5D29;&#x6E83;&#x4E86;&#xFF0C;&#x5199;&#x5230;&#x672C;&#x5730;&#x4E4B;&#x540E;&#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x9000;&#x51FA;&#xFF0C;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6240;&#x793A;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x518D;&#x8FDB;&#x884C;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x7684;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x4E86;&#x3002;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x8BE5;&#x600E;&#x4E48;&#x6765;&#x89E3;&#x51B3;&#x5462;&#xFF1F;&#x6211;&#x8FD9;&#x91CC;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E00;&#x79CD;&#x5C31;&#x662F;&#x628A;&#x6587;&#x4EF6;&#x540D;&#x4FDD;&#x5B58;&#x5728;SharedPreferences&#x91CC;&#x9762;&#xFF0C;&#x5F53;&#x7B2C;&#x4E8C;&#x6B21;&#x8FDB;&#x5165;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x4E0A;&#x4F20;&#xFF08;&#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#xFF09;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x5E7F;&#x64AD;&#x6216;&#x8005;&#x7528;EventBus&#x4F20;&#x9012;&#x51FA;&#x53BB;&#x7136;&#x540E;&#x76F4;&#x63A5;&#x4E0A;&#x4F20;&#xFF08;&#x672A;&#x5B9E;&#x73B0;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#xFF0C;&#x4E5F;&#x662F;&#x5F88;&#x65B9;&#x4FBF;&#xFF09;&#x3002;</p>
+<pre><code>  @Override
+  public void uncaughtException(Thread thread, Throwable ex) {
+  try {
+ // &#x5BFC;&#x51FA;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5230;SD&#x5361;&#x4E2D;
+ dumpExceptionToSDCard(ex);
+ // &#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x4E0A;&#x4F20;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4FBF;&#x4E8E;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5206;&#x6790;&#x65E5;&#x5FD7;&#x4ECE;&#x800C;&#x89E3;&#x51B3;bug
+ uploadExceptionToServer();
+} catch (IOException e) {
+ e.printStackTrace();
+}
+
+// &#x6253;&#x5370;&#x51FA;&#x5F53;&#x524D;&#x8C03;&#x7528;&#x6808;&#x4FE1;&#x606F;
+ex.printStackTrace();
+
+// &#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x4E86;&#x9ED8;&#x8BA4;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x5219;&#x4EA4;&#x7ED9;&#x7CFB;&#x7EDF;&#x53BB;&#x7ED3;&#x675F;&#x6211;&#x4EEC;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x7531;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7ED3;&#x675F;&#x81EA;&#x5DF1;
+if (mDefaultCrashHandler != null) {
+  mDefaultCrashHandler.uncaughtException(thread, ex);
+ } else {
+ Process.killProcess(Process.myPid());
+}
+
+ }</code></pre><h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p>  &#x5148;&#x4E0A;&#x56FE;&#xFF0C;no pic say a xx<br><img src="https://upload-images.jianshu.io/upload_images/1716569-9d45034d08af0f4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x5BA2;&#x6237;&#x7AEF;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x6210;&#x529F;.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-633380c8b68f1281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x540E;&#x53F0;.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-d2c009a1b0f8e43a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x670D;&#x52A1;&#x5668;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;.png"></p>
+<p><strong>&#x5206;&#x6790;&#xFF1A;</strong>&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x4E00;&#x79CD;&#x662F;HttpClient&#x5F53;&#x7136;&#x8FD9;&#x79CD;&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x4E0D;&#x7528;&#x4E86;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x662F;&#x7528;&#x73B0;&#x5728;&#x5927;&#x5BB6;&#x90FD;&#x77E5;&#x9053;&#x7684;RxJava+Retrofit&#x5C01;&#x88C5;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x4E0A;&#x4F20;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5BA2;&#x6237;&#x7AEF;&#x7528;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x3002;&#x670D;&#x52A1;&#x5668;&#x4F7F;&#x7528;servlet&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x63A5;&#x6536;&#x3002;</p>
+<ul>
+<li><p>&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x5F15;&#x5165;&#x7684;&#x5E93;</p>
+<pre><code> //RxAndroid
+implementation &apos;io.reactivex.rxjava2:rxandroid:2.0.1&apos;</code></pre><p> &#x200B;    //RxJava2</p>
+<pre><code>implementation &apos;io.reactivex.rxjava2:rxjava:2.1.8&apos;
+//Retrofit2&#x7684;RxJava&#x9002;&#x914D;
+implementation &apos;com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0&apos;
+//Retrofit2
+implementation &apos;com.squareup.retrofit2:retrofit:2.3.0&apos;
+//RxJava2Gson&#x9002;&#x914D;
+implementation &apos;com.squareup.retrofit2:converter-gson:2.3.0&apos;
+//&#x7F51;&#x7EDC;&#x65E5;&#x5FD7;&#x62E6;&#x622A;
+implementation &apos;com.squareup.okhttp3:logging-interceptor:3.8.1&apos;</code></pre></li>
+</ul>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p> &#x56FE;&#x7247;&#x770B;&#x5B8C;&#x4E4B;&#x540E;&#x54B1;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;</p>
+<ul>
+<li><p>CrashHandler&#xFF08;&#x4FEE;&#x6539;&#x4E00;&#x756A;&#xFF09;</p>
+<pre><code>public class CrashHandler implements UncaughtExceptionHandler {</code></pre><p>  private static final String TAG = &#x201C;CrashHandler&#x201D;;<br>  private static final boolean DEBUG = true;</p>
+<p>  private static final String FILE_NAME = &#x201C;crash&#x201D;;</p>
+<p>  // log&#x6587;&#x4EF6;&#x7684;&#x540E;&#x7F00;&#x540D;<br>  private static final String FILE_NAME_SUFFIX = &#x201C;.txt&#x201D;;</p>
+<p>  private static CrashHandler sInstance = new CrashHandler();</p>
+<p>  // &#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF08;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x7EC8;&#x6B62;&#x5F53;&#x524D;&#x7684;&#x5F02;&#x5E38;&#x7A0B;&#x5E8F;&#xFF09;<br>  private UncaughtExceptionHandler mDefaultCrashHandler;</p>
+<p>  private Context mContext;<br>  //log&#x8DEF;&#x5F84;<br>  private  String mLogPath=null;<br>  private String fileName=&#x201D;&#x201D;;</p>
+</li>
+</ul>
+<pre><code>// &#x6784;&#x9020;&#x65B9;&#x6CD5;&#x79C1;&#x6709;&#xFF0C;&#x9632;&#x6B62;&#x5916;&#x90E8;&#x6784;&#x9020;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x5373;&#x91C7;&#x7528;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;
+private CrashHandler() {
+}
+
+public static CrashHandler getInstance() {
+  return sInstance;
+}
+
+// &#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x5B8C;&#x6210;&#x521D;&#x59CB;&#x5316;&#x5DE5;&#x4F5C;
+public void init(Context context,String logPath) {
+  // &#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;
+  mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler();
+  // &#x5C06;&#x5F53;&#x524D;&#x5B9E;&#x4F8B;&#x8BBE;&#x4E3A;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;
+  Thread.setDefaultUncaughtExceptionHandler(this);
+  // &#x83B7;&#x53D6;Context&#xFF0C;&#x65B9;&#x4FBF;&#x5185;&#x90E8;&#x4F7F;&#x7528;
+  mContext = context.getApplicationContext();
+  this.mLogPath=logPath;
+}
+
+/**
+ * &#x8FD9;&#x4E2A;&#x662F;&#x6700;&#x5173;&#x952E;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5F53;&#x7A0B;&#x5E8F;&#x4E2D;&#x6709;&#x672A;&#x88AB;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C06;&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x7528;#uncaughtException&#x65B9;&#x6CD5;
+ * thread&#x4E3A;&#x51FA;&#x73B0;&#x672A;&#x6355;&#x83B7;&#x5F02;&#x5E38;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;ex&#x4E3A;&#x672A;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;ex&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x3002;
+ */
+@Override
+public void uncaughtException(Thread thread, Throwable ex) {
+  try {
+      // &#x5BFC;&#x51FA;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5230;SD&#x5361;&#x4E2D;
+      dumpExceptionToSDCard(ex);
+      // &#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x4E0A;&#x4F20;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4FBF;&#x4E8E;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5206;&#x6790;&#x65E5;&#x5FD7;&#x4ECE;&#x800C;&#x89E3;&#x51B3;bug&#xFF08;&#x6709;&#x95EE;&#x9898;&#x820D;&#x5F03;&#x6389;&#xFF09;
+ //    if (!TextUtils.isEmpty(fileName)){
+//        uploadExceptionToServer(new File(fileName));
+//    }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+
+  // &#x6253;&#x5370;&#x51FA;&#x5F53;&#x524D;&#x8C03;&#x7528;&#x6808;&#x4FE1;&#x606F;
+  ex.printStackTrace();
+
+  // &#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x4E86;&#x9ED8;&#x8BA4;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x5219;&#x4EA4;&#x7ED9;&#x7CFB;&#x7EDF;&#x53BB;&#x7ED3;&#x675F;&#x6211;&#x4EEC;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x7531;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7ED3;&#x675F;&#x81EA;&#x5DF1;
+  if (mDefaultCrashHandler != null) {
+      mDefaultCrashHandler.uncaughtException(thread, ex);
+  } else {
+      Process.killProcess(Process.myPid());
+  }
+
+}
+
+/**
+ * &#x5199;&#x5165;SD&#x5361;
+ * 
+ * @param ex
+ * @throws IOException
+ */
+@SuppressLint(&quot;SimpleDateFormat&quot;)
+private void dumpExceptionToSDCard(Throwable ex) throws IOException {
+  // &#x5982;&#x679C;SD&#x5361;&#x4E0D;&#x5B58;&#x5728;&#x6216;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#xFF0C;&#x5219;&#x65E0;&#x6CD5;&#x628A;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5199;&#x5165;SD&#x5361;
+  if (!Environment.getExternalStorageState().equals(
+          Environment.MEDIA_MOUNTED)) {
+      if (DEBUG) {
+          Log.e(TAG, &quot;sdcard unmounted,skip dump exception&quot;);
+          return;
+      }
+  }
+
+  File dir = new File(mLogPath);
+  if (!dir.exists()) {
+      dir.mkdirs();
+  }
+  long current = System.currentTimeMillis();
+  String time = new SimpleDateFormat(&quot;yyyyMMddHHmmss&quot;)
+          .format(new Date(current));
+  fileName=mLogPath + FILE_NAME + time + FILE_NAME_SUFFIX;
+  PreferencesUtils.putString(mContext,CRASH_FILE_NAME,fileName);
+  // &#x4EE5;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x521B;&#x5EFA;log&#x6587;&#x4EF6;
+  File file = new File(fileName);
+
+  try {
+      PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
+              file)));
+      // &#x5BFC;&#x51FA;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x7684;&#x65F6;&#x95F4;
+      pw.println(time);
+
+      // &#x5BFC;&#x51FA;&#x624B;&#x673A;&#x4FE1;&#x606F;
+      dumpPhoneInfo(pw);
+
+      pw.println();
+      // &#x5BFC;&#x51FA;&#x5F02;&#x5E38;&#x7684;&#x8C03;&#x7528;&#x6808;&#x4FE1;&#x606F;
+      ex.printStackTrace(pw);
+
+      pw.close();
+  } catch (Exception e) {
+      Log.e(TAG, &quot;dump crash info failed&quot;);
+  }
+}
+
+private void dumpPhoneInfo(PrintWriter pw) throws NameNotFoundException {
+  // &#x5E94;&#x7528;&#x7684;&#x7248;&#x672C;&#x540D;&#x79F0;&#x548C;&#x7248;&#x672C;&#x53F7;
+  PackageManager pm = mContext.getPackageManager();
+  PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(),
+          PackageManager.GET_ACTIVITIES);
+  pw.print(&quot;App Version: &quot;);
+  pw.print(pi.versionName);
+  pw.print(&apos;_&apos;);
+  pw.println(pi.versionCode);
+
+  // android&#x7248;&#x672C;&#x53F7;
+  pw.print(&quot;OS Version: &quot;);
+  pw.print(Build.VERSION.RELEASE);
+  pw.print(&quot;_&quot;);
+  pw.println(Build.VERSION.SDK_INT);
+
+  // &#x624B;&#x673A;&#x5236;&#x9020;&#x5546;
+  pw.print(&quot;Vendor: &quot;);
+  pw.println(Build.MANUFACTURER);
+
+  // &#x624B;&#x673A;&#x578B;&#x53F7;
+  pw.print(&quot;Model: &quot;);
+  pw.println(Build.MODEL);
+
+  // cpu&#x67B6;&#x6784;
+  pw.print(&quot;CPU ABI: &quot;);
+  pw.println(Build.CPU_ABI);
+}
+
+/**
+ * &#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF08;&#x53EF;&#x4EE5;&#x820D;&#x5F03;&#x8FD9;&#x79CD;&#x4E86;&#xFF09;
+ */
+private void uploadExceptionToServer(File file) {
+
+}
+
+
+}</code></pre><p><strong>&#x5206;&#x6790;&#xFF1A;</strong> &#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x7528;&#x7684;&#x662F;SharedPreferences&#x4FDD;&#x5B58;&#x62A5;&#x9519;&#x7684;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x540D;&#xFF0C;&#x7136;&#x540E;&#x7B2C;&#x4E8C;&#x6B21;&#x8FDB;&#x5165;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x4E0A;&#x4F20;</p>
+<ul>
+<li><p>CrashActivity</p>
+<pre><code>public class CrashActivity extends AppCompatActivity {</code></pre></li>
+</ul>
+<pre><code>Button mBtnCrash;
+private ProgressDialog dialog;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_second);
+  mBtnCrash=findViewById(R.id.btn_crash);
+  mBtnCrash.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          throw new RuntimeException(toUtf8(&quot;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#x4E86;&quot;));
+      }
+  });
+
+  dialog = new ProgressDialog(CrashActivity.this);
+  dialog.setMax(100);
+  dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+  dialog.setMessage(&quot;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x4E2D;&quot;);
+
+  if (!TextUtils.isEmpty(PreferencesUtils.getString(this,CRASH_FILE_NAME))){
+      upload(new File(PreferencesUtils.getString(this,CRASH_FILE_NAME)));
+  }
+ }
+
+public static String toUtf8(String str) {
+  String result = null;
+  try {
+      result = new String(str.getBytes(&quot;UTF-8&quot;), &quot;UTF-8&quot;);
+  } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+  }
+  return result;
+}
+
+/**
+ * &#x5C01;&#x88C5;&#x540E;&#x7684;&#x5355;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x65B9;&#x6CD5;
+ */
+  public void upload(File file) {
+  dialog.show();
+  Log.e(&quot;File&quot;,file.getAbsolutePath());
+  RetrofitClient
+          .getInstance()
+          .upLoadFile(URL, file, new FileUploadObserver&lt;ResponseBody&gt;() {
+              @Override
+              public void onUpLoadSuccess(ResponseBody responseBody) {
+                  Toast.makeText(CrashActivity.this, &quot;&#x4E0A;&#x4F20;&#x6210;&#x529F;&quot;, Toast.LENGTH_SHORT).show();
+                  try {
+                      Log.e(&quot;&#x4E0A;&#x4F20;&#x8FDB;&#x5EA6;&quot;,responseBody.string());
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  dialog.dismiss();
+              }
+
+              @Override
+              public void onUpLoadFail(Throwable e) {
+                  Toast.makeText(CrashActivity.this, &quot;&#x4E0A;&#x4F20;&#x5931;&#x8D25;&quot;+e.getMessage(), Toast.LENGTH_SHORT).show();
+                  dialog.dismiss();
+              }
+              @Override
+              public void onProgress(int progress) {
+                  dialog.setProgress(progress);
+              }
+          });
+}
+
+@Override
+protected void onStop() {
+  super.onStop();
+  if (!TextUtils.isEmpty(PreferencesUtils.getString(this,CRASH_FILE_NAME))){
+      PreferencesUtils.remove(this,CRASH_FILE_NAME);
+  }
+}
+}</code></pre><p><strong>&#x5206;&#x6790;&#xFF1A;</strong> &#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x7684;&#x53D8;&#x5316;&#x662F;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x548C;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x5E76;&#x4E14;&#x5728;onStop&#x7684;&#x65F6;&#x5019;&#x6E05;&#x9664;&#x4E86;&#x4E00;&#x6B21;&#x4FDD;&#x5B58;&#x7684;key&#x3002;&#x8BD5;&#x60F3;&#x4E00;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x6B21;&#x5D29;&#x6E83;&#x7684;&#x65F6;&#x5019;&#x662F;&#x4F1A;&#x628A;&#x6211;&#x4EEC;&#x6240;&#x9700;&#x8981;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x4FDD;&#x5B58;&#x5230;SharedPreferences&#x4E2D;&#xFF0C;&#x90A3;&#x4E48;&#x7B2C;&#x4E8C;&#x6B21;&#x8FDB;&#x5165;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x4E0A;&#x4F20;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x7B2C;&#x4E09;&#x6B21;&#x7B2C;&#x56DB;&#x6B21;&#x8FDB;&#x5165;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x9700;&#x8981;&#x4E0A;&#x4F20;&#x5417;&#xFF1F;&#x5F53;&#x7136;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x4E86;&#xFF0C;&#x4E0D;&#x4EC5;&#x9020;&#x6210;&#x670D;&#x52A1;&#x5668;&#x538B;&#x529B;&#xFF0C;&#x4E5F;&#x4E0D;&#x592A;&#x4F18;&#x96C5;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x6E05;&#x9664;SharedPreferences&#x4E2D;&#x7684;&#x952E;&#x503C;&#x5BF9;&#x3002;</p>
+<h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p>  &#x518D;&#x5570;&#x55E6;&#x4E00;&#x53E5;&#xFF1A;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#x60C5;&#x7684;&#x65F6;&#x5019;&#x5E94;&#x8BE5;&#x5168;&#x65B9;&#x9762;&#x8003;&#x8651;&#xFF0C;&#x5982;&#x679C;&#x5404;&#x4F4D;&#x540C;&#x4EC1;&#x6709;&#x66F4;&#x597D;&#x7684;&#x5EFA;&#x8BAE;&#x7684;&#x8BDD;&#xFF0C;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x3002;&#x6B63;&#x6240;&#x8C13;&#xFF1A;&#x4E09;&#x4EBA;&#x884C;&#x5FC5;&#x6709;&#x6211;&#x5E08;&#x3002;<br><a href="https://gitee.com/1032200695/Crash" target="_blank" rel="noopener">&#x4EE3;&#x7801;&#x5DF2;&#x7ECF;&#x4E0A;&#x4F20;&#x5230;&#x7801;&#x4E91;</a><br><a href="https://gitee.com/1032200695/CrashServer" target="_blank" rel="noopener">&#x540E;&#x53F0;&#x4EE3;&#x7801;</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android-捕获异常日志（上篇）/" rel="next" title="Android 捕获异常日志（上篇）">
+                <i class="fa fa-chevron-left"></i> Android 捕获异常日志（上篇）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-动画初探/" rel="prev" title="Android 动画初探">
+                Android 动画初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">1.1.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">1.2.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">1.3.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

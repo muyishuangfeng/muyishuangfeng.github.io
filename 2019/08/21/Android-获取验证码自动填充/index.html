@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x624B;&amp;#x673A;&amp;#x83B7;&amp;#x53D6;&amp;#x9A8C;&amp;#x8BC1;&amp;#x7801;&amp;#xFF0C;&amp;#x8FD9;&amp;#x662F;&amp;#x6BCF;&amp;#x4E2A;APP&amp;#x90FD;&amp;#x4F1A;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 获取验证码自动填充">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-获取验证码自动填充/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x624B;&amp;#x673A;&amp;#x83B7;&amp;#x53D6;&amp;#x9A8C;&amp;#x8BC1;&amp;#x7801;&amp;#xFF0C;&amp;#x8FD9;&amp;#x662F;&amp;#x6BCF;&amp;#x4E2A;APP&amp;#x90FD;&amp;#x4F1A;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-cdf84f24a601b662.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-cfb3483bca687807.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T05:31:09.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 获取验证码自动填充">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x624B;&amp;#x673A;&amp;#x83B7;&amp;#x53D6;&amp;#x9A8C;&amp;#x8BC1;&amp;#x7801;&amp;#xFF0C;&amp;#x8FD9;&amp;#x662F;&amp;#x6BCF;&amp;#x4E2A;APP&amp;#x90FD;&amp;#x4F1A;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x529F;&amp;#x80FD;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-cdf84f24a601b662.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-获取验证码自动填充/">
+
+
+
+
+
+  <title>Android 获取验证码自动填充 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-获取验证码自动填充/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 获取验证码自动填充</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x63D0;"><a href="#&#x524D;&#x63D0;" class="headerlink" title="&#x524D;&#x63D0;"></a>&#x524D;&#x63D0;</h3><p>  &#x624B;&#x673A;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x8FD9;&#x662F;&#x6BCF;&#x4E2A;APP&#x90FD;&#x4F1A;&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4F46;&#x662F;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#x4E4B;&#x540E;&#xFF0C;&#x5207;&#x6362;&#x5230;&#x77ED;&#x4FE1;&#x754C;&#x9762;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8FD4;&#x56DE;&#x5230;&#x5F53;&#x524D;&#x754C;&#x9762;&#xFF0C;&#x611F;&#x89C9;&#x6BD4;&#x8F83;&#x86CB;&#x75BC;&#xFF0C;&#x4E5F;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x56E0;&#x6B64;&#x60F3;&#x7740;&#x83B7;&#x53D6;&#x5230;&#x9A8C;&#x8BC1;&#x7801;&#x4E4B;&#x540E;&#x81EA;&#x52A8;&#x586B;&#x5145;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x76F8;&#x5BF9;&#x6765;&#x8BF4;&#x5C31;&#x6BD4;&#x8F83;&#x4EBA;&#x6027;&#x5316;&#xFF0C;&#x5E76;&#x4E14;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x4E5F;&#x6BD4;&#x8F83;&#x597D;&#x3002;</p>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p> &#x6765;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#x5E76;&#x4E14;&#x586B;&#x5145;&#x7684;&#x6D41;&#x7A0B;&#xFF1A;&#x624B;&#x673A;&#x70B9;&#x51FB;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x5E73;&#x53F0;&#x53D1;&#x9001;&#x77ED;&#x4FE1;&#xFF0C;&#x76D1;&#x6D4B;&#x77ED;&#x4FE1;&#x6570;&#x636E;&#x5E93;&#x662F;&#x5426;&#x6709;&#x66F4;&#x65B0;&#xFF0C;&#x5E76;&#x4E14;&#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;&#x81EA;&#x5DF1;&#x6240;&#x9700;&#x8981;&#x7684;&#x9A8C;&#x8BC1;&#x7801;&#x77ED;&#x4FE1;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x5219;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x5E76;&#x4E14;&#x586B;&#x5145;&#x5230;&#x5F53;&#x524D;&#x754C;&#x9762;&#x4E2D;&#x53BB;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;<br><img src="https://upload-images.jianshu.io/upload_images/1716569-cdf84f24a601b662.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x586B;&#x5145;&#x9A8C;&#x8BC1;&#x7801;&#x6D41;&#x7A0B;&#x56FE;.png"></p>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p> &#x6211;&#x4EEC;&#x76D1;&#x6D4B;&#x77ED;&#x4FE1;&#x9A8C;&#x8BC1;&#x4FE1;&#x606F;&#x5176;&#x4E2D;&#x8981;&#x6D89;&#x53CA;&#x5230;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x76F4;&#x63A5;&#x7EE7;&#x627F;&#x7CFB;&#x7EDF;&#x7684;ContentObserver&#x8FD9;&#x4E2A;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;&#x77ED;&#x4FE1;&#x4FE1;&#x606F;&#x7684;&#x9A8C;&#x8BC1;&#xFF0C;&#x5E76;&#x4E14;&#x81EA;&#x52A8;&#x586B;&#x5145;&#x3002;&#x73B0;&#x5728;&#x6765;&#x770B;&#x770B;&#x6211;&#x4EEC;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x5427;&#xFF0C;&#x5148;&#x4E0A;&#x56FE;&#xFF0C;no pic say a xx&#x3002;<br><img src="https://upload-images.jianshu.io/upload_images/1716569-cfb3483bca687807.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x81EA;&#x52A8;&#x586B;&#x5145;&#x9A8C;&#x8BC1;&#x7801;.png"></p>
+<ul>
+<li>&#x7EE7;&#x627F;ContentObserver</li>
+</ul>
+<pre><code>    public class PhoneCode extends ContentObserver {
+    private Context mContext; // &#x4E0A;&#x4E0B;&#x6587;
+    private String code; // &#x9A8C;&#x8BC1;&#x7801;
+    SmsListener mListener;
+    private String mPhone;
+    Cursor mCursor;
+
+    public PhoneCode(Context context, Handler handler, String phone, SmsListener listener) {
+    super(handler);
+    this.mContext = context;
+    this.mPhone = phone;
+    this.mListener = listener;
+    }
+
+    public PhoneCode(Context context, Handler handler, SmsListener listener) {
+    super(handler);
+    this.mContext = context;
+    this.mListener = listener;
+    }
+
+    @Override
+    public void onChange(boolean selfChange, Uri uri) {
+    super.onChange(selfChange);
+    // &#x7B2C;&#x4E00;&#x6B21;&#x56DE;&#x8C03; &#x4E0D;&#x662F;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684; &#x76F4;&#x63A5;&#x8FD4;&#x56DE;
+    if (uri.toString().equals(&quot;content://sms/raw&quot;)) {
+        return;
+    }
+    // &#x7B2C;&#x4E8C;&#x6B21;&#x56DE;&#x8C03; &#x67E5;&#x8BE2;&#x6536;&#x4EF6;&#x7BB1;&#x91CC;&#x7684;&#x5185;&#x5BB9;
+    Uri inboxUri = Uri.parse(&quot;content://sms/inbox&quot;);
+    // &#x6309;&#x65F6;&#x95F4;&#x987A;&#x5E8F;&#x6392;&#x5E8F;&#x77ED;&#x4FE1;&#x6570;&#x636E;&#x5E93;
+    mCursor = mContext.getContentResolver().query(inboxUri, null, null,
+            null, &quot;date desc&quot;);
+    if (mCursor != null) {
+        if (mCursor.moveToFirst()) {
+            // &#x83B7;&#x53D6;&#x624B;&#x673A;&#x53F7;
+            String address = mCursor.getString(mCursor.getColumnIndex(&quot;address&quot;));
+            Log.e(&quot;ADDRESS&quot;, address);
+            // &#x83B7;&#x53D6;&#x77ED;&#x4FE1;&#x5185;&#x5BB9;
+            String body = mCursor.getString(mCursor.getColumnIndex(&quot;body&quot;));
+            Log.e(&quot;ADDRESS&quot;, body);
+            // &#x5224;&#x65AD;&#x624B;&#x673A;&#x53F7;&#x662F;&#x5426;&#x4E3A;&#x76EE;&#x6807;&#x53F7;&#x7801;&#xFF0C;&#x670D;&#x52A1;&#x53F7;&#x53F7;&#x7801;&#x4E0D;&#x56FA;&#x5B9A;&#x8BF7;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5224;&#x65AD;&#x524D;&#x51E0;&#x4F4D;&#x3002;
+            //&#x52A0;&#x4E0A;&#x8FD9;&#x4E2A;&#x5224;&#x65AD;&#x5FC5;&#x987B;&#x77E5;&#x9053;&#x53D1;&#x9001;&#x65B9;&#x7684;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#xFF0C;&#x5C40;&#x9650;&#x6027;&#x6BD4;&#x8F83;&#x9AD8;
+    //                if (!address.equals(mPhone)) {
+    //                    return;
+    //                }
+            if (!body.startsWith(&quot;&#x5929;&#x4E0B;&#x4E3A;&#x516C;&quot;)) {
+                return;
+            }
+            // &#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x622A;&#x53D6;&#x77ED;&#x4FE1;&#x4E2D;&#x7684;6&#x4F4D;&#x9A8C;&#x8BC1;&#x7801;
+            String regEx = &quot;(?&lt;![0-9])([0-9]{&quot; + 6 + &quot;})(?![0-9])&quot;;
+            Pattern pattern = Pattern.compile(regEx);
+            Matcher matcher = pattern.matcher(body);
+            // &#x5982;&#x679C;&#x627E;&#x5230;&#x901A;&#x8FC7;Handler&#x53D1;&#x9001;&#x7ED9;&#x4E3B;&#x7EBF;&#x7A0B;
+            while (matcher.find()) {
+                code = matcher.group();
+                if (mListener != null) {
+                    mListener.onResult(code);
+                }
+            }
+
+        }
+    }
+    mCursor.close();
+}
+
+  /**
+ * &#x77ED;&#x4FE1;&#x56DE;&#x8C03;&#x63A5;&#x53E3;
+ */
+public interface SmsListener {
+    /**
+     * @param result &#x56DE;&#x8C03;&#x5185;&#x5BB9;&#xFF08;&#x9A8C;&#x8BC1;&#x7801;&#xFF09;
+     */
+    void onResult(String result);
+}
+}</code></pre><ul>
+<li><p>&#x5206;&#x6790;</p>
+<pre><code>  &#x4EE3;&#x7801;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E24;&#x4E2A;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x5E26;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7684;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x4E0D;&#x5E26;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7684;&#x3002;&#x5E26;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#xFF08;&#x7535;&#x8BDD;&#x53F7;
+&#x7801;&#x662F;&#x53D1;&#x9001;&#x65B9;&#x7684;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x662F;&#x5E73;&#x53F0;&#x65B9;&#x6216;&#x8005;&#x53D1;&#x4FE1;&#x4EBA;&#x7684;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#xFF09;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x5C40;&#x9650;&#x6027;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x53EA;&#x80FD;&#x6536;&#x5230;&#x56FA;
+&#x5B9A;&#x7684;&#x53D1;&#x4FE1;&#x4EBA;&#x7684;&#x7535;&#x8BDD;&#x9A8C;&#x8BC1;&#x7801;&#x3002;&#x8FD9;&#x91CC;&#x6CE8;&#x91CA;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x60F3;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x4E0D;&#x7BA1;&#x662F;&#x8C01;&#x53D1;&#x7684;&#x77ED;&#x4FE1;&#x3002;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x662F;&#x4E0D;&#x5E26;
+&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7684;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;&#x77ED;&#x4FE1;&#x7684;&#x5185;&#x5BB9;&#x52A0;&#x4E86;&#x5224;&#x65AD;&#x3002;&#x8BD5;&#x60F3;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x6211;&#x4EEC;&#x83B7;&#x53D6;&#x77ED;&#x4FE1;&#x7684;&#x65F6;&#x5019;&#x6536;&#x5230;&#x4E86;&#x4E00;&#x6761;&#x5176;&#x4ED6;&#x5E73;&#x53F0;
+&#x7684;&#x9A8C;&#x8BC1;&#x7801;&#xFF0C;&#x4F46;&#x5374;&#x4E0D;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x8BE5;&#x600E;&#x4E48;&#x529E;&#xFF1F;&#x5F53;&#x7136;&#x662F;&#x76F4;&#x63A5;&#x629B;&#x5F03;&#x4E86;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x9A8C;&#x8BC1;&#x7801;&#x4E86;&#x3002;
+&#x56E0;&#x4E3A;&#x77ED;&#x4FE1;&#x9A8C;&#x8BC1;&#x7801; &#x90FD;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x683C;&#x5F0F;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x53EA;&#x9700;&#x8981;&#x5BF9;&#x9A8C;&#x8BC1;&#x7801;&#x7684;&#x5F00;&#x5934;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#x5C31;&#x884C;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x548C;&#x540E;&#x53F0;
+&#x540C;&#x5B66;&#x6C9F;&#x901A;&#x597D;&#x9A8C;&#x8BC1;&#x7801;&#x683C;&#x5F0F;&#xFF0C;&#x7136;&#x540E;&#x52A8;&#x6001;&#x5224;&#x65AD;&#x5373;&#x53EF;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x8FD9;&#x91CC;&#x662F; &#x4EE5;&#x201C;&#x5929;&#x4E0B;&#x4E3A;&#x516C;&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x53D8;&#x91CF;&#x7136;&#x540E;&#x52A8;
+&#x6001;&#x6539;&#x53D8;&#x5373;&#x53EF;&#x3002;</code></pre></li>
+<li><p>&#x4F7F;&#x7528;</p>
+<pre><code> /**
+  * &#x56FA;&#x5B9A;&#x624B;&#x673A;&#x53F7;&#x7801;
+  */
+ private void fixedPhone(String phone) {
+  mPhoneCode = new PhoneCode(this, new Handler(), phone,
+          new PhoneCode.SmsListener() {
+              @Override
+              public void onResult(String result) {
+                  ToastUtils.showMessage(PhoneActivity.this, result);
+                  mEdtPhone.setText(result);
+              }
+          });
+  // &#x6CE8;&#x518C;&#x77ED;&#x4FE1;&#x53D8;&#x5316;&#x76D1;&#x542C;
+  this.getContentResolver().registerContentObserver(
+          Uri.parse(&quot;content://sms/&quot;), true, mPhoneCode);
+}
+
+ /**
+  * &#x6CA1;&#x6709;&#x624B;&#x673A;&#x53F7;&#x7801;
+  */
+  private void fixedPhone() {
+   mPhoneCode = new PhoneCode(this, new Handler(),
+           new PhoneCode.SmsListener() {
+               @Override
+              public void onResult(String result) {
+                 ToastUtils.showMessage(PhoneActivity.this, result);
+                 mEdtPhone.setText(result);
+              }
+         });
+ // &#x6CE8;&#x518C;&#x77ED;&#x4FE1;&#x53D8;&#x5316;&#x76D1;&#x542C;
+this.getContentResolver().registerContentObserver(</code></pre><p> &#x200B;            Uri.parse(&#x201C;content://sms/&#x201C;), true, mPhoneCode);</p>
+<pre><code>}</code></pre></li>
+<li><p>&#x5206;&#x6790;</p>
+<pre><code>&#x8FD9;&#x91CC;&#x7528;&#x7684;&#x662F;&#x4E24;&#x4E2A;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x5E26;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7684;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x4E0D;&#x5E26;&#x7684;&#xFF0C;&#x8981;&#x7528;&#x54EA;&#x4E2A;&#x8C03;&#x90A3;&#x4E2A;&#xFF0C;so easy&#x3002;</code></pre></li>
+</ul>
+<h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p>   <strong>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x5C0F;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4F46;&#x662F;&#x5199;&#x7A0B;&#x5E8F;&#x7684;&#x65F6;&#x5019;&#x8981;&#x8003;&#x8651;&#x7684;&#x4E1C;&#x897F;&#x6709;&#x5F88;&#x591A;&#x3002;&#x628A;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5F53;&#x6210;&#x4F7F;&#x7528;&#x8005;&#xFF0C;&#x7528;&#x5FC3;&#x5199;&#x597D;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#xFF0C;&#x4E0D;&#x4E3A;&#x4E86;&#x5B8C;&#x6210;&#x529F;&#x80FD;&#x800C;&#x5B8C;&#x6210;&#x3002;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x4E00;&#x662F;&#x8981;&#x8003;&#x8651;&#x529F;&#x80FD;&#xFF0C;&#x4E8C;&#x662F;&#x8981;&#x8003;&#x8651;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x96C5;&#x3002;&#x4E0D;&#x53EF;&#x4E0D;&#x7ECF;&#x6D4B;&#x8BD5;&#x548C;&#x63A8;&#x6572;&#x5C31;&#x62FF;&#x51FA;&#x53BB;&#x5206;&#x4EAB;&#x6216;&#x8005;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x4EC5;&#x8BEF;&#x5BFC;&#x4E86;&#x4ED6;&#x4EBA;&#xFF0C;&#x4E5F;&#x8BA9;&#x81EA;&#x5DF1;&#x8499;&#x7F9E;&#x3002;&#x73B0;&#x5728;&#x7F51;&#x4E0A;&#x5343;&#x7BC7;&#x4E00;&#x5F8B;&#x6CA1;&#x6709;&#x7ECF;&#x8FC7;&#x63A8;&#x6572;&#x7684;&#x6587;&#x7AE0;&#x5F88;&#x591A;&#xFF0C;&#x9047;&#x5230;&#x8FC7;&#x8BB8;&#x591A;&#x5751;&#x7239;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x53D1;&#x4E00;&#x4E0B;&#x7262;&#x9A9A;&#x548C;&#x63D0;&#x9192;&#x4E00;&#x4E0B;&#x81EA;&#x5DF1;&#x505A;&#x4E8B;&#x4E00;&#x5B9A;&#x8981;&#x8BA4;&#x771F;&#x3002;</strong></p>
+<h3 id="&#x81F4;&#x8C22;"><a href="#&#x81F4;&#x8C22;" class="headerlink" title="&#x81F4;&#x8C22;"></a>&#x81F4;&#x8C22;</h3><p><a href="https://www.jianshu.com/p/26a71886ddde" target="_blank" rel="noopener">Android&#x77ED;&#x4FE1;&#x9A8C;&#x8BC1;&#x7801;&#x81EA;&#x52A8;&#x586B;&#x5199;&#x529F;&#x80FD;&#x5B9E;&#x73B0;</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android观察者模式初探/" rel="next" title="Android观察者模式初探">
+                <i class="fa fa-chevron-left"></i> Android观察者模式初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-自定义Toast，并且勘误Android工具类里面的ToastUtils/" rel="prev" title="Android 自定义Toast，并且勘误Android工具类里面的ToastUtils">
+                Android 自定义Toast，并且勘误Android工具类里面的ToastUtils <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致谢"><span class="nav-number">5.</span> <span class="nav-text">致谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

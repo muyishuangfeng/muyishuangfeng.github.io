@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x8A00;&amp;#xFF1A;   &amp;#x597D;&amp;#x4E45;&amp;#x6CA1;&amp;#x6765;&amp;#x5199;&amp;#x6587;&amp;#x7AE0;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E00;&amp;#x65B9;&amp;#x9762;&amp;#x662F;&amp;#x56E0;&amp;#x4E3A;&amp;#x81EA;&amp;#x5DF1;&amp;#x61D2;&amp;#x4E86;&amp;#xFF0C;&amp;#x53E6;&amp;#x59">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动画初探">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-动画初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x8A00;&amp;#xFF1A;   &amp;#x597D;&amp;#x4E45;&amp;#x6CA1;&amp;#x6765;&amp;#x5199;&amp;#x6587;&amp;#x7AE0;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E00;&amp;#x65B9;&amp;#x9762;&amp;#x662F;&amp;#x56E0;&amp;#x4E3A;&amp;#x81EA;&amp;#x5DF1;&amp;#x61D2;&amp;#x4E86;&amp;#xFF0C;&amp;#x53E6;&amp;#x59">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-4842b1b8db6ffb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T05:32:19.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 动画初探">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;&amp;#xFF1A;   &amp;#x597D;&amp;#x4E45;&amp;#x6CA1;&amp;#x6765;&amp;#x5199;&amp;#x6587;&amp;#x7AE0;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E00;&amp;#x65B9;&amp;#x9762;&amp;#x662F;&amp;#x56E0;&amp;#x4E3A;&amp;#x81EA;&amp;#x5DF1;&amp;#x61D2;&amp;#x4E86;&amp;#xFF0C;&amp;#x53E6;&amp;#x59">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-动画初探/">
+
+
+
+
+
+  <title>Android 动画初探 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-动画初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 动画初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android动画/" itemprop="url" rel="index">
+                    <span itemprop="name">Android动画</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x8A00;&#xFF1A;"><a href="#&#x524D;&#x8A00;&#xFF1A;" class="headerlink" title="&#x524D;&#x8A00;&#xFF1A;"></a>&#x524D;&#x8A00;&#xFF1A;</h3><p>   &#x597D;&#x4E45;&#x6CA1;&#x6765;&#x5199;&#x6587;&#x7AE0;&#x4E86;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x56E0;&#x4E3A;&#x81EA;&#x5DF1;&#x61D2;&#x4E86;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x662F;&#x56E0;&#x4E3A;&#x6700;&#x8FD1;&#x5DE5;&#x4F5C;&#x6BD4;&#x8F83;&#x5FD9;&#xFF0C;&#x6CA1;&#x6709;&#x95F2;&#x65F6;&#x95F4;&#xFF08;&#x5176;&#x5B9E;&#x4E3B;&#x8981;&#x8FD8;&#x662F;&#x56E0;&#x4E3A;&#x61D2;&#xFF09;&#x3002;&#x8BDD;&#x8BF4;&#x516B;&#x6708;&#x591A;&#x6362;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x5DE5;&#x4F5C;&#xFF0C;&#x5728;&#x4E4B;&#x524D;&#x7684;&#x516C;&#x53F8;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x6A2A;&#x5411;&#x53D1;&#x5C55;&#xFF0C;&#x4E86;&#x89E3;&#x4E86;&#x5F88;&#x591A;&#x6280;&#x672F;&#x3002;&#x5728;&#x73B0;&#x5728;&#x7684;&#x516C;&#x53F8;&#x4E3B;&#x8981;&#x662F;&#x7EB5;&#x5411;&#x53D1;&#x5C55;&#xFF0C;&#x66F4;&#x52A0;&#x6DF1;&#x5165;&#x7684;&#x63A2;&#x7D22;&#x3002;&#x4E4B;&#x524D;&#x662F;&#x5E7F;&#x800C;&#x4E0D;&#x7CBE;&#xFF0C;&#x6CA1;&#x6709;&#x6DF1;&#x5165;&#x5B66;&#x4E60;&#x3002;&#x5728;&#x73B0;&#x5728;&#x7684;&#x516C;&#x53F8;&#x5462;&#xFF0C;&#x80FD;&#x591F;&#x66F4;&#x52A0;&#x6DF1;&#x5165;&#x7684;&#x5B66;&#x4E60;&#x6280;&#x672F;&#x3002;&#x5C31;&#x62FF;&#x6700;&#x8FD1;&#x7684;&#x5DE5;&#x4F5C;&#x6765;&#x8BF4;&#x5427;&#xFF0C;&#x52A8;&#x753B;&#x5F88;&#x591A;&#xFF0C;&#x521A;&#x5F00;&#x59CB;&#x53EA;&#x662F;&#x77E5;&#x9053;Android&#x52A8;&#x753B;&#x5206;&#x4E3A;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x3001;&#x5E27;&#x52A8;&#x753B;&#x548C;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4ED6;&#x4EEC;&#x4E4B;&#x95F4;&#x6709;&#x4EC0;&#x4E48;&#x5177;&#x4F53;&#x7684;&#x533A;&#x522B;&#x5C31;&#x4E0D;&#x662F;&#x7279;&#x522B;&#x6E05;&#x695A;&#x4E86;&#x3002;&#x5C24;&#x5176;&#x662F;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x548C;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x7684;&#x533A;&#x522B;&#xFF0C;&#x6211;&#x80FD;&#x8BF4;&#x81EA;&#x5DF1;&#x88AB;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x5751;&#x60E8;&#x4E86;&#x5417;&#xFF1F;&#xFF08;&#x5176;&#x5B9E;&#xFF0C;&#x8FD8;&#x662F;&#x81EA;&#x5DF1;&#x5B66;&#x827A;&#x4E0D;&#x7CBE;&#xFF0C;&#x9700;&#x8981;&#x7EE7;&#x7EED;&#x52AA;&#x529B;&#x4E86;&#x3002;&#xFF09;&#x597D;&#x4E86;&#xFF0C;&#x5E9F;&#x8BDD;&#x8BF4;&#x591A;&#x4E86;&#xFF0C;&#x8FD8;&#x662F;&#x6765;&#x770B;&#x770B;&#x4ECA;&#x5929;&#x7684;&#x6587;&#x7AE0;&#x5427;&#x3002;</p>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p>   &#x8981;&#x5B66;&#x4E60;Android&#x52A8;&#x753B;&#xFF0C;&#x6211;&#x4EEC;&#x4EE5;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x6DF1;&#x5165;&#x5B66;&#x4E60;&#xFF0C;&#x6BD5;&#x7ADF;&#x90FD;&#x662F;&#x8981;&#x628A;&#x529F;&#x80FD;&#x5B9E;&#x73B0;&#x51FA;&#x6765;&#xFF0C;&#x5199;&#x4E00;&#x4E9B;&#x5927;&#x800C;&#x7A7A;&#x6CA1;&#x6709;&#x5B9E;&#x7528;&#x6027;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x4E0D;&#x4F46;&#x662F;&#x6577;&#x884D;&#x522B;&#x4EBA;&#xFF0C;&#x66F4;&#x662F;&#x5BF9;&#x81EA;&#x5DF1;&#x7684;&#x4E0D;&#x8D1F;&#x8D23;&#x4EFB;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;&#xFF08;&#x539F;&#x8C05;&#x6211;&#x81EA;&#x604B;&#x4E00;&#x4E0B;&#xFF0C;&#x653E;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x56FE;&#x50CF;&#x7167;&#xFF09;<br><img src="https://upload-images.jianshu.io/upload_images/1716569-983237b16f78f56e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200259.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-4842b1b8db6ffb85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20181023-200103.png"></p>
+<ul>
+<li><p>&#x5206;&#x6790;<br> 1&#x3001;&#x8981;&#x5B9E;&#x73B0;&#x4ECE;&#x5927;&#x56FE;&#x5230;&#x5C0F;&#x56FE;&#x7684;&#x8FC7;&#x5EA6;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;&#x53C8;&#x9700;&#x8981;&#x7528;&#x54EA;&#x4E9B;&#x6280;&#x672F;&#x5462;&#xFF1F;&#x9996;&#x5148;&#x56FE;&#x7247;&#x7F29;&#x5C0F;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x7F29;&#x653E;&#x52A8;&#x753B;&#xFF1B;&#x5176;&#x6B21;&#xFF0C;&#x56FE;&#x7247;&#x5411;&#x53F3;&#x79FB;&#x52A8;&#x548C;&#x5411;&#x4E0A;&#x79FB;&#x52A8;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x4F4D;&#x79FB;&#x52A8;&#x753B;&#x3002;&#x80CC;&#x666F;&#x52A8;&#x753B;&#x662F;&#x7528;Lottie&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x4E2D;&#x95F4;&#x7684;&#x5706;&#x5F62;&#x53D8;&#x53C9;&#x4E5F;&#x662F;&#x7528;&#x7684;lottie&#x76D1;&#x542C;&#x5E27;&#x7387;&#x53D8;&#x5316;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E0D;&#x5728;&#x4ECA;&#x5929;&#x7684;&#x8BA8;&#x8BBA;&#x548C;&#x5B9E;&#x73B0;&#x8303;&#x56F4;&#x5185;&#x3002;&#x4ECA;&#x5929;&#x4E3B;&#x8981;&#x5B9E;&#x73B0;&#x5E03;&#x5C40;&#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x7684;&#x7F29;&#x653E;&#x548C;&#x79FB;&#x52A8;&#x3002;<br> 2&#x3001; &#x90A3;&#x4E48;&#x7F29;&#x653E;&#x548C;&#x79FB;&#x52A8;&#x53EF;&#x4EE5;&#x7528;&#x54EA;&#x4E9B;&#x52A8;&#x753B;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;&#x53EF;&#x80FD;&#x6709;&#x670B;&#x53CB;&#x8BF4;&#x662F;&#x7528;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x5982;&#x679C;&#x5E03;&#x5C40;&#x4E0A;&#x9762;&#x6709;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x5462;&#xFF1F;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;&#x5728;&#x539F;&#x4F4D;&#x7F6E;&#x8FD8;&#x662F;&#x65B0;&#x4F4D;&#x7F6E;&#x5462;&#xFF1F;&#x7B54;&#x6848;&#x662F;&#x8FD8;&#x5728;&#x539F;&#x6765;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x53EA;&#x80FD;&#x5B9E;&#x73B0;view&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x6539;&#x53D8;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x662F;&#x505A;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x5C55;&#x793A;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x5B8C;&#x5168;&#x591F;&#x7528;&#x4E86;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x6539;&#x53D8;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5FC5;&#x987B;&#x8981;&#x7528;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x3002;&#x6211;&#x80FD;&#x8BF4;&#x6211;&#x5728;&#x8FD9;&#x91CC;&#x88AB;&#x5751;&#x4E86;&#x597D;&#x4E45;&#x5417;&#xFF1F;&#x597D;&#x4E86;&#xFF0C;&#x73B0;&#x5728;&#x6765;&#x770B;&#x770B;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x63A7;&#x4EF6;&#x7684;&#x7F29;&#x653E;&#x548C;&#x79FB;&#x52A8;&#x3002;</p>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p>   /**</p>
+<pre><code>* &#x52A8;&#x753B;
+*/</code></pre><p>  public static void scanAnimation(Context context, FrameLayout mLytAll) {</p>
+<pre><code>WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+DisplayMetrics dm = new DisplayMetrics();
+wm.getDefaultDisplay().getMetrics(dm);
+final int width = dm.widthPixels;// &#x5C4F;&#x5E55;&#x5BBD;&#x5EA6;&#xFF08;&#x50CF;&#x7D20;&#xFF09;
+int height = dm.heightPixels;// &#x5C4F;&#x5E55;&#x9AD8;&#x5EA6;&#xFF08;&#x50CF;&#x7D20;&#xFF09;
+ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));</code></pre></li>
+</ul>
+<pre><code>    ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleX&quot;, (94 / DensityUtils.px2dp(context, width)));
+    ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+            &quot;scaleY&quot;, (166 / DensityUtils.px2dp(context, height)));
+
+    AnimatorSet animatorSet = new AnimatorSet();  //&#x7EC4;&#x5408;&#x52A8;&#x753B;
+    animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //&#x8BBE;&#x7F6E;&#x52A8;&#x753B;
+    animatorSet.setDuration(350);
+    animatorSet.start();
+}</code></pre><ul>
+<li>&#x5206;&#x6790;&#xFF1A;<br> 1&#x3001;&#x8FD9;&#x91CC;&#x8981;&#x79FB;&#x52A8;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x5C4F;&#x5E55;&#x7684;&#x5BBD;&#x548C;&#x9AD8;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x884C;&#x7B49;&#x6BD4;&#x7F29;&#x653E;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0A;&#x9762;&#x548C;&#x53F3;&#x8FB9;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x8DDD;&#x79BB;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x8981;&#x8BA1;&#x7B97;&#x53F3;&#x8FB9;&#x8DDD;&#x548C;&#x4E0A;&#x8FB9;&#x8DDD;&#xFF1B;<br>   2&#x3001;&#x8FD9;&#x91CC;&#x56E0;&#x4E3A;&#x662F;X&#x8F74;&#x548C;Y&#x8F74;&#x8FDB;&#x884C;&#x79FB;&#x52A8;&#x5E76;&#x4E14;&#x7F29;&#x653E;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x8FD9;&#x8FB9;&#x7528;&#x4E86;&#x7EC4;&#x5408;&#x52A8;&#x753B;&#xFF0C;AnimatorSet&#xFF1B;<br>   3&#x3001;X&#x8F74;&#x7684;&#x79FB;&#x52A8;&#x52A8;&#x753B;&#x7528;&#x4E86;ObjectAnimator&#x7136;&#x540E;&#x8BBE;&#x7F6E;X&#x8F74;&#x79FB;&#x52A8;&#x548C;Y&#x8F74;&#x79FB;&#x52A8;,&#x3002;&#x5047;&#x8BBE;&#xFF0C;&#x8DDD;&#x79BB;&#x53F3;&#x8FB9;&#x8DDD;&#x662F;36dp&#xFF0C;&#x4E0A;&#x8FB9;&#x8DDD;&#x662F;23&#x3002;&#x90A3;&#x4E48;X&#x8F74;&#x7684;&#x79FB;&#x52A8;&#x5C31;&#x662F;&#xFF0C;&#x4ECE;1&#x5230;&#x5C4F;&#x5E55;&#x5BBD;&#x8F6C;&#x6362;&#x6210;dp&#x503C;&#x540E;&#x51CF;&#x53BB;&#x53F3;&#x8FB9;&#x8DDD;&#xFF08;36dp&#xFF09;&#x3002;Y&#x8F74;&#x7684;&#x79FB;&#x52A8;&#x5C31;&#x662F;&#x5C4F;&#x5E55;&#x7684;&#x9AD8;&#x8F6C;&#x6362;&#x4E3A;dp&#x540E;&#x51CF;&#x53BB;&#x4E0A;&#x8FB9;&#x8DDD;&#xFF08;23dp&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x52A0;&#x4E0A;&#x4E00;&#x4E2A;&#x8D1F;&#x53F7;&#xFF08;-&#xFF09;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x5462;&#xFF0C;&#x56E0;&#x4E3A;Y&#x8F74;&#x5411;&#x4E0A;&#x4E3A;&#x8D1F;&#xFF0C;&#x5411;&#x4E0B;&#x4E3A;&#x6B63;&#xFF1B;<br>   4&#x3001;&#x73B0;&#x5728;&#x6765;&#x770B;&#x7F29;&#x653E;&#x52A8;&#x753B;&#xFF0C;&#x5047;&#x8BBE;&#x7F29;&#x653E;&#x540E;&#x7684;&#x5C0F;&#x5C4F;&#x5E55;&#x9AD8;&#x662F;166dp&#xFF0C;&#x5BBD;&#x662F;94dp&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x662F;&#x7F29;&#x653E;&#x540E;&#x7684;&#x5C4F;&#x5E55;&#x5BBD;&#xFF08;94dp&#xFF09;&#x9664;&#x4EE5;&#x5C4F;&#x5E55;&#x5BBD;&#x8F6C;&#x6362;&#x6210;dp&#x503C;&#x4E4B;&#x540E;&#x7684;&#x6BD4;&#x7387;&#x4E86;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x8FD9;&#x6837;&#x505A;&#x663E;&#x7136;&#x662F;&#x4E0D;&#x592A;&#x4E25;&#x8C28;&#x7684;&#xFF08;&#x4E3A;&#x4EC0;&#x4E48;&#x8BF4;&#x4E0D;&#x4E25;&#x8C28;&#x5462;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x8BB2;&#xFF09;&#x3002;Y&#x8F74;&#x7684;&#x7F29;&#x653E;&#x5462;&#x5C31;&#x662F;&#x7F29;&#x653E;&#x540E;&#x5C0F;&#x56FE;&#x7684;&#x9AD8;&#xFF08;166dp&#xFF09;&#x9664;&#x4EE5;&#x5C4F;&#x5E55;&#x9AD8;&#x8F6C;&#x6362;&#x6210;dp&#x4E4B;&#x540E;&#x7684;&#x503C;&#x3002;<br>   5&#x3001;&#x5B8C;&#x6210;&#x540E;&#x7528;AnimatorSet&#x8BBE;&#x7F6E;X&#x8F74;Y&#x8F74;&#x7684;&#x5E73;&#x79FB;&#x548C;&#x7F29;&#x653E;&#x52A8;&#x753B;&#x540C;&#x6B65;&#x8FDB;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x8BBE;&#x7F6E;&#x52A8;&#x753B;&#x7684;&#x6267;&#x884C;&#x65F6;&#x957F;&#x81F3;&#x6B64;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#x52A8;&#x753B;&#x4ECE;&#x5927;&#x5C4F;&#x5E55;&#x5230;&#x5C0F;&#x5C4F;&#x5E55;&#x7684;&#x79FB;&#x52A8;&#x548C;&#x7F29;&#x653E;&#x3002;<h3 id="&#x518D;&#x6B21;"><a href="#&#x518D;&#x6B21;" class="headerlink" title="&#x518D;&#x6B21;"></a>&#x518D;&#x6B21;</h3>&#x4E4B;&#x524D;&#x5728;&#x5206;&#x6790;&#x7684;&#x65F6;&#x5019;&#x8BF4;&#x4E0A;&#x9762;&#x76F4;&#x63A5;&#x5199;&#x6B7B;&#x5BBD;&#x9AD8;&#x503C;&#x4E4B;&#x540E;&#x8FDB;&#x884C;&#x7F29;&#x653E;&#x4E0D;&#x4E25;&#x8C28;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x6765;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x3002;&#x56E0;&#x4E3A;Android&#x624B;&#x673A;&#x5C4F;&#x5E55;&#x5206;&#x8FA8;&#x7387;&#x5F88;&#x591A;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x5927;&#x5C4F;&#x5E55;&#x624B;&#x673A;&#x4E0A;&#x9762;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x592A;&#x5927;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x5C4F;&#x5E55;&#x5206;&#x8FA8;&#x7387;&#x6BD4;&#x8F83;&#x4F4E;&#x7684;&#x624B;&#x673A;&#x4E0A;&#x5462;&#xFF1F;&#x6709;&#x53EF;&#x80FD;&#x663E;&#x793A;&#x4E0D;&#x5168;&#x6216;&#x8005;&#x6309;&#x94AE;&#x6324;&#x538B;&#x5230;&#x4E00;&#x8D77;&#x53BB;&#x4E86;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x5C31;&#x8981;&#x52A8;&#x6001;&#x8BA1;&#x7B97;&#x5C0F;&#x5C4F;&#x5E55;&#x7684;&#x5BBD;&#x9AD8;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#x8BF4;UI&#x7ED9;&#x4E86;&#x6211;&#x4EEC;&#x7684;UI&#x56FE;&#x7684;&#x5BBD;&#x9AD8;&#x6BD4;&#x662F;360<em>640&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x6765;&#x52A8;&#x6001;&#x8BA1;&#x7B97;&#x5C4F;&#x5E55;&#x7684;&#x5BBD;&#x9AD8;&#x6BD4;&#x5462;&#xFF1F;&#x90A3;&#x4E48;&#xFF0C;X&#x8F74;&#x7684;&#x7F29;&#x653E;&#x6BD4;&#x7387;&#x5C31;&#x4E0D;&#x5E94;&#x8BE5;&#x662F;94/DensityUtils.px2dp(context, width))&#x4E86;&#xFF0C;&#x800C;&#x5E94;&#x8BE5;&#x662F;(94</em>(DensityUtils.px2dp(context, width))/360))/DensityUtils.px2dp(context, width)),&#x5C31;&#x662F;&#x8BF4;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x8BA1;&#x7B97;UI&#x56FE;&#x7684;&#x5BBD;&#x548C;&#x624B;&#x673A;&#x5B9E;&#x9645;&#x7684;&#x5BBD;&#x7684;&#x6BD4;&#x7387;&#x4E58;&#x4EE5;94&#x518D;&#x9664;&#x4EE5;&#x5C4F;&#x5E55;&#x7684;&#x5BBD;&#xFF0C;&#x8FD9;&#x624D;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7F29;&#x653E;&#x7684;&#x5BBD;&#x3002;&#x90A3;&#x4E48;&#x9AD8;&#x5462;&#xFF1F;&#x5F53;&#x7136;&#x662F;&#x4E00;&#x6837;&#x7684;&#x4E86;166 / DensityUtils.px2dp(context, height))&#xFF0C;&#x8FD9;&#x6837;&#x5199;&#x5F53;&#x7136;&#x4E5F;&#x662F;&#x6709;&#x95EE;&#x9898;&#x7684;&#x4E86;&#xFF0C;&#x800C;&#x5E94;&#x8BE5;&#x662F;(166*(DensityUtils.px2dp(context, height))/640))/DensityUtils.px2dp(context, height))&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x662F;&#x66F4;&#x52A0;&#x4E25;&#x8C28;&#x7684;&#x5199;&#x6CD5;&#x3002;</li>
+</ul>
+<pre><code>/**
+ * &#x52A8;&#x753B;
+ */
+public static void scanAnimation(Context context, FrameLayout mLytAll) {
+   WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+   DisplayMetrics dm = new DisplayMetrics();
+   wm.getDefaultDisplay().getMetrics(dm);
+   final int width = dm.widthPixels;// &#x5C4F;&#x5E55;&#x5BBD;&#x5EA6;&#xFF08;&#x50CF;&#x7D20;&#xFF09;
+   int height = dm.heightPixels;// &#x5C4F;&#x5E55;&#x9AD8;&#x5EA6;&#xFF08;&#x50CF;&#x7D20;&#xFF09;
+   ObjectAnimator translationX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationX&quot;, 1,
+        (DensityUtils.px2dp(context, width) - 36));
+  ObjectAnimator translationY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;translationY&quot;, 1,
+        -(DensityUtils.px2dp(context, height) - 23));
+
+
+   ObjectAnimator scaleX = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleX&quot;, ((94(DensityUtils.px2dp(context, width)/360)) / DensityUtils.px2dp(context, width)));
+   ObjectAnimator scaleY = ObjectAnimator.ofFloat(mLytAll,
+        &quot;scaleY&quot;, ((166(DensityUtils.px2dp(context, height)/640)) / DensityUtils.px2dp(context, height)));
+
+   AnimatorSet animatorSet = new AnimatorSet();  //&#x7EC4;&#x5408;&#x52A8;&#x753B;
+   animatorSet.playTogether(translationX, translationY, scaleX, scaleY); //&#x8BBE;&#x7F6E;&#x52A8;&#x753B;
+   animatorSet.setDuration(350);
+   animatorSet.start();
+}</code></pre><h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p>   &#x597D;&#x4E86;&#xFF0C;&#x4ECA;&#x5929;&#x5C31;&#x5199;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#x8FD8;&#x5E0C;&#x671B;&#x5404;&#x4F4D;&#x6307;&#x6B63;&#xFF0C;&#x5C0F;&#x53EF;&#x8FD9;&#x91CC;&#x4E0D;&#x80DC;&#x611F;&#x6FC0;&#xFF0C;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#xFF0C;&#x80FD;&#x7528;&#x5C5E;&#x6027;&#x52A8;&#x753B;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x5C3D;&#x91CF;&#x4E0D;&#x8981;&#x7528;&#x8865;&#x95F4;&#x52A8;&#x753B;&#x6765;&#x505A;&#xFF0C;&#x56E0;&#x4E3A;&#x4F60;&#x4F1A;&#x78B0;&#x5230;&#x5404;&#x79CD;&#x5751;&#x3002;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android-捕获异常日志（下篇）/" rel="next" title="Android 捕获异常日志（下篇）">
+                <i class="fa fa-chevron-left"></i> Android 捕获异常日志（下篇）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-工具类/" rel="prev" title="Android 工具类">
+                Android 工具类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次"><span class="nav-number">4.</span> <span class="nav-text">再次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

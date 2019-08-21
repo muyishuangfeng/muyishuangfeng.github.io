@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x6700;&amp;#x8FD1;&amp;#x521A;&amp;#x6362;&amp;#x4E86;&amp;#x4E00;&amp;#x4EFD;&amp;#x5DE5;&amp;#x4F5C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x6BB5;&amp;#x65F6;&amp;#x95F4;&amp;#x4E00;&amp;#x76F4;&amp;#x5728;&amp;#x719F;&amp;#x6089;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4EE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 装饰者模式初探">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Andorid装饰者模式初探/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x6700;&amp;#x8FD1;&amp;#x521A;&amp;#x6362;&amp;#x4E86;&amp;#x4E00;&amp;#x4EFD;&amp;#x5DE5;&amp;#x4F5C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x6BB5;&amp;#x65F6;&amp;#x95F4;&amp;#x4E00;&amp;#x76F4;&amp;#x5728;&amp;#x719F;&amp;#x6089;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4EE">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T05:34:23.981Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 装饰者模式初探">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;  &amp;#x6700;&amp;#x8FD1;&amp;#x521A;&amp;#x6362;&amp;#x4E86;&amp;#x4E00;&amp;#x4EFD;&amp;#x5DE5;&amp;#x4F5C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x6BB5;&amp;#x65F6;&amp;#x95F4;&amp;#x4E00;&amp;#x76F4;&amp;#x5728;&amp;#x719F;&amp;#x6089;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4EE">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Andorid装饰者模式初探/">
+
+
+
+
+
+  <title>Android 装饰者模式初探 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Andorid装饰者模式初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 装饰者模式初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">Android设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x63D0;"><a href="#&#x524D;&#x63D0;" class="headerlink" title="&#x524D;&#x63D0;"></a>&#x524D;&#x63D0;</h3><p>  &#x6700;&#x8FD1;&#x521A;&#x6362;&#x4E86;&#x4E00;&#x4EFD;&#x5DE5;&#x4F5C;&#xFF0C;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x4E00;&#x76F4;&#x5728;&#x719F;&#x6089;&#x516C;&#x53F8;&#x7684;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#xFF0C;&#x4ECE;&#x4E2D;&#x53D7;&#x76CA;&#x9887;&#x591A;&#x3002;&#x91CC;&#x9762;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E5F;&#x633A;&#x591A;&#x7684;&#xFF0C;&#x8FD0;&#x7528;&#x7684;&#x90A3;&#x4E2A;&#x6F47;&#x6D12;&#x98D8;&#x9038;&#xFF0C;&#x8BA9;&#x6211;&#x597D;&#x751F;&#x7FA1;&#x6155;&#x3002;&#x81EA;&#x5DF1;&#x5BF9;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x8FD9;&#x5757;&#x7406;&#x89E3;&#x7684;&#x4E0D;&#x662F;&#x7279;&#x522B;&#x7684;&#x6DF1;&#x5165;&#xFF0C;&#x80FD;&#x62FF;&#x51FA;&#x624B;&#x7684;&#x4E5F;&#x5C31;&#x90A3;&#x4E48;&#x51E0;&#x4E2A;&#xFF0C;&#x521A;&#x597D;&#x6700;&#x8FD1;&#x4E5F;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E9B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x6597;&#x80C6;&#x5199;&#x4E00;&#x4E0B;&#x5173;&#x4E8E;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x52A0;&#x6DF1;&#x8BB0;&#x5FC6;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x662F;&#x505A;&#x4E00;&#x4E0B;&#x603B;&#x7ED3;&#x3002;&#x5982;&#x679C;&#x6709;&#x4E0D;&#x5BF9;&#x7684;&#x5730;&#x65B9;&#x8FD8;&#x8BF7;&#x5404;&#x4F4D;&#x6307;&#x6B63;&#x3002;</p>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p><strong>1&#x3001; &#x5B9A;&#x4E49;</strong><br>   &#x52A8;&#x6001;&#x5730;&#x7ED9;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x804C;&#x8D23;&#x3002;&#x5C31;&#x589E;&#x52A0;&#x529F;&#x80FD;&#x6765;&#x8BF4;&#xFF0C;&#x88C5;&#x9970;&#x6A21;&#x5F0F;&#x76F8;&#x6BD4;&#x751F;&#x6210;&#x5B50;&#x7C7B;&#x66F4;&#x4E3A;&#x7075;&#x6D3B;&#x3002;<br><strong>2&#x3001; &#x4ECB;&#x7ECD;</strong></p>
+<ul>
+<li>&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;&#x662F;&#x4E00;&#x79CD;&#x7ED3;&#x6784;&#x6A21;&#x5F0F;<ul>
+<li>&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;&#x7684;&#x8FD0;&#x7528;&#x633A;&#x5E7F;&#x7684;&#xFF0C;&#x4E3E;&#x4E00;&#x4E2A;&#x4E0D;&#x592A;&#x6070;&#x5F53;&#x7684;&#x4F8B;&#x5B50;&#x3002;&#x6BD4;&#x5982;&#x82B1;&#xFF0C;&#x82B1;&#x6709;&#x989C;&#x8272;&#xFF0C;&#x6709;&#x5BD3;&#x610F;&#x4E5F;&#x6709;&#x82B1;&#x8BED;&#x3002;&#x5982;&#x679C;&#x662F;&#x82B1;&#x7684;&#x82B1;&#x8BED;&#x662F;&#xFF1A;&#x201C;&#x6211;&#x8DB3;&#x4EE5;&#x4E0E;&#x4F60;&#x76F8;&#x914D;&#x201D;&#x5E76;&#x4E14;&#x5BD3;&#x610F;&#x662F;&#xFF1A;&#x201C;&#x5929;&#x771F;&#x3001;&#x7EAF;&#x6D01;&#x3001;&#x5C0A;&#x656C;&#x3001;&#x7236;&#x7231;&#x201D;&#xFF0C;&#x90A3;&#x4E48;&#x5979;&#x5C31;&#x662F;&#x767D;&#x73AB;&#x7470;&#x3002;&#x5982;&#x679C;&#x82B1;&#x7684;&#x82B1;&#x8BED;&#x662F;&#xFF1A;&#x201C;&#x83AB;&#x79BB; &#x5E78;&#x798F;,&#x5C31;&#x662F;&#x4F60;&#x5C5E;&#x4E8E;&#x6211;&#x201D;&#xFF0C;&#x5BD3;&#x610F;&#x662F;&#xFF1A;&#x201C;&#x6E05;&#x7EAF;&#xFF0C;&#x8D1E;&#x6D01;&#xFF0C;&#x8D28;&#x6734;&#xFF0C;&#x73B2;&#x73D1;&#x201D;&#xFF0C;&#x90A3;&#x4E48;&#x5979;&#x5C31;&#x662F;&#x767D;&#x8309;&#x8389;&#x3002;</li>
+<li>&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x6269;&#x5C55;&#x7C7B;&#x7684;&#x529F;&#x80FD;&#x662F;&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x4F46;&#x662F;&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;&#x662F;&#x901A;&#x8FC7;&#x7EC4;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x8FD9;&#x662F;&#x7EE7;&#x627F;&#x7684;&#x66FF;&#x4EE3;&#x65B9;&#x6848;&#x4E4B;&#x4E00;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><strong>3&#x3001;&#x89D2;&#x8272;&#x8BF4;&#x660E;&#xFF1A;</strong></p>
+<ul>
+<li><p>Component&#xFF08;&#x62BD;&#x8C61;&#x7EC4;&#x4EF6;&#xFF09;&#xFF1A;&#x63A5;&#x53E3;&#x6216;&#x8005;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x88AB;&#x88C5;&#x9970;&#x7684;&#x6700;&#x539F;&#x59CB;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5177;&#x4F53;&#x7EC4;&#x4EF6;&#x4E0E;&#x62BD;&#x8C61;&#x88C5;&#x9970;&#x89D2;&#x8272;&#x7684;&#x7236;&#x7C7B;&#x3002;</p>
+</li>
+<li><p>ConcreteComponent&#xFF08;&#x5177;&#x4F53;&#x7EC4;&#x4EF6;&#xFF09;&#xFF1A;&#x5B9E;&#x73B0;&#x62BD;&#x8C61;&#x7EC4;&#x4EF6;&#x7684;&#x63A5;&#x53E3;&#x3002;</p>
+</li>
+<li><p>Decorator&#xFF08;&#x62BD;&#x8C61;&#x88C5;&#x9970;&#x89D2;&#x8272;&#xFF09;&#xFF1A;&#x4E00;&#x822C;&#x662F;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x62BD;&#x8C61;&#x7EC4;&#x4EF6;&#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x540C;&#x65F6;&#x6301;&#x6709;&#x4E00;&#x4E2A;&#x88AB;&#x88C5;&#x9970;&#x8005;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x7528;&#x6765;&#x8C03;&#x7528;&#x88AB;&#x88C5;&#x9970;&#x8005;&#x7684;&#x65B9;&#x6CD5;;&#x540C;&#x65F6;&#x53EF;&#x4EE5;&#x7ED9;&#x88AB;&#x88C5;&#x9970;&#x8005;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x804C;&#x8D23;&#x3002;</p>
+</li>
+<li><p>ConcreteDecorator&#xFF08;&#x5177;&#x4F53;&#x88C5;&#x9970;&#x7C7B;&#xFF09;&#xFF1A;&#x62BD;&#x8C61;&#x88C5;&#x9970;&#x89D2;&#x8272;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x3002;</p>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p>&#x539F;&#x7406;&#x8BB2;&#x4E86;&#x90A3;&#x4E48;&#x591A;&#xFF0C;&#x4E5F;&#x8BB8;&#x6709;&#x7684;&#x4EBA;&#x5BF9;&#x4E8E;&#x67AF;&#x71E5;&#x7684;&#x539F;&#x7406;&#x65E9;&#x90FD;&#x6CA1;&#x6709;&#x597D;&#x611F;&#x4E86;&#xFF08;&#x6211;&#x80FD;&#x8BF4;&#x6211;&#x770B;&#x5230;&#x539F;&#x7406;&#x5F88;&#x5934;&#x75BC;&#x5417;&#xFF1F;&#xFF09;&#xFF0C;&#x4E0B;&#x9762;&#x7528;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x6765;&#x7ED9;&#x5927;&#x5BB6;&#x8BB2;&#x89E3;&#x4E00;&#x756A;&#xFF0C;&#x5C31;&#x4EE5;&#x82B1;&#x4E3E;&#x4F8B;&#x3002;</p>
+</li>
+<li><p><strong>&#x521B;&#x5EFA;&#x62BD;&#x8C61;&#x7EC4;&#x4EF6;</strong><br>&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x82B1;&#x7C7B;&#xFF0C;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x88C5;&#x4FEE;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code>public abstract class Flower {
+ //&#x88C5;&#x9970;&#x65B9;&#x6CD5;(&#x663E;&#x793A;&#x989C;&#x8272;)
+public abstract void showColor();
+}</code></pre></li>
+<li><p><strong>&#x521B;&#x5EFA;&#x5177;&#x4F53;&#x7EC4;&#x4EF6;</strong><br>&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x82B1;&#x7C7B;&#xFF0C;&#x5E76;&#x4E14;&#x7ED9;&#x82B1;&#x5B9A;&#x4E49;&#x4E86;&#x5BD3;&#x610F;</p>
+<pre><code>public class SpecificFlower extends  Flower{</code></pre></li>
+</ul>
+<pre><code>private static final String TAG=SpecificFlower.class.getSimpleName();
+
+@Override
+public void showColor() {
+  Log.e(TAG,&quot;&#x82B1;&#x5F00;&#x82B1;&#x843D;&#x82B1;&#x6709;&#x65F6;&quot;);
+ }
+
+}</code></pre><ul>
+<li><p><strong>&#x521B;&#x5EFA;&#x62BD;&#x8C61;&#x88C5;&#x9970;&#x89D2;&#x8272;</strong><br>&#x8981;&#x4E3A;&#x82B1;&#x5B9A;&#x4E49;&#x989C;&#x8272;&#x5BD3;&#x610F;&#x7B49;&#xFF0C;&#x5B9A;&#x4E49;&#x62BD;&#x8C61;&#x7684;&#x82B1;&#x7684;&#x88C5;&#x9970;&#x7C7B;&#xFF1A;</p>
+<pre><code>public abstract class FlowerDecorator extends Flower {
+
+Flower mFlower;
+
+public FlowerDecorator(Flower mFlower) {
+  this.mFlower = mFlower;
+}
+
+@Override
+public void showColor() {
+  mFlower.showColor();
+}
+
+/**
+ * &#x663E;&#x793A;&#x611F;&#x60C5;&#xFF08;&#x5BD3;&#x610F;&#xFF09;
+ */
+public void showEmotion(){
+
+}
+}</code></pre></li>
+<li><p><strong>&#x521B;&#x5EFA;&#x5177;&#x4F53;&#x7684;&#x88C5;&#x9970;&#x7C7B;</strong></p>
+</li>
+</ul>
+<p>&#x6211;&#x4EEC;&#x8981;&#x5B9A;&#x4E49;&#x4E0D;&#x540C;&#x7684;&#x82B1;&#xFF08;&#x767D;&#x73AB;&#x7470;&#x548C;&#x767D;&#x8309;&#x8389;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x4EEC;&#x7684;&#x5BD3;&#x610F;&#x548C;&#x82B1;&#x8BED;&#x4E5F;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x4E0B;&#x9762;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF1A;</p>
+<pre><code>/**
+ * 
+ * &#x5177;&#x4F53;&#x88C5;&#x9970;&#x7C7B;&#xFF08;&#x767D;&#x73AB;&#x7470;&#xFF09;
+ */
+  public class WhiteRose extends FlowerDecorator {
+
+  private static final String TAG=SpecificFlower.class.getSimpleName();
+
+  public WhiteRose(Flower mFlower) {
+    super(mFlower);
+  }
+
+  @Override
+  public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;&#x6211;&#x662F;&#x767D;&#x73AB;&#x7470;&#xFF0C;&#x6211;&#x7684;&#x82B1;&#x8BED;&#x662F;&#xFF1A;&#x6211;&#x8DB3;&#x4EE5;&#x4E0E;&#x4F60;&#x76F8;&#x914D;&quot;);
+
+  }
+
+  @Override
+  public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;&#x6211;&#x662F;&#x767D;&#x73AB;&#x7470;&#xFF0C;&#x6211;&#x7684;&#x5BD3;&#x610F;&#x662F;&#xFF1A;&#x5929;&#x771F;&#x3001;&#x7EAF;&#x6D01;&#x3001;&#x5C0A;&#x656C;&#x3001;&#x7236;&#x7231;&quot;);
+  }
+}
+
+ /**
+ * 
+ * &#x5177;&#x4F53;&#x88C5;&#x9970;&#x7C7B;&#xFF08;&#x767D;&#x8309;&#x8389;&#xFF09;
+ */
+
+public class WhiteMolly extends FlowerDecorator {
+
+private static final String TAG=SpecificFlower.class.getSimpleName();
+
+public WhiteMolly(Flower mFlower) {
+    super(mFlower);
+}
+
+@Override
+public void showColor() {
+    super.showColor();
+    Log.e(TAG,&quot;&#x6211;&#x662F;&#x767D;&#x8309;&#x8389;&#xFF0C;&#x6211;&#x7684;&#x82B1;&#x8BED;&#x662F;&#xFF1A;&#x83AB;&#x79BB; &#x5E78;&#x798F;,&#x5C31;&#x662F;&#x4F60;&#x5C5E;&#x4E8E;&#x6211;&quot;);
+}
+
+@Override
+public void showEmotion() {
+    super.showEmotion();
+    Log.e(TAG,&quot;&#x6211;&#x662F;&#x767D;&#x8309;&#x8389;&#xFF0C;&#x6211;&#x7684;&#x5BD3;&#x610F;&#x662F;&#xFF1A;&#x6E05;&#x7EAF;&#xFF0C;&#x8D1E;&#x6D01;&#xFF0C;&#x8D28;&#x6734;&#xFF0C;&#x73B2;&#x73D1; &quot;);
+ }
+}</code></pre><ul>
+<li><p><strong>&#x8C03;&#x7528;&#x5B9E;&#x73B0;&#xFF08;&#x4F7F;&#x7528;&#xFF09;</strong></p>
+<pre><code>Flower flower=new SpecificFlower();
+FlowerDecorator flowerDecorator= new WhiteMolly(flower);
+flowerDecorator.showColor();
+flowerDecorator.showEmotion();
+FlowerDecorator mFlower= new WhiteRose(flower);
+mFlower.showColor();
+mFlower.showEmotion();</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>&#x6253;&#x5370;&#x65E5;&#x5FD7;</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1716569-e202c30f3938be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;&#x65E5;&#x5FD7;.png"></p>
+</li>
+<li><p><strong>&#x5E94;&#x7528;&#x573A;&#x666F;</strong><br>&#x9700;&#x8981;&#x6269;&#x5C55;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x6216;&#x7ED9;&#x4E00;&#x4E2A;&#x7C7B;&#x589E;&#x52A0;&#x9644;&#x52A0;&#x529F;&#x80FD;&#x65F6;<br>&#x9700;&#x8981;&#x52A8;&#x6001;&#x7684;&#x7ED9;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x589E;&#x52A0;&#x529F;&#x80FD;&#xFF0C;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x53EF;&#x4EE5;&#x518D;&#x52A8;&#x6001;&#x7684;&#x64A4;&#x9500;<br>&#x5F53;&#x4E0D;&#x80FD;&#x91C7;&#x7528;&#x7EE7;&#x627F;&#x7684;&#x65B9;&#x5F0F;&#x5BF9;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x6269;&#x5145;&#x6216;&#x8005;&#x91C7;&#x7528;&#x7EE7;&#x627F;&#x4E0D;&#x5229;&#x4E8E;&#x7CFB;&#x7EDF;&#x6269;&#x5C55;&#x548C;&#x7EF4;&#x62A4;&#x65F6;&#x3002;</p>
+</li>
+<li><p><strong>&#x4F18;&#x70B9;</strong><br>&#x91C7;&#x7528;&#x7EC4;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x7684;&#x6269;&#x5C55;&#x529F;&#x80FD;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x9009;&#x62E9;&#x4E0D;&#x540C;&#x7684;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x6765;&#x5B9E;&#x73B0;&#x4E0D;&#x540C;&#x7684;&#x529F;&#x80FD;&#x3002;<br>&#x6709;&#x6548;&#x907F;&#x514D;&#x4E86;&#x4F7F;&#x7528;&#x7EE7;&#x627F;&#x7684;&#x65B9;&#x5F0F;&#x6269;&#x5C55;&#x5BF9;&#x8C61;&#x529F;&#x80FD;&#x800C;&#x5E26;&#x6765;&#x7684;&#x7075;&#x6D3B;&#x6027;&#x5DEE;&#xFF0C;&#x5B50;&#x7C7B;&#x65E0;&#x9650;&#x5236;&#x6269;&#x5F20;&#x7684;&#x95EE;&#x9898;&#x3002;<br>&#x88AB;&#x88C5;&#x9970;&#x8005;&#x4E0E;&#x88C5;&#x9970;&#x8005;&#x89E3;&#x5076;&#xFF0C;&#x88AB;&#x88C5;&#x9970;&#x8005;&#x53EF;&#x4EE5;&#x4E0D;&#x77E5;&#x9053;&#x88C5;&#x9970;&#x8005;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x540C;&#x65F6;&#x65B0;&#x589E;&#x529F;&#x80FD;&#x65F6;&#x539F;&#x6709;&#x4EE3;&#x7801;&#x4E5F;&#x65E0;&#x9700;&#x6539;&#x53D8;&#xFF0C;&#x7B26;&#x5408;&#x5F00;&#x653E;&#x5C01;&#x95ED;&#x539F;&#x5219;&#x3002;</p>
+</li>
+<li><p><strong>&#x7F3A;&#x70B9;</strong><br>&#x88C5;&#x9970;&#x5C42;&#x8FC7;&#x591A;&#x7684;&#x8BDD;&#xFF0C;&#x7EF4;&#x62A4;&#x8D77;&#x6765;&#x6BD4;&#x8F83;&#x56F0;&#x96BE;&#x3002;<br>&#x5982;&#x679C;&#x8981;&#x4FEE;&#x6539;&#x62BD;&#x8C61;&#x7EC4;&#x4EF6;&#x8FD9;&#x4E2A;&#x57FA;&#x7C7B;&#x7684;&#x8BDD;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x4E00;&#x4E9B;&#x5B50;&#x7C7B;&#x53EF;&#x80FD;&#x4E5F;&#x9700;&#x8DDF;&#x7740;&#x4FEE;&#x6539;&#xFF0C;&#x8F83;&#x5BB9;&#x6613;&#x51FA;&#x9519;,&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;&#x867D;&#x597D;&#xFF0C;&#x5207;&#x4E0D;&#x53EF;&#x8D2A;&#x676F;&#xFF0C;&#x7528;&#x7684;&#x592A;&#x591A;&#xFF0C;&#x4E0D;&#x5BB9;&#x6613;&#x5904;&#x7406;&#x3002;</p>
+<h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p> &#x4E0A;&#x9762;&#x5C31;&#x662F;&#x5C0F;&#x53EF;&#x6700;&#x8FD1;&#x6240;&#x5B66;&#x5230;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E0D;&#x5BF9;&#x7684;&#x5730;&#x65B9;&#x8FD8;&#x8BF7;&#x7ED9;&#x6211;&#x5927;&#x4F6C;&#x6307;&#x6B63;&#x63D0;&#x70B9;&#x3002;&#x6E90;&#x7801;&#x5C31;&#x662F;&#x6587;&#x4E2D;&#x6240;&#x5217;&#x51FA;&#x6765;&#x7684;&#x8FD9;&#x4E9B;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x5C1D;&#x8BD5;&#xFF0C;&#x590D;&#x5236;&#x7C98;&#x8D34;&#x5373;&#x53EF;&#x5B9E;&#x73B0;&#x3002;</p>
+<h3 id="&#x611F;&#x8C22;"><a href="#&#x611F;&#x8C22;" class="headerlink" title="&#x611F;&#x8C22;"></a>&#x611F;&#x8C22;</h3><p><a href="https://www.jianshu.com/p/df1a96c5c046" target="_blank" rel="noopener">Android&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;-&#x88C5;&#x9970;&#x8005;&#x6A21;&#x5F0F;</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/专属博客，你值得拥有（Windows-版本）/" rel="next" title="专属博客，你值得拥有（Windows 版本）">
+                <i class="fa fa-chevron-left"></i> 专属博客，你值得拥有（Windows 版本）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android 装饰者模式初探/" rel="prev" title="Android 装饰者模式初探">
+                Android 装饰者模式初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">5.</span> <span class="nav-text">感谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

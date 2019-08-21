@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;&amp;#x4E4B;&amp;#x524D;&amp;#x9047;&amp;#x5230;&amp;#x8FC7;&amp;#x4E00;&amp;#x6B21;textview&amp;#x663E;&amp;#x793A;url&amp;#x7684;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5E76;&amp;#x672A;&amp;#x6DF1;&amp;#x5165;&amp;#x63A2;&amp;#x7A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android TextView 点击超链接跳转实现">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-TextView-点击超链接跳转实现/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;&amp;#x4E4B;&amp;#x524D;&amp;#x9047;&amp;#x5230;&amp;#x8FC7;&amp;#x4E00;&amp;#x6B21;textview&amp;#x663E;&amp;#x793A;url&amp;#x7684;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5E76;&amp;#x672A;&amp;#x6DF1;&amp;#x5165;&amp;#x63A2;&amp;#x7A">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1716569-6cd437c60149fa2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-19T05:32:30.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android TextView 点击超链接跳转实现">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;&amp;#x4E4B;&amp;#x524D;&amp;#x9047;&amp;#x5230;&amp;#x8FC7;&amp;#x4E00;&amp;#x6B21;textview&amp;#x663E;&amp;#x793A;url&amp;#x7684;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5E76;&amp;#x672A;&amp;#x6DF1;&amp;#x5165;&amp;#x63A2;&amp;#x7A">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1716569-6cd437c60149fa2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-TextView-点击超链接跳转实现/">
+
+
+
+
+
+  <title>Android TextView 点击超链接跳转实现 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-TextView-点击超链接跳转实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android TextView 点击超链接跳转实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T15:51:43+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x63D0;&#xFF1A;&#x4E4B;&#x524D;&#x9047;&#x5230;&#x8FC7;&#x4E00;&#x6B21;textview&#x663E;&#x793A;url&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x672A;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0A;&#x4E2A;&#x793C;&#x62DC;&#x4E00;&#x4E2A;&#x670B;&#x53CB;&#x95EE;&#x6211;&#x5982;&#x4F55;&#x5728;textview&#x4E0A;&#x9762;&#x52A0;&#x8F7D;url&#xFF0C;&#x5E76;&#x4E14;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x3002;&#x5F53;&#x65F6;&#x5BF9;&#x8FD9;&#x4E2A;&#x6BD4;&#x8F83;&#x611F;&#x5174;&#x8DA3;&#x4E5F;&#x5C31;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x4E86;&#x4E00;&#x756A;&#x3002;&#x867D;&#x7136;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x679C;&#x5E76;&#x4E0D;&#x7406;&#x60F3;&#x3002;&#x5982;&#x679C;&#x54EA;&#x4F4D;&#x770B;&#x5B98;&#x5BF9;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x7406;&#x89E3;&#x7684;&#x6BD4;&#x8F83;&#x6DF1;&#x5165;&#xFF0C;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x4E00;&#x58F0;&#xFF0C;&#x8C22;&#x8C22;&#x4E86;&#x3002;"><a href="#&#x524D;&#x63D0;&#xFF1A;&#x4E4B;&#x524D;&#x9047;&#x5230;&#x8FC7;&#x4E00;&#x6B21;textview&#x663E;&#x793A;url&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x672A;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0A;&#x4E2A;&#x793C;&#x62DC;&#x4E00;&#x4E2A;&#x670B;&#x53CB;&#x95EE;&#x6211;&#x5982;&#x4F55;&#x5728;textview&#x4E0A;&#x9762;&#x52A0;&#x8F7D;url&#xFF0C;&#x5E76;&#x4E14;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x3002;&#x5F53;&#x65F6;&#x5BF9;&#x8FD9;&#x4E2A;&#x6BD4;&#x8F83;&#x611F;&#x5174;&#x8DA3;&#x4E5F;&#x5C31;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x4E86;&#x4E00;&#x756A;&#x3002;&#x867D;&#x7136;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x679C;&#x5E76;&#x4E0D;&#x7406;&#x60F3;&#x3002;&#x5982;&#x679C;&#x54EA;&#x4F4D;&#x770B;&#x5B98;&#x5BF9;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x7406;&#x89E3;&#x7684;&#x6BD4;&#x8F83;&#x6DF1;&#x5165;&#xFF0C;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x4E00;&#x58F0;&#xFF0C;&#x8C22;&#x8C22;&#x4E86;&#x3002;" class="headerlink" title="&#x524D;&#x63D0;&#xFF1A;&#x4E4B;&#x524D;&#x9047;&#x5230;&#x8FC7;&#x4E00;&#x6B21;textview&#x663E;&#x793A;url&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x672A;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0A;&#x4E2A;&#x793C;&#x62DC;&#x4E00;&#x4E2A;&#x670B;&#x53CB;&#x95EE;&#x6211;&#x5982;&#x4F55;&#x5728;textview&#x4E0A;&#x9762;&#x52A0;&#x8F7D;url&#xFF0C;&#x5E76;&#x4E14;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x3002;&#x5F53;&#x65F6;&#x5BF9;&#x8FD9;&#x4E2A;&#x6BD4;&#x8F83;&#x611F;&#x5174;&#x8DA3;&#x4E5F;&#x5C31;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x4E86;&#x4E00;&#x756A;&#x3002;&#x867D;&#x7136;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x679C;&#x5E76;&#x4E0D;&#x7406;&#x60F3;&#x3002;&#x5982;&#x679C;&#x54EA;&#x4F4D;&#x770B;&#x5B98;&#x5BF9;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x7406;&#x89E3;&#x7684;&#x6BD4;&#x8F83;&#x6DF1;&#x5165;&#xFF0C;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x4E00;&#x58F0;&#xFF0C;&#x8C22;&#x8C22;&#x4E86;&#x3002;"></a>&#x524D;&#x63D0;&#xFF1A;&#x4E4B;&#x524D;&#x9047;&#x5230;&#x8FC7;&#x4E00;&#x6B21;textview&#x663E;&#x793A;url&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x672A;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0A;&#x4E2A;&#x793C;&#x62DC;&#x4E00;&#x4E2A;&#x670B;&#x53CB;&#x95EE;&#x6211;&#x5982;&#x4F55;&#x5728;textview&#x4E0A;&#x9762;&#x52A0;&#x8F7D;url&#xFF0C;&#x5E76;&#x4E14;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x3002;&#x5F53;&#x65F6;&#x5BF9;&#x8FD9;&#x4E2A;&#x6BD4;&#x8F83;&#x611F;&#x5174;&#x8DA3;&#x4E5F;&#x5C31;&#x6DF1;&#x5165;&#x63A2;&#x7A76;&#x4E86;&#x4E00;&#x756A;&#x3002;&#x867D;&#x7136;&#x5B9E;&#x73B0;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x679C;&#x5E76;&#x4E0D;&#x7406;&#x60F3;&#x3002;&#x5982;&#x679C;&#x54EA;&#x4F4D;&#x770B;&#x5B98;&#x5BF9;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x7406;&#x89E3;&#x7684;&#x6BD4;&#x8F83;&#x6DF1;&#x5165;&#xFF0C;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x4E00;&#x58F0;&#xFF0C;&#x8C22;&#x8C22;&#x4E86;&#x3002;</h3><h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><ul>
+<li>&#x5BF9;TextView&#x5C5E;&#x6027;&#x6BD4;&#x8F83;&#x719F;&#x6089;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x5E94;&#x8BE5;&#x90FD;&#x77E5;&#x9053;TextView&#x6709;&#x4E00;&#x4E2A;&#x53EB;&#x505A;autoLink&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x7B26;&#x5408;&#x6307;&#x5B9A;&#x683C;&#x5F0F;&#x7684;&#x6587;&#x672C;&#x8F6C;&#x6362;&#x4E3A;&#x53EF;&#x5355;&#x51FB;&#x7684;&#x8D85;&#x94FE;&#x63A5;&#x5F62;&#x5F0F;&#xFF0C;&#x5728;&#x5E2E;&#x52A9;&#x6587;&#x6863;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;Android&#x7ED9;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x5982;&#x4E0B;&#x51E0;&#x79CD;&#x683C;&#x5F0F;&#xFF1A;</li>
+</ul>
+<blockquote>
+<p>1&#x3001;none&#xFF1A;&#x8868;&#x793A;&#x4E0D;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x5339;&#x914D;&#xFF0C;&#x9ED8;&#x8BA4;&#xFF1B;<br>2&#x3001;Web&#xFF1A;&#x8868;&#x793A;&#x5339;&#x914D;Web Url&#xFF0C;    &#x5982;&#xFF1A; &#x8FDE;&#x63A5;&#x5730;&#x5740;&#x4E3A;<a href="http://www.baidu.com&#x4F1A;&#x6210;&#x4E3A;&#x53EF;&#x5355;&#x51FB;&#x8DF3;&#x8F6C;&#x7684;&#x8D85;&#x94FE;&#x63A5;&#xFF1B;" target="_blank" rel="noopener">http://www.baidu.com&#x4F1A;&#x6210;&#x4E3A;&#x53EF;&#x5355;&#x51FB;&#x8DF3;&#x8F6C;&#x7684;&#x8D85;&#x94FE;&#x63A5;&#xFF1B;</a><br>3&#x3001;Email&#xFF1A;&#x8868;&#x793A;&#x5339;&#x914D;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#xFF0C; &#x5982;&#xFF1A;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x4E3A;<a href="mailto:xx@sina.com" target="_blank" rel="noopener">xx@sina.com</a>&#x4F1A;&#x6210;&#x4E3A;&#x53EF;&#x5355;&#x51FB;&#x7684;&#x8D85;&#x94FE;&#x63A5;&#xFF1B;<br>4&#x3001;Phone&#xFF1A;&#x8868;&#x793A;&#x5339;&#x914D;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#xFF0C;&#x5982;&#xFF1A;&#x70B9;&#x51FB;&#x53F7;&#x7801;10000&#x4F1A;&#x8DF3;&#x5230;&#x62E8;&#x53F7;&#x754C;&#x9762;&#xFF1B;<br>5&#x3001;Map&#xFF1A;&#x8868;&#x793A;&#x5339;&#x914D;&#x5730;&#x56FE;&#x5730;&#x5740;&#xFF1B;<br>6&#x3001;All&#xFF1A;&#x8868;&#x793A;&#x5C06;&#x4F1A;&#x5339;&#x914D;web&#x3001;email&#x3001;phone&#x3001;map&#xFF1B;</p>
+</blockquote>
+<p><strong>&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;</strong><br><img src="http://upload-images.jianshu.io/upload_images/1716569-6cd437c60149fa2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TextView autoLink.png"></p>
+<pre><code>&lt;TextView
+   android:layout_width=&quot;match_parent&quot;
+   android:layout_height=&quot;wrap_content&quot;
+   android:gravity=&quot;center&quot;
+   android:layout_margin=&quot;16dp&quot;
+   android:text=&quot;123&quot;
+   android:autoLink=&quot;phone&quot;/&gt;</code></pre><ul>
+<li>&#x5176;&#x4E2D;android:autoLink=&#x201D; &#x201C;&#x5C31;&#x662F;&#x52A0;&#x8F7D;&#x7684;&#x5C5E;&#x6027;</li>
+</ul>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><ul>
+<li>&#x8981;&#x5B9E;&#x73B0;&#x70B9;&#x51FB;textview&#x4E2D;url&#x7684;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x529F;&#x80FD;&#x9875;&#x9762;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x6709;&#x8FD9;&#x6837;&#x4E24;&#x79CD;&#x529F;&#x80FD;</li>
+</ul>
+<blockquote>
+<p>1&#x3001;&#x76F4;&#x63A5;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#xFF08;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x81EA;&#x5B9A;&#x4E49;&#x9875;&#x9762;&#xFF09;&#xFF1B;<br>2&#x3001;&#x901A;&#x8FC7;&#x624B;&#x673A;&#x6D4F;&#x89C8;&#x5668;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;</p>
+</blockquote>
+<p><strong>&#x9996;&#x5148;&#xFF0C;&#x6765;&#x770B;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x7684;&#x5199;&#x6CD5;</strong></p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+TextView mTxtWeb;
+CharSequence mContent;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+  initView();
+}
+
+/**
+ * &#x521D;&#x59CB;&#x5316;&#x63A7;&#x4EF6;
+ */
+private void initView() {
+  mTxtWeb = (TextView) findViewById(R.id.txt_web);
+  String htmlLinkText = &quot;&#x5929;&#x4E0B;&quot;+&quot;www.google.com&quot;+&quot;&#x4E3A;&#x516C;&quot;;
+  mTxtWeb.setText(Html.fromHtml(htmlLinkText));
+  mTxtWeb.setMovementMethod(LinkMovementMethod.getInstance());
+  CharSequence text = mTxtWeb.getText();
+  if (text instanceof Spannable) {
+      int end = text.length();
+      Spannable sp = (Spannable) mTxtWeb.getText();
+      URLSpan[] urls = sp.getSpans(0, end, URLSpan.class);
+      SpannableStringBuilder style = new SpannableStringBuilder(text);
+      style.clearSpans();
+      for (final URLSpan url : urls) {
+            //&#x6700;&#x4E3B;&#x8981;&#x7684;&#x4E00;&#x70B9;
+          CustomClickUrlSpan myURLSpan = new CustomClickUrlSpan(url.getURL(), new CustomClickUrlSpan.OnLinkClickListener() {
+              @Override
+              public void onLinkClick(View view) {
+                  Intent intent= new Intent(this,WebActivity.class);
+                  intent.putExtra(&quot;url&quot;,url.getURL());
+                  startActivity(intent);
+              }
+          });
+          style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+      mTxtWeb.setText(style);
+  }
+ }</code></pre><ul>
+<li><p>&#x5176;&#x4E2D;CustomClickUrlSpan,&#x662F;&#x70B9;&#x51FB;url&#x8DF3;&#x8F6C;&#xFF0C;&#x5176;&#x4E2D;&#x4F20;&#x5165;&#x4E00;&#x4E2A;url&#xFF0C;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#xFF0C;&#x8FBE;&#x5230;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#x7684;&#x76EE;&#x7684;&#x3002;</p>
+<pre><code> public class CustomClickUrlSpan extends ClickableSpan {
+ private String url;
+ private OnLinkClickListener mListener;
+
+ public CustomClickUrlSpan(String url, OnLinkClickListener listener) {
+  this.url=url;
+  this.mListener=listener;
+}
+
+ @Override
+public void onClick(View widget) {</code></pre><p> &#x200B;     if (mListener!=null){<br> &#x200B;         mListener.onLinkClick(widget);<br> &#x200B;     }<br> &#x200B;    }</p>
+<pre><code>/**</code></pre><p> &#x200B;    * &#x8DF3;&#x8F6C;&#x94FE;&#x63A5;&#x63A5;&#x53E3;<br> &#x200B;    */</p>
+<pre><code>public interface OnLinkClickListener{</code></pre><p> &#x200B;     void onLinkClick(View view);</p>
+<pre><code>}</code></pre><p> &#x200B;    }</p>
+</li>
+<li><p>&#x5176;&#x4E2D;ClicableSpan&#x662F;&#x7CFB;&#x7EDF;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x70B9;&#x51FB;&#x7684;&#x65B9;&#x6CD5;&#xFF08;&#x6765;&#x770B;&#x770B;&#x7CFB;&#x7EDF;&#x6E90;&#x7801;&#xFF09;</p>
+<pre><code>public abstract class ClickableSpan extends CharacterStyle implements UpdateAppearance {
+ private static int sIdCounter = 0;
+
+ private int mId = sIdCounter++;
+
+/**
+ * Performs the click action associated with this span.
+ * &#x8FD9;&#x4E2A;&#x662F;&#x70B9;&#x51FB;&#x65B9;&#x6CD5;
+ */
+public abstract void onClick(View widget);
+
+/**
+ * Makes the text underlined and in the link color.
+ */
+@Override
+public void updateDrawState(TextPaint ds) {
+   //&#x8FD9;&#x4E2A;&#x662F;&#x8BBE;&#x7F6E;url&#x989C;&#x8272;
+  ds.setColor(ds.linkColor);
+   //&#x8FD9;&#x4E2A;&#x662F;&#x8BBE;&#x7F6E;&#x662F;&#x5426;&#x6709;&#x4E0B;&#x5212;&#x7EBF;
+  ds.setUnderlineText(true);
+}
+
+/**
+ * Get the unique ID for this span.
+ *
+ * @return The unique ID.
+ * @hide
+ */
+public int getId() {
+  return mId;
+  }
+}</code></pre></li>
+<li><p>&#x5F53;&#x7136;&#x4E5F;&#x6709;&#x7B80;&#x5355;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<pre><code>/**
+ * &#x70B9;&#x51FB;&#x8DF3;&#x8F6C;
+ */
+private class MyURLSpan extends ClickableSpan {
+
+  private String mUrl;
+
+  MyURLSpan(String url) {
+      mUrl = url;
+  }
+
+  @Override
+  public void onClick(View widget) {
+      Toast.makeText(MainActivity.this, mContent.toString(), Toast.LENGTH_LONG).show();
+  }
+}</code></pre></li>
+<li><p>&#x7B2C;&#x4E8C;&#x79CD;&#x7528;&#x7684;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x4F1A;&#x6709;&#x5C40;&#x9650;&#x6027;&#xFF0C;&#x4F1A;&#x8BA9;&#x4E3B;&#x9875;&#x53D8;&#x5F97;&#x592A;&#x7E41;&#x7410;&#xFF0C;&#x4E5F;&#x4F1A;&#x8BA9;&#x8DF3;&#x8F6C;&#x53D7;&#x9650;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x4EE3;&#x7801;&#x770B;&#x7740;&#x6E05;&#x6670;&#x7B80;&#x6D01;&#xFF0C;&#x6240;&#x4EE5;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x3002;&#xFF08;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;&#xFF0C;&#x4E0D;&#x5BF9;&#x7684;&#x8FD8;&#x8BF7;&#x6307;&#x6B63;&#xFF09;</p>
+</li>
+</ul>
+<p><strong>&#x5176;&#x6B21;&#xFF0C;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#xFF08;&#x5E76;&#x53D6;&#x6D88;&#x4E0B;&#x5212;&#x7EBF;&#xFF09;</strong></p>
+<pre><code>public class CustomUrlSpan extends UnderlineSpan implements Parcelable {
+
+
+String url;
+
+public CustomUrlSpan(String url) {
+    this.url = url;
+
+}
+
+@Override
+public void updateDrawState(TextPaint ds) {
+    super.updateDrawState(ds);
+    if (ds != null) {
+        ds.setUnderlineText(false);
+    }
+}
+
+
+@Override
+public int describeContents() {
+    return 0;
+}
+
+@Override
+public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.url);
+}
+
+protected CustomUrlSpan(Parcel in) {
+    super(in);
+    this.url = in.readString();
+}
+
+public static final Creator&lt;CustomUrlSpan&gt; CREATOR = new Creator&lt;CustomUrlSpan&gt;() {
+    public CustomUrlSpan createFromParcel(Parcel source) {
+        return new CustomUrlSpan(source);
+    }
+
+    public CustomUrlSpan[] newArray(int size) {
+        return new CustomUrlSpan[size];
+    }
+};
+}</code></pre><ul>
+<li><p>&#x4E00;&#x5B9A;&#x8981;&#x5B9E;&#x73B0;Parcelable&#x63A5;&#x53E3;&#xFF0C;&#x8981;&#x4E0D;&#x4F1A;&#x6709;&#x9519;&#x8BEF;&#x63D0;&#x793A;&#xFF08;&#x4E0B;&#x9762;&#x662F;activity&#x4E2D;&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x5176;&#x4E2D;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x9875;&#x9762;&#xFF0C;&#x5E76;&#x4E14;&#x53D6;&#x6D88;&#x4E86;&#x4E0B;&#x5212;&#x7EBF;&#xFF09;&#x3002;</p>
+<pre><code>/**
+ * &#x521D;&#x59CB;&#x5316;&#x63A7;&#x4EF6;
+ */
+private void initView() {
+  mTxtWeb = (TextView) findViewById(R.id.txt_web);
+  String htmlLinkText = &quot;&#x5929;&#x4E0B;&quot;+&quot;www.google.com&quot;+&quot;&#x4E3A;&#x516C;&quot;;
+  mTxtWeb.setText(Html.fromHtml(htmlLinkText));
+  mTxtWeb.setMovementMethod(LinkMovementMethod.getInstance());
+  CharSequence text = mTxtWeb.getText();
+  if (text instanceof Spannable) {
+      int end = text.length();
+      Spannable sp = (Spannable) mTxtWeb.getText();
+      URLSpan[] urls = sp.getSpans(0, end, URLSpan.class);
+      SpannableStringBuilder style = new SpannableStringBuilder(text);
+      style.clearSpans();
+      for (final URLSpan url : urls) {
+          CustomUrlSpan myURLSpan = new CustomUrlSpan(url.getURL());
+          style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+      mTxtWeb.setText(style);
+  }
+}</code></pre></li>
+</ul>
+<h3 id="&#x6700;&#x540E;&#xFF08;&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x56F0;&#x60D1;&#xFF09;"><a href="#&#x6700;&#x540E;&#xFF08;&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x56F0;&#x60D1;&#xFF09;" class="headerlink" title="&#x6700;&#x540E;&#xFF08;&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x56F0;&#x60D1;&#xFF09;"></a>&#x6700;&#x540E;&#xFF08;&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x56F0;&#x60D1;&#xFF09;</h3><ul>
+<li>UnderlineSpan&#x548C;ClickableSpan&#x90FD;&#x6709;&#x8BBE;&#x7F6E;&#x53D6;&#x6D88;&#x4E0B;&#x5212;&#x7EBF;&#x7684;&#x65B9;&#x6CD5;&#xFF08;updateDrawState&#xFF09;&#xFF0C;&#x91CD;&#x5199;&#x4E86;&#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#xFF0C;UnderlineSpan&#x53D6;&#x6D88;&#x4E86;&#x4E0B;&#x5212;&#x7EBF;&#xFF0C;&#x4F46;&#x662F;ClickableSpan&#x5374;&#x53D6;&#x6D88;&#x4E0D;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x56F0;&#x60D1;&#x3002;</li>
+<li>&#x770B;&#x6E90;&#x7801;&#x53EF;&#x4EE5;&#x770B;&#x5230;UnderlineSpan&#x548C;ClickableSpan&#x90FD;&#x662F;&#x7EE7;&#x627F;CharacterStyle&#xFF0C;&#x5E76;&#x4E14;&#x6709;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;updateDrawState&#xFF08;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x76F4;&#x63A5;&#x7EE7;&#x627F;CharacterStyle&#xFF0C;&#x7136;&#x540E;&#x518D;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x8DF3;&#x8F6C;&#x63A5;&#x53E3;&#x53EF;&#x5426;&#x5B9E;&#x73B0;&#x8DF3;&#x8F6C;&#x5230;&#x6307;&#x5B9A;&#x63A5;&#x53E3;&#x5462;&#xFF0C;&#x7ECF;&#x8FC7;&#x8BD5;&#x9A8C;&#x4E4B;&#x540E;&#x8FD8;&#x662F;&#x4F1A;&#x6709;&#x4E9B;&#x8BB8;&#x4E0D;&#x5C3D;&#x5982;&#x4EBA;&#x610F;&#x3002;&#x5982;&#x679C;&#x54EA;&#x4F4D;&#x4EC1;&#x5144;&#x5BF9;&#x8FD9;&#x4E00;&#x70B9;&#x6BD4;&#x8F83;&#x4E86;&#x89E3;&#xFF0C;&#x8FD8;&#x8BF7;&#x544A;&#x8BC9;&#x6211;&#x4E00;&#x58F0;&#xFF0C;&#x4E0D;&#x80DC;&#x611F;&#x6FC0;&#x3002;</li>
+</ul>
+<h2 id="&#x611F;&#x609F;"><a href="#&#x611F;&#x609F;" class="headerlink" title="&#x611F;&#x609F;"></a>&#x611F;&#x609F;</h2><ul>
+<li><p><strong>&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x6765;&#x8BF4;&#xFF0C;&#x4E0D;&#x7BA1;&#x505A;&#x4EC0;&#x4E48;&#x4E8B;&#x60C5;&#x5E94;&#x8BE5;&#x5C3D;&#x81EA;&#x5DF1;&#x6700;&#x5927;&#x52AA;&#x529B;&#x53BB;&#x505A;&#x597D;&#xFF0C;&#x4E8B;&#x4E8B;&#x90FD;&#x6015;&#x8BA4;&#x771F;&#x4E8C;&#x5B57;</strong></p>
+</li>
+<li><p>&#x5F15;&#x7528;&#x77E5;&#x4E4E;&#x4E0A;&#x9762;&#x7684;&#x4E00;&#x6BB5;&#x8BDD;&#x5C31;&#x662F;&#xFF1A;<br><strong>&#x5982;&#x679C;&#x5929;&#x7A7A;&#x662F;&#x9ED1;&#x6697;&#x7684;&#xFF0C;&#x90A3;&#x5C31;&#x6478;&#x9ED1;&#x751F;&#x5B58;&#xFF1B;&#x5982;&#x679C;&#x53D1;&#x51FA;&#x58F0;&#x97F3;&#x662F;&#x5371;&#x9669;&#x7684;&#xFF0C;&#x90A3;&#x5C31;&#x4FDD;&#x6301;&#x6C89;&#x9ED8;&#xFF1B;&#x5982;&#x679C;&#x81EA;&#x89C9;&#x65E0;&#x529B;&#x53D1;&#x5149;&#x7684;&#xFF0C;&#x90A3;&#x5C31;&#x8737;&#x4F0F;&#x4E8E;&#x5899;&#x89D2;&#x3002;&#x4F46;&#x4E0D;&#x8981;&#x4E60;&#x60EF;&#x4E86;&#x9ED1;&#x6697;&#x5C31;&#x4E3A;&#x9ED1;&#x6697;&#x8FA9;&#x62A4;&#xFF1B;&#x4E0D;&#x8981;&#x4E3A;&#x81EA;&#x5DF1;&#x7684;&#x82DF;&#x4E14;&#x800C;&#x5F97;&#x610F;&#xFF1B;&#x4E0D;&#x8981;&#x5632;&#x8BBD;&#x90A3;&#x4E9B;&#x6BD4;&#x81EA;&#x5DF1;&#x66F4;&#x52C7;&#x6562;&#x70ED;&#x60C5;&#x7684;&#x4EBA;&#x4EEC;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5351;&#x5FAE;&#x5982;&#x5C18;&#x571F;&#xFF0C;&#x4E0D;&#x53EF;&#x626D;&#x66F2;&#x5982;&#x86C6;&#x866B;&#x3002;&#x2014;&#x2014;&#x5B63;&#x4E1A;</strong></p>
+<ul>
+<li><strong>&#x63A8;&#x8350;&#x4E00;&#x4E2A;&#x63A2;&#x8BA8;&#x6280;&#x672F;&#x7684;&#x6280;&#x672F;&#x7FA4;&#xFF08;493180098&#xFF09;</strong></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android-studio-3.0配置OpenCV初探/" rel="next" title="Android studio 3.0配置OpenCV初探">
+                <i class="fa fa-chevron-left"></i> Android studio 3.0配置OpenCV初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-捕获异常日志（上篇）/" rel="prev" title="Android 捕获异常日志（上篇）">
+                Android 捕获异常日志（上篇） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提：之前遇到过一次textview显示url的方式，但是并未深入探究。但是，上个礼拜一个朋友问我如何在textview上面加载url，并且点击跳转到指定页面。当时对这个比较感兴趣也就深入探究了一番。虽然实现了，但是效果并不理想。如果哪位看官对这一点，理解的比较深入，请告诉我一声，谢谢了。"><span class="nav-number">1.</span> <span class="nav-text">前提：之前遇到过一次textview显示url的方式，但是并未深入探究。但是，上个礼拜一个朋友问我如何在textview上面加载url，并且点击跳转到指定页面。当时对这个比较感兴趣也就深入探究了一番。虽然实现了，但是效果并不理想。如果哪位看官对这一点，理解的比较深入，请告诉我一声，谢谢了。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">2.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">3.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后（还有一点比较困惑）"><span class="nav-number">4.</span> <span class="nav-text">最后（还有一点比较困惑）</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#感悟"><span class="nav-number"></span> <span class="nav-text">感悟</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.6k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
