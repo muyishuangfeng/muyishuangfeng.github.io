@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。 准备工作  要集成Google支付的准备工作有哪些呢？  1、手机上安装Google服务(当然是针对国内的用户，国外的相信大部分都有Google服务)；  2、一个绑定信用卡的Google账号；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Google应用内支付">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Android-Google应用内支付/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。 准备工作  要集成Google支付的准备工作有哪些呢？  1、手机上安装Google服务(当然是针对国内的用户，国外的相信大部分都有Google服务)；  2、一个绑定信用卡的Google账号；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-Google应用内支付/Android-Google%E5%BA%94%E7%94%A8%E5%86%85%E6%94%AF%E4%BB%98/1.png">
+<meta property="og:updated_time" content="2019-08-21T06:16:54.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Google应用内支付">
+<meta name="twitter:description" content="前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。 准备工作  要集成Google支付的准备工作有哪些呢？  1、手机上安装Google服务(当然是针对国内的用户，国外的相信大部分都有Google服务)；  2、一个绑定信用卡的Google账号；">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/21/Android-Google应用内支付/Android-Google%E5%BA%94%E7%94%A8%E5%86%85%E6%94%AF%E4%BB%98/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Android-Google应用内支付/">
+
+
+
+
+
+  <title>Android Google应用内支付 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-Google应用内支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Google应用内支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T14:13:53+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/支付/" itemprop="url" rel="index">
+                    <span itemprop="name">支付</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看<a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="noopener">Google(应用内支付)官方文档</a>。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>  要集成Google支付的准备工作有哪些呢？</p>
+<ul>
+<li><p>1、手机上安装<strong>Google服务</strong>(当然是针对国内的用户，国外的相信大部分都有Google服务)；</p>
+</li>
+<li><p>2、一个绑定信用卡的Google账号；</p>
+</li>
+<li><p>3、Google play客户端；</p>
+</li>
+<li><p>4、<a href="https://developer.android.google.cn/distribute/console/" target="_blank" rel="noopener">Google play console</a>（<strong>用于配置应用内商品信息</strong>）；</p>
+</li>
+<li><p>5、科学上网的工具。</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>上面的准备工作都做好了之后需要干什么呢？当然是在<a href="https://developer.android.com/distribute/console" target="_blank" rel="noopener">Google play console</a>上配置相关应用和商品信息了，至于如何配置具体可以参考<a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google支付配置</a>。</p>
+</li>
+<li><p>1、支付流程说明<br>关于Google支付的流程说明：<br>1&gt;前提条件</p>
+<pre><code>1、检查你的包名和签名文件是否和Google Console 上面上传的apk包是否一致
+2、检查版本号是否和Google console发布的apk版本是否一致
+3、检查你是否可以购买，是否绑定了银行卡，手机支不支持Google支付，手机是否有Google服务</code></pre><p>2&gt;支付流程</p>
+<pre><code>1、第一步，初始化Google支付
+2、第二步，初始化成功后调用查询购买的商品操作，查询成功调用消耗操作，防止不能购买的情 况发生
+3、第三步，生成订单号进行购买操作
+4、第四步，购买成功后再次调用一次消耗操作（为了下次购买可以成功）
+5、第五步，拿到Google支付返回的相关信息，在服务器进行验证操作。
+6、第六步，服务器拿到你上传的相关信息和Google支付进行交互验证，验证成功后Google发货，服务器给你返回相关信息</code></pre></li>
+<li><p>2、集成工作<br>  首先在AndroidManifest文件中加入支付权限和版本</p>
+</li>
+</ul>
+<pre><code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot;/&gt;
+//在application的节点下添加
+&lt;meta-data
+      android:name=&quot;com.google.android.gms.vision.DEPENDENCIES&quot;
+      android:value=&quot;face&quot; /&gt;</code></pre><ul>
+<li>3、复制Google支付的<a href="https://gitee.com/1032200695/google_payment_documents" target="_blank" rel="noopener">aidl文件和util包</a>中的各种文件</li>
+</ul>
+<p><img src="Android-Google%E5%BA%94%E7%94%A8%E5%86%85%E6%94%AF%E4%BB%98/1.png" alt="Google支付需要的文件"></p>
+<h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><p>   Google支付管理类的创建（支付封装成一个工具类）</p>
+<pre><code>public class GooglePlayManager {
+
+private static final String TAG = GooglePlayManager.class.getSimpleName();
+
+@SuppressLint(&quot;StaticFieldLeak&quot;)
+private static IabHelper mHelper;
+//是否初始化
+private static boolean mSetupDone = false;
+//公钥
+private static String mPublicKey;
+//订单号
+private static String payload;
+  //商品集合
+private static List&lt;String&gt; mGoodsList = new ArrayList&lt;&gt;();
+
+/**
+ * 初始化
+ *
+ * @param context   上下文
+ * @param publicKey 公钥
+ * @param productID 商品ID
+ * @param goodsList 商品集合
+ * @param mListener 接口
+ */
+public static void init(final Context context, String publicKey, final String productID,
+                           final OnGoogleInitListener mListener) {
+    mPublicKey = publicKey;
+    //创建谷歌帮助类
+    mHelper = new IabHelper(context, publicKey);
+    mHelper.enableDebugLogging(true);
+    mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+        @Override
+        public void onIabSetupFinished(IabResult result) {
+            if (!result.isSuccess()) {
+                mListener.onGoogleInitFailed(result.getMessage());
+                mSetupDone = false;
+            } else {
+                mSetupDone = true;
+                mListener.onGoogleInitSuccess(&quot;init Success&quot;);
+                //getLTOrderID(LTAppID, LTAppKey,gid, packageId, params);
+                try {
+                    mHelper.queryInventoryAsync(true, null, null,
+                            new IabHelper.QueryInventoryFinishedListener() {
+                                @Override
+                                public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                                    if (inv != null &amp;&amp; inv.getAllPurchases() != null
+                                            &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
+                                        mGoodsList = getGoodsList(inv.getAllPurchases());
+                                    }
+                                    if (result != null &amp;&amp; inv != null) {
+                                        if (result.isSuccess() &amp;&amp; inv.getAllPurchases() != null
+                                                &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
+                                            //消费, 并下一步, 这里Demo里面我没做提示,将购买了,但是没消费 
+                                            // 掉的商品直接消费掉, 正常应该
+                                            //给用户一个提示,存在未完成的支付订单,是否完成支付
+                                            for (int i = 0; i &lt; inv.getAllPurchases().size(); i++) {
+                                                consumeProduct(inv.getAllPurchases().get(i));
+                                            }
+
+                                        }
+                                    }
+                                }
+                            });
+                } catch (IabHelper.IabAsyncInProgressException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+
+
+}
+
+/**
+ * 消费掉商品
+ */
+private static void consumeProduct(Purchase purchase) {
+    try {
+        mHelper.consumeAsync(purchase, new IabHelper.OnConsumeFinishedListener() {
+            @Override
+            public void onConsumeFinished(Purchase purchase, IabResult result) {
+
+        });
+    } catch (IabHelper.IabAsyncInProgressException e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * 购买
+ *
+ * @param context     上下文
+ * @param requestCode 请求码
+ * @param goodsList   商品集合
+ * @param productID   商品ID
+ * @param mListener   接口
+ */
+public static void recharge(final Context context,final int requestCode,
+                         final String productID,
+                            final OnGooglePlayResultListener mListener) {
+    if (mSetupDone) {
+         //创建订单获取订单号（在自己的服务器上获取订单号）
+        try {
+            if (mHelper == null) return;
+            List&lt;String&gt; subSku = new ArrayList&lt;&gt;();
+            mHelper.queryInventoryAsync(true, goodsList, subSku,
+                    new IabHelper.QueryInventoryFinishedListener() {
+                        @Override
+                        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                           if (result != null) {
+                                if (result.isSuccess() &amp;&amp; inv.hasPurchase(productID)) {
+                                    //消费, 并下一步, 这里Demo里面我没做提示,将购买了,但是没消费掉的商 
+                                    //品直接消费掉, 正常应该
+                                    //给用户一个提示,存在未完成的支付订单,是否完成支付
+                                    consumeProduct(inv.getPurchase(productID));
+                                } else {
+                                    getProduct((Activity) context, requestCode, productID);
+                                }
+                            }
+                            }
+                        }
+
+                    });
+        } catch (IabHelper.IabAsyncInProgressException e) {
+            e.printStackTrace();
+        }
+    } else {
+        if (TextUtils.isEmpty(mPublicKey)) {
+            //创建谷歌帮助类
+            mHelper = new IabHelper(context, mPublicKey);
+            mHelper.enableDebugLogging(true);
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                @Override
+                public void onIabSetupFinished(IabResult result) {
+                    if (result.isFailure()) {
+                        mSetupDone = false;
+                    }
+                    if (result.isSuccess()) {
+                        mSetupDone = true;
+                    }
+                }
+            });
+        }
+
+    }
+}
+
+
+
+
+/**
+ * 产品获取
+ *
+ * @param context      上下文
+ * @param REQUEST_CODE 请求码
+ * @param SKU          产品唯一id, 填写你自己添加的商品id
+ * @param mListener    回调监听
+ */
+private static void getProduct(final Activity context, int REQUEST_CODE,
+                               final String SKU, final OnGooglePlayResultListener mListener) {
+    if (!TextUtils.isEmpty(payload)) {
+        try {
+            mHelper.launchPurchaseFlow(context, SKU, REQUEST_CODE, new IabHelper.OnIabPurchaseFinishedListener() {
+                @Override
+                public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+                    if (result.isFailure()) {
+                        mListener.onPlayError(result.getMessage());
+                        return;
+                    }
+                    mListener.onPlaySuccess(&quot;Purchase successful&quot;);
+                    if (purchase.getSku().equals(SKU)) {
+                        //购买成功，调用消耗
+                        consumeProduct(purchase);
+                    }
+                }
+            }, payload);
+        } catch (IabHelper.IabAsyncInProgressException e) {
+            e.printStackTrace();
+        }
+    } else {
+        mListener.onPlayError(&quot;Order creation failed&quot;);
+    }
+}
+
+/**
+ * 回调
+ *
+ *
+ * @param requestCode     请求码
+ * @param resultCode      结果码
+ * @param data            数据
+
+ */
+public static void onActivityResult( int requestCode, int resultCode, Intent data, int selfRequestCode) {
+    //将回调交给帮助类来处理, 否则会出现支付正在进行的错误
+    if (mHelper == null) return;
+    mHelper.handleActivityResult(requestCode, resultCode, data);
+    if (requestCode == selfRequestCode) {
+        int responseCode = data.getIntExtra(&quot;RESPONSE_CODE&quot;, 0);
+        //订单信息
+        String purchaseData = data.getStringExtra(&quot;INAPP_PURCHASE_DATA&quot;);
+        String dataSignature = data.getStringExtra(&quot;INAPP_DATA_SIGNATURE&quot;);
+        if (!TextUtils.isEmpty(purchaseData)) {
+            GoogleModel googleModel = new Gson().fromJson(purchaseData, GoogleModel.class);
+            Log.e(TAG, googleModel.getPurchaseToken());
+            Map&lt;String, Object&gt; params = new WeakHashMap&lt;&gt;();
+            params.put(购买成功的token（具体以自己服务的规定为准）, googleModel.getPurchaseToken());
+            params.put(订单号, payload);
+             //上传到服务器进行验证之后再次调用消费用于消耗掉购买的商品
+
+        }
+    }
+
+}
+
+/**
+ * 释放资源
+ */
+public static void release() {
+    if (mHelper != null) {
+        mHelper.disposeWhenFinished();
+    }
+    mHelper = null;
+}
+ /**
+ * 获取商品集合
+ */
+private static List&lt;String&gt; getGoodsList(
+        List&lt;Purchase&gt; mList) {
+    mGoodsList = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; mList.size(); i++) {
+        mGoodsList.add(mList.get(i).getSku());
+    }
+    return mGoodsList;
+}
+}</code></pre><p><strong>流程说明:</strong>首先初始化Google支付，初始化成功后查询是否有未消费的，如果有则消费，如果没有则继续调用购买功能。当然，购买之前需要创建订单，之后传入Google支付需要的参数支付。支付成功后在onActivityResult方法里获取到Google返回的token，然后到自己的服务器做验证。验证成功后再次调用Google的消费功能，用于消耗此次购买。这一步千万不能省，要不下次可能就不能进行购买了。</p>
+<p> public class GoogleModel {</p>
+<pre><code>private String orderId;
+private String packageName;
+private String productId;
+private long purchaseTime;
+private int purchaseState;
+private String developerPayload;
+private String purchaseToken;
+
+public String getOrderId() {
+    return orderId;
+}
+
+public void setOrderId(String orderId) {
+    this.orderId = orderId;
+}
+
+public String getPackageName() {
+    return packageName;
+}
+
+public void setPackageName(String packageName) {
+    this.packageName = packageName;
+}
+
+public String getProductId() {
+    return productId;
+}
+
+public void setProductId(String productId) {
+    this.productId = productId;
+}
+
+public long getPurchaseTime() {
+    return purchaseTime;
+}
+
+public void setPurchaseTime(long purchaseTime) {
+    this.purchaseTime = purchaseTime;
+}
+
+public int getPurchaseState() {
+    return purchaseState;
+}
+
+public void setPurchaseState(int purchaseState) {
+    this.purchaseState = purchaseState;
+}
+
+public String getDeveloperPayload() {
+    return developerPayload;
+}
+
+public void setDeveloperPayload(String developerPayload) {
+    this.developerPayload = developerPayload;
+}
+
+public String getPurchaseToken() {
+    return purchaseToken;
+}
+
+public void setPurchaseToken(String purchaseToken) {
+    this.purchaseToken = purchaseToken;
+}
+}</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p> 好了，这就是今天的Google支付说明了，写的不好还请谅解。</p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>   <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">谷歌支付验证 403错误</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Android-Google-原生登录/" rel="next" title="Android Google 原生登录">
+                <i class="fa fa-chevron-left"></i> Android Google 原生登录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/" rel="prev" title="Android 海外应用内支付之ONE store（韩国支付SDK）集成封装">
+                Android 海外应用内支付之ONE store（韩国支付SDK）集成封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">3.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">4.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感谢"><span class="nav-number">6.</span> <span class="nav-text">感谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">51.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

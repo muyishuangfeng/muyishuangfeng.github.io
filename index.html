@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/17/nexus-3.x私服配置（windows版）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -301,7 +301,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/17/nexus-3.x私服配置（windows版）/" itemprop="url">nexus 3.x私服配置（windows版）</a></h1>
+                <a class="post-title-link" href="/2019/08/21/Android-发布项目到jitpack详解/" itemprop="url">Android 发布项目到jitpack详解</a></h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T14:29:37+08:00">
-                2019-08-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T14:36:29+08:00">
+                2019-08-21
               </time>
             
 
@@ -336,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/私服配置/" itemprop="url" rel="index">
-                    <span itemprop="name">私服配置</span>
+                  <a href="/categories/开源库/" itemprop="url" rel="index">
+                    <span itemprop="name">开源库</span>
                   </a>
                 </span>
 
@@ -367,7 +367,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  861
+                  443
                 </span>
               
 
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -406,12 +406,12 @@
       
         
           
-          前提：
-最近一直在做SDK开发，因为SDK是给特定的用户服务的，所以需要对SDK的安全性慎重考虑。之前一直在 JitPack上面发布私有库，让用户可以很方便的集成。但是，JitPack有时间限制。所以，就萌生了自己搭建私服的想法。刚好，今天刚配置起来，趁热打铁顺便撸一篇文章，既是给自己做一个笔记。也
+          前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单，
+但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPa
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/17/nexus-3.x私服配置（windows版）/#more" rel="contents">
+            <a class="btn" href="/2019/08/21/Android-发布项目到jitpack详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -462,7 +462,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/Google Play 支付调用错误分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -481,7 +481,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/16/Google Play 支付调用错误分析/" itemprop="url">Google Play 调用错误分析</a></h1>
+                <a class="post-title-link" href="/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/" itemprop="url">Android 海外应用内支付之ONE store（韩国支付SDK）集成封装</a></h1>
         
 
         <div class="post-meta">
@@ -493,8 +493,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T18:47:30+08:00">
-                2019-08-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T14:19:28+08:00">
+                2019-08-21
               </time>
             
 
@@ -547,7 +547,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  465
+                  2.4k
                 </span>
               
 
@@ -563,7 +563,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  11
                 </span>
               
             </div>
@@ -586,13 +586,11 @@
       
         
           
-          Google 支付错误分析
-1、 上传到Google Play console上面的Android包，必须和本地测试的包的签名文件、包名、版本号、版本名保持一致。
-2、如果是alpha配置则需要将测试人员添加到测试组里面去，alpha版（封闭式内部测试版），添加测试人员的地方有三个地方，分别是最外层
+          前提：   之前写过一篇Android Google应用内支付,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/16/Google Play 支付调用错误分析/#more" rel="contents">
+            <a class="btn" href="/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -643,7 +641,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Facebook平台配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-Google应用内支付/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -662,7 +660,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/07/Facebook平台配置/" itemprop="url">Facebook 平台配置</a></h1>
+                <a class="post-title-link" href="/2019/08/21/Android-Google应用内支付/" itemprop="url">Android Google应用内支付</a></h1>
         
 
         <div class="post-meta">
@@ -674,8 +672,372 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T11:45:27+08:00">
-                2019-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T14:13:53+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/支付/" itemprop="url" rel="index">
+                    <span itemprop="name">支付</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前言   之前写过了Facebook登录Google登录，那么Google支付能错过吗？当然是不能的了。今天来说说Google支付，我们这里只说集成方式，配置可以看Google(应用内支付)官方文档。
+准备工作  要集成Google支付的准备工作有哪些呢？
+
+1、手机上安装Google服务(当然是针
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/21/Android-Google应用内支付/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Android-Google-原生登录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/21/Android-Google-原生登录/" itemprop="url">Android Google 原生登录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T14:10:12+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/登录/" itemprop="url" rel="index">
+                    <span itemprop="name">登录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  661
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前言：　　之前写过Android Facebook原生登录，想着既然Facebook登录已经写了，索性把Google 登录也写一下，做一下记录。
+首先　　要集成Google登录前首先需要查阅官方文档，当然这个是需要自备梯子的。​      
+
+1、查看官方demo如果你是第一次使用Google登录，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/21/Android-Google-原生登录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/微信平台配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/21/微信平台配置/" itemprop="url">微信平台配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T12:31:53+08:00">
+                2019-08-21
               </time>
             
 
@@ -728,7 +1090,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  342
+                  145
                 </span>
               
 
@@ -767,385 +1129,28 @@
       
         
           
-          1、 facebook的开发者平台，如果尚未注册账号的请注册账号并进行登录
-2.将鼠标移到Apps的选项处，在弹出菜单中选择“添加新应用”，如图：
-3.会弹出一个框，填写应用名称，如图：
-4.创建好之后，可以进去到创建好的应用里面，点击设置选项，进去，选择添加平台：
-选择安卓片平台：
-5.添加成功后
+          微信配置连接微信配置中心注意:如果你的微信没有登录和支付的权限需要先申请开通权限
+
+1、点击权限申请按钮申请权限
+
+2、填写详细信息
+
+
+
+申请步骤
+第一步：登录微信
+
+
+第二步：点击管理中心创建应用
+
+第三步：填写配置详情
+
+
+第四步：微信签名（利用签名工具获取（先将自己的工程打包apk安装到手机
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/07/Facebook平台配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/Google-Play-配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/22/Google-Play-配置/" itemprop="url">Google Play 配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T11:43:21+08:00">
-                2019-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/平台配置/" itemprop="url" rel="index">
-                    <span itemprop="name">平台配置</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  361
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-
-
-Google Play管理中心
-注意:如果想在Google Play管理中心配置相关信息必须要有Google play的账号，需要购买（$25）
-
-1、点击登录进入
-2、登录完成后第一步是创建应用
-3、创建完成后需要配置相关信息，如下图所示（注意：当右边的按钮变为绿色即配置成功）
-4、具体的配
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/22/Google-Play-配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/Google平台配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/19/Google平台配置/" itemprop="url">Google 平台配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-19T17:03:57+08:00">
-                2019-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/平台配置/" itemprop="url" rel="index">
-                    <span itemprop="name">平台配置</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  183
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Google审核流程：Google APIs后台 地址步骤：1、进入Google APIs 后台之后，选择一个专案（即创建好的应用名称）点击侧边栏，选择“API 管理员”。
-2、点选择侧边栏“凭据”， 进入“OAuth 同意屏幕”填入自己的APP名称进入“向使用者展示的产品名称”，并填写其他信息。
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/19/Google平台配置/#more" rel="contents">
+            <a class="btn" href="/2019/08/21/微信平台配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1332,7 +1337,7 @@ Google Play管理中心
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">51.7k</span>
+    <span title="Site words total count">51.8k</span>
   
 </div>
 
