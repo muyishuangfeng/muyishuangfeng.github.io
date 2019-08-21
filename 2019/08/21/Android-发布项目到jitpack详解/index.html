@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己工具类中的错误并上传到github；​    4、创建re">
+<meta name="description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。注意：如果没有图片，请跳转到掘金查看 Android 发布项目到jitpack详解 首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 发布项目到jitpack详解">
 <meta property="og:url" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己工具类中的错误并上传到github；​    4、创建re">
+<meta property="og:description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。注意：如果没有图片，请跳转到掘金查看 Android 发布项目到jitpack详解 首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/2.png">
@@ -99,10 +99,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/11.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/12.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/13.png">
-<meta property="og:updated_time" content="2019-08-21T06:40:57.278Z">
+<meta property="og:updated_time" content="2019-08-21T06:50:46.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 发布项目到jitpack详解">
-<meta name="twitter:description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信息；​    3、排查自己工具类中的错误并上传到github；​    4、创建re">
+<meta name="twitter:description" content="前提    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单， 但是也遇到了一些问题，在这里记录一下。注意：如果没有图片，请跳转到掘金查看 Android 发布项目到jitpack详解 首先  在开始之前先简单说一下流程：​    1、在本地创建一个libiary工具类；​    2、配置JitPack相关的配置信">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/21/Android-发布项目到jitpack详解/Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/1.png">
 
 
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  443
+                  468
                 </span>
               
 
@@ -417,7 +417,8 @@
 
       
         <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><pre><code>    最近因公司需要写了一个sdk，本想用本地库去做，但是遇到了各种问题，所以尝试着做成网络库去接入。之前一直没接触过这块，相对来说挺简单，
-但是也遇到了一些问题，在这里记录一下。</code></pre><h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  在开始之前先简单说一下流程：<br>​    1、在本地创建一个libiary工具类；<br>​    2、配置JitPack相关的配置信息；<br>​    3、排查自己工具类中的错误并上传到github；<br>​    4、创建release并在<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中编译；<br>​    5、在自己的项目中引用。</p>
+但是也遇到了一些问题，在这里记录一下。</code></pre><p><strong>注意：如果没有图片，请跳转到掘金查看</strong> <a href="https://juejin.im/post/5d5caeb4e51d45620b21c3d0" target="_blank" rel="noopener">Android 发布项目到jitpack详解</a></p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>  在开始之前先简单说一下流程：<br>​    1、在本地创建一个libiary工具类；<br>​    2、配置JitPack相关的配置信息；<br>​    3、排查自己工具类中的错误并上传到github；<br>​    4、创建release并在<a href="https://jitpack.io/" target="_blank" rel="noopener">JitPack</a>中编译；<br>​    5、在自己的项目中引用。</p>
 <h3 id="其次"><a href="#其次" class="headerlink" title="其次"></a>其次</h3><ul>
 <li>1、 创建一个libiary，然后上传到github（只需要上传图中红色选择框中的文件）<br><img src="Android-%E5%8F%91%E5%B8%83%E9%A1%B9%E7%9B%AE%E5%88%B0jitpack%E8%AF%A6%E8%A7%A3/1.png" alt="libiary"></li>
 </ul>
