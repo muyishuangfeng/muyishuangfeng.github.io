@@ -79,26 +79,26 @@
 
 
 
-<meta name="description" content="前提：   之前写过一篇Android Google应用内支付,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不太理解）。所以，自己就看着官方文档做了集成了一番，踩了不少坑。但是，总体来说，比较官方文档讲的比较清">
+<meta name="description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;Android Google&amp;#x5E94;&amp;#x7528;&amp;#x5185;&amp;#x652F;&amp;#x4ED8;,&amp;#x521A;&amp;#x597D;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4E3B;&amp;#x8425;&amp;#x4E1A;&amp;#x52A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 海外应用内支付之ONE store（韩国支付SDK）集成封装">
 <meta property="og:url" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="前提：   之前写过一篇Android Google应用内支付,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不太理解）。所以，自己就看着官方文档做了集成了一番，踩了不少坑。但是，总体来说，比较官方文档讲的比较清">
+<meta property="og:description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;Android Google&amp;#x5E94;&amp;#x7528;&amp;#x5185;&amp;#x652F;&amp;#x4ED8;,&amp;#x521A;&amp;#x597D;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4E3B;&amp;#x8425;&amp;#x4E1A;&amp;#x52A">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/.com//1.png">
-<meta property="og:image" content="http://yoursite.com/.com//2.png">
-<meta property="og:image" content="http://yoursite.com/.com//3.png">
-<meta property="og:image" content="http://yoursite.com/.com//4.png">
-<meta property="og:image" content="http://yoursite.com/.com//5.png">
-<meta property="og:image" content="http://yoursite.com/.com//6.png">
-<meta property="og:image" content="http://yoursite.com/.com//7.png">
-<meta property="og:image" content="http://yoursite.com/.com//8.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/8.png">
 <meta property="og:updated_time" content="2019-08-21T06:32:07.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 海外应用内支付之ONE store（韩国支付SDK）集成封装">
-<meta name="twitter:description" content="前提：   之前写过一篇Android Google应用内支付,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不太理解）。所以，自己就看着官方文档做了集成了一番，踩了不少坑。但是，总体来说，比较官方文档讲的比较清">
-<meta name="twitter:image" content="http://yoursite.com/.com//1.png">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x63D0;&amp;#xFF1A;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;Android Google&amp;#x5E94;&amp;#x7528;&amp;#x5185;&amp;#x652F;&amp;#x4ED8;,&amp;#x521A;&amp;#x597D;&amp;#x516C;&amp;#x53F8;&amp;#x7684;&amp;#x4E3B;&amp;#x8425;&amp;#x4E1A;&amp;#x52A">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/21/Android-海外应用内支付之ONE-store（韩国支付SDK）集成封装/1.png">
 
 
 
@@ -374,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.4k
+                  2.6k
                 </span>
               
 
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  16
                 </span>
               
             </div>
@@ -411,50 +411,50 @@
       
 
       
-        <h3 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h3><p>   之前写过一篇<a href="https://www.jianshu.com/p/c275d4d363bd" target="_blank" rel="noopener">Android Google应用内支付</a>,刚好公司的主营业务是海外app开发。前段时间也需要支持了韩国那边的应用内支付，给的文档上面讲了需要集成onestore支付。由于对韩国那边的应用内支付没有什么概念，所以就百度了一番。奈何，文档太少或者写的不是很清晰（难道能说是因为自己不太理解）。所以，自己就看着官方文档做了集成了一番，踩了不少坑。但是，总体来说，比较<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">官方文档</a>讲的比较清楚。好了，讲了这么多，下面看如何集成吧。</p>
-<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><ul>
-<li>1、查看文档<br> 要做ONE store集成开发，第一步当然是查看<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">官方文档</a>了，我这里集成的是最新的版本，也就是v5版本。也有之前的v3和v4等版本，但是，人要向前看不是。所以，就集成了最新的版本了。</li>
+        <h3 id="&#x524D;&#x63D0;&#xFF1A;"><a href="#&#x524D;&#x63D0;&#xFF1A;" class="headerlink" title="&#x524D;&#x63D0;&#xFF1A;"></a>&#x524D;&#x63D0;&#xFF1A;</h3><p>   &#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x4E00;&#x7BC7;<a href="https://www.jianshu.com/p/c275d4d363bd" target="_blank" rel="noopener">Android Google&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;</a>,&#x521A;&#x597D;&#x516C;&#x53F8;&#x7684;&#x4E3B;&#x8425;&#x4E1A;&#x52A1;&#x662F;&#x6D77;&#x5916;app&#x5F00;&#x53D1;&#x3002;&#x524D;&#x6BB5;&#x65F6;&#x95F4;&#x4E5F;&#x9700;&#x8981;&#x652F;&#x6301;&#x4E86;&#x97E9;&#x56FD;&#x90A3;&#x8FB9;&#x7684;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#xFF0C;&#x7ED9;&#x7684;&#x6587;&#x6863;&#x4E0A;&#x9762;&#x8BB2;&#x4E86;&#x9700;&#x8981;&#x96C6;&#x6210;onestore&#x652F;&#x4ED8;&#x3002;&#x7531;&#x4E8E;&#x5BF9;&#x97E9;&#x56FD;&#x90A3;&#x8FB9;&#x7684;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x6982;&#x5FF5;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x767E;&#x5EA6;&#x4E86;&#x4E00;&#x756A;&#x3002;&#x5948;&#x4F55;&#xFF0C;&#x6587;&#x6863;&#x592A;&#x5C11;&#x6216;&#x8005;&#x5199;&#x7684;&#x4E0D;&#x662F;&#x5F88;&#x6E05;&#x6670;&#xFF08;&#x96BE;&#x9053;&#x80FD;&#x8BF4;&#x662F;&#x56E0;&#x4E3A;&#x81EA;&#x5DF1;&#x4E0D;&#x592A;&#x7406;&#x89E3;&#xFF09;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x81EA;&#x5DF1;&#x5C31;&#x770B;&#x7740;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x505A;&#x4E86;&#x96C6;&#x6210;&#x4E86;&#x4E00;&#x756A;&#xFF0C;&#x8E29;&#x4E86;&#x4E0D;&#x5C11;&#x5751;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x603B;&#x4F53;&#x6765;&#x8BF4;&#xFF0C;&#x6BD4;&#x8F83;<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x8BB2;&#x7684;&#x6BD4;&#x8F83;&#x6E05;&#x695A;&#x3002;&#x597D;&#x4E86;&#xFF0C;&#x8BB2;&#x4E86;&#x8FD9;&#x4E48;&#x591A;&#xFF0C;&#x4E0B;&#x9762;&#x770B;&#x5982;&#x4F55;&#x96C6;&#x6210;&#x5427;&#x3002;</p>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><ul>
+<li>1&#x3001;&#x67E5;&#x770B;&#x6587;&#x6863;<br> &#x8981;&#x505A;ONE store&#x96C6;&#x6210;&#x5F00;&#x53D1;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x5F53;&#x7136;&#x662F;&#x67E5;&#x770B;<a href="https://dev.onestore.co.kr/devpoc/reference/view/Tools" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x4E86;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x96C6;&#x6210;&#x7684;&#x662F;&#x6700;&#x65B0;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;v5&#x7248;&#x672C;&#x3002;&#x4E5F;&#x6709;&#x4E4B;&#x524D;&#x7684;v3&#x548C;v4&#x7B49;&#x7248;&#x672C;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x4EBA;&#x8981;&#x5411;&#x524D;&#x770B;&#x4E0D;&#x662F;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5C31;&#x96C6;&#x6210;&#x4E86;&#x6700;&#x65B0;&#x7684;&#x7248;&#x672C;&#x4E86;&#x3002;</li>
 </ul>
-<p><img src="/.com//1.png" alt="onestore官方文档"><br><img src="/.com//2.png" alt="onestore官方文档集成"></p>
+<p><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/1.png" alt="onestore&#x5B98;&#x65B9;&#x6587;&#x6863;"><br><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/2.png" alt="onestore&#x5B98;&#x65B9;&#x6587;&#x6863;&#x96C6;&#x6210;"></p>
 <ul>
-<li>2、下载ONE store的jar包（在如下图所示的地方下载对应的开发包和官方demo）<br> <strong>题外话：感觉官方的demo写的真的不咋地,还没有文档写的清楚，并且让人看得云里雾里的。</strong><br><img src="/.com//3.png" alt="image"></li>
+<li>2&#x3001;&#x4E0B;&#x8F7D;ONE store&#x7684;jar&#x5305;&#xFF08;&#x5728;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#x7684;&#x5730;&#x65B9;&#x4E0B;&#x8F7D;&#x5BF9;&#x5E94;&#x7684;&#x5F00;&#x53D1;&#x5305;&#x548C;&#x5B98;&#x65B9;demo&#xFF09;<br> <strong>&#x9898;&#x5916;&#x8BDD;&#xFF1A;&#x611F;&#x89C9;&#x5B98;&#x65B9;&#x7684;demo&#x5199;&#x7684;&#x771F;&#x7684;&#x4E0D;&#x548B;&#x5730;,&#x8FD8;&#x6CA1;&#x6709;&#x6587;&#x6863;&#x5199;&#x7684;&#x6E05;&#x695A;&#xFF0C;&#x5E76;&#x4E14;&#x8BA9;&#x4EBA;&#x770B;&#x5F97;&#x4E91;&#x91CC;&#x96FE;&#x91CC;&#x7684;&#x3002;</strong><br><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/3.png" alt="image"></li>
 </ul>
-<p><strong>注意：官方jar包下载地址在github上面</strong>，不清楚的可以<a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">点这里查看</a></p>
-<p><img src="/.com//4.png" alt="jar下载地址"></p>
-<p><strong>注意：上面红框标注的就是我们需要的jar包</strong></p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x5B98;&#x65B9;jar&#x5305;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#x5728;github&#x4E0A;&#x9762;</strong>&#xFF0C;&#x4E0D;&#x6E05;&#x695A;&#x7684;&#x53EF;&#x4EE5;<a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">&#x70B9;&#x8FD9;&#x91CC;&#x67E5;&#x770B;</a></p>
+<p><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/4.png" alt="jar&#x4E0B;&#x8F7D;&#x5730;&#x5740;"></p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x4E0A;&#x9762;&#x7EA2;&#x6846;&#x6807;&#x6CE8;&#x7684;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;jar&#x5305;</strong></p>
 <ul>
-<li>3、支付接入文档（两种实现方式）<br>1、调用AIDL接口实现<br>2、使用SDK实现（建议使用第二种，笔者使用的就是第二种）<br><img src="/.com//5.png" alt="image"></li>
+<li>3&#x3001;&#x652F;&#x4ED8;&#x63A5;&#x5165;&#x6587;&#x6863;&#xFF08;&#x4E24;&#x79CD;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF09;<br>1&#x3001;&#x8C03;&#x7528;AIDL&#x63A5;&#x53E3;&#x5B9E;&#x73B0;<br>2&#x3001;&#x4F7F;&#x7528;SDK&#x5B9E;&#x73B0;&#xFF08;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x7B2C;&#x4E8C;&#x79CD;&#xFF0C;&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684;&#x5C31;&#x662F;&#x7B2C;&#x4E8C;&#x79CD;&#xFF09;<br><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/5.png" alt="image"></li>
 </ul>
-<p>###　其次<br>　上面讲了那么多，那么看看官方文档的接入到底是个什么样子的呢？下面是目录截图<br><img src="/.com//6.png" alt="image"></p>
-<p>＋１、在看到了上面的截图之后，我们这里讲一下支付的整个流程。</p>
+<p>###&#x3000;&#x5176;&#x6B21;<br>&#x3000;&#x4E0A;&#x9762;&#x8BB2;&#x4E86;&#x90A3;&#x4E48;&#x591A;&#xFF0C;&#x90A3;&#x4E48;&#x770B;&#x770B;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x7684;&#x63A5;&#x5165;&#x5230;&#x5E95;&#x662F;&#x4E2A;&#x4EC0;&#x4E48;&#x6837;&#x5B50;&#x7684;&#x5462;&#xFF1F;&#x4E0B;&#x9762;&#x662F;&#x76EE;&#x5F55;&#x622A;&#x56FE;<br><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/6.png" alt="image"></p>
+<p>&#xFF0B;&#xFF11;&#x3001;&#x5728;&#x770B;&#x5230;&#x4E86;&#x4E0A;&#x9762;&#x7684;&#x622A;&#x56FE;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x8BB2;&#x4E00;&#x4E0B;&#x652F;&#x4ED8;&#x7684;&#x6574;&#x4E2A;&#x6D41;&#x7A0B;&#x3002;</p>
 <ul>
-<li>第一步：安装ONE store客户端，如果不安装ONE store的客户端是不能支付的，并且需要自备梯子。</li>
-<li>第二步：初始化ONE store，如果初始化失败或者连接不到ONE store也是不能调起ONE store支付的。</li>
-<li>第三步：查询是否支持ONE store支付，如果支持再进行下一步。</li>
-<li>第四步：查询购买记录，并且进行消费（主要是针对管理型商品(inapp)）。<strong>注意：如果不进行消费是不能进行购买请求的（和Google支付很相似），这里笔者刚开始被坑了很久，一直不能支付，主要还是没有认真看文档，哈哈哈。</strong></li>
-<li>第五步：填写相关信息，进行购买请求。</li>
-<li>第六步：这里呢，主要是对onestore购买请求的回调处理。比如说拿到支付ID和订单号，上传到自己的服务器进行验证处理。如果验证通过了，服务器那边会和ONE store对接验证，然后，ONE store会进行发货处理，然后服务器给你一个反馈，然后，你再次调用<strong>消费处理</strong>，这样，一个完整的支付流程就完了。</li>
-<li>第七步：释放操作。</li>
-<li>2、说了那么多，估计你们看文字都看累了，下面，看代码。</li>
+<li>&#x7B2C;&#x4E00;&#x6B65;&#xFF1A;&#x5B89;&#x88C5;ONE store&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B89;&#x88C5;ONE store&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x662F;&#x4E0D;&#x80FD;&#x652F;&#x4ED8;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x9700;&#x8981;&#x81EA;&#x5907;&#x68AF;&#x5B50;&#x3002;</li>
+<li>&#x7B2C;&#x4E8C;&#x6B65;&#xFF1A;&#x521D;&#x59CB;&#x5316;ONE store&#xFF0C;&#x5982;&#x679C;&#x521D;&#x59CB;&#x5316;&#x5931;&#x8D25;&#x6216;&#x8005;&#x8FDE;&#x63A5;&#x4E0D;&#x5230;ONE store&#x4E5F;&#x662F;&#x4E0D;&#x80FD;&#x8C03;&#x8D77;ONE store&#x652F;&#x4ED8;&#x7684;&#x3002;</li>
+<li>&#x7B2C;&#x4E09;&#x6B65;&#xFF1A;&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x652F;&#x6301;ONE store&#x652F;&#x4ED8;&#xFF0C;&#x5982;&#x679C;&#x652F;&#x6301;&#x518D;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x6B65;&#x3002;</li>
+<li>&#x7B2C;&#x56DB;&#x6B65;&#xFF1A;&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x8BB0;&#x5F55;&#xFF0C;&#x5E76;&#x4E14;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#xFF08;&#x4E3B;&#x8981;&#x662F;&#x9488;&#x5BF9;&#x7BA1;&#x7406;&#x578B;&#x5546;&#x54C1;(inapp)&#xFF09;&#x3002;<strong>&#x6CE8;&#x610F;&#xFF1A;&#x5982;&#x679C;&#x4E0D;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#x662F;&#x4E0D;&#x80FD;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x8BF7;&#x6C42;&#x7684;&#xFF08;&#x548C;Google&#x652F;&#x4ED8;&#x5F88;&#x76F8;&#x4F3C;&#xFF09;&#xFF0C;&#x8FD9;&#x91CC;&#x7B14;&#x8005;&#x521A;&#x5F00;&#x59CB;&#x88AB;&#x5751;&#x4E86;&#x5F88;&#x4E45;&#xFF0C;&#x4E00;&#x76F4;&#x4E0D;&#x80FD;&#x652F;&#x4ED8;&#xFF0C;&#x4E3B;&#x8981;&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x8BA4;&#x771F;&#x770B;&#x6587;&#x6863;&#xFF0C;&#x54C8;&#x54C8;&#x54C8;&#x3002;</strong></li>
+<li>&#x7B2C;&#x4E94;&#x6B65;&#xFF1A;&#x586B;&#x5199;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x8BF7;&#x6C42;&#x3002;</li>
+<li>&#x7B2C;&#x516D;&#x6B65;&#xFF1A;&#x8FD9;&#x91CC;&#x5462;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x5BF9;onestore&#x8D2D;&#x4E70;&#x8BF7;&#x6C42;&#x7684;&#x56DE;&#x8C03;&#x5904;&#x7406;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#x62FF;&#x5230;&#x652F;&#x4ED8;ID&#x548C;&#x8BA2;&#x5355;&#x53F7;&#xFF0C;&#x4E0A;&#x4F20;&#x5230;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x5904;&#x7406;&#x3002;&#x5982;&#x679C;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&#x4E86;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x90A3;&#x8FB9;&#x4F1A;&#x548C;ONE store&#x5BF9;&#x63A5;&#x9A8C;&#x8BC1;&#xFF0C;&#x7136;&#x540E;&#xFF0C;ONE store&#x4F1A;&#x8FDB;&#x884C;&#x53D1;&#x8D27;&#x5904;&#x7406;&#xFF0C;&#x7136;&#x540E;&#x670D;&#x52A1;&#x5668;&#x7ED9;&#x4F60;&#x4E00;&#x4E2A;&#x53CD;&#x9988;&#xFF0C;&#x7136;&#x540E;&#xFF0C;&#x4F60;&#x518D;&#x6B21;&#x8C03;&#x7528;<strong>&#x6D88;&#x8D39;&#x5904;&#x7406;</strong>&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x5C31;&#x5B8C;&#x4E86;&#x3002;</li>
+<li>&#x7B2C;&#x4E03;&#x6B65;&#xFF1A;&#x91CA;&#x653E;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>2&#x3001;&#x8BF4;&#x4E86;&#x90A3;&#x4E48;&#x591A;&#xFF0C;&#x4F30;&#x8BA1;&#x4F60;&#x4EEC;&#x770B;&#x6587;&#x5B57;&#x90FD;&#x770B;&#x7D2F;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#xFF0C;&#x770B;&#x4EE3;&#x7801;&#x3002;</li>
 </ul>
 <pre><code>public class OneStorePlayManager {
 
 @SuppressLint(&quot;StaticFieldLeak&quot;)
- //支付客户端
+ //&#x652F;&#x4ED8;&#x5BA2;&#x6237;&#x7AEF;
 private static PurchaseClient mPurchaseClient;
- //版本
+ //&#x7248;&#x672C;
 private static final int IAP_API_VERSION = 5;
 private static final String TAG = OneStorePlayManager.class.getSimpleName();
- //签名验证
+ //&#x7B7E;&#x540D;&#x9A8C;&#x8BC1;
 private static final String KEY_FACTORY_ALGORITHM = &quot;RSA&quot;;
 private static final String SIGNATURE_ALGORITHM = &quot;SHA512withRSA&quot;;
- //公钥
+ //&#x516C;&#x94A5;
 private static String mPublicKey;
-  //是否初始化
+  //&#x662F;&#x5426;&#x521D;&#x59CB;&#x5316;
 private static boolean mIsInit = false;
 private static final String PURCHASE_ID = &quot;PURCHASE_ID&quot;;
 private static final String DEVELOPER_PAYLOAD = &quot;DEVELOPER_PAYLOAD&quot;;
-//是否消费
+//&#x662F;&#x5426;&#x6D88;&#x8D39;
 private static boolean mISConsume = false;
 
 private static void init(Context context, String publickey) {
@@ -464,10 +464,10 @@ private static void init(Context context, String publickey) {
 
 
 /**
- * 初始化
+ * &#x521D;&#x59CB;&#x5316;
  *
- * @param context   上下文
- * @param mListener 回调
+ * @param context   &#x4E0A;&#x4E0B;&#x6587;
+ * @param mListener &#x56DE;&#x8C03;
  */
 public static void initOneStore(final Activity context, final String publickey,
                                 final String productType,
@@ -495,7 +495,7 @@ public static void initOneStore(final Activity context, final String publickey,
             }
 
             @Override
-            public void onErrorNeedUpdateException() {//必须更新到最新的onestore客户端后才能进行支付
+            public void onErrorNeedUpdateException() {//&#x5FC5;&#x987B;&#x66F4;&#x65B0;&#x5230;&#x6700;&#x65B0;&#x7684;onestore&#x5BA2;&#x6237;&#x7AEF;&#x540E;&#x624D;&#x80FD;&#x8FDB;&#x884C;&#x652F;&#x4ED8;
                 if (mListener != null) {
                     mListener.onOneStoreFailed(OneStoreResult.RESULT_CONNECTED_NEED_UPDATE);
                     PurchaseClient.launchUpdateOrInstallFlow(context);
@@ -506,7 +506,7 @@ public static void initOneStore(final Activity context, final String publickey,
 }
 
 /**
- * 检查是否支持
+ * &#x68C0;&#x67E5;&#x662F;&#x5426;&#x652F;&#x6301;
  */
 private static void checkBillingSupportedAndLoadPurchases(final Context context,
                                                           final String productType,
@@ -520,7 +520,7 @@ private static void checkBillingSupportedAndLoadPurchases(final Context context,
             @Override
             public void onSuccess() {
                 mListener.onOneStoreSuccess(OneStoreResult.RESULT_BILLING_OK);
-                // 然后通过对托管商品和每月采购历史记录的呼叫接收采购历史记录信息。
+                // &#x7136;&#x540E;&#x901A;&#x8FC7;&#x5BF9;&#x6258;&#x7BA1;&#x5546;&#x54C1;&#x548C;&#x6BCF;&#x6708;&#x91C7;&#x8D2D;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x7684;&#x547C;&#x53EB;&#x63A5;&#x6536;&#x91C7;&#x8D2D;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x4FE1;&#x606F;&#x3002;
                 //loadPurchases((Activity) context,  mListener);
                 Log.e(TAG, &quot;isBillingSupportedAsync : RESULT_BILLING_OK&quot;);
                 mPurchaseClient.queryPurchasesAsync(IAP_API_VERSION, productType,
@@ -529,7 +529,7 @@ private static void checkBillingSupportedAndLoadPurchases(final Context context,
                             public void onSuccess(List&lt;PurchaseData&gt; purchaseDataList, String productType) {
                                 Log.e(TAG, &quot;queryPurchasesAsync onSuccess, &quot; + purchaseDataList.toString());
                                 for (PurchaseData purchase : purchaseDataList) {
-                                    consumeItem((Activity) context， purchase, mListener);
+                                    consumeItem((Activity) context&#xFF0C; purchase, mListener);
                                 }
                             }
 
@@ -582,9 +582,9 @@ private static void checkBillingSupportedAndLoadPurchases(final Context context,
 
 
 /**
- * 在管理商品 (inapp) 后或历史记录视图完成后, 消耗托管商品的消费.
+ * &#x5728;&#x7BA1;&#x7406;&#x5546;&#x54C1; (inapp) &#x540E;&#x6216;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x89C6;&#x56FE;&#x5B8C;&#x6210;&#x540E;, &#x6D88;&#x8017;&#x6258;&#x7BA1;&#x5546;&#x54C1;&#x7684;&#x6D88;&#x8D39;.
  *
- * @param purchaseData 产品数据
+ * @param purchaseData &#x4EA7;&#x54C1;&#x6570;&#x636E;
  */
 private static void consumeItem(final Activity context
                                 final PurchaseData purchaseData,
@@ -602,7 +602,7 @@ private static void consumeItem(final Activity context
                     mListener.onOneStoreSuccess(OneStoreResult.RESULT_CONSUME_OK);
                     if (!TextUtils.isEmpty(PreferencesUtils.getString(context, PURCHASE_ID)) &amp;&amp;
                             !TextUtils.isEmpty(PreferencesUtils.getString(context, DEVELOPER_PAYLOAD))) {
-                        //上传到服务器处理进行验单，防止漏单
+                        //&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8FDB;&#x884C;&#x9A8C;&#x5355;&#xFF0C;&#x9632;&#x6B62;&#x6F0F;&#x5355;
                         uploadServer(xx,xx,xx);
                     } else if (mISConsume) {
                         uploadServer(xx,xx,xx);
@@ -613,36 +613,36 @@ private static void consumeItem(final Activity context
                 @Override
                 public void onError(IapResult iapResult) {
                     mListener.onOneStoreError(iapResult.toString());
-                    Log.e(TAG, &quot;consumeAsync onError,  消费错误&quot; + iapResult.toString());
+                    Log.e(TAG, &quot;consumeAsync onError,  &#x6D88;&#x8D39;&#x9519;&#x8BEF;&quot; + iapResult.toString());
                 }
 
                 @Override
                 public void onErrorRemoteException() {
                     mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_REMOTE_ERROR);
-                    Log.e(TAG, &quot;consumeAsync onError,  消费连接失败&quot;);
+                    Log.e(TAG, &quot;consumeAsync onError,  &#x6D88;&#x8D39;&#x8FDE;&#x63A5;&#x5931;&#x8D25;&quot;);
                 }
 
                 @Override
                 public void onErrorSecurityException() {
                     mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_SECURITY_ERROR);
-                    Log.e(TAG, &quot;consumeAsync onError,  消费应用状态异常下请求支付&quot;);
+                    Log.e(TAG, &quot;consumeAsync onError,  &#x6D88;&#x8D39;&#x5E94;&#x7528;&#x72B6;&#x6001;&#x5F02;&#x5E38;&#x4E0B;&#x8BF7;&#x6C42;&#x652F;&#x4ED8;&quot;);
                 }
 
                 @Override
                 public void onErrorNeedUpdateException() {
                     mListener.onOneStoreFailed(OneStoreResult.RESULT_CONSUME_NEED_UPDATE);
-                    Log.e(TAG, &quot;consumeAsync onError,  消费产品需要更新&quot;);
+                    Log.e(TAG, &quot;consumeAsync onError,  &#x6D88;&#x8D39;&#x4EA7;&#x54C1;&#x9700;&#x8981;&#x66F4;&#x65B0;&quot;);
                 }
             });
 }
 
 
 /**
- * oneStore回调
+ * oneStore&#x56DE;&#x8C03;
  *
- * @param requestCode     请求码
- * @param resultCode      结果码
- * @param selfRequestCode 自定义请求码
+ * @param requestCode     &#x8BF7;&#x6C42;&#x7801;
+ * @param resultCode      &#x7ED3;&#x679C;&#x7801;
+ * @param selfRequestCode &#x81EA;&#x5B9A;&#x4E49;&#x8BF7;&#x6C42;&#x7801;
  */
 public static void onActivityResult(Context context, int requestCode, int resultCode, Intent data, int selfRequestCode, final onOneStoreSupportListener mSupportListener) {
     if (requestCode == selfRequestCode)
@@ -654,7 +654,7 @@ public static void onActivityResult(Context context, int requestCode, int result
                 String purchaseData = data.getStringExtra(&quot;purchaseData&quot;);
                 Gson gson = new Gson();
                 PurchaseData mPurchaseData = gson.fromJson(purchaseData, PurchaseData.class);
-                if (mPurchaseData != null) {//这边是保存一下订单，刚进入应用的时候进行相关处理
+                if (mPurchaseData != null) {//&#x8FD9;&#x8FB9;&#x662F;&#x4FDD;&#x5B58;&#x4E00;&#x4E0B;&#x8BA2;&#x5355;&#xFF0C;&#x521A;&#x8FDB;&#x5165;&#x5E94;&#x7528;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C;&#x76F8;&#x5173;&#x5904;&#x7406;
                     PreferencesUtils.putString(context, PURCHASE_ID, mPurchaseData.getPurchaseId());
                     PreferencesUtils.putString(context, DEVELOPER_PAYLOAD, mPurchaseData.getDeveloperPayload());
                     consumeItem((Activity) context,  mPurchaseData, mSupportListener);
@@ -668,14 +668,14 @@ public static void onActivityResult(Context context, int requestCode, int result
 }
 
 /**
- * 获得商品
+ * &#x83B7;&#x5F97;&#x5546;&#x54C1;
  *
- * @param productId       商品ID
- * @param selfRequestCode 请求码
- * @param productName     产品名称
- * @param type 产品类型
- * @param onOneStoreSupportListener  是否支持的接口
- * @OnCreateOrderFailedListener 创建订单的接口
+ * @param productId       &#x5546;&#x54C1;ID
+ * @param selfRequestCode &#x8BF7;&#x6C42;&#x7801;
+ * @param productName     &#x4EA7;&#x54C1;&#x540D;&#x79F0;
+ * @param type &#x4EA7;&#x54C1;&#x7C7B;&#x578B;
+ * @param onOneStoreSupportListener  &#x662F;&#x5426;&#x652F;&#x6301;&#x7684;&#x63A5;&#x53E3;
+ * @OnCreateOrderFailedListener &#x521B;&#x5EFA;&#x8BA2;&#x5355;&#x7684;&#x63A5;&#x53E3;
  */
 public static void getProduct(final Activity context,
                               int selfRequestCode, String productName,
@@ -694,8 +694,8 @@ public static void getProduct(final Activity context,
 }
 
 /**
- * 购买
- * @ devPayLoad 订单号（自己的服务器创建的）
+ * &#x8D2D;&#x4E70;
+ * @ devPayLoad &#x8BA2;&#x5355;&#x53F7;&#xFF08;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x521B;&#x5EFA;&#x7684;&#xFF09;
  */
 private static void launchPurchase(final Activity context,
                                    int selfRequestCode, String productName,
@@ -743,7 +743,7 @@ private static void launchPurchase(final Activity context,
 
 
 /**
- * 创建订单
+ * &#x521B;&#x5EFA;&#x8BA2;&#x5355;
  *
  */
 private static void getLTOrderID(final Activity activity, 
@@ -751,7 +751,7 @@ private static void getLTOrderID(final Activity activity,
                                  final String productId, final String type,
                                  final onOneStoreSupportListener mListener,
                                  final OnCreateOrderFailedListener mOrderListener) {
-                    //从服务器获取订单号然后进行购买处理
+                    //&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x83B7;&#x53D6;&#x8BA2;&#x5355;&#x53F7;&#x7136;&#x540E;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x5904;&#x7406;
                     launchPurchase(activity, selfRequestCode, productName, productId,
                             type, result, mListener);
                     mISConsume = true;
@@ -761,7 +761,7 @@ private static void getLTOrderID(final Activity activity,
 private static void uploadServer(final Context context, 
                                  String purchase_id, String devPayLoad) {
 
-             //服务器验单成功后进行相关的操作，比如说清除没必要的缓存，等等这些操作
+             //&#x670D;&#x52A1;&#x5668;&#x9A8C;&#x5355;&#x6210;&#x529F;&#x540E;&#x8FDB;&#x884C;&#x76F8;&#x5173;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x6E05;&#x9664;&#x6CA1;&#x5FC5;&#x8981;&#x7684;&#x7F13;&#x5B58;&#xFF0C;&#x7B49;&#x7B49;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;
 
             mISConsume = false;
             if (!TextUtils.isEmpty(PreferencesUtils.getString(context, PURCHASE_ID))) {
@@ -774,7 +774,7 @@ private static void uploadServer(final Context context,
 }
 
 /**
- * 释放
+ * &#x91CA;&#x653E;
  */
 public static void release() {
     mISConsume = false;
@@ -828,13 +828,13 @@ private static boolean verify(PublicKey publicKey, String signedData, String sig
     }
     return false;
 }</code></pre><p>}</p>
-<p><img src="/.com//7.png" alt="image"></p>
-<p><strong>如上图所示：</strong>只有点击close的时候才能支付成功，直接退出app是支付取消处理。</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>补充一点，接入onestore支付的一般是面相韩国那边的app，并且大多数是游戏app，那么，就牵扯到了横屏。那么，onestore有没有横屏处理呢？当然了，在Manifest中配置就可以了。<br><img src="/.com//8.png" alt="image"></p>
-<p><strong>注意：</strong>横屏的话用popup就可以了，不用选full，如果竖屏呢，写成full或者不写都是可以的。</p>
-<p>好了，以上就是这次onestore的应用内开发，如果有什么不懂的地方，或者写的不好的地方，欢迎指正。当然，也可以加群（493180098）问我</p>
-<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://blog.csdn.net/leovnay/article/details/79463898" target="_blank" rel="noopener">OneStore_Android_接入</a><br>可以看看，但是讲的不是特别详细，还是要感谢上面那篇文章的作者。</p>
-<h3 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h3><p>  通过这次接入ONE store的工作完成后，充分认识了自己。以前觉得百度上找不到文档，就感觉特别慌，有点无所适从。但是，通过这次ONE store的开发，觉得，也就那样。生活本来就是这样的，都是摸着石头过河。鲁迅先生还说过：世上本没有路，走的人多了便有了路。收拾好心情，继续努力吧，少年，哈哈哈哈。</p>
+<p><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/7.png" alt="image"></p>
+<p><strong>&#x5982;&#x4E0A;&#x56FE;&#x6240;&#x793A;&#xFF1A;</strong>&#x53EA;&#x6709;&#x70B9;&#x51FB;close&#x7684;&#x65F6;&#x5019;&#x624D;&#x80FD;&#x652F;&#x4ED8;&#x6210;&#x529F;&#xFF0C;&#x76F4;&#x63A5;&#x9000;&#x51FA;app&#x662F;&#x652F;&#x4ED8;&#x53D6;&#x6D88;&#x5904;&#x7406;&#x3002;</p>
+<h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p>&#x8865;&#x5145;&#x4E00;&#x70B9;&#xFF0C;&#x63A5;&#x5165;onestore&#x652F;&#x4ED8;&#x7684;&#x4E00;&#x822C;&#x662F;&#x9762;&#x76F8;&#x97E9;&#x56FD;&#x90A3;&#x8FB9;&#x7684;app&#xFF0C;&#x5E76;&#x4E14;&#x5927;&#x591A;&#x6570;&#x662F;&#x6E38;&#x620F;app&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x5C31;&#x7275;&#x626F;&#x5230;&#x4E86;&#x6A2A;&#x5C4F;&#x3002;&#x90A3;&#x4E48;&#xFF0C;onestore&#x6709;&#x6CA1;&#x6709;&#x6A2A;&#x5C4F;&#x5904;&#x7406;&#x5462;&#xFF1F;&#x5F53;&#x7136;&#x4E86;&#xFF0C;&#x5728;Manifest&#x4E2D;&#x914D;&#x7F6E;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;<br><img src="/2019/08/21/Android-&#x6D77;&#x5916;&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;&#x4E4B;ONE-store&#xFF08;&#x97E9;&#x56FD;&#x652F;&#x4ED8;SDK&#xFF09;&#x96C6;&#x6210;&#x5C01;&#x88C5;/8.png" alt="image"></p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x6A2A;&#x5C4F;&#x7684;&#x8BDD;&#x7528;popup&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x4E0D;&#x7528;&#x9009;full&#xFF0C;&#x5982;&#x679C;&#x7AD6;&#x5C4F;&#x5462;&#xFF0C;&#x5199;&#x6210;full&#x6216;&#x8005;&#x4E0D;&#x5199;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#x3002;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x4EE5;&#x4E0A;&#x5C31;&#x662F;&#x8FD9;&#x6B21;onestore&#x7684;&#x5E94;&#x7528;&#x5185;&#x5F00;&#x53D1;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x61C2;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x6216;&#x8005;&#x5199;&#x7684;&#x4E0D;&#x597D;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x6B22;&#x8FCE;&#x6307;&#x6B63;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x52A0;&#x7FA4;&#xFF08;493180098&#xFF09;&#x95EE;&#x6211;</p>
+<h3 id="&#x611F;&#x8C22;"><a href="#&#x611F;&#x8C22;" class="headerlink" title="&#x611F;&#x8C22;"></a>&#x611F;&#x8C22;</h3><p><a href="https://blog.csdn.net/leovnay/article/details/79463898" target="_blank" rel="noopener">OneStore_Android_&#x63A5;&#x5165;</a><br>&#x53EF;&#x4EE5;&#x770B;&#x770B;&#xFF0C;&#x4F46;&#x662F;&#x8BB2;&#x7684;&#x4E0D;&#x662F;&#x7279;&#x522B;&#x8BE6;&#x7EC6;&#xFF0C;&#x8FD8;&#x662F;&#x8981;&#x611F;&#x8C22;&#x4E0A;&#x9762;&#x90A3;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x4F5C;&#x8005;&#x3002;</p>
+<h3 id="&#x611F;&#x609F;"><a href="#&#x611F;&#x609F;" class="headerlink" title="&#x611F;&#x609F;"></a>&#x611F;&#x609F;</h3><p>  &#x901A;&#x8FC7;&#x8FD9;&#x6B21;&#x63A5;&#x5165;ONE store&#x7684;&#x5DE5;&#x4F5C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5145;&#x5206;&#x8BA4;&#x8BC6;&#x4E86;&#x81EA;&#x5DF1;&#x3002;&#x4EE5;&#x524D;&#x89C9;&#x5F97;&#x767E;&#x5EA6;&#x4E0A;&#x627E;&#x4E0D;&#x5230;&#x6587;&#x6863;&#xFF0C;&#x5C31;&#x611F;&#x89C9;&#x7279;&#x522B;&#x614C;&#xFF0C;&#x6709;&#x70B9;&#x65E0;&#x6240;&#x9002;&#x4ECE;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x6B21;ONE store&#x7684;&#x5F00;&#x53D1;&#xFF0C;&#x89C9;&#x5F97;&#xFF0C;&#x4E5F;&#x5C31;&#x90A3;&#x6837;&#x3002;&#x751F;&#x6D3B;&#x672C;&#x6765;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x90FD;&#x662F;&#x6478;&#x7740;&#x77F3;&#x5934;&#x8FC7;&#x6CB3;&#x3002;&#x9C81;&#x8FC5;&#x5148;&#x751F;&#x8FD8;&#x8BF4;&#x8FC7;&#xFF1A;&#x4E16;&#x4E0A;&#x672C;&#x6CA1;&#x6709;&#x8DEF;&#xFF0C;&#x8D70;&#x7684;&#x4EBA;&#x591A;&#x4E86;&#x4FBF;&#x6709;&#x4E86;&#x8DEF;&#x3002;&#x6536;&#x62FE;&#x597D;&#x5FC3;&#x60C5;&#xFF0C;&#x7EE7;&#x7EED;&#x52AA;&#x529B;&#x5427;&#xFF0C;&#x5C11;&#x5E74;&#xFF0C;&#x54C8;&#x54C8;&#x54C8;&#x54C8;&#x3002;</p>
 
       
     </div>
@@ -1063,7 +1063,7 @@ private static boolean verify(PublicKey publicKey, String signedData, String sig
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">15.6k</span>
+    <span title="Site words total count">16.6k</span>
   
 </div>
 
