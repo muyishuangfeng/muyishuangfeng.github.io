@@ -87,7 +87,7 @@
 <meta property="og:description" content="&amp;#x524D;&amp;#x8A00;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E86;Facebook&amp;#x767B;&amp;#x5F55;Google&amp;#x767B;&amp;#x5F55;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;Google&amp;#x652F;&amp;#x4ED8;&amp;#x80FD;&amp;#x9519;&amp;#x8FC7;&amp;#x5417;&amp;#xFF1F;&amp;#x5F53;&amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/08/21/Android-Google应用内支付/1.png">
-<meta property="og:updated_time" content="2019-08-21T07:47:41.305Z">
+<meta property="og:updated_time" content="2019-08-22T10:25:38.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Google应用内支付">
 <meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E86;Facebook&amp;#x767B;&amp;#x5F55;Google&amp;#x767B;&amp;#x5F55;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;Google&amp;#x652F;&amp;#x4ED8;&amp;#x80FD;&amp;#x9519;&amp;#x8FC7;&amp;#x5417;&amp;#xFF1F;&amp;#x5F53;&amp;">
@@ -431,316 +431,25 @@
 <li><p>2&#x3001;&#x96C6;&#x6210;&#x5DE5;&#x4F5C;<br>  &#x9996;&#x5148;&#x5728;AndroidManifest&#x6587;&#x4EF6;&#x4E2D;&#x52A0;&#x5165;&#x652F;&#x4ED8;&#x6743;&#x9650;&#x548C;&#x7248;&#x672C;</p>
 </li>
 </ul>
-<pre><code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot;/&gt;
-//&#x5728;application&#x7684;&#x8282;&#x70B9;&#x4E0B;&#x6DFB;&#x52A0;
-&lt;meta-data
-      android:name=&quot;com.google.android.gms.vision.DEPENDENCIES&quot;
-      android:value=&quot;face&quot; /&gt;</code></pre><ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=<span class="string">&quot;com.android.vending.BILLING&quot;</span>/&gt;</span><br><span class="line"><span class="comment">//&#x5728;application&#x7684;&#x8282;&#x70B9;&#x4E0B;&#x6DFB;&#x52A0;</span></span><br><span class="line">&lt;meta-data</span><br><span class="line">      android:name=<span class="string">&quot;com.google.android.gms.vision.DEPENDENCIES&quot;</span></span><br><span class="line">      android:value=<span class="string">&quot;face&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>3&#x3001;&#x590D;&#x5236;Google&#x652F;&#x4ED8;&#x7684;<a href="https://gitee.com/1032200695/google_payment_documents" target="_blank" rel="noopener">aidl&#x6587;&#x4EF6;&#x548C;util&#x5305;</a>&#x4E2D;&#x7684;&#x5404;&#x79CD;&#x6587;&#x4EF6;</li>
 </ul>
 <p><img src="/2019/08/21/Android-Google&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;/1.png" alt="Google&#x652F;&#x4ED8;&#x9700;&#x8981;&#x7684;&#x6587;&#x4EF6;"></p>
 <h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><p>   Google&#x652F;&#x4ED8;&#x7BA1;&#x7406;&#x7C7B;&#x7684;&#x521B;&#x5EFA;&#xFF08;&#x652F;&#x4ED8;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#x7C7B;&#xFF09;</p>
-<pre><code>public class GooglePlayManager {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GooglePlayManager</span> </span>{</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = GooglePlayManager.class.getSimpleName();</span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressLint</span>(<span class="string">&quot;StaticFieldLeak&quot;</span>)</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IabHelper mHelper;</span><br><span class="line"><span class="comment">//&#x662F;&#x5426;&#x521D;&#x59CB;&#x5316;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> mSetupDone = <span class="keyword">false</span>;</span><br><span class="line"><span class="comment">//&#x516C;&#x94A5;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String mPublicKey;</span><br><span class="line"><span class="comment">//&#x8BA2;&#x5355;&#x53F7;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String payload;</span><br><span class="line">  <span class="comment">//&#x5546;&#x54C1;&#x96C6;&#x5408;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; mGoodsList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x521D;&#x59CB;&#x5316;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> context   &#x4E0A;&#x4E0B;&#x6587;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> publicKey &#x516C;&#x94A5;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> productID &#x5546;&#x54C1;ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> goodsList &#x5546;&#x54C1;&#x96C6;&#x5408;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mListener &#x63A5;&#x53E3;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">final</span> Context context, String publicKey, <span class="keyword">final</span> String productID,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">final</span> OnGoogleInitListener mListener)</span> </span>{</span><br><span class="line">    mPublicKey = publicKey;</span><br><span class="line">    <span class="comment">//&#x521B;&#x5EFA;&#x8C37;&#x6B4C;&#x5E2E;&#x52A9;&#x7C7B;</span></span><br><span class="line">    mHelper = <span class="keyword">new</span> IabHelper(context, publicKey);</span><br><span class="line">    mHelper.enableDebugLogging(<span class="keyword">true</span>);</span><br><span class="line">    mHelper.startSetup(<span class="keyword">new</span> IabHelper.OnIabSetupFinishedListener() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onIabSetupFinished</span><span class="params">(IabResult result)</span> </span>{</span><br><span class="line">            <span class="keyword">if</span> (!result.isSuccess()) {</span><br><span class="line">                mListener.onGoogleInitFailed(result.getMessage());</span><br><span class="line">                mSetupDone = <span class="keyword">false</span>;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                mSetupDone = <span class="keyword">true</span>;</span><br><span class="line">                mListener.onGoogleInitSuccess(<span class="string">&quot;init Success&quot;</span>);</span><br><span class="line">                <span class="comment">//getLTOrderID(LTAppID, LTAppKey,gid, packageId, params);</span></span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    mHelper.queryInventoryAsync(<span class="keyword">true</span>, <span class="keyword">null</span>, <span class="keyword">null</span>,</span><br><span class="line">                            <span class="keyword">new</span> IabHelper.QueryInventoryFinishedListener() {</span><br><span class="line">                                <span class="meta">@Override</span></span><br><span class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onQueryInventoryFinished</span><span class="params">(IabResult result, Inventory inv)</span> </span>{</span><br><span class="line">                                    <span class="keyword">if</span> (inv != <span class="keyword">null</span> &amp;&amp; inv.getAllPurchases() != <span class="keyword">null</span></span><br><span class="line">                                            &amp;&amp; inv.getAllPurchases().size() &gt; <span class="number">0</span>) {</span><br><span class="line">                                        mGoodsList = getGoodsList(inv.getAllPurchases());</span><br><span class="line">                                    }</span><br><span class="line">                                    <span class="keyword">if</span> (result != <span class="keyword">null</span> &amp;&amp; inv != <span class="keyword">null</span>) {</span><br><span class="line">                                        <span class="keyword">if</span> (result.isSuccess() &amp;&amp; inv.getAllPurchases() != <span class="keyword">null</span></span><br><span class="line">                                                &amp;&amp; inv.getAllPurchases().size() &gt; <span class="number">0</span>) {</span><br><span class="line">                                            <span class="comment">//&#x6D88;&#x8D39;, &#x5E76;&#x4E0B;&#x4E00;&#x6B65;, &#x8FD9;&#x91CC;Demo&#x91CC;&#x9762;&#x6211;&#x6CA1;&#x505A;&#x63D0;&#x793A;,&#x5C06;&#x8D2D;&#x4E70;&#x4E86;,&#x4F46;&#x662F;&#x6CA1;&#x6D88;&#x8D39; </span></span><br><span class="line">                                            <span class="comment">// &#x6389;&#x7684;&#x5546;&#x54C1;&#x76F4;&#x63A5;&#x6D88;&#x8D39;&#x6389;, &#x6B63;&#x5E38;&#x5E94;&#x8BE5;</span></span><br><span class="line">                                            <span class="comment">//&#x7ED9;&#x7528;&#x6237;&#x4E00;&#x4E2A;&#x63D0;&#x793A;,&#x5B58;&#x5728;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x652F;&#x4ED8;&#x8BA2;&#x5355;,&#x662F;&#x5426;&#x5B8C;&#x6210;&#x652F;&#x4ED8;</span></span><br><span class="line">                                            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; inv.getAllPurchases().size(); i++) {</span><br><span class="line">                                                consumeProduct(inv.getAllPurchases().get(i));</span><br><span class="line">                                            }</span><br><span class="line"></span><br><span class="line">                                        }</span><br><span class="line">                                    }</span><br><span class="line">                                }</span><br><span class="line">                            });</span><br><span class="line">                } <span class="keyword">catch</span> (IabHelper.IabAsyncInProgressException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    });</span><br></pre></td></tr></table></figure>
 
-private static final String TAG = GooglePlayManager.class.getSimpleName();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x6D88;&#x8D39;&#x6389;&#x5546;&#x54C1;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumeProduct</span><span class="params">(Purchase purchase)</span> </span>{</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        mHelper.consumeAsync(purchase, <span class="keyword">new</span> IabHelper.OnConsumeFinishedListener() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConsumeFinished</span><span class="params">(Purchase purchase, IabResult result)</span> </span>{</span><br><span class="line">             </span><br><span class="line">        });</span><br><span class="line">    } <span class="keyword">catch</span> (IabHelper.IabAsyncInProgressException e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x8D2D;&#x4E70;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> context     &#x4E0A;&#x4E0B;&#x6587;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> requestCode &#x8BF7;&#x6C42;&#x7801;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> goodsList   &#x5546;&#x54C1;&#x96C6;&#x5408;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> productID   &#x5546;&#x54C1;ID</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mListener   &#x63A5;&#x53E3;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">(<span class="keyword">final</span> Context context,<span class="keyword">final</span> <span class="keyword">int</span> requestCode,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">final</span> String productID,Map&lt;String,Object&gt;mParams,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">final</span> OnGooglePlayResultListener mListener)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (mSetupDone) {</span><br><span class="line">     <span class="keyword">if</span> (&#x5224;&#x65AD;&#x662F;&#x5426;&#x767B;&#x5F55;&#x6210;&#x529F;) {</span><br><span class="line">                getLTOrderID(mParams);</span><br><span class="line">                }</span><br><span class="line">         </span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(mPublicKey)) {</span><br><span class="line">            <span class="comment">//&#x521B;&#x5EFA;&#x8C37;&#x6B4C;&#x5E2E;&#x52A9;&#x7C7B;</span></span><br><span class="line">            mHelper = <span class="keyword">new</span> IabHelper(context, mPublicKey);</span><br><span class="line">            mHelper.enableDebugLogging(<span class="keyword">true</span>);</span><br><span class="line">            mHelper.startSetup(<span class="keyword">new</span> IabHelper.OnIabSetupFinishedListener() {</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onIabSetupFinished</span><span class="params">(IabResult result)</span> </span>{</span><br><span class="line">                    <span class="keyword">if</span> (result.isFailure()) {</span><br><span class="line">                        mSetupDone = <span class="keyword">false</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">if</span> (result.isSuccess()) {</span><br><span class="line">                        mSetupDone = <span class="keyword">true</span>;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            });</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
-@SuppressLint(&quot;StaticFieldLeak&quot;)
-private static IabHelper mHelper;
-//&#x662F;&#x5426;&#x521D;&#x59CB;&#x5316;
-private static boolean mSetupDone = false;
-//&#x516C;&#x94A5;
-private static String mPublicKey;
-//&#x8BA2;&#x5355;&#x53F7;
-private static String payload;
-  //&#x5546;&#x54C1;&#x96C6;&#x5408;
-private static List&lt;String&gt; mGoodsList = new ArrayList&lt;&gt;();
+<p> <strong>&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x6210;&#x529F;&#x8D70;&#x4E0B;&#x9762;&#x7684;&#x6B65;&#x9AA4;</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *&#x521B;&#x5EFA;&#x8BA2;&#x5355;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getLTOrderID</span><span class="params">(Map&lt;String,Object&gt;mParams)</span></span>{</span><br><span class="line">     ...</span><br><span class="line">     ...</span><br><span class="line">     ...</span><br><span class="line">     <span class="keyword">if</span>(success){<span class="comment">//&#x7701;&#x7565;&#x53F7;&#x90A3;&#x91CC;&#x5199;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x8BA2;&#x5355;&#x7684;&#x63A5;&#x53E3;&#x56DE;&#x8C03;</span></span><br><span class="line">      </span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">if</span> (mHelper == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">            List&lt;String&gt; subSku = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            mHelper.queryInventoryAsync(<span class="keyword">true</span>, goodsList, subSku,</span><br><span class="line">                    <span class="keyword">new</span> IabHelper.QueryInventoryFinishedListener() {</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onQueryInventoryFinished</span><span class="params">(IabResult result, Inventory inv)</span> </span>{</span><br><span class="line">                           <span class="keyword">if</span> (result != <span class="keyword">null</span>) {</span><br><span class="line">                                <span class="keyword">if</span> (result.isSuccess() &amp;&amp; inv.hasPurchase(productID)) {</span><br><span class="line">                                    <span class="comment">//&#x6D88;&#x8D39;, &#x5E76;&#x4E0B;&#x4E00;&#x6B65;, &#x8FD9;&#x91CC;Demo&#x91CC;&#x9762;&#x6211;&#x6CA1;&#x505A;&#x63D0;&#x793A;,&#x5C06;&#x8D2D;&#x4E70;&#x4E86;,&#x4F46;&#x662F;&#x6CA1;&#x6D88;&#x8D39;&#x6389;&#x7684;&#x5546; </span></span><br><span class="line">                                    <span class="comment">//&#x54C1;&#x76F4;&#x63A5;&#x6D88;&#x8D39;&#x6389;, &#x6B63;&#x5E38;&#x5E94;&#x8BE5;</span></span><br><span class="line">                                    <span class="comment">//&#x7ED9;&#x7528;&#x6237;&#x4E00;&#x4E2A;&#x63D0;&#x793A;,&#x5B58;&#x5728;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x652F;&#x4ED8;&#x8BA2;&#x5355;,&#x662F;&#x5426;&#x5B8C;&#x6210;&#x652F;&#x4ED8;</span></span><br><span class="line">                                    consumeProduct(inv.getPurchase(productID));</span><br><span class="line">                                } <span class="keyword">else</span> {</span><br><span class="line">                                    getProduct((Activity) context, requestCode, productID);</span><br><span class="line">                                }</span><br><span class="line">                            }</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line"></span><br><span class="line">                    });</span><br><span class="line">        } <span class="keyword">catch</span> (IabHelper.IabAsyncInProgressException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">}</span><br><span class="line">    </span><br><span class="line">      }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x4EA7;&#x54C1;&#x83B7;&#x53D6;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> context      &#x4E0A;&#x4E0B;&#x6587;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> REQUEST_CODE &#x8BF7;&#x6C42;&#x7801;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> SKU          &#x4EA7;&#x54C1;&#x552F;&#x4E00;id, &#x586B;&#x5199;&#x4F60;&#x81EA;&#x5DF1;&#x6DFB;&#x52A0;&#x7684;&#x5546;&#x54C1;id</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mListener    &#x56DE;&#x8C03;&#x76D1;&#x542C;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getProduct</span><span class="params">(<span class="keyword">final</span> Activity context, <span class="keyword">int</span> REQUEST_CODE,</span></span></span><br><span class="line"><span class="function"><span class="params">                               <span class="keyword">final</span> String SKU, <span class="keyword">final</span> OnGooglePlayResultListener mListener)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (!TextUtils.isEmpty(payload)) {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            mHelper.launchPurchaseFlow(context, SKU, REQUEST_CODE, <span class="keyword">new</span> IabHelper.OnIabPurchaseFinishedListener() {</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onIabPurchaseFinished</span><span class="params">(IabResult result, Purchase purchase)</span> </span>{</span><br><span class="line">                    <span class="keyword">if</span> (result.isFailure()) {</span><br><span class="line">                        mListener.onPlayError(result.getMessage());</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    }</span><br><span class="line">                    mListener.onPlaySuccess(<span class="string">&quot;Purchase successful&quot;</span>);</span><br><span class="line">                    <span class="keyword">if</span> (purchase.getSku().equals(SKU)) {</span><br><span class="line">                        <span class="comment">//&#x8D2D;&#x4E70;&#x6210;&#x529F;&#xFF0C;&#x8C03;&#x7528;&#x6D88;&#x8017;</span></span><br><span class="line">                        consumeProduct(purchase);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }, payload);</span><br><span class="line">        } <span class="keyword">catch</span> (IabHelper.IabAsyncInProgressException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        mListener.onPlayError(<span class="string">&quot;Order creation failed&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x56DE;&#x8C03;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> requestCode     &#x8BF7;&#x6C42;&#x7801;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> resultCode      &#x7ED3;&#x679C;&#x7801;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data            &#x6570;&#x636E;</span></span><br><span class="line"><span class="comment">   </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">( <span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data, <span class="keyword">int</span> selfRequestCode)</span> </span>{</span><br><span class="line">    <span class="comment">//&#x5C06;&#x56DE;&#x8C03;&#x4EA4;&#x7ED9;&#x5E2E;&#x52A9;&#x7C7B;&#x6765;&#x5904;&#x7406;, &#x5426;&#x5219;&#x4F1A;&#x51FA;&#x73B0;&#x652F;&#x4ED8;&#x6B63;&#x5728;&#x8FDB;&#x884C;&#x7684;&#x9519;&#x8BEF;</span></span><br><span class="line">    <span class="keyword">if</span> (mHelper == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    mHelper.handleActivityResult(requestCode, resultCode, data);</span><br><span class="line">    <span class="keyword">if</span> (requestCode == selfRequestCode) {</span><br><span class="line">        <span class="keyword">int</span> responseCode = data.getIntExtra(<span class="string">&quot;RESPONSE_CODE&quot;</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">//&#x8BA2;&#x5355;&#x4FE1;&#x606F;</span></span><br><span class="line">        String purchaseData = data.getStringExtra(<span class="string">&quot;INAPP_PURCHASE_DATA&quot;</span>);</span><br><span class="line">        String dataSignature = data.getStringExtra(<span class="string">&quot;INAPP_DATA_SIGNATURE&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!TextUtils.isEmpty(purchaseData)) {</span><br><span class="line">            GoogleModel googleModel = <span class="keyword">new</span> Gson().fromJson(purchaseData, GoogleModel.class);</span><br><span class="line">            Log.e(TAG, googleModel.getPurchaseToken());</span><br><span class="line">            Map&lt;String, Object&gt; params = <span class="keyword">new</span> WeakHashMap&lt;&gt;();</span><br><span class="line">            params.put(&#x8D2D;&#x4E70;&#x6210;&#x529F;&#x7684;token&#xFF08;&#x5177;&#x4F53;&#x4EE5;&#x81EA;&#x5DF1;&#x670D;&#x52A1;&#x7684;&#x89C4;&#x5B9A;&#x4E3A;&#x51C6;&#xFF09;, googleModel.getPurchaseToken());</span><br><span class="line">            params.put(&#x8BA2;&#x5355;&#x53F7;, payload);</span><br><span class="line">             <span class="comment">//&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x4E4B;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;&#x6D88;&#x8D39;&#x7528;&#x4E8E;&#x6D88;&#x8017;&#x6389;&#x8D2D;&#x4E70;&#x7684;&#x5546;&#x54C1;</span></span><br><span class="line">            upload2server(xx);</span><br><span class="line">           </span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x9A8C;&#x8BC1;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">upload2server</span><span class="params">(xx xx)</span></span>{</span><br><span class="line">    </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x91CA;&#x653E;&#x8D44;&#x6E90;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">release</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (mHelper != <span class="keyword">null</span>) {</span><br><span class="line">        mHelper.disposeWhenFinished();</span><br><span class="line">    }</span><br><span class="line">    mHelper = <span class="keyword">null</span>;</span><br><span class="line">}</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x83B7;&#x53D6;&#x5546;&#x54C1;&#x96C6;&#x5408;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">getGoodsList</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        List&lt;Purchase&gt; mList)</span> </span>{</span><br><span class="line">    mGoodsList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mList.size(); i++) {</span><br><span class="line">        mGoodsList.add(mList.get(i).getSku());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> mGoodsList;</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
-/**
- * &#x521D;&#x59CB;&#x5316;
- *
- * @param context   &#x4E0A;&#x4E0B;&#x6587;
- * @param publicKey &#x516C;&#x94A5;
- * @param productID &#x5546;&#x54C1;ID
- * @param goodsList &#x5546;&#x54C1;&#x96C6;&#x5408;
- * @param mListener &#x63A5;&#x53E3;
- */
-public static void init(final Context context, String publicKey, final String productID,
-                           final OnGoogleInitListener mListener) {
-    mPublicKey = publicKey;
-    //&#x521B;&#x5EFA;&#x8C37;&#x6B4C;&#x5E2E;&#x52A9;&#x7C7B;
-    mHelper = new IabHelper(context, publicKey);
-    mHelper.enableDebugLogging(true);
-    mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-        @Override
-        public void onIabSetupFinished(IabResult result) {
-            if (!result.isSuccess()) {
-                mListener.onGoogleInitFailed(result.getMessage());
-                mSetupDone = false;
-            } else {
-                mSetupDone = true;
-                mListener.onGoogleInitSuccess(&quot;init Success&quot;);
-                //getLTOrderID(LTAppID, LTAppKey,gid, packageId, params);
-                try {
-                    mHelper.queryInventoryAsync(true, null, null,
-                            new IabHelper.QueryInventoryFinishedListener() {
-                                @Override
-                                public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-                                    if (inv != null &amp;&amp; inv.getAllPurchases() != null
-                                            &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
-                                        mGoodsList = getGoodsList(inv.getAllPurchases());
-                                    }
-                                    if (result != null &amp;&amp; inv != null) {
-                                        if (result.isSuccess() &amp;&amp; inv.getAllPurchases() != null
-                                                &amp;&amp; inv.getAllPurchases().size() &gt; 0) {
-                                            //&#x6D88;&#x8D39;, &#x5E76;&#x4E0B;&#x4E00;&#x6B65;, &#x8FD9;&#x91CC;Demo&#x91CC;&#x9762;&#x6211;&#x6CA1;&#x505A;&#x63D0;&#x793A;,&#x5C06;&#x8D2D;&#x4E70;&#x4E86;,&#x4F46;&#x662F;&#x6CA1;&#x6D88;&#x8D39; 
-                                            // &#x6389;&#x7684;&#x5546;&#x54C1;&#x76F4;&#x63A5;&#x6D88;&#x8D39;&#x6389;, &#x6B63;&#x5E38;&#x5E94;&#x8BE5;
-                                            //&#x7ED9;&#x7528;&#x6237;&#x4E00;&#x4E2A;&#x63D0;&#x793A;,&#x5B58;&#x5728;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x652F;&#x4ED8;&#x8BA2;&#x5355;,&#x662F;&#x5426;&#x5B8C;&#x6210;&#x652F;&#x4ED8;
-                                            for (int i = 0; i &lt; inv.getAllPurchases().size(); i++) {
-                                                consumeProduct(inv.getAllPurchases().get(i));
-                                            }
-
-                                        }
-                                    }
-                                }
-                            });
-                } catch (IabHelper.IabAsyncInProgressException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-
-}
-
-/**
- * &#x6D88;&#x8D39;&#x6389;&#x5546;&#x54C1;
- */
-private static void consumeProduct(Purchase purchase) {
-    try {
-        mHelper.consumeAsync(purchase, new IabHelper.OnConsumeFinishedListener() {
-            @Override
-            public void onConsumeFinished(Purchase purchase, IabResult result) {
-
-        });
-    } catch (IabHelper.IabAsyncInProgressException e) {
-        e.printStackTrace();
-    }
-}
-
-/**
- * &#x8D2D;&#x4E70;
- *
- * @param context     &#x4E0A;&#x4E0B;&#x6587;
- * @param requestCode &#x8BF7;&#x6C42;&#x7801;
- * @param goodsList   &#x5546;&#x54C1;&#x96C6;&#x5408;
- * @param productID   &#x5546;&#x54C1;ID
- * @param mListener   &#x63A5;&#x53E3;
- */
-public static void recharge(final Context context,final int requestCode,
-                         final String productID,
-                            final OnGooglePlayResultListener mListener) {
-    if (mSetupDone) {
-         //&#x521B;&#x5EFA;&#x8BA2;&#x5355;&#x83B7;&#x53D6;&#x8BA2;&#x5355;&#x53F7;&#xFF08;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x83B7;&#x53D6;&#x8BA2;&#x5355;&#x53F7;&#xFF09;
-        try {
-            if (mHelper == null) return;
-            List&lt;String&gt; subSku = new ArrayList&lt;&gt;();
-            mHelper.queryInventoryAsync(true, goodsList, subSku,
-                    new IabHelper.QueryInventoryFinishedListener() {
-                        @Override
-                        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-                           if (result != null) {
-                                if (result.isSuccess() &amp;&amp; inv.hasPurchase(productID)) {
-                                    //&#x6D88;&#x8D39;, &#x5E76;&#x4E0B;&#x4E00;&#x6B65;, &#x8FD9;&#x91CC;Demo&#x91CC;&#x9762;&#x6211;&#x6CA1;&#x505A;&#x63D0;&#x793A;,&#x5C06;&#x8D2D;&#x4E70;&#x4E86;,&#x4F46;&#x662F;&#x6CA1;&#x6D88;&#x8D39;&#x6389;&#x7684;&#x5546; 
-                                    //&#x54C1;&#x76F4;&#x63A5;&#x6D88;&#x8D39;&#x6389;, &#x6B63;&#x5E38;&#x5E94;&#x8BE5;
-                                    //&#x7ED9;&#x7528;&#x6237;&#x4E00;&#x4E2A;&#x63D0;&#x793A;,&#x5B58;&#x5728;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x652F;&#x4ED8;&#x8BA2;&#x5355;,&#x662F;&#x5426;&#x5B8C;&#x6210;&#x652F;&#x4ED8;
-                                    consumeProduct(inv.getPurchase(productID));
-                                } else {
-                                    getProduct((Activity) context, requestCode, productID);
-                                }
-                            }
-                            }
-                        }
-
-                    });
-        } catch (IabHelper.IabAsyncInProgressException e) {
-            e.printStackTrace();
-        }
-    } else {
-        if (TextUtils.isEmpty(mPublicKey)) {
-            //&#x521B;&#x5EFA;&#x8C37;&#x6B4C;&#x5E2E;&#x52A9;&#x7C7B;
-            mHelper = new IabHelper(context, mPublicKey);
-            mHelper.enableDebugLogging(true);
-            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-                @Override
-                public void onIabSetupFinished(IabResult result) {
-                    if (result.isFailure()) {
-                        mSetupDone = false;
-                    }
-                    if (result.isSuccess()) {
-                        mSetupDone = true;
-                    }
-                }
-            });
-        }
-
-    }
-}
-
-
-
-
-/**
- * &#x4EA7;&#x54C1;&#x83B7;&#x53D6;
- *
- * @param context      &#x4E0A;&#x4E0B;&#x6587;
- * @param REQUEST_CODE &#x8BF7;&#x6C42;&#x7801;
- * @param SKU          &#x4EA7;&#x54C1;&#x552F;&#x4E00;id, &#x586B;&#x5199;&#x4F60;&#x81EA;&#x5DF1;&#x6DFB;&#x52A0;&#x7684;&#x5546;&#x54C1;id
- * @param mListener    &#x56DE;&#x8C03;&#x76D1;&#x542C;
- */
-private static void getProduct(final Activity context, int REQUEST_CODE,
-                               final String SKU, final OnGooglePlayResultListener mListener) {
-    if (!TextUtils.isEmpty(payload)) {
-        try {
-            mHelper.launchPurchaseFlow(context, SKU, REQUEST_CODE, new IabHelper.OnIabPurchaseFinishedListener() {
-                @Override
-                public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-                    if (result.isFailure()) {
-                        mListener.onPlayError(result.getMessage());
-                        return;
-                    }
-                    mListener.onPlaySuccess(&quot;Purchase successful&quot;);
-                    if (purchase.getSku().equals(SKU)) {
-                        //&#x8D2D;&#x4E70;&#x6210;&#x529F;&#xFF0C;&#x8C03;&#x7528;&#x6D88;&#x8017;
-                        consumeProduct(purchase);
-                    }
-                }
-            }, payload);
-        } catch (IabHelper.IabAsyncInProgressException e) {
-            e.printStackTrace();
-        }
-    } else {
-        mListener.onPlayError(&quot;Order creation failed&quot;);
-    }
-}
-
-/**
- * &#x56DE;&#x8C03;
- *
- *
- * @param requestCode     &#x8BF7;&#x6C42;&#x7801;
- * @param resultCode      &#x7ED3;&#x679C;&#x7801;
- * @param data            &#x6570;&#x636E;
-
- */
-public static void onActivityResult( int requestCode, int resultCode, Intent data, int selfRequestCode) {
-    //&#x5C06;&#x56DE;&#x8C03;&#x4EA4;&#x7ED9;&#x5E2E;&#x52A9;&#x7C7B;&#x6765;&#x5904;&#x7406;, &#x5426;&#x5219;&#x4F1A;&#x51FA;&#x73B0;&#x652F;&#x4ED8;&#x6B63;&#x5728;&#x8FDB;&#x884C;&#x7684;&#x9519;&#x8BEF;
-    if (mHelper == null) return;
-    mHelper.handleActivityResult(requestCode, resultCode, data);
-    if (requestCode == selfRequestCode) {
-        int responseCode = data.getIntExtra(&quot;RESPONSE_CODE&quot;, 0);
-        //&#x8BA2;&#x5355;&#x4FE1;&#x606F;
-        String purchaseData = data.getStringExtra(&quot;INAPP_PURCHASE_DATA&quot;);
-        String dataSignature = data.getStringExtra(&quot;INAPP_DATA_SIGNATURE&quot;);
-        if (!TextUtils.isEmpty(purchaseData)) {
-            GoogleModel googleModel = new Gson().fromJson(purchaseData, GoogleModel.class);
-            Log.e(TAG, googleModel.getPurchaseToken());
-            Map&lt;String, Object&gt; params = new WeakHashMap&lt;&gt;();
-            params.put(&#x8D2D;&#x4E70;&#x6210;&#x529F;&#x7684;token&#xFF08;&#x5177;&#x4F53;&#x4EE5;&#x81EA;&#x5DF1;&#x670D;&#x52A1;&#x7684;&#x89C4;&#x5B9A;&#x4E3A;&#x51C6;&#xFF09;, googleModel.getPurchaseToken());
-            params.put(&#x8BA2;&#x5355;&#x53F7;, payload);
-             //&#x4E0A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x4E4B;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;&#x6D88;&#x8D39;&#x7528;&#x4E8E;&#x6D88;&#x8017;&#x6389;&#x8D2D;&#x4E70;&#x7684;&#x5546;&#x54C1;
-
-        }
-    }
-
-}
-
-/**
- * &#x91CA;&#x653E;&#x8D44;&#x6E90;
- */
-public static void release() {
-    if (mHelper != null) {
-        mHelper.disposeWhenFinished();
-    }
-    mHelper = null;
-}
- /**
- * &#x83B7;&#x53D6;&#x5546;&#x54C1;&#x96C6;&#x5408;
- */
-private static List&lt;String&gt; getGoodsList(
-        List&lt;Purchase&gt; mList) {
-    mGoodsList = new ArrayList&lt;&gt;();
-    for (int i = 0; i &lt; mList.size(); i++) {
-        mGoodsList.add(mList.get(i).getSku());
-    }
-    return mGoodsList;
-}
-}</code></pre><p><strong>&#x6D41;&#x7A0B;&#x8BF4;&#x660E;:</strong>&#x9996;&#x5148;&#x521D;&#x59CB;&#x5316;Google&#x652F;&#x4ED8;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x6210;&#x529F;&#x540E;&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x6709;&#x672A;&#x6D88;&#x8D39;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5219;&#x6D88;&#x8D39;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5219;&#x7EE7;&#x7EED;&#x8C03;&#x7528;&#x8D2D;&#x4E70;&#x529F;&#x80FD;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x8D2D;&#x4E70;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x8BA2;&#x5355;&#xFF0C;&#x4E4B;&#x540E;&#x4F20;&#x5165;Google&#x652F;&#x4ED8;&#x9700;&#x8981;&#x7684;&#x53C2;&#x6570;&#x652F;&#x4ED8;&#x3002;&#x652F;&#x4ED8;&#x6210;&#x529F;&#x540E;&#x5728;onActivityResult&#x65B9;&#x6CD5;&#x91CC;&#x83B7;&#x53D6;&#x5230;Google&#x8FD4;&#x56DE;&#x7684;token&#xFF0C;&#x7136;&#x540E;&#x5230;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x505A;&#x9A8C;&#x8BC1;&#x3002;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;Google&#x7684;&#x6D88;&#x8D39;&#x529F;&#x80FD;&#xFF0C;&#x7528;&#x4E8E;&#x6D88;&#x8017;&#x6B64;&#x6B21;&#x8D2D;&#x4E70;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x5343;&#x4E07;&#x4E0D;&#x80FD;&#x7701;&#xFF0C;&#x8981;&#x4E0D;&#x4E0B;&#x6B21;&#x53EF;&#x80FD;&#x5C31;&#x4E0D;&#x80FD;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x4E86;&#x3002;</p>
+<p><strong>&#x6D41;&#x7A0B;&#x8BF4;&#x660E;:</strong>&#x9996;&#x5148;&#x521D;&#x59CB;&#x5316;Google&#x652F;&#x4ED8;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x6210;&#x529F;&#x540E;&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x6709;&#x672A;&#x6D88;&#x8D39;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5219;&#x6D88;&#x8D39;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5219;&#x7EE7;&#x7EED;&#x8C03;&#x7528;&#x8D2D;&#x4E70;&#x529F;&#x80FD;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x8D2D;&#x4E70;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x8BA2;&#x5355;&#xFF0C;&#x4E4B;&#x540E;&#x4F20;&#x5165;Google&#x652F;&#x4ED8;&#x9700;&#x8981;&#x7684;&#x53C2;&#x6570;&#x652F;&#x4ED8;&#x3002;&#x652F;&#x4ED8;&#x6210;&#x529F;&#x540E;&#x5728;onActivityResult&#x65B9;&#x6CD5;&#x91CC;&#x83B7;&#x53D6;&#x5230;Google&#x8FD4;&#x56DE;&#x7684;token&#xFF0C;&#x7136;&#x540E;&#x5230;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x505A;&#x9A8C;&#x8BC1;&#x3002;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;Google&#x7684;&#x6D88;&#x8D39;&#x529F;&#x80FD;&#xFF0C;&#x7528;&#x4E8E;&#x6D88;&#x8017;&#x6B64;&#x6B21;&#x8D2D;&#x4E70;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x5343;&#x4E07;&#x4E0D;&#x80FD;&#x7701;&#xFF0C;&#x8981;&#x4E0D;&#x4E0B;&#x6B21;&#x53EF;&#x80FD;&#x5C31;&#x4E0D;&#x80FD;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x4E86;&#x3002;</p>
 <p> public class GoogleModel {</p>
-<pre><code>private String orderId;
-private String packageName;
-private String productId;
-private long purchaseTime;
-private int purchaseState;
-private String developerPayload;
-private String purchaseToken;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String orderId;</span><br><span class="line"><span class="keyword">private</span> String packageName;</span><br><span class="line"><span class="keyword">private</span> String productId;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">long</span> purchaseTime;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> purchaseState;</span><br><span class="line"><span class="keyword">private</span> String developerPayload;</span><br><span class="line"><span class="keyword">private</span> String purchaseToken;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getOrderId</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> orderId;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrderId</span><span class="params">(String orderId)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.orderId = orderId;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPackageName</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> packageName;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPackageName</span><span class="params">(String packageName)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.packageName = packageName;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getProductId</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> productId;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProductId</span><span class="params">(String productId)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.productId = productId;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getPurchaseTime</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> purchaseTime;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPurchaseTime</span><span class="params">(<span class="keyword">long</span> purchaseTime)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.purchaseTime = purchaseTime;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPurchaseState</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> purchaseState;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPurchaseState</span><span class="params">(<span class="keyword">int</span> purchaseState)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.purchaseState = purchaseState;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDeveloperPayload</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> developerPayload;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDeveloperPayload</span><span class="params">(String developerPayload)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.developerPayload = developerPayload;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPurchaseToken</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> purchaseToken;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPurchaseToken</span><span class="params">(String purchaseToken)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.purchaseToken = purchaseToken;</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
-public String getOrderId() {
-    return orderId;
-}
-
-public void setOrderId(String orderId) {
-    this.orderId = orderId;
-}
-
-public String getPackageName() {
-    return packageName;
-}
-
-public void setPackageName(String packageName) {
-    this.packageName = packageName;
-}
-
-public String getProductId() {
-    return productId;
-}
-
-public void setProductId(String productId) {
-    this.productId = productId;
-}
-
-public long getPurchaseTime() {
-    return purchaseTime;
-}
-
-public void setPurchaseTime(long purchaseTime) {
-    this.purchaseTime = purchaseTime;
-}
-
-public int getPurchaseState() {
-    return purchaseState;
-}
-
-public void setPurchaseState(int purchaseState) {
-    this.purchaseState = purchaseState;
-}
-
-public String getDeveloperPayload() {
-    return developerPayload;
-}
-
-public void setDeveloperPayload(String developerPayload) {
-    this.developerPayload = developerPayload;
-}
-
-public String getPurchaseToken() {
-    return purchaseToken;
-}
-
-public void setPurchaseToken(String purchaseToken) {
-    this.purchaseToken = purchaseToken;
-}
-}</code></pre><h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p> &#x597D;&#x4E86;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4ECA;&#x5929;&#x7684;Google&#x652F;&#x4ED8;&#x8BF4;&#x660E;&#x4E86;&#xFF0C;&#x5199;&#x7684;&#x4E0D;&#x597D;&#x8FD8;&#x8BF7;&#x8C05;&#x89E3;&#x3002;</p>
+<h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p> &#x597D;&#x4E86;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4ECA;&#x5929;&#x7684;Google&#x652F;&#x4ED8;&#x8BF4;&#x660E;&#x4E86;&#xFF0C;&#x5199;&#x7684;&#x4E0D;&#x597D;&#x8FD8;&#x8BF7;&#x8C05;&#x89E3;&#x3002;</p>
 <h3 id="&#x611F;&#x8C22;"><a href="#&#x611F;&#x8C22;" class="headerlink" title="&#x611F;&#x8C22;"></a>&#x611F;&#x8C22;</h3><p>   <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">&#x8C37;&#x6B4C;&#x652F;&#x4ED8;&#x9A8C;&#x8BC1; 403&#x9519;&#x8BEF;</a></p>
 
       
@@ -970,7 +679,7 @@ public void setPurchaseToken(String purchaseToken) {
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.9k</span>
+    <span title="Site words total count">58.5k</span>
   
 </div>
 
