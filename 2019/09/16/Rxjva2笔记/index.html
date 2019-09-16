@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="Android开发一枚">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Silence潇湘夜雨">
-<meta property="og:url" content="http://yoursite.com/page/8/index.html">
+<meta name="description" content="Observable :&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; Observer&amp;#xFF1A;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; &amp;#x64CD;&amp;#x4F5C;&amp;#x7B26; Create &amp;#x521B;&amp;#x5EFA;&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005;(Observable)&amp;#x5BF9;&amp;#x8C61;&amp;#xFF0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava 总结">
+<meta property="og:url" content="http://yoursite.com/2019/09/16/Rxjva2笔记/index.html">
 <meta property="og:site_name" content="Silence潇湘夜雨">
-<meta property="og:description" content="Android开发一枚">
+<meta property="og:description" content="Observable :&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; Observer&amp;#xFF1A;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; &amp;#x64CD;&amp;#x4F5C;&amp;#x7B26; Create &amp;#x521B;&amp;#x5EFA;&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005;(Observable)&amp;#x5BF9;&amp;#x8C61;&amp;#xFF0">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-16T02:09:25.870Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Silence潇湘夜雨">
-<meta name="twitter:description" content="Android开发一枚">
+<meta name="twitter:title" content="RxJava 总结">
+<meta name="twitter:description" content="Observable :&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; Observer&amp;#xFF1A;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005; &amp;#x64CD;&amp;#x4F5C;&amp;#x7B26; Create &amp;#x521B;&amp;#x5EFA;&amp;#x88AB;&amp;#x89C2;&amp;#x5BDF;&amp;#x8005;(Observable)&amp;#x5BF9;&amp;#x8C61;&amp;#xFF0">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/8/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/16/Rxjva2笔记/">
 
 
 
 
 
-  <title>Silence潇湘夜雨</title>
+  <title>RxJava 总结 | Silence潇湘夜雨</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,9 +267,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/SDK支付接入说明/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/16/Rxjva2笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Silence潇湘夜雨">
@@ -299,9 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/17/SDK支付接入说明/" itemprop="url">SDK支付接入说明</a></h1>
+          <h1 class="post-title" itemprop="name headline">RxJava 总结</h1>
         
 
         <div class="post-meta">
@@ -313,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T11:31:08+08:00">
-                2019-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T00:00:00+08:00">
+                2019-09-16
               </time>
             
 
@@ -323,6 +321,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -345,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.5k
+                  1k
                 </span>
               
 
@@ -361,7 +381,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15
+                  6
                 </span>
               
             </div>
@@ -382,16 +402,79 @@
       
 
       
-        
-          请输入密码查看文章详情
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/SDK支付接入说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p><strong>Observable :&#x88AB;&#x89C2;&#x5BDF;&#x8005;</strong></p>
+<p><strong>Observer&#xFF1A;&#x89C2;&#x5BDF;&#x8005;</strong></p>
+<h3 id="&#x64CD;&#x4F5C;&#x7B26;"><a href="#&#x64CD;&#x4F5C;&#x7B26;" class="headerlink" title="&#x64CD;&#x4F5C;&#x7B26;"></a>&#x64CD;&#x4F5C;&#x7B26;</h3><blockquote>
+<p>Create &#x521B;&#x5EFA;&#x88AB;&#x89C2;&#x5BDF;&#x8005;(Observable)&#x5BF9;&#x8C61;&#xFF0C;Observable&#x79F0;&#x4E3A;&#x53D1;&#x5C04;&#x5668;&#xFF08;&#x4E0A;&#x6E38;&#x4E8B;&#x4EF6;&#xFF09;&#xFF0C;Observer&#x63A5;&#x6536;&#x5668;&#xFF08;&#x4E0B;&#x6E38;&#x4E8B;&#x4EF6;&#xFF09;</p>
+</blockquote>
+<blockquote>
+<p>Disposable &#x7528;&#x4E8E;&#x5207;&#x65AD;&#x4E0A;&#x4E0B;&#x6E38;&#x4E8B;&#x4EF6;&#xFF08;&#x4E5F;&#x5C31;&#x662F;&#x89C2;&#x5BDF;&#x8005;&#x548C;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x4E8B;&#x4EF6;&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5F53;&#x4E0A;&#x4E0B;&#x6E38;&#x4E8B;&#x4EF6;&#x88AB;&#x5207;&#x65AD;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0B;&#x6E38;&#xFF08;&#x63A5;&#x6536;&#x5668;&#xFF09;&#x4E0D;&#x518D;&#x63A5;&#x6536;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x4E0A;&#x6E38;&#xFF08;&#x53D1;&#x5C04;&#x5668;&#xFF09;&#x8FD8;&#x4F1A;&#x7EE7;&#x7EED;&#x53D1;&#x9001;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>Map &#x8F6C;&#x6362;&#x51FD;&#x6570;&#x5173;&#x7CFB;</p>
+</blockquote>
+<blockquote>
+<p>Zip&#x7528;&#x4E8E;&#x5408;&#x5E76;&#x4E8B;&#x4EF6;&#xFF0C;&#x53D1;&#x9001;&#x591A;&#x4E2A;&#x4E8B;&#x4EF6;&#xFF0C;&#x4EE5;&#x4E8B;&#x4EF6;&#x6BD4;&#x8F83;&#x5C11;&#x7684;&#x90A3;&#x4E2A;&#x4E3A;&#x4E3B;&#xFF0C;&#x4E24;&#x4E24;&#x5BF9;&#x5E94;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>Concat&#x5C06;&#x4E24;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF08;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#xFF09;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF0C;&#x987A;&#x5E8F;&#x63A5;&#x6536;</p>
+</blockquote>
+<blockquote>
+<p>FlatMap&#x5C06;&#x4E00;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF08;Observable&#xFF09;&#x901A;&#x8FC7;&#x67D0;&#x79CD;&#x65B9;&#x6CD5;&#x8F6C;&#x6362;&#x4E3A;&#x591A;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF08;Observables&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x4E8B;&#x4EF6;&#x6267;&#x884C;&#x7684;&#x987A;&#x5E8F;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>ConcatMap &#x5C06;&#x4E00;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF08;Observable&#xFF09;&#x901A;&#x8FC7;&#x67D0;&#x79CD;&#x65B9;&#x6CD5;&#x8F6C;&#x6362;&#x4E3A;&#x591A;&#x4E2A;&#x53D1;&#x5C04;&#x5668;&#xFF08;Observables&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x4E8B;&#x4EF6;&#x662F;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x662F;&#x6709;&#x5E8F;&#x7684;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>distinct &#x53BB;&#x9664;&#x91CD;&#x590D;&#x6570;&#x636E;&#x6216;&#x64CD;&#x4F5C;</p>
+</blockquote>
+<blockquote>
+<p>Filter &#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8BA9;&#x5176;&#x8FC7;&#x6EE4;&#x6389;&#x7B26;&#x5408;&#x6211;&#x4EEC;&#x7684;&#x503C;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>buffer  <code>buffer</code> &#x64CD;&#x4F5C;&#x7B26;&#x63A5;&#x53D7;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;<code>buffer(count,skip)</code>&#xFF0C;&#x4F5C;&#x7528;&#x662F;&#x5C06; <code>Observable</code> &#x4E2D;&#x7684;&#x6570;&#x636E;&#x6309; <code>skip</code> (&#x6B65;&#x957F;) &#x5206;&#x6210;&#x6700;&#x5927;&#x4E0D;&#x8D85;&#x8FC7; count &#x7684; <code>buffer</code> &#xFF0C;&#x7136;&#x540E;&#x751F;&#x6210;&#x4E00;&#x4E2A; <code>Observable</code>&#x3002;&#x5176;&#x4E2D;count&#x4EE3;&#x8868;&#x6700;&#x5927;&#x53D6;&#x503C;&#xFF0C;&#x5728;&#x4E8B;&#x4EF6;&#x8DB3;&#x591F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x53D6; <code>count</code> &#x4E2A;&#x503C;&#xFF0C;skip&#x662F;&#x95F4;&#x9694;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>timer&#x5EF6;&#x65F6;&#x591A;&#x4E45;&#x6267;&#x884C;&#x4E8B;&#x4EF6;&#xFF0C;&#x63A5;&#x6536;&#x4E24;&#x4E2A;&#x53C2;&#x6570;timer(long delay, TimeUnit unit)&#xFF0C;delay&#x662F;&#x4E8B;&#x4EF6;&#x95F4;&#x9694;&#xFF0C;unit&#x662F;&#x65F6;&#x95F4;&#x5355;&#x4F4D;</p>
+</blockquote>
+<blockquote>
+<p>interval &#x7528;&#x4E8E;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#x6267;&#x884C;&#x67D0;&#x4E2A;&#x64CD;&#x4F5C;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E09;&#x4E2A;&#x53C2;&#x6570;interval(long initialDelay, long period, TimeUnit unit)&#x5206;&#x522B;&#x662F;&#x7B2C;&#x4E00;&#x6B21;&#x53D1;&#x9001;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;&#xFF0C;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#xFF0C;&#x65F6;&#x95F4;&#x5355;&#x4F4D;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x4E5F;&#x6709;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x770B;&#x6E90;&#x7801;&#x3002;<strong>&#x6CE8;&#x610F;&#xFF1A;&#x7531;&#x4E8E;&#x8FD9;&#x4E2A;&#x662F;&#x95F4;&#x9694;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x6211;&#x4EEC;&#x7684;activity&#x6216;&#x8005;fragment&#x9500;&#x6BC1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x4F9D;&#x7136;&#x5728;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x5728;&#x4E0D;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x9500;&#x6BC1;&#x4E86;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x9700;&#x8981;Disposable&#x4E86;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x7684;activity&#x6216;&#x8005;fragment&#x9500;&#x6BC1;&#x7684;&#x65F6;&#x5019;&#xFF08;onDestroy&#xFF09;&#x4E2D;&#x76F4;&#x63A5;&#x6267;&#x884C;dispose&#xFF08;&#xFF09;&#x65B9;&#x6CD5;&#x3002;</strong></p>
+</blockquote>
+<blockquote>
+<p>doOnNext &#xFF1A;&#x7528;&#x4E8E;&#x8BA9;&#x8BA2;&#x9605;&#x8005;&#x5728;&#x63A5;&#x6536;&#x5230;&#x6570;&#x636E;&#x4E4B;&#x524D;&#x505A;&#x4E00;&#x70B9;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>skip&#xFF1A;&#x8DF3;&#x8FC7;count&#x4E2A;&#x6570;&#x76EE;&#x5F00;&#x59CB;&#x63A5;&#x6536;&#x3002;skip&#xFF08;count&#xFF09;&#xFF0C;count&#x4EE3;&#x8868;&#x8DF3;&#x8FC7;&#x7684;&#x4E2A;&#x6570;</p>
+</blockquote>
+<blockquote>
+<p>take&#xFF1A;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;long&#x578B;&#x53C2;&#x6570;count&#xFF0C;&#x4EE3;&#x8868;&#x81F3;&#x591A;&#x63A5;&#x6536;count&#x4E2A;&#x6570;&#x636E;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>just&#xFF1A;&#x53D1;&#x5C04;&#x5668;&#xFF08;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#xFF09;&#x4F9D;&#x6B21;&#x8C03;&#x7528;onNext&#xFF08;&#xFF09;&#x65B9;&#x6CD5;</p>
+</blockquote>
+<blockquote>
+<p>Single&#xFF1A;&#x53EA;&#x4F1A;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;SingleObserver&#x53EA;&#x4F1A;&#x8C03;&#x7528;onError&#xFF08;&#xFF09;&#x6216;&#x8005;onSuccess&#xFF08;&#xFF09;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>dobounce&#xFF1A;&#x53BB;&#x9664;&#x53D1;&#x9001;&#x9891;&#x7387;&#x8FC7;&#x5FEB;&#x7684;&#x9879;&#xFF0C;debounce(long timeout, TimeUnit unit)</p>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x65F6;&#x95F4;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x65F6;&#x95F4;&#x5355;&#x4F4D;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x53BB;&#x9664;&#x65F6;&#x95F4;&#x5C0F;&#x4E8E;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>defer&#xFF1A;&#x6BCF;&#x6B21;&#x8BA2;&#x9605;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#xFF08;Observable&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8BA2;&#x9605;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x521B;&#x5EFA;&#x65B0;&#x7684;observable&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>last&#xFF1A;&#x64CD;&#x4F5C;&#x7B26;&#x4EC5;&#x53D6;&#x51FA;&#x53EF;&#x89C2;&#x5BDF;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x6216;&#x8005;&#x662F;&#x6EE1;&#x8DB3;&#x67D0;&#x4E9B;&#x6761;&#x4EF6;&#x7684;&#x6700;&#x540E;&#x4E00;&#x9879;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>merge&#xFF1A;&#x628A;&#x591A;&#x4E2A;Observable&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF0C;&#x63A5;&#x53D7;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#xFF0C;&#x4E5F;&#x652F;&#x6301;&#x8FED;&#x4EE3;&#x5668;&#x96C6;&#x5408;&#x3002;&#x548C;concat&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x4E0D;&#x7528;&#x7B49;&#x5230;&#x53D1;&#x5C04;&#x5668;A&#x53D1;&#x9001;&#x5B8C;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x518D;&#x8FDB;&#x884C;&#x53D1;&#x5C04;&#x5668;B&#x7684;&#x53D1;&#x9001;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>reduce&#xFF1A;&#x6BCF;&#x6B21;&#x7528;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x6709;&#x4E00;&#x4E2A;seed&#x4F5C;&#x4E3A;&#x521D;&#x59CB;&#x503C;&#x3002;reduce&#xFF08;&#xFF08;x&#xFF0C;y&#xFF09;&#x2014;&gt;x+y&#xFF09;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x8F93;&#x51FA;&#x6BCF;&#x4E00;&#x4E2A;&#x6B65;&#x9AA4;&#x53EA;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>scan&#xFF1A;&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x548C;reduce&#x548C;&#x76F8;&#x4F3C;&#xFF0C;scan&#xFF08;&#xFF08;x&#xFF0C;y&#xFF09;&#x2014;&gt;x+y&#xFF09;&#x4F46;&#x662F;&#xFF0C;scan&#x4F1A;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x6B65;&#x9AA4;&#x90FD;&#x8F93;&#x51FA;&#x3002;</p>
+</blockquote>
+
       
     </div>
     
@@ -408,167 +491,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/SDK 登录接入说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silence潇湘夜雨">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/17/SDK 登录接入说明/" itemprop="url">SDK 登录说明</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T11:14:46+08:00">
-                2019-07-17
-              </time>
+              <a href="/2019/08/21/Android-获取验证码自动填充/" rel="next" title="Android 获取验证码自动填充">
+                <i class="fa fa-chevron-left"></i> Android 获取验证码自动填充
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2019/09/16/Html笔记/" rel="prev" title="HTML笔记">
+                HTML笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  6.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  39
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          请输入密码查看文章详情
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/SDK 登录接入说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -578,14 +526,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -593,6 +538,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -613,8 +562,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -693,6 +651,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符"><span class="nav-number">1.</span> <span class="nav-text">操作符</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -844,6 +818,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
