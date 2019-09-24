@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Socks 1&amp;#x3001;socks &amp;#x662F;&amp;#x4F1A;&amp;#x8BDD;&amp;#x5C42;&amp;#x7684;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#x4F4D;&amp;#x4E8E;&amp;#x8868;&amp;#x793A;&amp;#x5C42;&amp;#x548C;&amp;#x4F20;&amp;#x8F93;&amp;#x5C42;&amp;#x4E4B;&amp;#x95F4;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socks、shadowsocks、VMess协议的差异对比">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/Socks、shadowsocks、vmess协议的差异/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="Socks 1&amp;#x3001;socks &amp;#x662F;&amp;#x4F1A;&amp;#x8BDD;&amp;#x5C42;&amp;#x7684;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#x4F4D;&amp;#x4E8E;&amp;#x8868;&amp;#x793A;&amp;#x5C42;&amp;#x548C;&amp;#x4F20;&amp;#x8F93;&amp;#x5C42;&amp;#x4E4B;&amp;#x95F4;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-24T01:51:34.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socks、shadowsocks、VMess协议的差异对比">
+<meta name="twitter:description" content="Socks 1&amp;#x3001;socks &amp;#x662F;&amp;#x4F1A;&amp;#x8BDD;&amp;#x5C42;&amp;#x7684;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#x4F4D;&amp;#x4E8E;&amp;#x8868;&amp;#x793A;&amp;#x5C42;&amp;#x548C;&amp;#x4F20;&amp;#x8F93;&amp;#x5C42;&amp;#x4E4B;&amp;#x95F4;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/Socks、shadowsocks、vmess协议的差异/">
+
+
+
+
+
+  <title>Socks、shadowsocks、VMess协议的差异对比 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Socks、shadowsocks、vmess协议的差异/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Socks、shadowsocks、VMess协议的差异对比</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T11:03:21+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Socks"><a href="#Socks" class="headerlink" title="Socks"></a>Socks</h4><ul>
+<li>1&#x3001;socks &#x662F;&#x4F1A;&#x8BDD;&#x5C42;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x4F4D;&#x4E8E;&#x8868;&#x793A;&#x5C42;&#x548C;&#x4F20;&#x8F93;&#x5C42;&#x4E4B;&#x95F4;&#xFF0C;&#x53EF;&#x4EE5;&#x4EE3;&#x7406;TCP&#x548C;UDP&#x7684;&#xFF08;&#x62A5;&#x6587;&#xFF09;&#x6D41;&#x91CF;&#xFF1B;</li>
+<li>2&#x3001;socks&#x662F;&#x4E00;&#x79CD;&#x660E;&#x6587;&#x534F;&#x8BAE;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x672C;&#x5730;&#x4EE3;&#x7406;&#x3002;</li>
+</ul>
+<p><strong>&#x7279;&#x70B9;&#xFF1A;</strong></p>
+<ul>
+<li><p>1&#x3001;&#x5F3A;&#x529B;&#x7684;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#x65B9;&#x6848;&#xFF1B;</p>
+</li>
+<li><p>2&#x3001;&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#x7684;&#x534F;&#x5546;&#x673A;&#x5236;&#xFF1B;</p>
+</li>
+<li><p>3&#x3001;&#x5730;&#x5740;&#x89E3;&#x6790;&#x7684;&#x4EE3;&#x7406;&#xFF1B;</p>
+</li>
+<li><p>4&#x3001;UDP&#x534F;&#x8BAE;&#x5E94;&#x7528;&#x7684;&#x4EE3;&#x7406;&#x652F;&#x6301;&#x3002;</p>
+<p><strong>&#x7F3A;&#x70B9;&#xFF1A;</strong></p>
+</li>
+<li><p>1&#x3001;&#x989D;&#x5916;&#x7684;&#x9A8C;&#x8BC1;&#x534F;&#x5546;&#x7684;&#x529F;&#x80FD;&#xFF1B;</p>
+</li>
+<li><p>2&#x3001;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x5668;&#x7684;&#x901A;&#x4FE1;&#xFF0C;&#x52A0;&#x5BC6;&#x5B8C;&#x5168;&#x4F9D;&#x8D56;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x5668;&#x7684;&#x901A;&#x4FE1;&#x534F;&#x8BAE;&#xFF0C;&#x5982;&#x679C;&#x670D;&#x52A1;&#x5668;&#x7528;&#x7684;&#x662F;HTTP&#x534F;&#x8BAE;&#xFF0C;&#x90A3;&#x4E48;&#xFF0C;&#x901A;&#x8FC7;&#x4EE3;&#x7406;&#x8D70;&#x7684;&#x7684;&#x6D41;&#x91CF;&#xFF0C;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x660E;&#x6587;&#x5728;&#x5185;&#x7F51;&#x4F20;&#x8F93;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x4E0D;&#x9AD8;&#x3002;</p>
+</li>
+</ul>
+<h4 id="ShadowSocks"><a href="#ShadowSocks" class="headerlink" title="ShadowSocks"></a>ShadowSocks</h4><p><strong>&#x7279;&#x70B9;&#xFF1A;</strong></p>
+<p>shadowsocks&#x5C06;socks5&#x670D;&#x52A1;&#x5668;&#x62C6;&#x5206;&#x6210;&#x4E86;&#x4E24;&#x90E8;&#x5206;&#xFF1A;sslocal&#x548C;ssserver</p>
+<ul>
+<li>1&#x3001;sslocal&#xFF1A;&#x76F8;&#x5BF9;&#x4E8E;socks5&#x5BA2;&#x6237;&#x7AEF;&#x4FBF;&#x662F;socks5&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5BF9;&#x4E8E;socks5&#x5BA2;&#x6237;&#x7AEF;&#x662F;&#x900F;&#x660E;&#x7684;&#xFF0C;sslocal&#x5B8C;&#x6210;&#x4E0E;socks5&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x6240;&#x6709;&#x4EA4;&#x4E92;&#xFF1B;</li>
+<li>2&#x3001;ssserver&#xFF1A;&#x76F8;&#x5BF9;&#x4E8E;socks5&#x5BA2;&#x6237;&#x7AEF;&#x540C;&#x6837;&#x4E5F;&#x662F;&#x662F;socks5&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5BF9;&#x4E8E;&#x76EE;&#x6807;&#x4E3B;&#x673A;&#x662F;&#x900F;&#x660E;&#x7684;&#xFF0C;&#x5B8C;&#x6210;&#x4E0E;socks5&#x670D;&#x52A1;&#x5668;&#x4E0E;&#x76EE;&#x6807;&#x4E3B;&#x673A;&#x7684;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#xFF1B;</li>
+</ul>
+<blockquote>
+<p>&#x5DE5;&#x4F5C;&#x539F;&#x7406;</p>
+</blockquote>
+<p>socks5&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x662F;&#x5C06;socks5&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;socks5&#x670D;&#x52A1;&#x5668;&#x7684;&#x8FDE;&#x63A5;&#x63D0;&#x524D;&#xFF0C;socks5&#x534F;&#x8BAE;&#x7684;&#x4EA4;&#x4E92;&#x5B8C;&#x5168;&#x5B9E;&#x5728;&#x672C;&#x5730;&#x8FDB;&#x884C;&#x7684;&#xFF0C;&#x5728;&#x7F51;&#x7EDC;&#x4E2D;&#x4F20;&#x8F93;&#x5B8C;&#x5168;&#x662F;&#x5229;&#x7528;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x52A0;&#x5BC6;&#x540E;&#x7684;&#x5BC6;&#x6587;&#xFF0C;&#x5F88;&#x597D;&#x7684;&#x8FDB;&#x884C;&#x4E86;&#x53BB;&#x7279;&#x5F81;&#x8BDD;&#xFF0C;&#x4F7F;&#x5F97;&#x4F20;&#x8F93;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x88AB;&#x7279;&#x5F81;&#x8BC6;&#x522B;&#x3002;</p>
+<blockquote>
+<p>&#x5177;&#x4F53;&#x6D41;&#x7A0B;</p>
+</blockquote>
+<p>sslocal&#x63A5;&#x6536;&#x5230;socks5&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F1A;&#x5C06;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#xFF0C;&#x5E76;&#x5C06;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x53D1;&#x9001;&#x5230;ssserver&#xFF0C;ssserver&#x63A5;&#x6536;&#x5230;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x6743;&#x9650;&#x9A8C;&#x8BC1;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x5C06;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x53D1;&#x9001;&#x5230;ssserver&#xFF0C;ssserver&#x63A5;&#x6536;&#x5230;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x6743;&#x9650;&#x9A8C;&#x8BC1;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x89E3;&#x5BC6;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x5C06;&#x660E;&#x6587;&#x53D1;&#x9001;&#x5230;&#x76EE;&#x6807;&#x4E3B;&#x673A;&#xFF1B;&#x5F53;&#x76EE;&#x6807;&#x4E3B;&#x673A;&#x54CD;&#x5E94;ssserver&#x540E;&#xFF0C;ssserver&#x5C06;&#x63A5;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x89E3;&#x5305;&#xFF0C;&#x5E76;&#x5C06;&#x6570;&#x636E;&#x52A0;&#x5BC6;&#xFF0C;&#x53D1;&#x9001;&#x5230;ssloacal&#xFF0C;sslocal&#x63A5;&#x6536;&#x5230;&#x52A0;&#x5BC6;&#x540E;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x89E3;&#x5BC6;&#xFF0C;&#x518D;&#x53D1;&#x9001;&#x7ED9;socks5&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#x4E00;&#x6B21;&#x4EA4;&#x4E92;&#x3002;</p>
+<blockquote>
+<p>&#x4F18;&#x70B9;</p>
+</blockquote>
+<ul>
+<li>1&#x3001;&#x5177;&#x6709;&#x8F83;&#x5F3A;&#x7684;&#x9690;&#x533F;&#x6027;&#xFF0C;&#x7528;&#x4E8E;&#x6DF7;&#x6DC6;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x52A0;&#x5BC6;&#xFF1B;</li>
+<li>2&#x3001;&#x6709;&#x8F83;&#x4E3A;&#x5B8C;&#x5584;&#x7684;&#x52A0;&#x5BC6;&#x65B9;&#x6848;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x5DE5;&#x4E1A;&#x7EA7;&#x7684;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#xFF1B;</li>
+<li>3&#x3001;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x9884;&#x5171;&#x4EAB;&#x5BC6;&#x94A5;&#xFF08;pre-shared key, PSK&#xFF09;&#xFF0C;&#x52A0;&#x5BC6;&#x65B9;&#x5F0F;&#x662F;&#x9884;&#x5148;&#x5B9A;&#x4E49;&#x597D;&#x7684;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x534F;&#x5546;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x7F3A;&#x70B9; </p>
+</blockquote>
+<ul>
+<li>1&#x3001;&#x6CA1;&#x6709;&#x9519;&#x8BEF;&#x56DE;&#x62A5;&#x673A;&#x5236;&#xFF1B;</li>
+<li>2&#x3001;&#x6CA1;&#x6709;&#x8003;&#x8651;&#x7528;&#x6237;&#x9274;&#x522B;&#xFF0C;&#x4F7F;&#x5F97;&#x670D;&#x52A1;&#x7AEF;ACL&#xFF08;&#x64CD;&#x4F5C;&#x6743;&#x9650;&#xFF09;&#x6216;&#x8005;&#x6D41;&#x91CF;&#x7EDF;&#x8BA1;&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;&#x3002;</li>
+</ul>
+<p><strong>shadowsocks&#x4E0E;socks&#x7684;&#x533A;&#x522B;&#xFF1A;</strong></p>
+<ul>
+<li>1&#x3001;&#x9690;&#x533F;&#x6027;&#x66F4;&#x597D;&#xFF0C;&#x66F4;&#x52A0;&#x5B89;&#x5168;&#xFF1B;</li>
+</ul>
+<p><strong>PSK&#xFF08;&#x9884;&#x5171;&#x4EAB;&#x5BC6;&#x94A5;&#xFF09;</strong></p>
+<blockquote>
+<p>&#x5728;&#x5BC6;&#x7801;&#x672F;&#x4E2D;&#xFF0C;&#x9884;&#x5171;&#x4EAB;&#x5BC6;&#x94A5;&#x662F;&#x4E00;&#x4E2A;&#x5171;&#x4EAB;&#x5BC6;&#x94A5;&#xFF0C;&#x8BE5;&#x5BC6;&#x94A5;&#x5148;&#x524D;&#x5DF2;&#x5728;&#x4E24;&#x65B9;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x67D0;&#x4E9B;&#x5B89;&#x5168;&#x901A;&#x9053;&#x5171;&#x4EAB;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x3002;</p>
+</blockquote>
+<p><strong>ACL</strong></p>
+<blockquote>
+<p>Access Control List &#x7684;&#x7F29;&#x5199;&#xFF0C;&#x6210;&#x4E3A;&#x65B9;&#x95EE;&#x63A7;&#x5236;&#x5217;&#x8868;&#xFF0C;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x53EF;&#x8FDB;&#x884C;&#x4F55;&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x6743;&#x9650;&#x5B9A;&#x4E49;&#x3002;</p>
+</blockquote>
+<h4 id="VMess"><a href="#VMess" class="headerlink" title="VMess"></a>VMess</h4><blockquote>
+<p>&#x9610;&#x91CA;</p>
+</blockquote>
+<p>VMess&#x662F;V2Ray&#x539F;&#x521B;&#x7684;&#x52A0;&#x5BC6;&#x901A;&#x8BAF;&#x534F;&#x8BAE;&#xFF0C; &#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E; TCP &#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x6240;&#x6709;&#x6570;&#x636E;&#x4F7F;&#x7528; TCP &#x4F20;&#x8F93;&#x3002;</p>
+<blockquote>
+<p>&#x901A;&#x8BAF;&#x8FC7;&#x7A0B;</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VMess&#x662F;&#x4E00;&#x4E2A;&#x65E0;&#x72B6;&#x6001;&#x534F;&#x8BAE;&#xFF0C;&#x5373;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x65E0;&#x9700;&#x63E1;&#x624B;&#x5373;&#x53EF;&#x76F4;&#x63A5;&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x524D;&#x548C;&#x4F20;&#x8F93;&#x540E;&#x5BF9;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x6CA1;&#x6709;&#x5F71;&#x54CD;&#x3002;VMess&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x8D77;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x9A8C;&#x8BC1;&#x5E76;&#x4E14;&#x5224;&#x65AD;&#x8BE5;&#x8BF7;&#x6C42;&#x662F;&#x5426;&#x6765;&#x81EA;&#x4E00;&#x4E2A;&#x5408;&#x6CD5;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5982;&#x679C;&#x5408;&#x6CD5;&#x5219;&#x4F1A;&#x8F6C;&#x53D1;&#x8BE5;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x628A;&#x83B7;&#x53D6;&#x7684;&#x54CD;&#x5E94;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;VMess&#x901A;&#x8FC7;&#x975E;&#x5BF9;&#x79F0;&#x683C;&#x5F0F;&#xFF0C;&#x5373;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x51FA;&#x7684;&#x8BF7;&#x6C42;&#x548C;&#x670D;&#x52A1;&#x5668;&#x7684;&#x54CD;&#x5E94;&#x4F7F;&#x7528;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x683C;&#x5F0F;&#x3002;</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x4E0E;shadowsocks&#x7684;&#x533A;&#x522B;</strong></p>
+<ul>
+<li>1&#x3001;shadowsocks&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EE3;&#x7406;&#x5DE5;&#x5177;&#xFF0C;&#x800C;V2Ray &#x672C;&#x8EAB;&#x662F;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#xFF0C;V2Ray&#x56FE;&#x5F62;&#x754C;&#x9762;&#x5BA2;&#x6237;&#x7AEF;&#x5927;&#x591A;&#x662F;&#x8C03;&#x7528;V2Ray&#x5185;&#x6838;&#x5957;&#x4E86;&#x4E00;&#x4E2A;&#x56FE;&#x5F62;&#x754C;&#x9762;&#x7684;&#x5916;&#x58F3;&#xFF0C;&#x4EFB;&#x4F55;&#x5F00;&#x53D1;&#x8005;&#x90FD;&#x53EF;&#x4EE5;&#x5229;&#x7528;V2Ray&#x63D0;&#x4F9B;&#x7684;&#x6A21;&#x5757;&#x5F00;&#x53D1;&#x51FA;&#x65B0;&#x7684;&#x4EE3;&#x7406;&#x8F6F;&#x4EF6;&#xFF1B;</li>
+<li>2&#x3001;&#x5206;&#x6D41;&#xFF1A;shadowsocks&#x548C;V2Ray&#x672C;&#x8EAB;&#x4E0D;&#x652F;&#x6301;PAC&#xFF0C;&#x90FD;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x52A0;&#x8FDB;&#x53BB;&#x7684;&#xFF0C;shadowsocks&#x5206;&#x6D41;&#x4F7F;&#x7528;ACL&#xFF0C;V2Ray&#x4F7F;&#x7528;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x7684;&#x8DEF;&#x7531;&#x529F;&#x80FD;&#xFF1B;</li>
+<li>3&#x3001;&#x52A0;&#x5BC6;&#x65B9;&#x5F0F;&#xFF1A;V2Ray&#xFF08;&#x7279;&#x6307;VMess&#x534F;&#x8BAE;&#xFF09;&#x4E0D;&#x50CF;shadowsocks&#x90A3;&#x6837;&#x770B;&#x91CD;&#x5BF9;&#x52A0;&#x5BC6;&#x65B9;&#x5F0F;&#x7684;&#x9009;&#x62E9;&#xFF0C;&#x5E76;&#x4E14;VMess&#x7684;&#x52A0;&#x5BC6;&#x65B9;&#x5F0F;&#x662F;&#x7531;&#x5BA2;&#x6237;&#x7AEF;&#x6307;&#x5B9A;&#x7684;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x81EA;&#x9002;&#x5E94;&#xFF1B;</li>
+<li>4&#x3001;&#x65F6;&#x95F4;&#xFF1A;V2Ray&#x8981;&#x4FDD;&#x8BC1;&#x65F6;&#x95F4;&#x51C6;&#x786E;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x5B89;&#x5168;&#x8BBE;&#x8BA1;&#x7684;&#xFF1B;</li>
+<li>5&#x3001;&#x5BC6;&#x7801;&#xFF1A;VMess&#x53EA;&#x6709;id&#xFF08;&#x4F7F;&#x7528;UUID&#x7684;&#x683C;&#x5F0F;&#xFF09;&#xFF0C;&#x4F5C;&#x7528;&#x7C7B;&#x4F3C;&#x4E8E;shadowsocks&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x968F;&#x673A;&#x6027;&#x8FDC;&#x597D;&#x4E8E;shadowsocks&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x53EA;&#x662F;&#x4E0D;&#x592A;&#x65B9;&#x4FBF;&#x8BB0;&#x5FC6;&#xFF08;&#x5B89;&#x5168;&#x4E0E;&#x65B9;&#x4FBF;&#x7684;&#x77DB;&#x76FE;&#xFF09;&#xFF1B;</li>
+<li>6&#x3001;UDP&#x8F6C;&#x53D1;&#xFF1A;VMess&#x662F;&#x57FA;&#x4E8E;TCP&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x5BF9;&#x4E8E;UDP&#x5305;V2Ray&#x4F1A;&#x8F6C;&#x6210;TCP&#x518D;&#x4F20;&#x8F93;&#x7684;&#x3002;&#x8981;UDP&#x8F6C;&#x53D1;&#x529F;&#x80FD;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684;socks&#x534F;&#x8BAE;&#x4E2D;&#x5F00;&#x542F;UDP&#x8F6C;&#x53D1;&#x5373;&#x53EF;&#xFF1B;</li>
+<li>7&#x3001;&#x8DEF;&#x7531;&#x5668;&#x7FFB;&#x5899;</li>
+</ul>
+<p><strong>&#x4F18;&#x70B9;</strong></p>
+<ul>
+<li>1&#x3001;&#x66F4;&#x5B8C;&#x5584;&#x7684;&#x534F;&#x8BAE;</li>
+<li>2&#x3001;&#x66F4;&#x5F3A;&#x5927;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x7F51;&#x7EDC;&#x6027;&#x80FD;&#x66F4;&#x597D;</li>
+<li>3&#x3001;&#x66F4;&#x4E30;&#x5BCC;&#x7684;&#x529F;&#x80FD;&#xFF1A;<ul>
+<li>1&#x3001;mKCP:KCP &#x534F;&#x8BAE;&#x5728;V2Ray&#x4E0A;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4E0D;&#x5FC5;&#x53E6;&#x884C;&#x5B89;&#x88C5;kcptun</li>
+<li>2&#x3001;&#x52A8;&#x6001;&#x7AEF;&#x53E3;&#xFF1A;&#x52A8;&#x6001;&#x6539;&#x53D8;&#x901A;&#x4FE1;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x5BF9;&#x6297;&#x5BF9;&#x957F;&#x65F6;&#x95F4;&#x5927;&#x6D41;&#x91CF;&#x7AEF;&#x53E3;&#x7684;&#x9650;&#x901F;&#x5C01;&#x9501;</li>
+<li>3&#x3001;&#x8DEF;&#x7531;&#x529F;&#x80FD;&#xFF1A;&#x53EF;&#x968F;&#x610F;&#x8BBE;&#x5B9A;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5305;&#x7684;&#x6D41;&#x5411;&#xFF0C;&#x53BB;&#x5E7F;&#x544A;&#x3001;&#x53CD;&#x8DDF;&#x8E2A;&#x90FD;&#x53EF;&#x4EE5;</li>
+<li>4&#x3001;&#x591A;&#x91CD;&#x4EE3;&#x7406;</li>
+<li>5&#x3001;&#x6570;&#x636E;&#x5305;&#x4F2A;&#x88C5;&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;shadowsocks-rss&#x7684;&#x6DF7;&#x6DC6;&#xFF0C;&#x5BF9;&#x4E0E;mKCP&#x7684;&#x6570;&#x636E;&#x5305;&#x4E5F;&#x53EF;&#x4EE5;&#x4F2A;&#x88C5;&#xFF0C;&#x4F2A;&#x88C5;&#x5E38;&#x89C1;&#x6D41;&#x91CF;&#xFF0C;&#x4F7F;&#x5F97;&#x522B;&#x66F4;&#x56F0;&#x96BE;</li>
+<li>6&#x3001;WebSocket&#x534F;&#x8BAE;&#xFF1A;&#x53EF;&#x4EE5;PaaS&#x5E73;&#x53F0;&#x642D;&#x5EFA;V2Ray&#xFF0C;&#x901A;&#x8FC7;WebSocket&#x4EE3;&#x7406;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;CDN&#x4E2D;&#x8F6C;&#xFF0C;&#x6297;&#x5C01;&#x9501;&#x6548;&#x679C;&#x66F4;&#x597D;&#x3002;</li>
+<li>7&#x3001;Mux&#xFF1A;&#x591A;&#x8DEF;&#x590D;&#x7528;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x592A;&#x9AD8;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x3002;&#xFF08;&#x5C06;&#x591A;&#x6761;TCP&#x8FDE;&#x63A5;&#x5408;&#x6210;&#x4E00;&#x6761;&#xFF0C;&#x8282;&#x7701;&#x8D44;&#x6E90;&#xFF0C;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#x80FD;&#x529B;&#xFF09;</li>
+</ul>
+</li>
+</ul>
+<p><strong>&#x7F3A;&#x70B9;</strong></p>
+<ul>
+<li>1&#x3001;&#x914D;&#x7F6E;&#x590D;&#x6742;</li>
+<li>2&#x3001;&#x4EA7;&#x4E1A;&#x94FE;&#x4E0D;&#x6210;&#x719F;</li>
+</ul>
+<h4 id="KCP-&#x534F;&#x8BAE;"><a href="#KCP-&#x534F;&#x8BAE;" class="headerlink" title="KCP &#x534F;&#x8BAE;"></a>KCP &#x534F;&#x8BAE;</h4><blockquote>
+<p>&#x8FD0;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x5728;&#x7F51;&#x7EDC;&#x5B9E;&#x65F6;&#x6027;&#x548C;&#x53EF;&#x9760;&#x6027;&#x8981;&#x6C42;&#x6BD4;&#x8F83;&#x9AD8;&#x7684;&#x573A;&#x666F;&#x4E0B;&#x53EF;&#x4EE5;&#x8003;&#x8651;kcp&#x534F;&#x8BAE;&#x4EE3;&#x66FF;tcp&#x534F;&#x8BAE;&#x3002;</p>
+</blockquote>
+<blockquote>
+<p>KCP&#x662F;&#x4E00;&#x79CD;&#x5177;&#x6709;&#x53EF;&#x9760;&#x6027;&#x7684;&#x4F20;&#x8F93;ARQ&#xFF08;&#x81EA;&#x52A8;&#x91CD;&#x4F20;&#xFF09;&#x534F;&#x8BAE;&#xFF0C;&#x8BBE;&#x8BA1;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x5728;&#x7F51;&#x7EDC;&#x62E5;&#x5835;&#x7684;&#x60C5;&#x51B5;&#x4E0B;tcp&#x534F;&#x8BAE;&#x7F51;&#x7EDC;&#x901F;&#x5EA6;&#x6162;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+</blockquote>
+<p><strong>&#x7279;&#x70B9;</strong></p>
+<ul>
+<li>1&#x3001;&#x91CD;&#x4F20;&#x673A;&#x5236;&#xFF1A;&#x6570;&#x636E;&#x53EF;&#x9760;&#x6027;&#x548C;&#x63D0;&#x9AD8;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#xFF1B;</li>
+<li>2&#x3001;&#x5206;&#x7247;&#x5B58;&#x50A8;&#xFF1A;&#x5F53;&#x7528;&#x6237;&#x6570;&#x636E;&#x5F88;&#x5927;&#x65F6;&#xFF0C;&#x5927;&#x4E8E;&#x4E00;&#x4E2A;UDP&#x5305;&#x80FD;&#x627F;&#x62C5;&#x7684;&#x8303;&#x56F4;&#x65F6;&#xFF08;<code>MSS</code>&#x6700;&#x5927;&#x5206;&#x6BB5;&#x5927;&#x5C0F;&#xFF09;&#xFF0C;<code>KCP</code>&#x4F1A;&#x5C06;&#x7528;&#x6237;&#x6570;&#x636E;&#x5206;&#x7247;&#x5B58;&#x50A8;&#x5728;&#x591A;&#x4E2A;<code>KCP</code>&#x5305;&#x4E2D;&#xFF1B;</li>
+<li>3&#x3001;&#x6ED1;&#x52A8;&#x7A97;&#x53E3;&#x673A;&#x5236;&#xFF1A;&#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#xFF0C;&#x53D1;&#x9001;&#x65B9;&#x4E0D;&#x5FC5;&#x6BCF;&#x4E00;&#x4E2A;&#x5305;&#x90FD;&#x7B49;&#x5F85;&#x786E;&#x8BA4;&#xFF0C;&#x800C;&#x662F;&#x53D1;&#x9001;&#x591A;&#x4E2A;&#x5305;&#x51FA;&#x53BB;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x63A5;&#x6536;&#x65B9;&#x4E00;&#x4E00;&#x786E;&#x8BA4;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x63A5;&#x6536;&#x65B9;&#x4E0D;&#x80FD;&#x540C;&#x65F6;&#x5904;&#x7406;&#x65E0;&#x9650;&#x591A;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x9650;&#x5236;&#x53D1;&#x9001;&#x65B9;&#x7684;&#x6570;&#x636E;&#x6570;&#x91CF;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5728;&#x63A5;&#x6536;&#x65B9;&#x672A;&#x786E;&#x8BA4;&#x4E4B;&#x524D;&#xFF0C;&#x53D1;&#x9001;&#x65B9;&#x53EA;&#x80FD;&#x53D1;&#x9001;wnd&#x5927;&#x5C0F;&#x7684;&#x6570;&#x636E;&#xFF1B;</li>
+<li>4&#x3001;&#x7F51;&#x7EDC;&#x4E22;&#x5305;&#x4E25;&#x91CD;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x4F7F;&#x7528;&#x3002;</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/19/Android-获取手机的唯一ID（针对有Google服务的手机）/" rel="next" title="Android 获取手机的唯一ID（针对有Google服务的手机）">
+                <i class="fa fa-chevron-left"></i> Android 获取手机的唯一ID（针对有Google服务的手机）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Socks"><span class="nav-number">1.</span> <span class="nav-text">Socks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ShadowSocks"><span class="nav-number">2.</span> <span class="nav-text">ShadowSocks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VMess"><span class="nav-number">3.</span> <span class="nav-text">VMess</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KCP-协议"><span class="nav-number">4.</span> <span class="nav-text">KCP 协议</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">63.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
