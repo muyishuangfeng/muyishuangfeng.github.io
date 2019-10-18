@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x652F;&amp;#x4ED8;&amp;#x6D41;&amp;#x7A0B;&amp;#x8BF4;&amp;#x660E;&amp;#x4E3A;&amp;#x4E86;&amp;#x4FDD;&amp;#x8BC1;&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x5B89;&amp;#x5168;&amp;#xFF0C;sdk&amp;#x91C7;&amp;#x7528;&amp;#x4E86;Android&amp;#x652F;&amp;#x4ED8;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付接入说明">
+<meta property="og:url" content="http://yoursite.com/2019/10/18/Android支付接入说明/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x652F;&amp;#x4ED8;&amp;#x6D41;&amp;#x7A0B;&amp;#x8BF4;&amp;#x660E;&amp;#x4E3A;&amp;#x4E86;&amp;#x4FDD;&amp;#x8BC1;&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x5B89;&amp;#x5168;&amp;#xFF0C;sdk&amp;#x91C7;&amp;#x7528;&amp;#x4E86;Android&amp;#x652F;&amp;#x4ED8;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-18T10:50:43.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支付接入说明">
+<meta name="twitter:description" content="&amp;#x652F;&amp;#x4ED8;&amp;#x6D41;&amp;#x7A0B;&amp;#x8BF4;&amp;#x660E;&amp;#x4E3A;&amp;#x4E86;&amp;#x4FDD;&amp;#x8BC1;&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x5B89;&amp;#x5168;&amp;#xFF0C;sdk&amp;#x91C7;&amp;#x7528;&amp;#x4E86;Android&amp;#x652F;&amp;#x4ED8;&amp;#x5E73;&amp;#x53F0;&amp;#xFF0">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/18/Android支付接入说明/">
+
+
+
+
+
+  <title>支付接入说明 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/18/Android支付接入说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">支付接入说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-18T18:06:37+08:00">
+                2019-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/支付/" itemprop="url" rel="index">
+                    <span itemprop="name">支付</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;"><a href="#&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;" class="headerlink" title="&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;"></a>&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;</h3><pre><code>&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x652F;&#x4ED8;&#x7684;&#x5B89;&#x5168;&#xFF0C;sdk&#x91C7;&#x7528;&#x4E86;Android&#x652F;&#x4ED8;&#x5E73;&#x53F0;&#xFF08;Google Play&#x548C;OneStore&#xFF09;&#x9A8C;&#x8BC1;&#x548C;LT&#x670D;&#x52A1;&#x5668;&#x9A8C;&#x8BC1;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x4E1A;&#x52A1;&#x6D41;&#x7A0B;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</code></pre><h4 id="GooglePlay-&#x63A5;&#x5165;"><a href="#GooglePlay-&#x63A5;&#x5165;" class="headerlink" title="GooglePlay &#x63A5;&#x5165;"></a>GooglePlay &#x63A5;&#x5165;</h4><p>(1)&#x3001;&#x5BA2;&#x6237;&#x7AEF;&#x8C03;&#x7528;&#x652F;&#x4ED8;&#x6A21;&#x5757;&#x4EE3;&#x7801;&#xFF0C;&#x7531;SDK&#x5411;LT&#x670D;&#x52A1;&#x5668;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x8BA2;&#x5355;&#x8BF7;&#x6C42;&#xFF1B;<br>(2)&#x3001;&#x62FF;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7ED9;&#x7684;&#x8BA2;&#x5355;ID&#x540E;&#xFF0C;SDK&#x53D1;&#x8D77;Google Play&#x652F;&#x4ED8;&#xFF1B;<br>(3)&#x3001;Google Play&#x652F;&#x4ED8;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x540E;&#xFF0C;&#x62FF;&#x5230;Google Play&#x652F;&#x4ED8;&#x6210;&#x529F;&#x7684;token&#x4FE1;&#x606F;&#xFF1B;<br>(4)&#x3001;SDK&#x628A;Google play&#x8FD4;&#x56DE;&#x7684;&#x8BA2;&#x5355;&#x53F7;token&#x7B49;&#x4FE1;&#x606F;&#x53D1;&#x7ED9;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;LT&#x670D;&#x52A1;&#x5668;&#x5411;Google Play&#x670D;&#x52A1;&#x5668;&#x6821;&#x9A8C;&#xFF1B;<br>(5)&#x3001;&#x670D;&#x52A1;&#x7AEF;&#x5BF9;Google play&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x6570;&#x636E;&#x505A;&#x5904;&#x7406;&#x548C;&#x6821;&#x9A8C;&#x8BA2;&#x5355;&#x7684;&#x5408;&#x6CD5;&#x6027;&#xFF1B;<br>(6)&#x3001;&#x901A;&#x8FC7;&#x670D;&#x52A1;&#x5668;&#x9A8C;&#x8BC1;&#x7684;&#x7ED3;&#x679C;&#x6765;&#x786E;&#x5B9A;&#x652F;&#x4ED8;&#x7684;&#x7ED3;&#x679C;&#xFF1B;<br>(7)&#x3001;&#x652F;&#x4ED8;&#x6210;&#x529F;&#x56DE;&#x8C03; &#x652F;&#x4ED8;&#x6210;&#x529F;&#x56DE;&#x8C03;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF1A; &#x9700;&#x8981;CP&#x670D;&#x52A1;&#x5668;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;API&#x4F9B;&#x4E50;&#x63A8;&#x670D;&#x52A1;&#x8C03;&#x7528; &#x56DE;&#x8C03;&#x5730;&#x5740;&#x6240;&#x63A5;&#x53D7;&#x7684;&#x53C2;&#x6570;&#x683C;&#x5F0F;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">METHOD: POST </span><br><span class="line">HEADER:Content-Type:application/json</span><br></pre></td></tr></table></figure>
+
+<h4 id="Google-Play-&#x7F51;&#x7EDC;&#x5E93;&#x63A5;&#x5165;&#x8BF4;&#x660E;"><a href="#Google-Play-&#x7F51;&#x7EDC;&#x5E93;&#x63A5;&#x5165;&#x8BF4;&#x660E;" class="headerlink" title="Google Play &#x7F51;&#x7EDC;&#x5E93;&#x63A5;&#x5165;&#x8BF4;&#x660E;"></a>Google Play &#x7F51;&#x7EDC;&#x5E93;&#x63A5;&#x5165;&#x8BF4;&#x660E;</h4><ul>
+<li><p>1&#x3001;&#x63A5;&#x5165;&#x524D;&#x63D0;<br> <strong>1&#x3001;&#x624B;&#x673A;&#x5FC5;&#x987B;&#x652F;&#x6301;Google &#x670D;&#x52A1;</strong></p>
+</li>
+<li><p><strong>2&#x3001;&#x624B;&#x673A;&#x5FC5;&#x987B;&#x6709;Google&#x670D;&#x52A1;&#x7684;&#x5957;&#x4EF6;&#xFF0C;&#x5E76;&#x4E14;Google Play &#x670D;&#x52A1;&#x8D26;&#x53F7;&#x548C;Google Play &#x8D26;&#x53F7;&#x5FC5;&#x987B;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#xFF08;&#x8981;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;Google &#x652F;&#x4ED8;&#x8C03;&#x4E0D;&#x8D77;&#x6765;&#xFF09;</strong></p>
+</li>
+<li><p><strong>3&#x3001;VPN&#x5FC5;&#x987B;&#x4FDD;&#x6301;&#x6253;&#x5F00;&#x72B6;&#x6001;</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>2&#x3001;&#x5728;project &#x4E0B;&#x7684;build &#x5BFC;&#x5165;&#x4ED3;&#x5E93;&#x5730;&#x5740;</p>
+<pre><code> maven {
+  url &quot;https://jitpack.io&quot;
+
+}</code></pre></li>
+<li><p>3&#x3001;&#x5728;moudle&#x4E0B;&#x9762;&#x7684;build&#x6587;&#x4EF6;&#x4E0B;&#x6DFB;&#x52A0;&#x7F51;&#x7EDC;&#x5E93;&#x4F9D;&#x8D56;</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:YKSDKGooglePlay-Android:1.0.0&apos;</code></pre></li>
+<li><p>4&#x3001;&#x5728;moudle&#x7684;build&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;android &#x2014;&gt;defaultConfig &#x76F8;&#x5173;&#x914D;&#x7F6E;</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>1&#x3001;&#x521D;&#x59CB;&#x5316;&#x53C2;&#x6570;&#x8BF4;&#x660E;</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">&#x53C2;&#x6570;</th>
+<th align="center">&#x7C7B;&#x578B;</th>
+<th align="center">&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+<th align="left">&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">&#x5426;</td>
+<td align="left">&#x662F;&#x5426;&#x5F00;&#x542F;debug&#x6A21;&#x5F0F;</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7684;id</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x8BF7;&#x6C42;&#x7801;</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x5185;&#x8D2D;&#x5546;&#x54C1;&#x552F;&#x4E00;ID</td>
+</tr>
+<tr>
+<td align="center">googlePlay</td>
+<td align="center">boolean</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x6DFB;&#x52A0;GooglePlay&#x652F;&#x4ED8;</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x662F;&#x6C99;&#x76D2;&#x6D4B;&#x8BD5;&#xFF1A;1&#x662F;&#xFF0C;0&#x5426;</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">Google console&#x914D;&#x7F6E;&#x7684;&#x516C;&#x94A5;</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x5F00;&#x542F;Google Play&#x652F;&#x4ED8;</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x914D;&#x7F6E;&#x7684;&#x53C2;&#x6570;</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x56DE;&#x8C03;&#x63A5;&#x53E3;</td>
+</tr>
+</tbody></table>
+<p><strong>2&#x3001;&#x652F;&#x4ED8;&#x8C03;&#x7528;&#x65B9;&#x5F0F;</strong></p>
+<ul>
+<li><p>1&#x3001;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x521A;&#x8FDB;&#x5165;&#x5E94;&#x7528;&#x6216;&#x8005;&#x652F;&#x4ED8;&#x9875;&#x9762;&#x7684;&#x65F6;&#x5019;&#x914D;&#x7F6E;&#xFF09;</p>
+<pre><code>  private void init() {
+  YKGameOptions options = new YKGameOptions.Builder(this)
+          .debug(true)
+          .publicKey(base64EncodedPublicKey)
+          .payTest(0)
+          .goodsID(productID, mGoodsID)
+          .googlePlay(true)
+          .requestCode(selfRequestCode)
+          .build();
+  YKGameSdk.init(options);
+}</code></pre><ul>
+<li>2&#x3001;&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#xFF08;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x4E5F;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x5168;&#x5C40;&#x65B9;&#x5F0F;&#xFF09;</li>
+</ul>
+</li>
+</ul>
+<pre><code>      OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+    @Override
+    public void onState(Activity activity, RechargeResult result) {
+    switch (result.state) {
+    case RechargeResult.STATE_RECHARGE_SUCCESS://&#x652F;&#x4ED8;&#x6210;&#x529F;&#x56DE;&#x8C03;
+    mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_START://&#x652F;&#x4ED8;&#x5F00;&#x59CB;&#x56DE;&#x8C03;
+    Log.e(TAG, &quot;&#x5F00;&#x59CB;&#x652F;&#x4ED8;&quot;);
+    break;
+    case RechargeResult.STATE_RECHARGE_FAILED://&#x652F;&#x4ED8;&#x5931;&#x8D25;&#x56DE;&#x8C03;
+    Log.e(TAG, &quot;&#x652F;&#x4ED8;&#x9519;&#x8BEF;&quot; + result.getErrorMsg());
+    break;
+    }
+   }
+
+};</code></pre><ul>
+<li>3&#x3001;&#x652F;&#x4ED8;&#x5F00;&#x59CB;</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setUserToken(mUserToken);//&#x7528;&#x6237;token
+result.setOrderID(mOrderID);//&#x8BA2;&#x5355;&#x53F7;
+result.setSku(productID);//&#x5546;&#x54C1;
+result.setGoodsID(&quot;16&quot;);//&#x5546;&#x54C1;ID&#xFF08;&#x5728;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#xFF09;
+result.setPublicKey(base64EncodedPublicKey);//&#x516C;&#x94A5;
+result.setPayTest(1);//&#x662F;&#x5426;&#x662F;&#x6C99;&#x76D2;&#x6D4B;&#x8BD5;
+
+      RechargeManager.recharge(GooglePlayActivity.this, Target.RECHARGE_GOOGLE,
+              result, mOnRechargeListener);</code></pre><ul>
+<li><p>4 &#x3001;Google play &#x914D;&#x7F6E;&#x53C2;&#x8003;<br> <a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google Play &#x914D;&#x7F6E;&#x53C2;&#x8003;</a></p>
+</li>
+<li><p>5&#x3001;&#x7ED3;&#x679C;&#x7801;&#xFF08;&#x5177;&#x4F53;&#x4EE5;&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x7ED3;&#x679C;&#x4E3A;&#x51C6;&#xFF09;</p>
+</li>
+</ul>
+<pre><code>1&#x3001; STATE_RECHARGE_START  &#x5F00;&#x59CB;&#x652F;&#x4ED8;
+2&#x3001; STATE_RECHARGE_SUCCESS &#x652F;&#x4ED8;&#x6210;&#x529F;
+3&#x3001; STATE_RECHARGE_FAILED &#x652F;&#x4ED8;&#x5931;&#x8D25;
+4&#x3001;order create failed:user token is empty &#x8BA2;&#x5355;&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF1A;&#x539F;&#x56E0;&#x662F;&#x4E50;&#x63A8;token&#x4E3A;&#x7A7A;&#x6216;&#x8005;&#x672A;&#x767B;&#x5F55;</code></pre><h4 id="OneStore-&#x63A5;&#x5165;"><a href="#OneStore-&#x63A5;&#x5165;" class="headerlink" title="OneStore &#x63A5;&#x5165;"></a>OneStore &#x63A5;&#x5165;</h4><h5 id="&#x524D;&#x63D0;&#xFF1A;"><a href="#&#x524D;&#x63D0;&#xFF1A;" class="headerlink" title="&#x524D;&#x63D0;&#xFF1A;"></a>&#x524D;&#x63D0;&#xFF1A;</h5><p>  <strong>&#x624B;&#x673A;&#x4E0A;&#x5FC5;&#x987B;&#x652F;&#x6301;OneStore&#x670D;&#x52A1;&#x5E76;&#x4E14;&#x5B89;&#x88C5;OneStore&#x5BA2;&#x6237;&#x7AEF;</strong></p>
+<p><strong>&#x63A5;&#x5165;&#x8BF4;&#x660E;</strong><br>&#x5982;&#x679C;&#x5728;project&#x4E0B;&#x7684;build&#x6587;&#x4EF6;&#x4E0B;&#x6DFB;&#x52A0;&#x4E86; &#x8FDC;&#x7A0B;&#x4F9D;&#x8D56;&#xFF0C;&#x8BF7;&#x5FFD;&#x7565;2&#x3001;4&#x914D;&#x7F6E;&#xFF0C;&#x76F4;&#x63A5;&#x770B;3</p>
+<ul>
+<li><p>2&#x3001;&#x5728;project &#x4E0B;&#x7684;build &#x5BFC;&#x5165;&#x4ED3;&#x5E93;&#x5730;&#x5740;</p>
+<pre><code>  maven {
+  url &quot;https://jitpack.io&quot;
+
+}</code></pre></li>
+<li><p>3&#x3001;&#x5728;moudle&#x4E0B;&#x9762;&#x7684;build&#x6587;&#x4EF6;&#x4E0B;&#x6DFB;&#x52A0;&#x7F51;&#x7EDC;&#x5E93;&#x4F9D;&#x8D56;</p>
+<pre><code>implementation &apos;com.github.muyishuangfeng:YKSDKOneStore-Android:1.0.0&apos;</code></pre></li>
+<li><p>4&#x3001;&#x5728;moudle&#x7684;build&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;android &#x2014;&gt;defaultConfig &#x76F8;&#x5173;&#x914D;&#x7F6E;</p>
+<pre><code>  defaultConfig {
+  ...
+
+  javaCompileOptions {
+      annotationProcessorOptions {
+          includeCompileClasspath false
+      }
+  }
+}</code></pre></li>
+</ul>
+<p><strong>&#x53C2;&#x6570;&#x8BF4;&#x660E;</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">&#x53C2;&#x6570;</th>
+<th align="center">&#x7C7B;&#x578B;</th>
+<th align="center">&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+<th align="left">&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">debug</td>
+<td align="center">boolean</td>
+<td align="center">&#x5426;</td>
+<td align="left">&#x662F;&#x5426;&#x5F00;&#x542F;debug&#x6A21;&#x5F0F;</td>
+</tr>
+<tr>
+<td align="center">userToken</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x7528;&#x6237;token&#xFF0C;&#x6CA1;&#x6709;&#x8D4B;&#x503C;&#x65F6;&#x4E0D;&#x80FD;&#x652F;&#x4ED8;</td>
+</tr>
+<tr>
+<td align="center">orderID</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x8BA2;&#x5355;&#x53F7;</td>
+</tr>
+<tr>
+<td align="center">goodsType</td>
+<td align="center">String</td>
+<td align="center">&#x5546;&#x54C1;&#x7C7B;&#x578B;</td>
+<td align="left">&#x5546;&#x54C1;&#x7C7B;&#x578B;&#xFF08;&#x7BA1;&#x7406;&#x578B;&#x5546;&#x54C1;(inapp), &#x5305;&#x6708;&#x81EA;&#x52A8;&#x652F;&#x4ED8;&#x5546;&#x54C1;(auto)</td>
+</tr>
+<tr>
+<td align="center">goodsID</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7684;id</td>
+</tr>
+<tr>
+<td align="center">packageId</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x6BCF;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x5305;&#x540D;</td>
+</tr>
+<tr>
+<td align="center">requestCode</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x8BF7;&#x6C42;&#x7801;</td>
+</tr>
+<tr>
+<td align="center">productID</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x5185;&#x8D2D;&#x5546;&#x54C1;&#x552F;&#x4E00;ID</td>
+</tr>
+<tr>
+<td align="center">oneStore</td>
+<td align="center">boolean</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x6DFB;&#x52A0;OneStore&#x652F;&#x4ED8;</td>
+</tr>
+<tr>
+<td align="center">payTest</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x662F;&#x6C99;&#x76D2;&#x6D4B;&#x8BD5;&#xFF1A;1&#x662F;&#xFF0C;0&#x5426;</td>
+</tr>
+<tr>
+<td align="center">publicKey</td>
+<td align="center">String</td>
+<td align="center">&#x662F;</td>
+<td align="left">OneStore&#x540E;&#x53F0;&#x914D;&#x7F6E;&#x7684;&#x516C;&#x94A5;</td>
+</tr>
+<tr>
+<td align="center">Target</td>
+<td align="center">int</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x662F;&#x5426;&#x5F00;&#x542F;OneStore&#x652F;&#x4ED8;</td>
+</tr>
+<tr>
+<td align="center">RechargeObject</td>
+<td align="center">bean</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x914D;&#x7F6E;&#x7684;&#x53C2;&#x6570;</td>
+</tr>
+<tr>
+<td align="center">OnRechargeListener</td>
+<td align="center">Interface</td>
+<td align="center">&#x662F;</td>
+<td align="left">&#x652F;&#x4ED8;&#x56DE;&#x8C03;&#x63A5;&#x53E3;</td>
+</tr>
+</tbody></table>
+<p><strong>2&#x3001;&#x652F;&#x4ED8;&#x8C03;&#x7528;&#x65B9;&#x5F0F;</strong></p>
+<ul>
+<li><p>1&#x3001;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x521A;&#x8FDB;&#x5165;&#x5E94;&#x7528;&#x6216;&#x8005;&#x652F;&#x4ED8;&#x9875;&#x9762;&#x7684;&#x65F6;&#x5019;&#x914D;&#x7F6E;&#xFF09;</p>
+<pre><code>private void init() {
+ YKGameOptions options = new YKGameOptions.Builder(this)
+                .debug(true)
+                .publicKey(PUBLIC_KEY)
+                .goodsType(&quot;inapp&quot;)
+                .payTest(1)
+                .oneStore()
+                .goodsID(productID, &quot;11&quot;)
+                .googlePlay(true)
+                .requestCode(selfRequestCode)
+                .build();
+        YKGameSdk.init(options);
+        }</code></pre><p>  &#x200B;                 </p>
+</li>
+<li><p>2&#x3001;&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#xFF08;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x4E5F;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#x5168;&#x5C40;&#x65B9;&#x5F0F;&#xFF09;</p>
+<pre><code>OnRechargeListener mOnRechargeListener = new OnRechargeListener() {
+@Override
+public void onState(Activity activity, RechargeResult result) {
+    BaseEntry entry=result.getBaseEntry();
+            if (entry!=null){
+                if (entry.getCode()== YKGameValues.ONE_STORE_FAILED){
+                    Log.e(&quot;successOne&quot;,entry.getResult());
+                }
+            }
+            switch (result.state) {
+                case RechargeResult.STATE_RECHARGE_SUCCESS:
+                    mTxtResult.setText(result.getResultModel().getCode() + &quot;======&quot;);
+                    break;
+                case RechargeResult.STATE_RECHARGE_START:
+                    Log.e(TAG, &quot;&#x5F00;&#x59CB;&#x652F;&#x4ED8;&quot;);
+                    break;
+                case RechargeResult.STATE_RECHARGE_RESULT:
+                    if (result.getResult() != null) {
+                        switch (result.getResult()) {
+                            case RESULT_BILLING_NEED_UPDATE: {
+                                Log.e(TAG, &quot;RESULT_BILLING_NEED_UPDATE&quot;);
+                                break;
+                            }
+                            case RESULT_CLIENT_UN_CONNECTED: {
+                                Log.e(TAG, &quot;RESULT_CLIENT_UN_CONNECTED&quot;);
+                                break;
+                            }
+                            case RESULT_CLIENT_CONNECTED: {
+                                Log.e(TAG, &quot;RESULT_CLIENT_CONNECTED&quot;);
+                                break;
+                            }
+                            case RESULT_PURCHASES_REMOTE_ERROR: {
+                                Log.e(TAG, &quot;RESULT_PURCHASES_REMOTE_ERROR&quot;);
+                                break;
+                            }
+                            case RESULT_PURCHASES_SECURITY_ERROR: {
+                                Log.e(TAG, &quot;RESULT_PURCHASES_SECURITY_ERROR&quot;);
+                                break;
+                            }
+                            case RESULT_CLIENT_NOT_INIT: {
+                                Log.e(TAG, &quot;RESULT_CLIENT_NOT_INIT&quot;);
+                                break;
+                            }
+                            case RESULT_BILLING_OK: {
+                                Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                                break;
+                            }
+                            case RESULT_CONNECTED_NEED_UPDATE: {
+                                Log.e(TAG, &quot;RESULT_BILLING_OK&quot;);
+                                break;
+                            }
+                            case RESULT_BILLING_REMOTE_ERROR: {
+                                Log.e(TAG, &quot;RESULT_BILLING_REMOTE_ERROR&quot;);
+                                break;
+                            }
+                            case RESULT_BILLING_SECURITY_ERROR: {
+                                Log.e(TAG, &quot;RESULT_BILLING_SECURITY_ERROR&quot;);
+                                break;
+                            }
+                            case IAP_ERROR_UNDEFINED_CODE: {
+                                Log.e(TAG, &quot;IAP_ERROR_UNDEFINED_CODE&quot;);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case RechargeResult.STATE_RECHARGE_FAILED:
+                    Log.e(TAG, &quot;&#x652F;&#x4ED8;&#x9519;&#x8BEF;&quot; + result.getErrorMsg());
+                    break;
+
+            }
+        }
+
+ };</code></pre><ul>
+<li>3&#x3001;&#x652F;&#x4ED8;&#x5F00;&#x59CB;</li>
+</ul>
+</li>
+</ul>
+<pre><code>RechargeObject result = new RechargeObject();
+result.setOrderID(&quot;123456&quot;);//&#x8BA2;&#x5355;&#x53F7;
+result.setUserToken(&quot;1111111&quot;);//&#x7528;&#x6237;token    
+result.setSku(productID);//&#x5546;&#x54C1;
+result.setGoodsID(&quot;11&quot;);//&#x5546;&#x54C1;ID&#xFF08;&#x670D;&#x52A1;&#x5668;&#x914D;&#x7F6E;&#x7684;&#xFF09;
+result.setmGoodsType(&quot;inapp&quot;);//&#x652F;&#x4ED8;&#x7C7B;&#x578B;
+result.setPublicKey(PUBLIC_KEY);//&#x516C;&#x94A5;
+result.setPayTest(1);//&#x662F;&#x5426;&#x662F;&#x6C99;&#x76D2;&#x6D4B;&#x8BD5;
+RechargeManager.recharge(OneStoreActivity.this,     Target.RECHARGE_ONE_STORE,result, mOnRechargeListener);</code></pre><ul>
+<li>4&#x3001;&#x53C2;&#x8003;&#x914D;&#x7F6E;<br><a href="https://dev.onestore.co.kr/devpoc/reference/view/IAP_v17_cn" target="_blank" rel="noopener">OneStore &#x914D;&#x7F6E;&#x53C2;&#x8003;</a><br><a href="https://github.com/ONE-store/iap_v5/tree/onestore_iap_sample" target="_blank" rel="noopener">OneStore github&#x53C2;&#x8003;</a></li>
+</ul>
+<h4 id="&#x7ED3;&#x679C;&#x7801;"><a href="#&#x7ED3;&#x679C;&#x7801;" class="headerlink" title="&#x7ED3;&#x679C;&#x7801;"></a>&#x7ED3;&#x679C;&#x7801;</h4><ul>
+<li>5&#x3001;&#x7ED3;&#x679C;&#x7801;&#xFF08;&#x5177;&#x4F53;&#x4EE5;&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x7ED3;&#x679C;&#x4E3A;&#x51C6;&#xFF09;</li>
+</ul>
+<pre><code>1&#x3001;ONE_STORE_FAILED  &#x652F;&#x4ED8;&#x5931;&#x8D25;
+2&#x3001;ONE_STORE_SUCCESS  &#x652F;&#x4ED8;&#x6210;&#x529F;
+3&#x3001; STATE_RECHARGE_START  &#x5F00;&#x59CB;&#x652F;&#x4ED8;
+ 4&#x3001; STATE_RECHARGE_SUCCESS &#x652F;&#x4ED8;&#x6210;&#x529F;
+ 5&#x3001;order create failed:user token is empty &#x8BA2;&#x5355;&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF1A;&#x539F;&#x56E0;&#x662F;&#x4E50;&#x63A8;token&#x4E3A;&#x7A7A;&#x6216;&#x8005;&#x672A;&#x767B;&#x5F55;
+ 6&#x3001; STATE_RECHARGE_FAILED &#x652F;&#x4ED8;&#x5931;&#x8D25;&#xFF08;&#x5177;&#x4F53;&#x7ED3;&#x679C;&#x7801;&#x53C2;&#x8003;&#x4E0B;&#x9762;&#x7684;&#x7ED3;&#x679C;&#x7801;&#xFF09;
+
+  RESULT_PAY_OK(0, &quot;Payment success&quot;) &#x652F;&#x4ED8;&#x6210;&#x529F;
+  RESULT_USER_CANCELED(1, &quot;User cancel&quot;) &#x7528;&#x6237;&#x53D6;&#x6D88;
+  RESULT_SERVICE_UNAVAILABLE(2, &quot;service unavailable&quot;) &#x672A;&#x8FDE;&#x63A5;&#x4E0A;&#x670D;&#x52A1;&#x5668;
+  RESULT_BILLING_UNAVAILABLE(3, &quot;billing unavailable&quot;) &#x4E0D;&#x652F;&#x6301;oneStore&#x652F;&#x4ED8;
+  RESULT_ITEM_UNAVAILABLE(4, &quot;item unavailable&quot;) &#x5546;&#x54C1;&#x4E0D;&#x53EF;&#x7528;
+  RESULT_DEVELOPER_ERROR(5, &quot;developer error&quot;)&#x5F00;&#x53D1;&#x8D26;&#x6237;&#x5F02;&#x5E38;
+  RESULT_CONNECTED_SUCCESS(6, &quot;PurchaseClient connect success&quot;) &#x8FDE;&#x63A5;&#x6210;&#x529F;
+  RESULT_DISCONNECT_ERROR(7, &quot;PurchaseClient Disconnect&quot;) &#x8FDE;&#x63A5;&#x5931;&#x8D25;
+  RESULT_CONNECTED_NEED_UPDATE(8, &quot;Connected need update&quot;) oneStore&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x66F4;&#x65B0;
+  RESULT_BILLING_OK(9, &quot;Billing success&quot;) &#x652F;&#x6301;&#x652F;&#x4ED8;
+  RESULT_BILLING_REMOTE_ERROR(10, &quot;Billing Remote Connection Failed&quot;) &#x67E5;&#x8BE2;&#x662F;&#x5426;&#x652F;&#x6301;oneStore&#x670D;&#x52A1;&#x65F6;&#x63D0;&#x793A;&#x8FDC;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x5F02;&#x5E38;&#xFF08;&#x672A;&#x8FDE;&#x63A5;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF09;
+  RESULT_BILLING_SECURITY_ERROR(11, &quot;Billing Apply State exceptions&quot;)&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x652F;&#x6301;oneStore&#x670D;&#x52A1;&#x65F6;&#x63D0;&#x793A;&#x652F;&#x4ED8;&#x72B6;&#x6001;&#x5F02;&#x5E38;
+ RESULT_BILLING_NEED_UPDATE(12, &quot;Billing need update&quot;)&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x652F;&#x6301;oneStore&#x670D;&#x52A1;&#x65F6;&#x63D0;&#x793A;oneStore&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x66F4;&#x65B0;
+ RESULT_PURCHASES_OK(13, &quot;Purchases success&quot;)&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x4FE1;&#x606F;&#x6210;&#x529F;
+ RESULT_PURCHASES_REMOTE_ERROR(14, &quot;Purchases Remote Connection Failed&quot;)&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x4FE1;&#x606F;&#x65F6;&#x63D0;&#x793A;oneStore&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x5F02;&#x5E38;&#xFF08;&#x672A;&#x8FDE;&#x63A5;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF09;
+ RESULT_PURCHASES_SECURITY_ERROR(15, &quot;Purchases Apply State exceptions&quot;)&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x4FE1;&#x606F;&#x65F6;&#x63D0;&#x793A;&#x652F;&#x4ED8;&#x72B6;&#x6001;&#x5F02;&#x5E38;
+ RESULT_PURCHASES_NEED_UPDATE(16, &quot;Purchases need update&quot;)&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x4FE1;&#x606F;&#x65F6;&#x63D0;&#x793A;oneStore&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x66F4;&#x65B0;
+ RESULT_CONSUME_OK(17, &quot;Consume success&quot;)&#x6D88;&#x8D39;&#x6210;&#x529F;
+ RESULT_CONSUME_REMOTE_ERROR(18, &quot;Consume Remote Connection Failed&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0;&#x793A;&#x8FDC;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x5F02;&#x5E38;&#xFF08;&#x672A;&#x8FDE;&#x63A5;&#x5230;oneStore&#xFF09;
+ RESULT_CONSUME_SECURITY_ERROR(19, &quot;Consume Apply State exceptions&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0;&#x793A;&#x652F;&#x4ED8;&#x72B6;&#x6001;&#x5F02;&#x5E38;
+ RESULT_CONSUME_NEED_UPDATE(20, &quot;Consume need update&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0;&#x793A;oneStore&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x66F4;&#x65B0;
+ RESULT_SIGNATURE_FAILED(21, &quot;Signature failed&quot;)&#x7B7E;&#x540D;&#x5F02;&#x5E38;
+ RESULT_PURCHASES_FLOW_OK(22, &quot;Purchases Flow success&quot;)&#x8D2D;&#x4E70;&#x6210;&#x529F;
+ RESULT_PURCHASES_FLOW_REMOTE_ERROR(23, &quot;Purchases Flow Remote Connection 
+ Failed&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0;&#x793A;&#x8FDC;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x8FDE;&#x63A5;&#x5F02;&#x5E38;&#xFF08;&#x672A;&#x8FDE;&#x63A5;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF09;
+ RESULT_PURCHASES_FLOW_SECURITY_ERROR(24, &quot;Purchases Flow Apply State 
+  exceptions&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0;&#x793A;&#x652F;&#x4ED8;&#x72B6;&#x6001;&#x5F02;&#x5E38;
+ RESULT_PURCHASES_FLOW_NEED_UPDATE(25, &quot;Purchases Flow need update&quot;)&#x8D2D;&#x4E70;&#x65F6;&#x63D0; 
+ &#x793A;oneStore&#x9700;&#x8981;&#x66F4;&#x65B0;</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/SDK服务端调用说明/" rel="next" title="SDK服务端调用说明">
+                <i class="fa fa-chevron-left"></i> SDK服务端调用说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/18/Android登录接入说明/" rel="prev" title="登录说明">
+                登录说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#支付流程说明"><span class="nav-number">1.</span> <span class="nav-text">支付流程说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GooglePlay-接入"><span class="nav-number">1.1.</span> <span class="nav-text">GooglePlay 接入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Google-Play-网络库接入说明"><span class="nav-number">1.2.</span> <span class="nav-text">Google Play 网络库接入说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OneStore-接入"><span class="nav-number">1.3.</span> <span class="nav-text">OneStore 接入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前提："><span class="nav-number">1.3.1.</span> <span class="nav-text">前提：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果码"><span class="nav-number">1.4.</span> <span class="nav-text">结果码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">68.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
