@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x524D;&amp;#x8A00;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;&amp;#x901A;&amp;#x8FC7;AIDL&amp;#x65B9;&amp;#x5F0F;&amp;#x96C6;&amp;#x6210;Google&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x5982;&amp;#x6709;&amp;#x9700;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Google应用内支付">
+<meta property="og:url" content="http://yoursite.com/2020/07/09/Android-Google新版应用内支付/index.html">
+<meta property="og:site_name" content="Silence潇湘夜雨">
+<meta property="og:description" content="&amp;#x524D;&amp;#x8A00;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;&amp;#x901A;&amp;#x8FC7;AIDL&amp;#x65B9;&amp;#x5F0F;&amp;#x96C6;&amp;#x6210;Google&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x5982;&amp;#x6709;&amp;#x9700;&amp;#x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-07-09T01:55:05.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Google应用内支付">
+<meta name="twitter:description" content="&amp;#x524D;&amp;#x8A00;   &amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;&amp;#x901A;&amp;#x8FC7;AIDL&amp;#x65B9;&amp;#x5F0F;&amp;#x96C6;&amp;#x6210;Google&amp;#x652F;&amp;#x4ED8;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x5982;&amp;#x6709;&amp;#x9700;&amp;#x">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/09/Android-Google新版应用内支付/">
+
+
+
+
+
+  <title>Android Google应用内支付 | Silence潇湘夜雨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Silence潇湘夜雨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发一枚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags  //标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar //日程表"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap //站点地图"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/09/Android-Google新版应用内支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silence潇湘夜雨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Google应用内支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-09T09:53:35+08:00">
+                2020-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/支付/" itemprop="url" rel="index">
+                    <span itemprop="name">支付</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="&#x524D;&#x8A00;"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</h3><p>   &#x4E4B;&#x524D;&#x5199;&#x8FC7;&#x4E00;&#x7BC7;&#x901A;&#x8FC7;<a href="https://juejin.im/post/5d15911ff265da1b95706ae4" target="_blank" rel="noopener">AIDL&#x65B9;&#x5F0F;&#x96C6;&#x6210;Google&#x652F;&#x4ED8;</a><br>&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x5982;&#x6709;&#x9700;&#x8981;&#xFF0C;&#x53EF;&#x4EE5;&#x53BB;&#x770B;&#x770B;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x3002;&#x4E3A;&#x5565;&#x5462;&#xFF1F;&#xFF0C;&#x56E0;&#x4E3A;&#x6700;&#x8FD1;&#x770B;Google&#x6587;&#x6863;&#x4E2D;&#x8BF4;&#x5DF2;&#x7ECF;&#x4E0D;&#x518D;&#x652F;&#x6301;AIDL&#x7684;&#x65B9;&#x5F0F;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x4ECA;&#x5929;&#x5C31;&#x6765;&#x8BF4;&#x8BF4;&#x65B0;&#x7248;Google&#x652F;&#x4ED8;&#x7684;&#x96C6;&#x6210;&#x65B9;&#x5F0F;&#xFF0C;&#x5F53;&#x7136;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x53EA;&#x8BF4;&#x96C6;&#x6210;&#x65B9;&#x5F0F;&#xFF0C;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x770B;<a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="noopener">Google(&#x5E94;&#x7528;&#x5185;&#x652F;&#x4ED8;)&#x5B98;&#x65B9;&#x6587;&#x6863;</a>&#x3002;</p>
+<h3 id="&#x51C6;&#x5907;&#x5DE5;&#x4F5C;"><a href="#&#x51C6;&#x5907;&#x5DE5;&#x4F5C;" class="headerlink" title="&#x51C6;&#x5907;&#x5DE5;&#x4F5C;"></a>&#x51C6;&#x5907;&#x5DE5;&#x4F5C;</h3><p>  &#x8981;&#x96C6;&#x6210;Google&#x652F;&#x4ED8;&#x7684;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x6709;&#x54EA;&#x4E9B;&#x5462;&#xFF1F;</p>
+<ul>
+<li>1&#x3001;&#x624B;&#x673A;&#x4E0A;&#x5B89;&#x88C5;<strong>Google&#x670D;&#x52A1;</strong>(&#x5F53;&#x7136;&#x662F;&#x9488;&#x5BF9;&#x56FD;&#x5185;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x56FD;&#x5916;&#x7684;&#x76F8;&#x4FE1;&#x5927;&#x90E8;&#x5206;&#x90FD;&#x6709;Google&#x670D;&#x52A1;)&#xFF1B;</li>
+<li>2&#x3001;&#x4E00;&#x4E2A;&#x7ED1;&#x5B9A;&#x4FE1;&#x7528;&#x5361;&#x7684;Google&#x8D26;&#x53F7;&#xFF1B;</li>
+<li>3&#x3001;Google play&#x5BA2;&#x6237;&#x7AEF;&#xFF1B;</li>
+<li>4&#x3001;<a href="https://developer.android.google.cn/distribute/console/" target="_blank" rel="noopener">Google play console</a>&#xFF08;<strong>&#x7528;&#x4E8E;&#x914D;&#x7F6E;&#x5E94;&#x7528;&#x5185;&#x5546;&#x54C1;&#x4FE1;&#x606F;</strong>&#xFF09;&#xFF1B;</li>
+</ul>
+<h3 id="&#x9996;&#x5148;"><a href="#&#x9996;&#x5148;" class="headerlink" title="&#x9996;&#x5148;"></a>&#x9996;&#x5148;</h3><p>  &#x4E0A;&#x9762;&#x7684;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x90FD;&#x505A;&#x597D;&#x4E86;&#x4E4B;&#x540E;&#x9700;&#x8981;&#x5E72;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x5F53;&#x7136;&#x662F;&#x5728;<a href="https://developer.android.com/distribute/console" target="_blank" rel="noopener">Google play console</a>&#x4E0A;&#x914D;&#x7F6E;&#x76F8;&#x5173;&#x5E94;&#x7528;&#x548C;&#x5546;&#x54C1;&#x4FE1;&#x606F;&#x4E86;&#xFF0C;&#x81F3;&#x4E8E;&#x5982;&#x4F55;&#x914D;&#x7F6E;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x53C2;&#x8003;<a href="https://blog.csdn.net/alex_my/article/details/82984706#2__8" target="_blank" rel="noopener">Google&#x652F;&#x4ED8;&#x914D;&#x7F6E;</a>&#x3002;</p>
+<ul>
+<li>1&#x3001;&#x652F;&#x4ED8;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;<br>&#x5173;&#x4E8E;Google&#x652F;&#x4ED8;&#x7684;&#x6D41;&#x7A0B;&#x8BF4;&#x660E;&#xFF1A;</li>
+</ul>
+<p>1&gt;&#x524D;&#x63D0;&#x6761;&#x4EF6;</p>
+<pre><code>1&#x3001;&#x68C0;&#x67E5;&#x4F60;&#x7684;&#x5305;&#x540D;&#x548C;&#x7B7E;&#x540D;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x548C;Google Console &#x4E0A;&#x9762;&#x4E0A;&#x4F20;&#x7684;apk&#x5305;&#x662F;&#x5426;&#x4E00;&#x81F4;
+2&#x3001;&#x68C0;&#x67E5;&#x7248;&#x672C;&#x53F7;&#x662F;&#x5426;&#x548C;Google console&#x53D1;&#x5E03;&#x7684;apk&#x7248;&#x672C;&#x662F;&#x5426;&#x4E00;&#x81F4;
+3&#x3001;&#x68C0;&#x67E5;&#x4F60;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8D2D;&#x4E70;&#xFF0C;&#x662F;&#x5426;&#x7ED1;&#x5B9A;&#x4E86;&#x94F6;&#x884C;&#x5361;&#xFF0C;&#x624B;&#x673A;&#x652F;&#x4E0D;&#x652F;&#x6301;Google&#x652F;&#x4ED8;&#xFF0C;&#x624B;&#x673A;&#x662F;&#x5426;&#x6709;Google&#x670D;&#x52A1;</code></pre><p>  2&gt;&#x652F;&#x4ED8;&#x6D41;&#x7A0B;</p>
+<pre><code>1&#x3001;&#x7B2C;&#x4E00;&#x6B65;&#xFF0C;&#x521D;&#x59CB;&#x5316;Google&#x652F;&#x4ED8;
+2&#x3001;&#x7B2C;&#x4E8C;&#x6B65;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x6210;&#x529F;&#x540E;&#x8C03;&#x7528;&#x67E5;&#x8BE2;&#x8D2D;&#x4E70;&#x7684;&#x5546;&#x54C1;&#x64CD;&#x4F5C;&#xFF0C;&#x67E5;&#x8BE2;&#x6210;&#x529F;&#x8C03;&#x7528;&#x6D88;&#x8017;&#x64CD;&#x4F5C;&#xFF0C;&#x9632;&#x6B62;&#x4E0D;&#x80FD;&#x8D2D;&#x4E70;&#x7684;&#x60C5; &#x51B5;&#x53D1;&#x751F;
+3&#x3001;&#x7B2C;&#x4E09;&#x6B65;&#xFF0C;&#x751F;&#x6210;&#x8BA2;&#x5355;&#x53F7;&#x8FDB;&#x884C;&#x8D2D;&#x4E70;&#x64CD;&#x4F5C;
+4&#x3001;&#x7B2C;&#x56DB;&#x6B65;&#xFF0C;&#x8D2D;&#x4E70;&#x6210;&#x529F;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;&#x4E00;&#x6B21;&#x6D88;&#x8017;&#x64CD;&#x4F5C;&#xFF08;&#x4E3A;&#x4E86;&#x4E0B;&#x6B21;&#x8D2D;&#x4E70;&#x53EF;&#x4EE5;&#x6210;&#x529F;&#xFF09;
+5&#x3001;&#x7B2C;&#x4E94;&#x6B65;&#xFF0C;&#x62FF;&#x5230;Google&#x652F;&#x4ED8;&#x8FD4;&#x56DE;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x64CD;&#x4F5C;&#x3002;
+6&#x3001;&#x7B2C;&#x516D;&#x6B65;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x62FF;&#x5230;&#x4F60;&#x4E0A;&#x4F20;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x548C;Google&#x652F;&#x4ED8;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x9A8C;&#x8BC1;&#xFF0C;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#x540E;Google&#x53D1;&#x8D27;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7ED9;&#x4F60;&#x8FD4;&#x56DE;&#x76F8;&#x5173;&#x4FE1;&#x606F;</code></pre><ul>
+<li>2&#x3001;&#x96C6;&#x6210;&#x5DE5;&#x4F5C;<br>  &#x9996;&#x5148;&#x5728;&#x4F60;&#x7684;&#x9879;&#x76EE;&#x7684;build.gradle&#x6587;&#x4EF6;&#x4E2D;&#x52A0;&#x5165;Google&#x652F;&#x4ED8;&#x7684;&#x5728;&#x7EBF;&#x4F9D;&#x8D56;</li>
+</ul>
+<pre><code>implementation &apos;com.android.billingclient:billing:2.1.0&apos;</code></pre><p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x6211;&#x7528;&#x7684;&#x65F6;&#x5019;&#x7248;&#x672C;&#x662F;2.1.0&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x53BB;&#x5B98;&#x7F51;&#x67E5;&#x67E5;&#x6700;&#x65B0;&#x7684;&#x7248;&#x672C;</strong></p>
+<h3 id="&#x5176;&#x6B21;"><a href="#&#x5176;&#x6B21;" class="headerlink" title="&#x5176;&#x6B21;"></a>&#x5176;&#x6B21;</h3><blockquote>
+<p>&#x4E0A;&#x9762;&#x662F;&#x63A5;&#x5165;&#x7684;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#xFF0C;&#x4E0B;&#x9762;&#x770B;&#x5177;&#x4F53;&#x4EE3;&#x7801;</p>
+</blockquote>
+<pre><code>public class GooglePlayHelper {
+private static final String TAG = GooglePlayHelper.class.getSimpleName();
+private static final int GAME_ORDER_ID=0x01;
+
+//&#x8BA2;&#x5355;&#x53F7;
+private String mOrderID;
+//&#x7528;&#x6237;&#x4FE1;&#x606F;
+privata String mUserID;
+//&#x5546;&#x54C1;&#x96C6;&#x5408;
+private WeakReference&lt;Activity&gt; mActivityRef;
+//&#x56DE;&#x8C03;
+private OnRechargeStateListener mListener;
+//&#x5546;&#x54C1;
+private String mSku;
+private String goods_number;//  &#x5546;&#x54C1;ID
+private BillingClient mBillingClient;
+private int mPayTest;
+private String mConsume = &quot;0&quot;;
+
+GooglePlayHelper(Activity activity, 
+                String goods_number, int mPayTest,
+                 String sku, OnRechargeStateListener mListener) {
+    this.mActivityRef = new WeakReference&lt;&gt;(activity);
+    this.goods_number = goods_number;
+    this.mSku = sku;
+    this.mPayTest = mPayTest;
+    this.mListener = mListener;
+}
+
+  public GooglePlayHelper(Activity activity, int mPayTest) {
+    this.mActivityRef = new WeakReference&lt;&gt;(activity);
+    this.mPayTest = mPayTest;
+}
+
+
+
+
+/**
+ * &#x521D;&#x59CB;&#x5316;
+ */
+void init() {
+    mBillingClient = BillingClient.newBuilder(mActivityRef.get())
+            .setListener(mPurchasesUpdatedListener)
+            .enablePendingPurchases()
+            .build();
+    if (!mBillingClient.isReady()) {
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult != null) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        if (!TextUtils.isEmpty(PreferencesUtils.getString(mActivityRef.get(),
+                                Constants.USER_LT_UID_KEY))) {
+                            getLTOrderID();
+                        } else {
+                            mListener.onState(mActivityRef.get(), RechargeResult.failOf(LTGameError.make(
+                                    LTResultCode.STATE_GP_CREATE_ORDER_FAILED,
+                                    &quot;order create failed:user key is empty&quot;
+                            )));
+                            mActivityRef.get().finish();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+            }
+        });
+    } else {
+        if (!TextUtils.isEmpty(PreferencesUtils.getString(mActivityRef.get(),
+                Constants.USER_LT_UID_KEY))) {
+            getLTOrderID();
+        } else {
+            mListener.onState(mActivityRef.get(), RechargeResult.failOf(LTGameError.make(
+                    LTResultCode.STATE_GP_CREATE_ORDER_FAILED,
+                    &quot;order create failed:user key is empty&quot;
+            )));
+            mActivityRef.get().finish();
+        }
+    }
+}
+
+
+/**
+ * &#x8D2D;&#x4E70;&#x56DE;&#x8C03;
+ */
+private PurchasesUpdatedListener mPurchasesUpdatedListener = new PurchasesUpdatedListener() {
+    @Override
+    public void onPurchasesUpdated(BillingResult billingResult, List&lt;Purchase&gt; list) {
+        String debugMessage = billingResult.getDebugMessage();
+        Log.e(TAG, debugMessage);
+        if (list != null &amp;&amp; list.size() &gt; 0) {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                for (Purchase purchase : list) {
+                    mConsume = &quot;2&quot;;
+                    uploadToServer(purchase.getPurchaseToken(), purchase.getOrderId(),mOrderID, mPayTest);
+                }
+
+            }
+        } else {
+            switch (billingResult.getResponseCode()) {
+                case BillingClient.BillingResponseCode.SERVICE_TIMEOUT: {//&#x670D;&#x52A1;&#x8FDE;&#x63A5;&#x8D85;&#x65F6;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;-3&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED: {
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;-2&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.SERVICE_DISCONNECTED: {//&#x670D;&#x52A1;&#x672A;&#x8FDE;&#x63A5;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;-1&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.USER_CANCELED: {//&#x53D6;&#x6D88;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;1&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE: {//&#x670D;&#x52A1;&#x4E0D;&#x53EF;&#x7528;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;2&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.BILLING_UNAVAILABLE: {//&#x8D2D;&#x4E70;&#x4E0D;&#x53EF;&#x7528;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;3&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.ITEM_UNAVAILABLE: {//&#x5546;&#x54C1;&#x4E0D;&#x5B58;&#x5728;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;4&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.DEVELOPER_ERROR: {//&#x63D0;&#x4F9B;&#x7ED9; API &#x7684;&#x65E0;&#x6548;&#x53C2;&#x6570;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;5&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.ERROR: {//&#x9519;&#x8BEF;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;6&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED: {//&#x672A;&#x6D88;&#x8017;&#x6389;
+                    mConsume = &quot;1&quot;;
+                    queryHistory();
+                    break;
+                }
+                case BillingClient.BillingResponseCode.ITEM_NOT_OWNED: {//&#x4E0D;&#x53EF;&#x8D2D;&#x4E70;
+                    mListener.onState(mActivityRef.get(), RechargeResult.failOf(&quot;8&quot;));
+                    mActivityRef.get().finish();
+                    break;
+                }
+            }
+        }
+    }
+};
+
+/**
+ * &#x8D2D;&#x4E70;
+ */
+private void recharge() {
+    if (mBillingClient.isReady()) {
+        List&lt;String&gt; skuList = new ArrayList&lt;&gt;();
+        skuList.add(mSku);
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+        mBillingClient.querySkuDetailsAsync(params.build(),
+                new SkuDetailsResponseListener() {
+                    @Override
+                    public void onSkuDetailsResponse(BillingResult billingResult,
+                                                     List&lt;SkuDetails&gt; skuDetailsList) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
+                                &amp;&amp; skuDetailsList != null) {
+                            for (SkuDetails skuDetails : skuDetailsList) {
+                                String sku = skuDetails.getSku();
+                                if (mSku.equals(sku)) {
+                                    BillingFlowParams purchaseParams =
+                                            BillingFlowParams.newBuilder()
+                                                    .setSkuDetails(skuDetails)
+                                                    .setObfuscatedAccountId(mUserID)
+                                                    .setObfuscatedProfileId(mOrderID)
+                                                    .build();
+                                    mBillingClient.launchBillingFlow(mActivityRef.get(), purchaseParams);
+                                }
+                            }
+                        }
+
+                    }
+                });
+
+    }
+
+
+}
+
+
+/**
+ * &#x6D88;&#x8017;
+ */
+private void consume(String purchaseToken) {
+    if (mBillingClient.isReady()) {
+        ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                .setPurchaseToken(purchaseToken)
+                .build();
+        mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+            @Override
+            public void onConsumeResponse(BillingResult billingResult, String s) {
+
+            }
+        });
+    } else {
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult != null) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                                .setPurchaseToken(purchaseToken)
+                                .build();
+                        mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                            @Override
+                            public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+            }
+        });
+    }
+
+}
+
+/**
+ * &#x6D88;&#x8017;
+ */
+private void consume2(String purchaseToken) {
+    if (mBillingClient.isReady()) {
+        ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                .setPurchaseToken(purchaseToken)
+                .build();
+        mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+            @Override
+            public void onConsumeResponse(BillingResult billingResult, String s) {
+
+            }
+        });
+        recharge();
+    } else {
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult != null) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                                .setPurchaseToken(purchaseToken)
+                                .build();
+                        mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                            @Override
+                            public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+            }
+        });
+        recharge();
+    }
+
+}
+
+/**
+ * &#x8865;&#x5355;&#x64CD;&#x4F5C;
+ */
+private void queryHistory() {
+   Purchase.PurchasesResult mResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+    for (int i = 0; i &lt; mResult.getPurchasesList().size(); i++) {
+        if (mResult.getPurchasesList().get(i).isAcknowledged()) {
+            consume2(mResult.getPurchasesList().get(i).getPurchaseToken());
+        } else {
+            uploadToServer2(mResult.getPurchasesList().get(i).getPurchaseToken(),
+                    mResult.getPurchasesList().get(i).getOrderId(),
+                    mResult.getPurchasesList().get(i).getAccountIdentifiers().getObfuscatedProfileId(),
+                    mPayTest);
+        }
+    }
+
+}
+
+/**
+ * &#x83B7;&#x53D6;&#x8BA2;&#x5355;ID
+ */
+private void getLTOrderID() {
+   //&#x81EA;&#x5DF1;&#x83B7;&#x53D6;&#x8BA2;&#x5355;ID&#x7684;&#x63A5;&#x53E3;&#xFF08;&#x548C;&#x4F60;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x5546;&#x91CF;&#xFF09;
+    LoginRealizeManager.createOrder(mActivityRef.get(), xx, xx, xx,
+            new OnRechargeStateListener() {
+
+                @Override
+                public void onState(Activity activity, RechargeResult result) {
+                    if (result != null) {
+                        if (result.getResultModel() != null) {
+                            if (result.getResultModel().getData() != null) {
+                                if (result.getResultModel().getCode() == 0) {
+                                    if (result.getResultModel().getData().getOrder_number() != null) {
+                                        mOrderID = result.getResultModel().getData().getOrder_number();
+                                        PreferencesUtils.init(mActivityRef.get());
+                                        PreferencesUtils.putString(mActivityRef.get(), GAME_ORDER_ID, mOrderID);
+                                        recharge();
+                                    }
+                                } else {
+                                    mListener.onState(mActivityRef.get(),
+                                            RechargeResult.failOf(result.getResultModel().getMsg()));
+                                    mActivityRef.get().finish();
+                                    activity.finish();
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+            });
+
+}
+
+/**
+ * //&#x81EA;&#x5DF1;&#x83B7;&#x53D6;&#x8BA2;&#x5355;ID&#x7684;&#x63A5;&#x53E3;&#xFF08;&#x548C;&#x4F60;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x5546;&#x91CF;&#xFF09;
+ */
+private void uploadToServer(final String purchaseToken,String mGoogleOrder, String mOrderID, int mPayTest) {
+    LoginRealizeManager.googlePlay(mActivityRef.get(),
+            purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+                @Override
+                public void onState(Activity activity, RechargeResult result) {
+                    if (result != null) {
+                        if (result.getResultModel() != null) {
+                            if (result.getResultModel().getCode() == xxx) {
+                                mListener.onState(mActivityRef.get(), RechargeResult
+                                        .successOf(result.getResultModel()));
+                                consume(purchaseToken);
+                            } else if (result.getResultModel().getCode() == xxxx) {
+                                uploadToServer(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+                            } else {
+                                LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+                                        mGoogleOrder,
+                                        mPayTest, result.getResultModel().getMsg(), mListener);
+                            }
+                        }
+
+                    }
+
+                }
+
+            });
+
+}
+
+/**
+ * //&#x81EA;&#x5DF1;&#x83B7;&#x53D6;&#x8BA2;&#x5355;ID&#x7684;&#x63A5;&#x53E3;&#xFF08;&#x548C;&#x4F60;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x5546;&#x91CF;&#xFF09;
+ */
+private void uploadToServer2(final String purchaseToken,String mGoogleOrder, String mOrderID, int mPayTest) {
+    LoginRealizeManager.googlePlay(mActivityRef.get(),
+            purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+                @Override
+                public void onState(Activity activity, RechargeResult result) {
+                    if (result != null) {
+                        if (result.getResultModel() != null) {
+                            if (result.getResultModel().getCode() == xxx) {
+                                consume2(purchaseToken);
+                                if (mConsume.equals(&quot;1&quot;)) {
+                                    recharge();
+                                }
+                            } else if (result.getResultModel().getCode() == xxx) {
+                                uploadToServer2(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+                            } else {
+                                LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+                                        mGoogleOrder,
+                                        mPayTest, result.getResultModel().getMsg(), mListener);
+                            }
+                        }
+
+                    }
+
+                }
+
+            });
+
+}
+
+   /**
+    * &#x81EA;&#x5DF1;&#x83B7;&#x53D6;&#x8BA2;&#x5355;ID&#x7684;&#x63A5;&#x53E3;&#xFF08;&#x548C;&#x4F60;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x5546;&#x91CF;&#xFF09;
+    */
+  private void uploadToServer3(final String purchaseToken, String mGoogleOrder,String mOrderID, int mPayTest) {
+    LoginRealizeManager.googlePlay(mActivityRef.get(),
+            purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+                @Override
+                public void onState(Activity activity, RechargeResult result) {
+                    if (result != null) {
+                        if (result.getResultModel() != null) {
+                            if (result.getResultModel().getCode() == xxx) {
+                                consume2(purchaseToken);
+                            } else if (result.getResultModel().getCode() == xxx) {
+                                uploadToServer3(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+                            } else {
+                                LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+                                        mGoogleOrder,
+                                        mPayTest, result.getResultModel().getMsg(), mListener);
+                            }
+                        }
+
+                    }
+
+                }
+
+            });
+
+}
+
+
+/**
+ * &#x91CA;&#x653E;
+ */
+void release() {
+    if (mBillingClient.isReady()) {
+        mBillingClient.endConnection();
+    }
+}
+
+/**
+ * &#x8865;&#x5355;&#x64CD;&#x4F5C;
+ */
+public void addOrder() {
+    mBillingClient = BillingClient.newBuilder(mActivityRef.get())
+            .setListener(mPurchasesUpdatedListener)
+            .enablePendingPurchases()
+            .build();
+    mBillingClient.startConnection(new BillingClientStateListener() {
+        @Override
+        public void onBillingSetupFinished(BillingResult billingResult) {
+            if (billingResult != null) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    Purchase.PurchasesResult mResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                    for (int i = 0; i &lt; mResult.getPurchasesList().size(); i++) {
+                        if (mResult.getPurchasesList().get(i).isAcknowledged()) {
+                            consume2(mResult.getPurchasesList().get(i).getPurchaseToken());
+                        } else {
+                            uploadToServer3(mResult.getPurchasesList().get(i).getPurchaseToken(),
+                                    mResult.getPurchasesList().get(i).getOrderId(),
+                                    mResult.getPurchasesList().get(i).getAccountIdentifiers().getObfuscatedProfileId(),
+                                    mPayTest);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        @Override
+        public void onBillingServiceDisconnected() {
+        }
+    });
+}
+
+
+}</code></pre><h3 id="&#x6700;&#x540E;"><a href="#&#x6700;&#x540E;" class="headerlink" title="&#x6700;&#x540E;"></a>&#x6700;&#x540E;</h3><p> &#x597D;&#x4E86;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4ECA;&#x5929;&#x7684;Google&#x652F;&#x4ED8;&#x8BF4;&#x660E;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x8FD8;&#x6709;&#x7591;&#x95EE;&#x53EF;&#x4EE5;&#x52A0;&#x7FA4;&#x63A2;&#x8BA8;&#xFF08;493180098&#xFF09;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/22/乐推SDK接入流程/" rel="next" title="乐推SDK接入流程说明">
+                <i class="fa fa-chevron-left"></i> 乐推SDK接入流程说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Silence潇湘夜雨</p>
+              <p class="site-description motion-element" itemprop="description">Android开发一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/muyishuangfeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/1e2eec6f972c" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/58df0abf61ff4b006b115e43" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-star"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yangke20792452" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">3.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其次"><span class="nav-number">4.</span> <span class="nav-text">其次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Silence潇湘夜雨</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">114.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacityDefault":0.5,"opacityOnHover":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
